@@ -135,6 +135,16 @@ fetch("manifest.json").then(r=>r.json()).then(j=>{
   buildMonDropdown();
   selectMon(0);
   renderSaved();
+}).catch(function(err){
+  // file:// 로 열었거나 서버 미동작 시 fetch 실패 — 그래도 '내 PC PNG 열기'는 사용 가능
+  console.warn("manifest 로드 실패:", err);
+  try{ renderSaved(); }catch(e){}
+  var box=$(".canvas-box");
+  if(box) box.innerHTML='<div style="padding:20px;color:#ffb86a;line-height:1.7">'+
+    '⚠️ 몬스터 목록을 불러오지 못했습니다.<br>'+
+    '<b>로컬 서버로 여세요</b>: <code>http://localhost:5599/tools/slicer.html</code><br>'+
+    '(파일을 더블클릭하면 file:// 라 차단됩니다)<br><br>'+
+    '아바타/임의 시트는 위의 <b>📂 내 PC에서 PNG 열기</b>로 바로 작업할 수 있어요.</div>';
 });
 // 저장 파일을 강제로 다시 불러오기(파일 우선 — 로컬 덮어씀)
 function loadSavedFile(force){
