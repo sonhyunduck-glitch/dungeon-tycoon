@@ -26,13 +26,19 @@ alter default privileges for role postgres in schema public grant all on sequenc
 -- 2) 게임 테이블
 -- ============================================================
 
--- 프로필 (닉네임 + 랭킹용 최고 도달 층)
+-- 프로필 (닉네임 + 랭킹용 최고 도달 층 + 아레나)
 create table public.profiles (
-  id         uuid primary key references auth.users(id) on delete cascade,
-  nickname   text not null,
-  floor      int  not null default 1,
-  updated_at timestamptz not null default now()
+  id           uuid primary key references auth.users(id) on delete cascade,
+  nickname     text not null,
+  floor        int  not null default 1,
+  arena_score  int  not null default 1000,
+  power        int  not null default 0,
+  snapshot     jsonb,
+  arena_wins   int  not null default 0,
+  arena_losses int  not null default 0,
+  updated_at   timestamptz not null default now()
 );
+create index profiles_arena_idx on public.profiles(arena_score desc);
 
 -- 클라우드 세이브 (게임 상태 jsonb)
 create table public.saves (
@@ -90,6 +96,20 @@ alter publication supabase_realtime add table public.messages;
 create or replace function public.my_rank(my_floor int)
 returns int language sql stable as $$
   select count(*) + 1 from public.profiles where floor > my_floor;
+$$;
+
+-- 아레나: 비슷한 점수 상대 추천
+create or replace function public.arena_opponents(my_id uuid, my_score int)
+returns setof public.profiles language sql stable as $$
+  select * from public.profiles
+  where id <> my_id and snapshot is not null
+  order by abs(arena_score - my_score) asc, random()
+  limit 10;
+$$;
+
+create or replace function public.my_rank_arena(my_score int)
+returns int language sql stable as $$
+  select count(*) + 1 from public.profiles where arena_score > my_score;
 $$;
 
 -- 완료! 이제 js/supa_config.js 에 URL/anon 키를 넣고 http로 실행하세요.

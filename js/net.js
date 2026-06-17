@@ -136,16 +136,57 @@
     try{ await G.net.sb.auth.signOut(); }catch(e){}
   };
 
-  /* ---------- 랭킹 ---------- */
+  /* ---------- 랭킹 / 프로필(아레나 포함) ---------- */
   G.net.syncProfile = async function(){
     if(!G.net.online() || !G.net.nickname) return;
     try{
-      await G.net.sb.from("profiles").upsert({
+      var row={
         id:G.net.uid, nickname:G.net.nickname,
         floor:(G.state&&G.state.dungeon&&G.state.dungeon.maxFloor)||1,
         updated_at:new Date().toISOString()
-      });
+      };
+      var base={ id:row.id, nickname:row.nickname, floor:row.floor, updated_at:row.updated_at };
+      if(G.arena){   // 아레나 점수/전투력/스냅샷 함께 반영
+        var a=G.state.arena||{score:1000,wins:0,losses:0};
+        row.arena_score=a.score||1000; row.arena_wins=a.wins||0; row.arena_losses=a.losses||0;
+        row.power=G.power(); row.snapshot=G.arena.snapshot();
+      }
+      var res=await G.net.sb.from("profiles").upsert(row);
+      if(res && res.error){ await G.net.sb.from("profiles").upsert(base); }   // 아레나 컬럼 미존재 시 기본만(arena.sql 미실행 호환)
     }catch(e){ console.warn("[net] 프로필 동기화 실패",e); }
+  };
+  G.net.syncArena = function(){ return G.net.syncProfile(); };
+
+  // 아레나 상대 추천(점수 근접) — 스냅샷 객체 배열 반환
+  G.net.arenaOpponents = async function(){
+    if(!G.net.online()) return [];
+    try{
+      var r=await G.net.sb.rpc("arena_opponents", { my_id:G.net.uid, my_score:(G.state.arena&&G.state.arena.score)||1000 });
+      if(r.error || !r.data) return [];
+      return r.data.filter(function(row){ return row.snapshot; }).map(function(row){
+        var s=row.snapshot||{};
+        return Object.assign({}, s, { name:row.nickname, score:row.arena_score, power:row.power });
+      });
+    }catch(e){ console.warn("[net] 아레나 상대 조회 실패",e); return []; }
+  };
+
+  // 아레나 랭킹 뷰(점수 내림차순) — 상위3 + 내 주변
+  G.net.arenaRanking = async function(){
+    if(!G.net.online()) return null;
+    try{
+      var sb=G.net.sb, myScore=(G.state.arena&&G.state.arena.score)||1000;
+      var cnt=await sb.from("profiles").select("id",{count:"exact",head:true});
+      var total=cnt.count||0;
+      var topR=await sb.from("profiles").select("nickname,arena_score").order("arena_score",{ascending:false}).order("updated_at",{ascending:true}).limit(3);
+      if(topR.error) return null;   // arena 컬럼 미존재 등 → 폴백(로컬 랭킹)
+      var top=(topR.data||[]).map(function(p,i){ return { name:p.nickname, score:p.arena_score, rank:i+1 }; });
+      var rr=await sb.rpc("my_rank_arena", { my_score:myScore });
+      var myRank = (!rr.error && typeof rr.data==="number") ? rr.data : 1;
+      var myIdx=myRank-1, start=(myIdx<=7)?3:(myIdx-5); start=Math.max(3,start);
+      var arndR=await sb.from("profiles").select("nickname,arena_score").order("arena_score",{ascending:false}).order("updated_at",{ascending:true}).range(start,start+9);
+      var around=(arndR.data||[]).map(function(p,i){ return { name:p.nickname, score:p.arena_score, rank:start+i+1, me:(start+i+1)===myRank }; });
+      return { total:total, me:{ name:G.net.nickname||"나", score:myScore, rank:myRank, me:true }, top:top, around:around, gap:start>3 };
+    }catch(e){ console.warn("[net] 아레나 랭킹 실패",e); return null; }
   };
 
   // 랭킹 뷰를 가져와 G.ranking.remoteView 에 캐시 후 재렌더

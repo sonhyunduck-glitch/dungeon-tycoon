@@ -35,6 +35,7 @@ G.save.load = function(){
     if(data.materials===undefined) data.materials=0;
     if(!data.battleSpeed) data.battleSpeed=1;
     if(data.shake===undefined) data.shake=true;
+    if(!data.arena) data.arena={ score:1000, wins:0, losses:0 };
     if(!data.monMats) data.monMats={};
     if(!data.orders) data.orders=[];
     if(!data.stamina) data.stamina={ cur:60, max:60, lastTick:Date.now() };

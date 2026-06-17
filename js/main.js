@@ -116,6 +116,16 @@
 
     /* 화면 흔들림 ON/OFF */
     "toggle-shake": function(){ G.state.shake = (G.state.shake===false); G.save.save(true); G.ui.render(); },
+
+    /* 아레나(PvP) */
+    "arena-refresh": function(){ G.arena._foes=null; G.ui.renderArena(); },
+    "arena-fight": function(d){
+      var foes=G.arena._foes||[]; var foe=foes[parseInt(d.i,10)]; if(!foe) return;
+      var out=G.arena.challenge(foe);
+      G.ui.arenaResultModal(out);
+      G.arena._foes=null;          // 다음 상대 새로 추천
+      G.ui.renderArena();
+    },
     "acct-logout": function(){
       if(!confirm("로그아웃하면 다시 게스트로 전환됩니다. 진행도는 계정에 저장되어 있어 재로그인하면 복구됩니다.\n로그아웃할까요?")) return;
       G.net.logout().then(function(){ location.reload(); });

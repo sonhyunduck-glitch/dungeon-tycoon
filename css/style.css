@@ -613,6 +613,14 @@ html.native-app{ --glass:rgba(22,17,38,.93); --glass-strong:rgba(28,21,48,.96); 
 html.native-app *{ backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }
 html.native-app body::before{ animation:none !important; }   /* 오로라 정지(불필요한 연속 리페인트 제거) */
 
+/* ---------- 아레나 랭킹 행 ---------- */
+.rank-row{ display:flex; align-items:center; gap:8px; padding:7px 8px; border-bottom:1px solid var(--glass-brd); }
+.rank-row:last-child{ border-bottom:none; }
+.rank-row.me{ background:rgba(255,207,90,.14); border-radius:8px; }
+.rank-row .rk{ width:36px; color:var(--text-dim); font-size:.82rem; text-align:center; }
+.rank-row .rn{ flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.rank-row .rs{ font-weight:800; }
+
 /* ---------- Twemoji (이모지 이미지 치환) ---------- */
 img.twemoji{
   height:1em; width:1em; display:inline-block;
