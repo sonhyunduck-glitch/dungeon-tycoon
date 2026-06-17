@@ -10,16 +10,17 @@
 
   // UI 기호(이모지로 바꾸면 안 되는 문자)는 텍스트로 유지
   var SKIP = { "2714":1, "2716":1, "25b6":1, "25c0":1, "25b8":1, "25c2":1 };
-  var SVG_BASE = "https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/";
+  // PNG(72x72): WebView에서 SVG보다 디코딩이 빠르고 캐시가 잘 돼 재렌더 깜빡임 방지
+  var IMG_BASE = "https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/72x72/";
 
   var OPTS = {
     base: "https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/",
-    folder: "svg",
-    ext: ".svg",
+    folder: "72x72",
+    ext: ".png",
     className: "twemoji",
     callback: function(icon){
       if(SKIP[icon]) return false;                 // ▶ ✔ 등 UI 기호는 변환 안 함
-      return SVG_BASE + icon + ".svg";             // URL 직접 구성(options.folder 미전달 이슈 회피)
+      return IMG_BASE + icon + ".png";             // URL 직접 구성
     }
   };
 
