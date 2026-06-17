@@ -76,9 +76,9 @@ G.ui.attackFxAll = function(crit){
   });
 };
 
-/* 적 반격 → 화면 진동 + 붉은 비네팅 */
+/* 적 반격 → 화면 진동(설정으로 ON/OFF) + 붉은 비네팅 */
 G.ui.hurtFx = function(){
-  retrigger(el("app"),"screen-shake");
+  if(!G.state || G.state.shake!==false) retrigger(el("app"),"screen-shake");
   retrigger(el("hurt-vignette"),"on");
 };
 
@@ -1352,6 +1352,7 @@ G.ui.renderSettings = function(){
     '<div class="panel"><h2>⚙️ 설정</h2>'+
       '<div class="row">'+
         '<button class="btn '+(G.state.muted?"":"primary")+'" data-act="toggle-mute">'+(G.state.muted?"🔇 사운드 꺼짐":"🔊 사운드 켜짐")+'</button>'+
+        '<button class="btn '+(G.state.shake===false?"":"primary")+'" data-act="toggle-shake">'+(G.state.shake===false?"📴 화면흔들림 꺼짐":"📳 화면흔들림 켜짐")+'</button>'+
       '</div>'+
       (function(){
         var bv=Math.round((G.state.bgmVol!=null?G.state.bgmVol:0.32)*100);

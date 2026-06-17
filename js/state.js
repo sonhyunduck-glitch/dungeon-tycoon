@@ -34,6 +34,7 @@ G.newState = function(){
     materials:0,
     battleSpeed:1,       // 자동 전투 배속 (진행도에 따라 해금)
     muted:false,         // 사운드 음소거(마스터)
+    shake:true,          // 피격 시 화면 흔들림 효과
     bgmVol:0.32,         // 배경음 볼륨 0~1
     sfxVol:0.55,         // 효과음 볼륨 0~1
     monMats:{},          // 보스 고유 재료 {보스명:개수}

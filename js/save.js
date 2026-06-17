@@ -34,6 +34,7 @@ G.save.load = function(){
     if(data.equipment){ ["rune1","rune2","rune3","rune4","rune5"].forEach(function(k){ if(!(k in data.equipment)) data.equipment[k]=null; }); }
     if(data.materials===undefined) data.materials=0;
     if(!data.battleSpeed) data.battleSpeed=1;
+    if(data.shake===undefined) data.shake=true;
     if(!data.monMats) data.monMats={};
     if(!data.orders) data.orders=[];
     if(!data.stamina) data.stamina={ cur:60, max:60, lastTick:Date.now() };
