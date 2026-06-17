@@ -38,6 +38,13 @@
         if(si.error) throw si.error;
       }
       var u=(await sb.auth.getUser()).data.user;
+      if(!u){
+        // 세션이 무효(계정 삭제/만료 등) → 기존 세션 정리 후 새 익명 로그인
+        try{ await sb.auth.signOut(); }catch(e){}
+        var si2=await sb.auth.signInAnonymously();
+        if(si2.error) throw si2.error;
+        u=(await sb.auth.getUser()).data.user;
+      }
       if(!u) throw new Error("no user");
       G.net.uid=u.id;
       G.net.user=u;

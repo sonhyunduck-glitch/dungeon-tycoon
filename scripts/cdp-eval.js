@@ -4,7 +4,7 @@ const wsUrl = process.argv[2];
 const expr = process.argv[3];
 const ws = new WebSocket(wsUrl);
 ws.addEventListener("open", function(){
-  ws.send(JSON.stringify({ id:1, method:"Runtime.evaluate", params:{ expression:expr, returnByValue:true } }));
+  ws.send(JSON.stringify({ id:1, method:"Runtime.evaluate", params:{ expression:expr, returnByValue:true, awaitPromise:true } }));
 });
 ws.addEventListener("message", function(e){
   var msg = JSON.parse(e.data);

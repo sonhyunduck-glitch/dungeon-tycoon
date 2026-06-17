@@ -126,6 +126,14 @@
       G.arena._foes=null;          // 다음 상대 새로 추천
       G.ui.renderArena();
     },
+    "net-retry": function(){
+      G.ui.toast("재연결 중...");
+      G.net.init().then(function(ok){
+        if(ok){ G.net.syncProfile(); G.ui.toast("🟢 연결됨"); }
+        else G.ui.toast("연결 실패 — 잠시 후 다시 시도");
+        G.ui.render();
+      });
+    },
     "acct-logout": function(){
       if(!confirm("로그아웃하면 다시 게스트로 전환됩니다. 진행도는 계정에 저장되어 있어 재로그인하면 복구됩니다.\n로그아웃할까요?")) return;
       G.net.logout().then(function(){ location.reload(); });

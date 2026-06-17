@@ -1505,7 +1505,8 @@ G.ui.renderSettings = function(){
              '<p class="muted" style="margin-top:8px">채팅·랭킹·세이브가 클라우드에 동기화됩니다 ☁️</p>';
       } else if(conf){
         status='<span class="muted">🟡 연결 중/실패</span>';
-        body='<p class="muted" style="margin-top:8px">서버에 연결하지 못했습니다. 새로고침하거나 설정(js/supa_config.js)을 확인하세요.</p>';
+        body='<p class="muted" style="margin-top:8px">서버에 연결하지 못했습니다.</p>'+
+             '<div class="row" style="margin-top:8px"><button class="btn primary" data-act="net-retry">🔄 재연결</button></div>';
       } else {
         status='<span class="muted">⚪ 오프라인</span>';
         body='<p class="muted" style="margin-top:8px">멀티플레이(채팅·랭킹·클라우드 세이브)를 켜려면 <b>js/supa_config.js</b>에 Supabase 주소와 키를 입력하세요.</p>';
