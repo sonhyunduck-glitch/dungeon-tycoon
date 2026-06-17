@@ -105,6 +105,7 @@
     <div class="saved-list" id="savedList"></div>
     <div class="row" style="margin-top:8px">
       <button id="exportBtn" class="acc">⬇ 전체 JSON 내보내기</button>
+      <button id="avatarBtn" class="acc">🎭 아바타 JSON 내보내기</button>
       <button id="loadSavedBtn">📥 저장파일 불러오기</button>
       <button id="copyBtn">📋 복사</button>
       <button id="importBtn">가져오기</button>
@@ -382,6 +383,27 @@ function exportJSON(){
   const blob=new Blob([JSON.stringify(out,null,2)],{type:"application/json"});
   const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="slice_config.json"; a.click();
 }
+// 아바타(tier=avatar)로 라벨된 것들을 G.DATA.AVATARS 형식 JSON으로 내보내기
+function exportAvatars(){
+  const avKeys=manifest.filter(m=>m.tier==="avatar").map(m=>m.key);
+  const rate={idle:0.11, attack:0.045, hurt:0.08, death:0.10};
+  const list=[];
+  Object.values(store).forEach(s=>{
+    if(avKeys.indexOf(s.key)<0) return;
+    const byType={}; (s.anims||[]).forEach(a=>byType[a.type]=a);
+    const idle=byType.idle; if(!idle) return;                 // idle 필수
+    const fw=idle.fw, fh=idle.fh;
+    const mo=t=>{ const a=byType[t]||idle; return { row:a.row, frames:a.frames, dur:Math.max(0.2, Math.round(a.frames*rate[t]*100)/100) }; };
+    const scale = fw<=32?1.5 : (fw<=48?1.1 : 0.9);
+    list.push({ id:s.key, name:s.name||s.key, sheet:"assets/avatars/"+s.key+".png",
+      fw, fh, scale, idle:mo("idle"), attack:mo("attack"), hurt:mo("hurt"), death:mo("death") });
+  });
+  if(!list.length){ alert("라벨된 아바타가 없습니다.\n'🧑 캐릭터(아바타)' 그룹에서 시트를 골라 행을 idle/attack/hurt/death로 라벨 → '이 시트 라벨 → 몬스터에 반영' → '이 몬스터 저장' 후 다시 시도하세요."); return; }
+  $("#json").value=JSON.stringify(list,null,2);
+  const blob=new Blob([JSON.stringify(list,null,2)],{type:"application/json"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="avatars.json"; a.click();
+  alert("아바타 "+list.length+"종 내보냄 → avatars.json\nG.DATA.AVATARS 에 붙여넣으면 됩니다.");
+}
 
 // 이벤트
 $("#mon").onchange=e=>selectMon(+e.target.value);
@@ -410,6 +432,7 @@ $("#applyFile").onclick=applyFile;
 $("#saveMon").onclick=saveMon;
 $("#clearMon").onclick=()=>{ monster.anims=[]; updateCur(); buildRows(); };
 $("#exportBtn").onclick=exportJSON;
+$("#avatarBtn").onclick=exportAvatars;
 $("#loadSavedBtn").onclick=()=>loadSavedFile(true);
 $("#copyBtn").onclick=()=>{ exportJSON(); $("#json").select(); document.execCommand("copy"); };
 $("#importBtn").onclick=()=>{ try{ const j=JSON.parse($("#json").value); j.monsters.forEach(m=>store[m.key]=m); localStorage.setItem("slicerStore",JSON.stringify(store)); renderSaved(); alert("가져오기 완료"); }catch(e){ alert("JSON 파싱 실패: "+e); } };

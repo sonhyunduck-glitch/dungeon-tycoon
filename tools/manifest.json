@@ -639,6 +639,146 @@
       "files": [
         "sheets/giant_gorilla/Giant Gorilla Sprite Sheet.png"
       ]
+    },
+    {
+      "key": "dwarf",
+      "name": "드워프",
+      "tier": "avatar",
+      "folder": "cha",
+      "group": "🧑 캐릭터(아바타)",
+      "files": [
+        "../assets/avatars/dwarf.png"
+      ]
+    },
+    {
+      "key": "elven_warrior",
+      "name": "엘프 전사",
+      "tier": "avatar",
+      "folder": "cha",
+      "group": "🧑 캐릭터(아바타)",
+      "files": [
+        "../assets/avatars/elven_warrior.png"
+      ]
+    },
+    {
+      "key": "fishfolk_berserker",
+      "name": "어인 광전사",
+      "tier": "avatar",
+      "folder": "cha",
+      "group": "🧑 캐릭터(아바타)",
+      "files": [
+        "../assets/avatars/fishfolk_berserker.png"
+      ]
+    },
+    {
+      "key": "fishfolk_brute",
+      "name": "어인 투사",
+      "tier": "avatar",
+      "folder": "cha",
+      "group": "🧑 캐릭터(아바타)",
+      "files": [
+        "../assets/avatars/fishfolk_brute.png"
+      ]
+    },
+    {
+      "key": "fishfolk_knight",
+      "name": "어인 기사",
+      "tier": "avatar",
+      "folder": "cha",
+      "group": "🧑 캐릭터(아바타)",
+      "files": [
+        "../assets/avatars/fishfolk_knight.png"
+      ]
+    },
+    {
+      "key": "fishfolk_whip",
+      "name": "어인 채찍병",
+      "tier": "avatar",
+      "folder": "cha",
+      "group": "🧑 캐릭터(아바타)",
+      "files": [
+        "../assets/avatars/fishfolk_whip.png"
+      ]
+    },
+    {
+      "key": "goblin_assassin",
+      "name": "고블린 암살자",
+      "tier": "avatar",
+      "folder": "cha",
+      "group": "🧑 캐릭터(아바타)",
+      "files": [
+        "../assets/avatars/goblin_assassin.png"
+      ]
+    },
+    {
+      "key": "goblin_boar_rider",
+      "name": "고블린 멧돼지 기수",
+      "tier": "avatar",
+      "folder": "cha",
+      "group": "🧑 캐릭터(아바타)",
+      "files": [
+        "../assets/avatars/goblin_boar_rider.png"
+      ]
+    },
+    {
+      "key": "goblin_grunt",
+      "name": "고블린 병사",
+      "tier": "avatar",
+      "folder": "cha",
+      "group": "🧑 캐릭터(아바타)",
+      "files": [
+        "../assets/avatars/goblin_grunt.png"
+      ]
+    },
+    {
+      "key": "lizardfolk_spearman",
+      "name": "리자드맨 창병",
+      "tier": "avatar",
+      "folder": "cha",
+      "group": "🧑 캐릭터(아바타)",
+      "files": [
+        "../assets/avatars/lizardfolk_spearman.png"
+      ]
+    },
+    {
+      "key": "lizardfolk_warrior",
+      "name": "리자드맨 전사",
+      "tier": "avatar",
+      "folder": "cha",
+      "group": "🧑 캐릭터(아바타)",
+      "files": [
+        "../assets/avatars/lizardfolk_warrior.png"
+      ]
+    },
+    {
+      "key": "vengeful_spirit",
+      "name": "원혼",
+      "tier": "avatar",
+      "folder": "cha",
+      "group": "🧑 캐릭터(아바타)",
+      "files": [
+        "../assets/avatars/vengeful_spirit.png"
+      ]
+    },
+    {
+      "key": "wendigo",
+      "name": "웬디고",
+      "tier": "avatar",
+      "folder": "cha",
+      "group": "🧑 캐릭터(아바타)",
+      "files": [
+        "../assets/avatars/wendigo.png"
+      ]
+    },
+    {
+      "key": "yeti",
+      "name": "예티",
+      "tier": "avatar",
+      "folder": "cha",
+      "group": "🧑 캐릭터(아바타)",
+      "files": [
+        "../assets/avatars/yeti.png"
+      ]
     }
   ]
 }
