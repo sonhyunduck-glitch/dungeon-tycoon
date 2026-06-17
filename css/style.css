@@ -654,7 +654,8 @@ img.twemoji{
 }
 .chat-fab:active{ transform:scale(.9); }
 .chat-fab:hover{ filter:brightness(1.1); }
-@keyframes chatPulse{ 0%,100%{ box-shadow:0 8px 22px rgba(0,0,0,.45),0 0 14px rgba(91,124,255,.45),inset 0 0 0 1px rgba(255,255,255,.25); } 50%{ box-shadow:0 8px 22px rgba(0,0,0,.45),0 0 26px rgba(91,124,255,.8),inset 0 0 0 1px rgba(255,255,255,.25); } }
+/* transform 펄스(compositor 친화적 — box-shadow 애니는 매 프레임 리페인트라 제거) */
+@keyframes chatPulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.07); } }
 
 .chat-modal{
   width:min(440px,94vw); height:min(72vh,580px); padding:0; text-align:left;

@@ -14,4 +14,4 @@ ws.addEventListener("message", function(e){
   }
 });
 ws.addEventListener("error", function(e){ console.error("WS error", e.message||String(e)); process.exit(1); });
-setTimeout(function(){ console.error("timeout"); process.exit(1); }, 8000);
+setTimeout(function(){ console.error("timeout"); process.exit(1); }, 30000);
