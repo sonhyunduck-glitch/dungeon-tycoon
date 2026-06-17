@@ -1296,15 +1296,27 @@ G.ui.termsModal = function(){
   ov.addEventListener("click", function(e){ if(e.target.closest("[data-modal-close]")||e.target===ov) ov.remove(); });
 };
 
-/* 시작 화면 (온라인 첫 실행) — 게스트로 시작 / 로그인 / 계정 만들기 선택.
-   닉네임이 정해지거나(게스트·가입) 로그인으로 진행되면 resolve. */
+/* 메인 시작 화면 — 재접속마다 표시.
+   복귀(닉네임 있음/오프라인): "게임 시작" / 신규(온라인·닉네임 없음): 게스트·로그인·가입 */
 G.ui.startScreen = function(){
   return new Promise(function(resolve){
     G.paused=true;
+    var online = !!(G.net && G.net.online());
+    var nick = (G.net && G.net.nickname) || (G.state && G.state.nickname) || "";
+    var returning = !!nick || !online;   // 복귀 유저 또는 오프라인 → 게임 시작 모드
     var agreed=G.ui.termsAgreed();
-    var ov=document.createElement("div"); ov.className="start-screen"; ov.id="start-ov";
-    ov.innerHTML='<div class="start-frame" style="background-image:url(assets/topidle.png)">'+
-      '<div class="start-bottom">'+
+
+    var bottom;
+    if(returning){
+      bottom='<div class="start-bottom">'+
+        '<div class="muted" style="text-align:center; font-size:.92rem">환영합니다'+(nick?', <b class="gold">'+esc(nick)+'</b> 님':'')+'</div>'+
+        '<button class="btn primary full" data-start="continue">게임 시작 ▶</button>'+
+        (online && G.net.isGuest && G.net.isGuest()
+          ? '<button class="btn full" data-start="signup">📧 계정 만들기(다른 기기 이어하기)</button>'
+          : '')+
+      '</div>';
+    } else {
+      bottom='<div class="start-bottom">'+
         '<label id="terms-row" style="display:flex; align-items:center; gap:8px; justify-content:center; font-size:.85rem; cursor:pointer">'+
           '<input type="checkbox" id="terms-chk"'+(agreed?" checked":"")+' style="width:17px;height:17px;cursor:pointer">'+
           '<span><b data-act="view-terms" style="color:var(--torch); text-decoration:underline; cursor:pointer">이용약관·개인정보 처리방침</b>에 동의합니다</span>'+
@@ -1313,28 +1325,35 @@ G.ui.startScreen = function(){
         '<button class="btn full"         data-start="login">🔑 로그인</button>'+
         '<button class="btn full"         data-start="signup">📧 계정 만들기</button>'+
         '<p class="muted" style="text-align:center; font-size:.78rem; line-height:1.5; margin:2px 0 0">게스트는 <b>이 기기에서만</b> 저장됩니다.<br>계정을 만들면 <b>다른 기기에서도 이어하기</b>가 가능해요.</p>'+
-      '</div>'+
-    '</div>';
+      '</div>';
+    }
+
+    var ov=document.createElement("div"); ov.className="start-screen"; ov.id="start-ov";
+    ov.innerHTML='<div class="start-frame" style="background-image:url(assets/topidle.png)">'+bottom+'</div>';
     document.body.appendChild(ov);
 
     var chk=ov.querySelector("#terms-chk");
-    var startBtns=[].slice.call(ov.querySelectorAll("[data-start]"));
-    function syncBtns(){ startBtns.forEach(function(b){ b.disabled=!chk.checked; b.style.opacity=chk.checked?"":".45"; }); }
-    syncBtns();
-    chk.addEventListener("change", syncBtns);
+    if(chk){
+      var startBtns=[].slice.call(ov.querySelectorAll("[data-start]"));
+      var syncBtns=function(){ startBtns.forEach(function(b){ b.disabled=!chk.checked; b.style.opacity=chk.checked?"":".45"; }); };
+      syncBtns(); chk.addEventListener("change", syncBtns);
+    }
 
     function toNickname(){ if(ov.parentNode) ov.remove(); G.ui.nicknameModal(resolve); }
 
     ov.addEventListener("click", function(e){
       if(e.target.closest('[data-act="view-terms"]')){ e.preventDefault(); e.stopPropagation(); G.ui.termsModal(); return; }
       var b=e.target.closest("[data-start]"); if(!b) return;
-      if(!chk.checked){ G.ui.toast("약관에 동의해 주세요"); return; }
-      G.ui.setTermsAgreed();
       var mode=b.dataset.start;
+      if(mode==="continue"){            // 복귀: 바로 게임으로
+        G.paused=false; if(ov.parentNode) ov.remove(); resolve(); return;
+      }
+      if(chk && !chk.checked){ G.ui.toast("약관에 동의해 주세요"); return; }
+      if(chk) G.ui.setTermsAgreed();
       if(mode==="guest"){
         toNickname();                       // 게스트 → 닉네임 설정
       } else if(mode==="login"){
-        G.ui.authModal("login");            // 성공 시 페이지 새로고침(시작화면 위에 떠서, 취소 시 시작화면 유지)
+        G.ui.authModal("login");            // 성공 시 페이지 새로고침
       } else if(mode==="signup"){
         G.ui.authModal("signup", { onSuccess:function(){ G.net.syncProfile&&G.net.syncProfile(); toNickname(); } });
       }

@@ -268,14 +268,11 @@
     G.checkUnlocks();   // 자동화·스킬·배속 동기화(구버전 세이브 호환) — 신규 해금 시 모달
     G.ui.switchTab(G.state.ui.tab || "dungeon");   // 로컬 상태로 즉시 표시
 
-    // ---------- 멀티플레이(Supabase) 동기화 ----------
+    // ---------- 멀티플레이(Supabase) 로그인 + 클라우드 불러오기 ----------
     var usedCloud=false;
     try{
       await G.net.init();
       if(G.net.online()){
-        if(!G.net.nickname){
-          await G.ui.startScreen();   // 첫 실행: 게스트로 시작 / 로그인 / 계정 만들기 선택 → 닉네임
-        }
         if(G.net.nickname && !G.state.nickname) G.state.nickname=G.net.nickname;
         var cloud=await G.net.pullSave();
         if(cloud && cloud.data){
@@ -284,14 +281,22 @@
           G.save.load();   // 마이그레이션 재적용
           if(G.net.nickname) G.state.nickname=G.net.nickname;
           G.checkUnlocks(); usedCloud=true;
-          G.ui.toast("☁️ 클라우드 진행도를 불러왔어요");
-        } else {
-          await G.net.pushSave(G.state);   // 첫 로그인: 로컬 → 클라우드 업로드
         }
-        await G.net.syncProfile();
-        G.ui.switchTab(G.state.ui.tab || "dungeon");
       }
     }catch(e){ console.warn("[boot] 멀티 동기화 실패",e); }
+
+    // ---------- 항상 메인 시작 화면(재접속마다) ----------
+    try{ await G.ui.startScreen(); }catch(e){}
+
+    // ---------- 시작 후 동기화(닉네임 확정 / 첫 업로드) ----------
+    if(G.net.online()){
+      try{
+        var c2=await G.net.pullSave();
+        if(!(c2 && c2.data)) await G.net.pushSave(G.state);   // 첫 로그인: 로컬→클라우드
+        await G.net.syncProfile();
+      }catch(e){}
+    }
+    G.ui.switchTab(G.state.ui.tab || "dungeon");
 
     // ---------- 방치 정산(최종 상태 기준) ----------
     if(loaded||usedCloud){
