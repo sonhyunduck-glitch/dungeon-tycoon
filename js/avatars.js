@@ -8,34 +8,33 @@
   var G = window.G;
   G.DATA = G.DATA || {};
 
-  // 모션 = { row:행번호(0부터), frames:프레임수, dur:초 }  (슬라이서 아바타 JSON 내보내기로 추가)
+  // 모션={row,frames,dur}, unlock=해금 최고도달층(0=기본). 배치 순서 = 표시 순서.
   G.DATA.AVATARS = [
-    { id:"adventurer", name:"모험가", sheet:"assets/adventurer.png", fw:32, fh:32, scale:1.5,
+    { id:"adventurer", name:"모험가", unlock:0, sheet:"assets/adventurer.png", fw:32, fh:32, scale:1.5,
       idle:{row:0,frames:13,dur:1.4}, attack:{row:4,frames:10,dur:0.42}, hurt:{row:6,frames:4,dur:0.32}, death:{row:7,frames:7,dur:0.70} },
-    { id:"dwarf", name:"드워프", sheet:"assets/avatars/dwarf.png", fw:64, fh:32, scale:0.9,
+    { id:"dwarf", name:"드워프", unlock:10, sheet:"assets/avatars/dwarf.png", fw:64, fh:32, scale:0.9,
       idle:{row:0,frames:5,dur:0.55}, attack:{row:3,frames:6,dur:0.27}, hurt:{row:6,frames:4,dur:0.32}, death:{row:7,frames:7,dur:0.7} },
-    { id:"elven_warrior", name:"엘프 전사", sheet:"assets/avatars/elven_warrior.png", fw:32, fh:32, scale:1.5,
-      idle:{row:0,frames:4,dur:0.44}, attack:{row:2,frames:4,dur:0.2}, hurt:{row:3,frames:3,dur:0.24}, death:{row:4,frames:6,dur:0.6} },
-    { id:"fishfolk_berserker", name:"어인 광전사", sheet:"assets/avatars/fishfolk_berserker.png", fw:96, fh:32, scale:0.9,
+    { id:"fishfolk_berserker", name:"어인 광전사", unlock:20, sheet:"assets/avatars/fishfolk_berserker.png", fw:96, fh:32, scale:0.9,
       idle:{row:0,frames:4,dur:0.44}, attack:{row:4,frames:6,dur:0.27}, hurt:{row:5,frames:4,dur:0.32}, death:{row:6,frames:5,dur:0.5} },
-    { id:"fishfolk_brute", name:"어인 투사", sheet:"assets/avatars/fishfolk_brute.png", fw:64, fh:64, scale:0.9,
-      idle:{row:1,frames:5,dur:0.55}, attack:{row:3,frames:8,dur:0.36}, hurt:{row:4,frames:4,dur:0.32}, death:{row:5,frames:6,dur:0.6} },
-    { id:"fishfolk_knight", name:"어인 기사", sheet:"assets/avatars/fishfolk_knight.png", fw:32, fh:32, scale:1.5,
-      idle:{row:0,frames:4,dur:0.44}, attack:{row:2,frames:7,dur:0.32}, hurt:{row:4,frames:4,dur:0.32}, death:{row:5,frames:4,dur:0.4} },
-    { id:"fishfolk_whip", name:"어인 채찍병", sheet:"assets/avatars/fishfolk_whip.png", fw:64, fh:32, scale:0.9,
+    { id:"fishfolk_whip", name:"어인 채찍병", unlock:30, sheet:"assets/avatars/fishfolk_whip.png", fw:64, fh:32, scale:0.9,
       idle:{row:0,frames:4,dur:0.44}, attack:{row:2,frames:7,dur:0.32}, hurt:{row:3,frames:4,dur:0.32}, death:{row:4,frames:4,dur:0.4} },
-    { id:"goblin_assassin", name:"고블린 암살자", sheet:"assets/avatars/goblin_assassin.png", fw:32, fh:32, scale:1.5,
+    { id:"goblin_assassin", name:"고블린 암살자", unlock:40, sheet:"assets/avatars/goblin_assassin.png", fw:32, fh:32, scale:1.5,
       idle:{row:0,frames:4,dur:0.44}, attack:{row:4,frames:3,dur:0.2}, hurt:{row:6,frames:4,dur:0.32}, death:{row:7,frames:7,dur:0.7} },
-    { id:"lizardfolk_spearman", name:"리자드맨 창병", sheet:"assets/avatars/lizardfolk_spearman.png", fw:64, fh:64, scale:0.9,
+    { id:"lizardfolk_spearman", name:"리자드맨 창병", unlock:50, sheet:"assets/avatars/lizardfolk_spearman.png", fw:64, fh:64, scale:0.9,
       idle:{row:0,frames:8,dur:0.88}, attack:{row:2,frames:8,dur:0.36}, hurt:{row:3,frames:4,dur:0.32}, death:{row:4,frames:5,dur:0.5} },
-    { id:"lizardfolk_warrior", name:"리자드맨 전사", sheet:"assets/avatars/lizardfolk_warrior.png", fw:64, fh:64, scale:0.9,
+    { id:"lizardfolk_warrior", name:"리자드맨 전사", unlock:60, sheet:"assets/avatars/lizardfolk_warrior.png", fw:64, fh:64, scale:0.9,
       idle:{row:0,frames:4,dur:0.44}, attack:{row:2,frames:6,dur:0.27}, hurt:{row:4,frames:4,dur:0.32}, death:{row:5,frames:5,dur:0.5} },
-    { id:"vengeful_spirit", name:"원혼", sheet:"assets/avatars/vengeful_spirit.png", fw:64, fh:64, scale:0.9,
-      idle:{row:0,frames:6,dur:0.66}, attack:{row:1,frames:12,dur:0.54}, hurt:{row:2,frames:6,dur:0.48}, death:{row:3,frames:10,dur:1} },
-    { id:"wendigo", name:"웬디고", sheet:"assets/avatars/wendigo.png", fw:64, fh:64, scale:0.9,
+    { id:"fishfolk_brute", name:"어인 투사", unlock:70, sheet:"assets/avatars/fishfolk_brute.png", fw:64, fh:64, scale:0.9,
+      idle:{row:1,frames:5,dur:0.55}, attack:{row:3,frames:8,dur:0.36}, hurt:{row:4,frames:4,dur:0.32}, death:{row:5,frames:6,dur:0.6} },
+    { id:"fishfolk_knight", name:"어인 기사", unlock:80, sheet:"assets/avatars/fishfolk_knight.png", fw:32, fh:32, scale:1.5,
+      idle:{row:0,frames:4,dur:0.44}, attack:{row:2,frames:7,dur:0.32}, hurt:{row:4,frames:4,dur:0.32}, death:{row:5,frames:4,dur:0.4} },
+    { id:"yeti", name:"예티", unlock:90, sheet:"assets/avatars/yeti.png", fw:64, fh:64, scale:0.9,
+      idle:{row:0,frames:7,dur:0.77}, attack:{row:2,frames:6,dur:0.27}, hurt:{row:4,frames:4,dur:0.32}, death:{row:5,frames:6,dur:0.6} },
+    { id:"wendigo", name:"웬디고", unlock:100, sheet:"assets/avatars/wendigo.png", fw:64, fh:64, scale:0.9,
       idle:{row:0,frames:4,dur:0.44}, attack:{row:2,frames:8,dur:0.36}, hurt:{row:3,frames:8,dur:0.64}, death:{row:5,frames:8,dur:0.8} },
-    { id:"yeti", name:"예티", sheet:"assets/avatars/yeti.png", fw:64, fh:64, scale:0.9,
-      idle:{row:0,frames:7,dur:0.77}, attack:{row:2,frames:6,dur:0.27}, hurt:{row:4,frames:4,dur:0.32}, death:{row:5,frames:6,dur:0.6} }
+    { id:"vengeful_spirit", name:"원혼", unlock:150, sheet:"assets/avatars/vengeful_spirit.png", fw:64, fh:64, scale:0.9,
+      idle:{row:0,frames:6,dur:0.66}, attack:{row:1,frames:12,dur:0.54}, hurt:{row:2,frames:6,dur:0.48}, death:{row:3,frames:10,dur:1} }
+    // 미사용(목록 제외): 엘프 전사(elven_warrior) — 층 지정 시 추가 가능
   ];
 
   G.avatar = {};
@@ -56,12 +55,20 @@
   G.avatar.currentId = function(){ return (G.state && G.state.avatar) || "adventurer"; };
   G.avatar.current = function(){ return G.avatar.get(G.avatar.currentId()); };
 
+  G.avatar.unlocked = function(a){
+    if(typeof a==="string") a=G.avatar.get(a);
+    var max=(G.state&&G.state.dungeon&&G.state.dungeon.maxFloor)||1;
+    return max >= (a.unlock||0);
+  };
   G.avatar.set = function(id){
-    if(!G.state) return;
+    if(!G.state) return false;
+    var a=G.avatar.get(id);
+    if(!G.avatar.unlocked(a)){ if(G.ui&&G.ui.toast) G.ui.toast("🔒 "+a.unlock+"층 도달 시 해금됩니다"); return false; }
     G.state.avatar = id;
     if(G.save) G.save.save(true);
     G.avatar.apply();
-    if(G.net && G.net.syncProfile) G.net.syncProfile();   // 프로필에도 반영(추후 표시용)
+    if(G.net && G.net.syncProfile) G.net.syncProfile();   // 프로필에도 반영(랭킹·아레나 표시용)
+    return true;
   };
 
   function kf(name, m, fw, fh){

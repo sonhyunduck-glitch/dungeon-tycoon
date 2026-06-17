@@ -624,6 +624,9 @@ html.native-app body::before{ animation:none !important; }   /* 오로라 정지
 .avatar-prev{ display:flex; align-items:flex-end; justify-content:center; height:84px; }
 .avatar-name{ font-size:.82rem; font-weight:700; }
 .avatar-badge{ position:absolute; top:6px; right:6px; font-size:.62rem; font-weight:800; color:var(--torch); }
+.avatar-card.locked .avatar-prev{ filter:grayscale(1) brightness(.4); }
+.avatar-card.locked .avatar-name{ color:var(--text-dim); }
+.avatar-lock{ position:absolute; top:6px; right:6px; font-size:.64rem; font-weight:800; color:var(--text-dim); }
 
 /* ---------- 아레나 랭킹 행 ---------- */
 .rank-row{ display:flex; align-items:center; gap:8px; padding:7px 8px; border-bottom:1px solid var(--glass-brd); }

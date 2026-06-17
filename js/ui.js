@@ -758,8 +758,12 @@ G.ui.renderCharacter = function(){
 
   var body = sub==="stats"?statsPanel : sub==="detail"?G.ui._statSheet() : sub==="equip"?equipPanel : sub==="rune"?runePanel : sub==="avatar"?G.ui._avatarPanel() : sub==="unlock"?G.ui._perksHTML() : G.ui._skills();
   v.innerHTML = tabBar + body;
-  if(sub==="avatar"){   // 미리보기 애니메이션(idle→attack 순차) 시작
-    v.querySelectorAll(".av-prev-inner").forEach(function(el){ G.avatar.animatePreview(el); });
+  if(sub==="avatar"){   // 미리보기 애니메이션(잠긴 건 정적)
+    v.querySelectorAll(".av-prev-inner").forEach(function(el){
+      var card=el.closest(".avatar-card");
+      if(card && card.classList.contains("locked")) return;
+      G.avatar.animatePreview(el);
+    });
   }
 };
 
@@ -767,15 +771,16 @@ G.ui.renderCharacter = function(){
 G.ui._avatarPanel = function(){
   var cur=G.avatar.currentId();
   var cards=G.DATA.AVATARS.map(function(a){
-    var sel=a.id===cur;
-    return '<div class="avatar-card'+(sel?" sel":"")+'" data-act="avatar-pick" data-id="'+a.id+'">'+
+    var sel=a.id===cur, unlocked=G.avatar.unlocked(a);
+    return '<div class="avatar-card'+(sel?" sel":"")+(unlocked?"":" locked")+'" data-act="avatar-pick" data-id="'+a.id+'">'+
       '<div class="avatar-prev">'+G.avatar.previewHTML(a)+'</div>'+
       '<div class="avatar-name">'+esc(a.name)+'</div>'+
-      (sel?'<div class="avatar-badge">선택됨</div>':'')+
+      (unlocked ? (sel?'<div class="avatar-badge">선택됨</div>':'')
+                : '<div class="avatar-lock">🔒 '+a.unlock+'층</div>')+
     '</div>';
   }).join("");
   return '<div class="panel"><h2>🎭 아바타</h2>'+
-    '<div class="muted" style="margin-bottom:10px">전투 화면에 표시되는 내 캐릭터 외형을 선택하세요.</div>'+
+    '<div class="muted" style="margin-bottom:10px">전투 화면에 표시되는 내 캐릭터 외형을 선택하세요. <span class="r-uncommon">최고 도달 층</span>으로 해금됩니다.</div>'+
     '<div class="avatar-grid">'+cards+'</div>'+
     (G.DATA.AVATARS.length<=1
       ? '<div class="muted" style="margin-top:12px;font-size:.8rem;line-height:1.6">💡 더 많은 아바타는 <b>스프라이트 슬라이서</b>로 캐릭터 시트를 추가하면 늘어납니다.</div>'
