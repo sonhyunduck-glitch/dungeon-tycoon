@@ -14,7 +14,8 @@
   --glass-brd:rgba(255,255,255,.12);
   --glass-shadow:0 10px 34px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08);
   --nav-h:64px; --hud-h:56px; --log-h:120px;
-  font-size:13.5px;
+  /* 작은 화면일수록 UI를 살짝 촘촘하게(좁은 폭 12px대 → 넓어지면 13.5px). 데스크톱은 아래 미디어쿼리에서 14.5px */
+  font-size:clamp(12px, 3.3vw, 13.5px);
 }
 *{ box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
 html,body{ height:100%; }
