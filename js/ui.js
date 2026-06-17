@@ -1207,6 +1207,52 @@ G.ui.nicknameModal = function(onDone){
   inp.addEventListener("keydown", function(e){ if(e.key==="Enter") submit(); });
 };
 
+/* 계정 모달 — mode: "signup"(게스트→이메일 전환) | "login"(기존 계정 로그인) */
+G.ui.authModal = function(mode){
+  var isSignup = mode==="signup";
+  G.paused=true;
+  var ov=document.createElement("div"); ov.className="modal-overlay show";
+  var inS='width:100%;padding:11px 14px;border-radius:12px;background:rgba(0,0,0,.3);border:1px solid var(--glass-brd);color:var(--text);font-size:.95rem;outline:none;margin-top:8px';
+  ov.innerHTML='<div class="modal" style="width:min(380px,92vw);text-align:left">'+
+    '<h2 style="text-align:center">'+(isSignup?"📧 계정 만들기":"🔑 로그인")+'</h2>'+
+    '<div class="muted" style="margin:8px 0 4px;text-align:center;font-size:.85rem">'+
+      (isSignup?"이메일 계정으로 전환하면 <b>다른 기기에서도 이어하기</b>가 됩니다. 지금 진행도는 그대로 유지돼요."
+              :"기존 이메일 계정으로 로그인합니다.<br><span style=\"color:#ffb86a\">이 기기의 게스트 진행도는 해당 계정 진행도로 교체됩니다.</span>")+'</div>'+
+    '<input id="auth-email" type="email" placeholder="이메일" autocomplete="username" style="'+inS+'">'+
+    '<input id="auth-pw" type="password" placeholder="비밀번호 (6자 이상)" autocomplete="'+(isSignup?"new-password":"current-password")+'" style="'+inS+'">'+
+    '<div id="auth-msg" style="color:#ff8a8a;min-height:18px;margin-top:8px;font-size:.82rem"></div>'+
+    '<div class="row" style="margin-top:6px">'+
+      '<button class="btn" id="auth-cancel" style="flex:1">취소</button>'+
+      '<button class="btn primary" id="auth-ok" style="flex:1">'+(isSignup?"계정 만들기":"로그인")+'</button>'+
+    '</div>'+
+  '</div>';
+  document.body.appendChild(ov);
+  var emailI=ov.querySelector("#auth-email"), pwI=ov.querySelector("#auth-pw"), msg=ov.querySelector("#auth-msg");
+  setTimeout(function(){ emailI.focus(); }, 60);
+  function close(){ ov.remove(); G.paused=false; }
+  ov.querySelector("#auth-cancel").addEventListener("click", close);
+  function submit(){
+    var btn=ov.querySelector("#auth-ok"); msg.textContent="";
+    btn.disabled=true; btn.textContent="처리 중...";
+    var done=function(r){
+      if(!r.ok){ msg.textContent="⚠️ "+r.msg; btn.disabled=false; btn.textContent=isSignup?"계정 만들기":"로그인"; return; }
+      if(isSignup){
+        close();
+        G.ui.toast(r.needConfirm?"메일 확인 후 완료됩니다 📧":"계정 전환 완료! 이제 다른 기기에서 로그인하세요 ✅");
+        G.net.syncProfile&&G.net.syncProfile();
+        G.ui.render();
+      } else {
+        G.ui.toast("로그인 완료, 진행도 불러오는 중...");
+        setTimeout(function(){ location.reload(); }, 500);
+      }
+    };
+    if(isSignup) G.net.signUpEmail(emailI.value, pwI.value).then(done);
+    else         G.net.loginEmail(emailI.value, pwI.value).then(done);
+  }
+  ov.querySelector("#auth-ok").addEventListener("click", submit);
+  pwI.addEventListener("keydown", function(e){ if(e.key==="Enter") submit(); });
+};
+
 /* ============================================================
    설정 뷰
    ============================================================ */
@@ -1248,11 +1294,32 @@ G.ui.renderSettings = function(){
       var status, body;
       if(on){
         status='<span class="r-uncommon">🟢 온라인</span>';
+        var guest=G.net.isGuest();
+        var acct;
+        if(guest){
+          acct='<div class="row" style="align-items:center; gap:8px; margin-top:10px">'+
+                 '<span style="width:84px">계정</span>'+
+                 '<b style="flex:1">🎫 게스트</b>'+
+               '</div>'+
+               '<p class="muted" style="margin:6px 0 8px; color:#ffb86a">⚠️ 게스트는 <b>이 기기에서만</b> 이어집니다. 브라우저 데이터를 지우거나 다른 기기로 가면 진행도를 잃습니다.</p>'+
+               '<div class="row">'+
+                 '<button class="btn primary" data-act="acct-signup" style="flex:1">📧 계정 만들기(이어하기)</button>'+
+                 '<button class="btn" data-act="acct-login" style="flex:1">🔑 로그인</button>'+
+               '</div>';
+        } else {
+          acct='<div class="row" style="align-items:center; gap:8px; margin-top:10px">'+
+                 '<span style="width:84px">계정</span>'+
+                 '<b style="flex:1; word-break:break-all">📧 '+esc(G.net.email||"")+'</b>'+
+                 '<button class="btn sm" data-act="acct-logout">로그아웃</button>'+
+               '</div>'+
+               '<p class="muted" style="margin-top:6px">✅ 어느 기기에서나 이 계정으로 로그인하면 이어집니다.</p>';
+        }
         body='<div class="row" style="align-items:center; gap:8px; margin-top:8px">'+
                '<span style="width:84px">닉네임</span>'+
                '<b class="gold" style="flex:1">'+esc(G.net.nickname||"미설정")+'</b>'+
                '<button class="btn sm" data-act="change-nick">변경</button>'+
              '</div>'+
+             acct+
              '<p class="muted" style="margin-top:8px">채팅·랭킹·세이브가 클라우드에 동기화됩니다 ☁️</p>';
       } else if(conf){
         status='<span class="muted">🟡 연결 중/실패</span>';

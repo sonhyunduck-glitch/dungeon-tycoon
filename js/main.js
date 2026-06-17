@@ -110,6 +110,14 @@
     /* 멀티: 닉네임 변경 */
     "change-nick": function(){ G.ui.nicknameModal(function(){ G.net.syncProfile(); G.net.refreshRanking&&G.net.refreshRanking(); }); },
 
+    /* 멀티: 계정(게스트→이메일 전환 / 로그인 / 로그아웃) */
+    "acct-signup": function(){ G.ui.authModal("signup"); },
+    "acct-login":  function(){ G.ui.authModal("login"); },
+    "acct-logout": function(){
+      if(!confirm("로그아웃하면 다시 게스트로 전환됩니다. 진행도는 계정에 저장되어 있어 재로그인하면 복구됩니다.\n로그아웃할까요?")) return;
+      G.net.logout().then(function(){ location.reload(); });
+    },
+
     /* 스킬 (해금은 층 도달 시 자동) */
     "skill-toggle": function(d){ G.combat.skillToggle(d.id); G.ui.render(); },
 

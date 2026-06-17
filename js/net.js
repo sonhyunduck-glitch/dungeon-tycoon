@@ -12,6 +12,8 @@
     ready:false,     // 로그인 완료 + 사용 가능
     sb:null,
     uid:null,
+    user:null,       // Supabase user 객체
+    email:null,      // 이메일 계정이면 이메일, 게스트면 null
     nickname:null,
     _chatChan:null,
     _saveTimer:null,
@@ -38,6 +40,8 @@
       var u=(await sb.auth.getUser()).data.user;
       if(!u) throw new Error("no user");
       G.net.uid=u.id;
+      G.net.user=u;
+      G.net.email=u.email||null;
 
       // 프로필(닉네임) 조회
       var pr=await sb.from("profiles").select("nickname,floor").eq("id",G.net.uid).maybeSingle();
@@ -94,6 +98,42 @@
     if(!G.net.online()) return;
     if(G.net._saveTimer) clearTimeout(G.net._saveTimer);
     G.net._saveTimer=setTimeout(function(){ G.net.pushSave(G.state); }, 4000);
+  };
+
+  /* ---------- 계정 (게스트 / 이메일) ---------- */
+  // 현재 게스트(익명)인가?
+  G.net.isGuest = function(){
+    return !!(G.net.user && (G.net.user.is_anonymous || !G.net.user.email));
+  };
+  // 게스트 → 이메일 계정으로 전환(연동). uid 유지 → 진행도/랭킹 그대로.
+  G.net.signUpEmail = async function(email, password){
+    if(!G.net.online()) return { ok:false, msg:"오프라인 상태입니다" };
+    email=(email||"").trim(); password=password||"";
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return { ok:false, msg:"이메일 형식이 올바르지 않습니다" };
+    if(password.length<6) return { ok:false, msg:"비밀번호는 6자 이상이어야 합니다" };
+    try{
+      var r=await G.net.sb.auth.updateUser({ email:email, password:password });
+      if(r.error) return { ok:false, msg:r.error.message };
+      var u=(await G.net.sb.auth.getUser()).data.user;
+      G.net.user=u; G.net.email=u.email||email;
+      // 메일 확인이 켜져 있으면 확인 전까지 email_confirmed_at 없음
+      var needConfirm = !u.email;
+      return { ok:true, needConfirm:needConfirm };
+    }catch(e){ return { ok:false, msg:e.message||"전환 실패" }; }
+  };
+  // 기존 이메일 계정으로 로그인 (다른 기기에서 이어하기)
+  G.net.loginEmail = async function(email, password){
+    if(!G.net.online()) return { ok:false, msg:"오프라인 상태입니다" };
+    email=(email||"").trim();
+    try{
+      var r=await G.net.sb.auth.signInWithPassword({ email:email, password:password });
+      if(r.error) return { ok:false, msg:r.error.message };
+      return { ok:true };
+    }catch(e){ return { ok:false, msg:e.message||"로그인 실패" }; }
+  };
+  // 로그아웃 (다시 게스트로)
+  G.net.logout = async function(){
+    try{ await G.net.sb.auth.signOut(); }catch(e){}
   };
 
   /* ---------- 랭킹 ---------- */
