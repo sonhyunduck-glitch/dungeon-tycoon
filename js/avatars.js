@@ -61,6 +61,26 @@
     var max=(G.state&&G.state.dungeon&&G.state.dungeon.maxFloor)||1;
     return max >= (a.unlock||0);
   };
+
+  // 층 도달로 새로 해금된 아바타 → 해금 모달용 항목 반환(최초/구버전은 조용히 동기화)
+  G.avatar.syncUnlocks = function(){
+    if(!G.state) return [];
+    var max=(G.state.dungeon&&G.state.dungeon.maxFloor)||1;
+    if(!G.state.avatarSeen){
+      G.state.avatarSeen={};
+      G.DATA.AVATARS.forEach(function(a){ if((a.unlock||0)<=max) G.state.avatarSeen[a.id]=true; });
+      return [];
+    }
+    var fresh=[];
+    G.DATA.AVATARS.forEach(function(a){
+      if((a.unlock||0)<=max && !G.state.avatarSeen[a.id]){
+        G.state.avatarSeen[a.id]=true;
+        fresh.push({ ico:G.avatar.miniHTML(a.id,34), name:a.name+" 아바타", desc:"캐릭터 탭에서 외형 변경 가능", sub:"아바타 · "+(a.unlock||0)+"층" });
+        if(G.log) G.log("🎭 아바타 해금: "+a.name+" ("+(a.unlock||0)+"층 도달)","r-legend");
+      }
+    });
+    return fresh;
+  };
   G.avatar.set = function(id){
     if(!G.state) return false;
     var a=G.avatar.get(id);
