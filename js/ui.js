@@ -758,6 +758,9 @@ G.ui.renderCharacter = function(){
 
   var body = sub==="stats"?statsPanel : sub==="detail"?G.ui._statSheet() : sub==="equip"?equipPanel : sub==="rune"?runePanel : sub==="avatar"?G.ui._avatarPanel() : sub==="unlock"?G.ui._perksHTML() : G.ui._skills();
   v.innerHTML = tabBar + body;
+  if(sub==="avatar"){   // 미리보기 애니메이션(idle→attack 순차) 시작
+    v.querySelectorAll(".av-prev-inner").forEach(function(el){ G.avatar.animatePreview(el); });
+  }
 };
 
 /* 아바타 선택 패널 */

@@ -73,16 +73,34 @@
     st.textContent=css;
   };
 
-  // 선택 UI용 정적 프리뷰(idle 0번 프레임). 컨테이너 크기 = fw*zoom × fh*zoom,
-  // 그 안에 원본크기 요소를 transform:scale 로 확대.
-  G.avatar.previewHTML = function(c, zoom){
-    zoom = zoom || 2.4;
+  // 선택 UI용 프리뷰(컨테이너 fw*zoom × fh*zoom, 안쪽 원본크기 요소를 scale 확대).
+  // 애니메이션(idle→attack 순차)은 animatePreview가 background-position을 갱신.
+  G.avatar.zoomFor = function(c){ return Math.min(2.4, Math.max(1, 64/Math.max(c.fw,c.fh))); };
+  G.avatar.previewHTML = function(c){
+    var zoom=G.avatar.zoomFor(c);
     var y = -(c.idle.row*c.fh);
     var inner='width:'+c.fw+'px;height:'+c.fh+'px;'+
       'background:url("'+c.sheet+'") 0px '+y+'px no-repeat;background-size:auto;'+
       'image-rendering:pixelated;position:absolute;left:0;top:0;'+
       'transform:scale('+zoom+');transform-origin:top left;';
     var box='position:relative;width:'+(c.fw*zoom)+'px;height:'+(c.fh*zoom)+'px;';
-    return '<div style="'+box+'"><div style="'+inner+'"></div></div>';
+    return '<div style="'+box+'"><div class="av-prev-inner" data-av="'+c.id+'" style="'+inner+'"></div></div>';
+  };
+
+  // 프리뷰 요소를 idle 프레임들 → attack 프레임들 순차 재생(루프). DOM에서 제거되면 자동 정지.
+  G.avatar.animatePreview = function(el){
+    var c=G.avatar.get(el.getAttribute("data-av")); if(!c) return null;
+    var seq=[], i;
+    for(i=0;i<c.idle.frames;i++) seq.push([i, c.idle.row]);
+    for(i=0;i<(c.attack?c.attack.frames:0);i++) seq.push([i, c.attack.row]);
+    if(!seq.length) seq.push([0, c.idle.row]);
+    var k=0;
+    var t=setInterval(function(){
+      if(!el.isConnected){ clearInterval(t); return; }
+      var f=seq[k%seq.length];
+      el.style.backgroundPosition = (-(f[0]*c.fw))+"px "+(-(f[1]*c.fh))+"px";
+      k++;
+    }, 150);
+    return t;
   };
 })();
