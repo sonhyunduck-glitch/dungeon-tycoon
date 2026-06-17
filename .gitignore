@@ -1,0 +1,12 @@
+# Claude Code 세션/설정
+.claude/
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# 로그/임시
+*.log
+*.tmp
+node_modules/

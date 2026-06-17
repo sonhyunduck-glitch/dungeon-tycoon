@@ -1,0 +1,644 @@
+{
+  "monsters": [
+    {
+      "key": "slime",
+      "name": "슬라임",
+      "tier": "normal",
+      "folder": "Slime - Small",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/slime/Medium Slime Split.png",
+        "sheets/slime/Slime Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "bat",
+      "name": "박쥐",
+      "tier": "normal",
+      "folder": "Bat",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/bat/Bat Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "goblin",
+      "name": "임프",
+      "tier": "normal",
+      "folder": "Imp",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/goblin/Imp Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "skeleton",
+      "name": "화염 해골",
+      "tier": "normal",
+      "folder": "Flameskull",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/skeleton/Skullflame Fireball Sprite Sheet.png",
+        "sheets/skeleton/Skullflame Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "spider",
+      "name": "거미",
+      "tier": "normal",
+      "folder": "Spider",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/spider/Spider Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "wolf",
+      "name": "늑대",
+      "tier": "normal",
+      "folder": "Wolf",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/wolf/Wolf Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "orc",
+      "name": "오크 전사",
+      "tier": "normal",
+      "folder": "Orc Warrior",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/orc/Orc Warrior Sprite Sheet.png",
+        "sheets/orc/Thrown Axe Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "golem",
+      "name": "골렘",
+      "tier": "normal",
+      "folder": "Golem",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/golem/Golem Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "ghost",
+      "name": "유령",
+      "tier": "normal",
+      "folder": "Ghost",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/ghost/Ghost Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "lich",
+      "name": "리치",
+      "tier": "normal",
+      "folder": "Lich",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/lich/Lich Sprite Sheet.png",
+        "sheets/lich/Soul Storm Sprite Sheet.png",
+        "sheets/lich/Spell Projectile.png",
+        "sheets/lich/Staff.png"
+      ]
+    },
+    {
+      "key": "fire_elem",
+      "name": "화염 정령",
+      "tier": "normal",
+      "folder": "Fire Elemental - Small",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/fire_elem/Fire Elemental Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "ice_elem",
+      "name": "냉기 정령",
+      "tier": "normal",
+      "folder": "Ice Elemental - Small",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/ice_elem/Ice Elemental Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "snake",
+      "name": "뱀",
+      "tier": "normal",
+      "folder": "Snake",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/snake/Snake Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "harpy",
+      "name": "하피",
+      "tier": "normal",
+      "folder": "Harpy",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/harpy/Harpy Sprite Sheet Blue.png",
+        "sheets/harpy/Harpy Sprite Sheet Green.png",
+        "sheets/harpy/Harpy Sprite Sheet Purple.png",
+        "sheets/harpy/Harpy Sprite Sheet Red.png"
+      ]
+    },
+    {
+      "key": "minotaur",
+      "name": "미노타우로스",
+      "tier": "normal",
+      "folder": "Minotaur",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/minotaur/Minotaur Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "wyvern",
+      "name": "새끼 드래곤",
+      "tier": "normal",
+      "folder": "Dragon Hatchling",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/wyvern/Dragon Hatchling Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "octopus",
+      "name": "문어",
+      "tier": "normal",
+      "folder": "Octopus Small",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/octopus/Octopus Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "eye",
+      "name": "떠다니는 눈",
+      "tier": "normal",
+      "folder": "Flying Eye Monster",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/eye/Eye Monster Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "goblin_lord",
+      "name": "네크로맨서",
+      "tier": "boss",
+      "folder": "Necromancer",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/goblin_lord/Beam.png",
+        "sheets/goblin_lord/Necromancer Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "skeleton_king",
+      "name": "해골 왕",
+      "tier": "boss",
+      "folder": "Skeleton King",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/skeleton_king/Skeleton King Leap Animation 96x128.png",
+        "sheets/skeleton_king/Skeleton King Sprite Sheet 96x96px.png"
+      ]
+    },
+    {
+      "key": "orc_chief",
+      "name": "오크 감독관",
+      "tier": "boss",
+      "folder": "Orc Taskmaster",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/orc_chief/Orc Taskmaster Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "witch",
+      "name": "마녀",
+      "tier": "boss",
+      "folder": "Witch",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/witch/Frog Sprite Sheet.png",
+        "sheets/witch/Hex Sprite Sheet.png",
+        "sheets/witch/Witch Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "fire_giant",
+      "name": "서리 거인",
+      "tier": "boss",
+      "folder": "Frost Giant",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/fire_giant/Attack Slash.png",
+        "sheets/fire_giant/Axe.png",
+        "sheets/fire_giant/Frost Giant Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "ice_dragon",
+      "name": "드래곤",
+      "tier": "boss",
+      "folder": "Dragon",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/ice_dragon/Dragon Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "demon_lord",
+      "name": "아귀 악마",
+      "tier": "boss",
+      "folder": "Maw Demon",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/demon_lord/Maw Demon Sprite Sheet Green.png",
+        "sheets/demon_lord/Maw Demon Sprite Sheet Purple.png",
+        "sheets/demon_lord/Maw Demon Sprite Sheet Red.png",
+        "sheets/demon_lord/Maw Demon Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "fallen_angel",
+      "name": "대천사",
+      "tier": "boss",
+      "folder": "Archangel",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/fallen_angel/Archangel Sprite Sheet.png",
+        "sheets/fallen_angel/Holy Slash.png"
+      ]
+    },
+    {
+      "key": "ancient_dragon",
+      "name": "요정 드래곤",
+      "tier": "boss",
+      "folder": "Faerie Dragon",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/ancient_dragon/Faerie Dragon Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "demon_king",
+      "name": "악마",
+      "tier": "boss",
+      "folder": "Demon",
+      "group": "■ 원본 28종 (옛 자동검출 · 수정대상)",
+      "files": [
+        "sheets/demon_king/Demon Sprite Sheet.png",
+        "sheets/demon_king/Fire Slash Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "giant_slime",
+      "name": "거대 슬라임",
+      "tier": "normal",
+      "folder": "Giant Slime",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/giant_slime/Acid.png",
+        "sheets/giant_slime/Giant Slime Sprite.png"
+      ]
+    },
+    {
+      "key": "black_pudding",
+      "name": "검은 푸딩",
+      "tier": "normal",
+      "folder": "Black Pudding - small",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/black_pudding/Black Pudding Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "wasp",
+      "name": "말벌",
+      "tier": "normal",
+      "folder": "Wasp",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/wasp/Wasp Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "giant_fly",
+      "name": "거대 파리",
+      "tier": "normal",
+      "folder": "Giant Fly",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/giant_fly/Giant Fly Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "scorpion",
+      "name": "전갈",
+      "tier": "normal",
+      "folder": "Scorpion",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/scorpion/Scorpion Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "bloodsilk",
+      "name": "핏빛 거미",
+      "tier": "normal",
+      "folder": "Bloodsilk Spider",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/bloodsilk/Bloodsilk Spider Sprite Sheet.png",
+        "sheets/bloodsilk/Web Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "quasit",
+      "name": "콰지트",
+      "tier": "normal",
+      "folder": "Quasit",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/quasit/Bat Sprite Sheet.png",
+        "sheets/quasit/Frog Sprite Sheet.png",
+        "sheets/quasit/Quasit Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "gremlin",
+      "name": "그렘린",
+      "tier": "normal",
+      "folder": "Hopkins Gremlin",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/gremlin/Hopkins Gremlin Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "gnoll",
+      "name": "놀",
+      "tier": "normal",
+      "folder": "Gnoll",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/gnoll/Gnoll Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "ghoul",
+      "name": "구울",
+      "tier": "normal",
+      "folder": "Ghoul",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/ghoul/Ghoul Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "mummy",
+      "name": "미라",
+      "tier": "normal",
+      "folder": "Mummy",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/mummy/Mummy Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "zombie",
+      "name": "좀비",
+      "tier": "normal",
+      "folder": "Zombie Townsfolk",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/zombie/Zombie Townsfolk 1 Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "wisp",
+      "name": "도깨비불",
+      "tier": "normal",
+      "folder": "Wisp",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/wisp/Wisp Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "drake",
+      "name": "드레이크",
+      "tier": "normal",
+      "folder": "Drake",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/drake/Drake Fireball.png",
+        "sheets/drake/Drake Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "lightning_elem",
+      "name": "번개 정령",
+      "tier": "normal",
+      "folder": "Lightning Elemental - Small",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/lightning_elem/Lightning Elemental Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "mini_golem",
+      "name": "미니 골렘",
+      "tier": "normal",
+      "folder": "Mini Golem",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/mini_golem/Mini Golem Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "gargoyle",
+      "name": "가고일",
+      "tier": "normal",
+      "folder": "Gargoyle",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/gargoyle/Gargoyle Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "boar",
+      "name": "멧돼지",
+      "tier": "normal",
+      "folder": "Boar",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/boar/Boar Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "wolf_cub",
+      "name": "새끼 늑대",
+      "tier": "normal",
+      "folder": "Wolf Cub",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/wolf_cub/Wolf Cub Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "cobra",
+      "name": "코브라",
+      "tier": "normal",
+      "folder": "Cobra",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/cobra/Cobra Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "jellyfish",
+      "name": "해파리",
+      "tier": "normal",
+      "folder": "Jellyfish",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/jellyfish/Jellyfish Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "crab",
+      "name": "게",
+      "tier": "normal",
+      "folder": "Crab",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/crab/Crab Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "ogre",
+      "name": "오우거",
+      "tier": "boss",
+      "folder": "Ogre",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/ogre/Ogre Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "troll",
+      "name": "트롤",
+      "tier": "boss",
+      "folder": "Troll",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/troll/Troll Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "cyclops",
+      "name": "사이클롭스",
+      "tier": "boss",
+      "folder": "Cyclops",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/cyclops/Cyclops Rock.png",
+        "sheets/cyclops/Cyclops Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "mummy_lord",
+      "name": "미라 군주",
+      "tier": "boss",
+      "folder": "Mummy Lord",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/mummy_lord/Mummy Lord Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "banshee",
+      "name": "밴시",
+      "tier": "boss",
+      "folder": "Banshee",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/banshee/Banshee Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "vampire",
+      "name": "뱀파이어",
+      "tier": "boss",
+      "folder": "Vampire",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/vampire/Vampire Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "elder_dragon",
+      "name": "엘더 드래곤",
+      "tier": "boss",
+      "folder": "Elder Dragon",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/elder_dragon/Elder Dragon Attack1 Sprites.png",
+        "sheets/elder_dragon/Elder Dragon Attack2 Sprites.png",
+        "sheets/elder_dragon/Elder Dragon Blue Sprite Sheet.png",
+        "sheets/elder_dragon/Elder Dragon Gray Sprite Sheet.png",
+        "sheets/elder_dragon/Elder Dragon Green Sprite Sheet.png",
+        "sheets/elder_dragon/Elder Dragon Orange Sprite Sheet.png",
+        "sheets/elder_dragon/Elder Dragon Pink Sprite Sheet.png",
+        "sheets/elder_dragon/Elder Dragon Purple Sprite Sheet.png",
+        "sheets/elder_dragon/Elder Dragon Red Sprite Sheet.png",
+        "sheets/elder_dragon/Elder Dragon Sprite Sheet.png",
+        "sheets/elder_dragon/Elder Dragon Yellow Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "beholder",
+      "name": "비홀더",
+      "tier": "boss",
+      "folder": "Beholder",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/beholder/Arms Sprite Sheet.png",
+        "sheets/beholder/Beholder Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "mind_flayer",
+      "name": "마인드 플레이어",
+      "tier": "boss",
+      "folder": "Mind Flayer",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/mind_flayer/Mind Blast Effect 128px96px.png",
+        "sheets/mind_flayer/Mind Flayer Sprite Sheet.png",
+        "sheets/mind_flayer/Spell Cast Effect 64px.png",
+        "sheets/mind_flayer/Tentacle Spell 64px32px.png"
+      ]
+    },
+    {
+      "key": "giant_gorilla",
+      "name": "거대 고릴라",
+      "tier": "boss",
+      "folder": "Giant Gorilla",
+      "group": "● Phase B 신규 32종 (슬라이서 제작)",
+      "files": [
+        "sheets/giant_gorilla/Giant Gorilla Sprite Sheet.png"
+      ]
+    }
+  ]
+}

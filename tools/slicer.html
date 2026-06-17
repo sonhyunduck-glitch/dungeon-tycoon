@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>스프라이트 슬라이서 — Phase B</title>
+<style>
+  :root{ --bg:#1b1b24; --panel:#262631; --line:#3a3a48; --acc:#ff7a3c; --txt:#e8e8ef; --mut:#9a9ab0; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; font:14px/1.5 system-ui,Segoe UI,Malgun Gothic,sans-serif; background:var(--bg); color:var(--txt); }
+  header{ padding:10px 16px; background:#15151c; border-bottom:1px solid var(--line); display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+  header h1{ font-size:15px; margin:0; }
+  .wrap{ display:flex; gap:14px; padding:14px; align-items:flex-start; }
+  .col{ background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:12px; }
+  .left{ flex:1; min-width:480px; }
+  .right{ width:430px; }
+  select,input,button{ font:inherit; color:var(--txt); background:#1e1e28; border:1px solid var(--line); border-radius:6px; padding:5px 8px; }
+  button{ cursor:pointer; background:#33333f; }
+  button:hover{ border-color:var(--acc); }
+  button.acc{ background:var(--acc); color:#1b1b24; border-color:var(--acc); font-weight:700; }
+  label{ color:var(--mut); font-size:12px; }
+  .row{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:8px; }
+  .canvas-box{ overflow:auto; height:78vh; background:#0d0d12 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><rect width="8" height="8" fill="%23181820"/><rect x="8" y="8" width="8" height="8" fill="%23181820"/></svg>'); border:1px solid var(--line); border-radius:6px; }
+  canvas{ display:block; image-rendering:pixelated; }
+  table{ width:100%; border-collapse:collapse; font-size:13px; }
+  th,td{ padding:4px 5px; border-bottom:1px solid var(--line); text-align:left; }
+  th{ color:var(--mut); font-weight:600; font-size:11px; }
+  td .prev{ width:96px; height:96px; image-rendering:pixelated; background:#0d0d12; border:1px solid var(--line); border-radius:4px; }
+  .pill{ display:inline-block; padding:1px 7px; border-radius:10px; font-size:11px; background:#33333f; }
+  .pill.idle{ background:#2c5e2c; } .pill.attack{ background:#7a3b1c; } .pill.hurt{ background:#6b5b1c; } .pill.death{ background:#5a2330; }
+  .mono{ font-family:ui-monospace,Consolas,monospace; font-size:12px; }
+  .saved-list div{ padding:4px 6px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; gap:6px; align-items:center; }
+  .done{ color:#7fd77f; }
+  textarea{ width:100%; height:120px; background:#12121a; color:#cfe; border:1px solid var(--line); border-radius:6px; font-family:ui-monospace,Consolas,monospace; font-size:11px; }
+  .hint{ color:var(--mut); font-size:12px; }
+  .divs button{ padding:2px 7px; font-size:12px; margin:2px 2px 0 0; }
+  .badge{ font-size:11px; color:var(--mut); }
+</style>
+</head>
+<body>
+<header>
+  <h1>🎞️ 스프라이트 슬라이서 <span class="badge">— 행/열 지정 → idle·공격·피격·사망 라벨 → JSON 내보내기</span></h1>
+  <span id="progress" class="badge"></span>
+</header>
+
+<div class="wrap">
+  <!-- 좌: 캔버스 + 컨트롤 -->
+  <div class="col left">
+    <div class="row">
+      <label>몬스터</label>
+      <select id="mon"></select>
+      <label>시트</label>
+      <select id="file"></select>
+      <span id="dims" class="hint"></span>
+    </div>
+    <div class="row">
+      <input type="file" id="filepick" accept="image/png,image/*" style="display:none">
+      <button id="pickBtn">📂 내 PC에서 PNG 열기</button>
+      <label>key</label><input id="mkey" style="width:120px" placeholder="영문 키">
+      <label>이름</label><input id="mname" style="width:90px" placeholder="한글명">
+      <label>등급</label><select id="mtier"><option value="normal">일반</option><option value="boss">보스</option></select>
+      <button id="dlStrips" class="acc">💾 스트립 PNG 다운로드</button>
+    </div>
+    <div class="row">
+      <label>분할 기준</label>
+      <label><input type="radio" name="divmode" value="cell" checked> 칸 수(열×행)</label>
+      <label><input type="radio" name="divmode" value="px"> 프레임 px</label>
+      <span id="frameinfo" class="hint"></span>
+    </div>
+    <div class="row" id="cellRow">
+      <label>열 (가로 칸)</label><input id="cols" type="number" min="1" value="8" style="width:64px">
+      <span class="hint">×</span>
+      <label>행 (세로 칸)</label><input id="rows" type="number" min="1" value="1" style="width:64px">
+    </div>
+    <div class="row" id="pxRow" style="display:none">
+      <label>프레임 너비</label><input id="fwpx" type="number" min="1" value="32" style="width:72px">
+      <span class="hint">×</span>
+      <label>높이</label><input id="fhpx" type="number" min="1" value="32" style="width:72px">
+      <span class="hint">px</span>
+    </div>
+    <div class="row">
+      <label>줌</label><input id="zoom" type="range" min="1" max="20" value="3"><span id="zoomval" class="hint"></span>
+      <button id="fitBtn">전체 맞춤</button>
+      <label><input id="showgrid" type="checkbox" checked> 격자</label>
+    </div>
+    <div class="row divs" id="divW"></div>
+    <div class="canvas-box"><canvas id="cv"></canvas></div>
+    <p class="hint">팁: 시트의 <b>열(가로 칸)×행(세로 칸)</b> 수만 세서 입력하면 프레임 크기가 자동 계산됩니다(예 1024×672 → 16×7 → 64×96px). 우측 표의 각 행 미리보기가 자동 재생되니 보고 동작(idle/공격/피격/사망)을 고르세요. (프레임 수는 빈 칸 자동 감지)</p>
+  </div>
+
+  <!-- 우: 행 라벨 + 저장 -->
+  <div class="col right">
+    <div class="row"><b>행 라벨</b> <span class="hint">현재 시트의 행마다 동작 지정</span></div>
+    <table id="rowtbl"><thead><tr><th>행</th><th>미리보기</th><th>동작</th><th>프레임</th></tr></thead><tbody></tbody></table>
+    <div class="row" style="margin-top:8px">
+      <button id="applyFile" class="acc">이 시트 라벨 → 몬스터에 반영</button>
+    </div>
+    <div class="row"><b>현재 몬스터 수집:</b> <span id="curanims" class="mono"></span></div>
+    <div class="row">
+      <button id="saveMon" class="acc">✔ 이 몬스터 저장</button>
+      <button id="clearMon">현재 초기화</button>
+    </div>
+    <hr style="border-color:var(--line)">
+    <div class="row"><b>저장된 몬스터</b> <span id="savedCount" class="badge"></span></div>
+    <div class="saved-list" id="savedList"></div>
+    <div class="row" style="margin-top:8px">
+      <button id="exportBtn" class="acc">⬇ 전체 JSON 내보내기</button>
+      <button id="loadSavedBtn">📥 저장파일 불러오기</button>
+      <button id="copyBtn">📋 복사</button>
+      <button id="importBtn">가져오기</button>
+    </div>
+    <textarea id="json" placeholder="내보낸 JSON이 여기 표시됩니다 / 붙여넣어 가져오기"></textarea>
+  </div>
+</div>
+
+<script>
+const TYPES = ["none","idle","attack","hurt","death","walk","cast","spawn"];
+let manifest=[], cur={img:null, path:null, w:0, h:0}, monster=null, store={}, previewTimers=[], zoomVal=3;
+const $=s=>document.querySelector(s);
+
+// localStorage 복구
+try{ store = JSON.parse(localStorage.getItem("slicerStore")||"{}"); }catch(e){ store={}; }
+
+const SAVED_CFG="../assets/enemies/slice_config.json";  // 저장된 라벨/모션 파일
+fetch("manifest.json").then(r=>r.json()).then(j=>{
+  manifest=j.monsters;
+  // 저장된 config(파일)에서 모션까지 불러오기 — localStorage에 없는 것만 채움(로컬 편집 우선)
+  return fetch(SAVED_CFG).then(r=>r.ok?r.json():null).catch(()=>null);
+}).then(cfg=>{
+  if(cfg&&cfg.monsters){
+    let added=0;
+    cfg.monsters.forEach(m=>{ if(!store[m.key]){ store[m.key]=m; added++; } });
+    if(added){ localStorage.setItem("slicerStore",JSON.stringify(store)); }
+  }
+  buildMonDropdown();
+  selectMon(0);
+  renderSaved();
+});
+// 저장 파일을 강제로 다시 불러오기(파일 우선 — 로컬 덮어씀)
+function loadSavedFile(force){
+  fetch(SAVED_CFG).then(r=>r.ok?r.json():Promise.reject("파일 없음")).then(cfg=>{
+    if(!cfg||!cfg.monsters) throw "형식 오류";
+    cfg.monsters.forEach(m=>{ store[m.key]=m; });
+    localStorage.setItem("slicerStore",JSON.stringify(store));
+    buildMonDropdown(); renderSaved(); selectMon(+$("#mon").value||0);
+    alert("저장 파일에서 "+cfg.monsters.length+"종 불러옴(모션 포함)");
+  }).catch(e=>alert("불러오기 실패: "+e+"\n("+SAVED_CFG+")"));
+}
+function buildMonDropdown(){
+  const sel=$("#mon"); const prev=sel.value; sel.innerHTML="";
+  const groups={};
+  manifest.forEach((m,i)=>{ const g=m.group||"기타"; (groups[g]=groups[g]||[]).push(i); });
+  Object.keys(groups).forEach(g=>{
+    const og=document.createElement("optgroup"); og.label=g;
+    groups[g].forEach(i=>{ const m=manifest[i]; const o=document.createElement("option"); o.value=i; o.textContent=(store[m.key]?"✔ ":"")+m.name+" ("+m.key+")"+(m.tier==="boss"?" ★":""); og.appendChild(o); });
+    sel.appendChild(og);
+  });
+  if(prev!=="") sel.value=prev;
+}
+
+function selectMon(i){
+  monster=JSON.parse(JSON.stringify(manifest[i]));
+  if(store[monster.key]) monster.anims=JSON.parse(JSON.stringify(store[monster.key].anims||[]));
+  else monster.anims=[];
+  $("#mkey").value=monster.key; $("#mname").value=monster.name; $("#mtier").value=monster.tier||"normal";
+  const fsel=$("#file"); fsel.innerHTML="";
+  const effectRe=/acid|web|projectile|effect|spawn|portal|shadow|fx|aura|bullet|fire|breath/i;
+  const files=[...monster.files].sort((a,b)=>(effectRe.test(a)?1:0)-(effectRe.test(b)?1:0));
+  files.forEach((f,k)=>{ const o=document.createElement("option"); o.value=f; o.textContent=f.split("/").pop(); fsel.appendChild(o); });
+  // 저장된 라벨이 있으면 그 시트/프레임 크기로 로드(라벨이 행에 그대로 표시되도록)
+  const saved=monster.anims.find(a=>a.type==="idle")||monster.anims[0];
+  let target=files[0]||"", savedFrame=null;
+  if(saved && saved.file && files.indexOf(saved.file)>=0){ target=saved.file; savedFrame={fw:saved.fw,fh:saved.fh}; }
+  if(target){ fsel.value=target; loadFile(target, savedFrame); }
+  updateCur();
+}
+function loadFile(path, savedFrame){
+  const img=new Image();
+  img.onload=()=>{ cur={img, path, w:img.naturalWidth, h:img.naturalHeight}; $("#dims").textContent=cur.w+"×"+cur.h+"px"; suggestDivs();
+    if(savedFrame && savedFrame.fw){ // 저장된 프레임 크기로 격자 복원
+      $("#fwpx").value=savedFrame.fw; $("#fhpx").value=savedFrame.fh;
+      setBoth(Math.max(1,Math.floor(cur.w/savedFrame.fw)), Math.max(1,Math.floor(cur.h/savedFrame.fh)));
+    } else { guessFrame(); }
+    buildRows(); fitZoom(); };
+  img.src=path;
+}
+// 내 PC에서 임의 PNG 열기 (폴더 지정)
+function loadPicked(file){
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const img=new Image();
+    img.onload=()=>{
+      cur={img, path:"custom/"+file.name, w:img.naturalWidth, h:img.naturalHeight, custom:true};
+      $("#dims").textContent=cur.w+"×"+cur.h+"px (내 PC: "+file.name+")";
+      // 파일 드롭다운에 항목 추가/선택
+      const fsel=$("#file"); let opt=[...fsel.options].find(o=>o.value===cur.path);
+      if(!opt){ opt=document.createElement("option"); opt.value=cur.path; opt.textContent="📂 "+file.name; fsel.appendChild(opt); }
+      fsel.value=cur.path;
+      // key가 비었으면 파일명에서 추정
+      if(!$("#mkey").value) $("#mkey").value=file.name.replace(/\.[^.]+$/,"").toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"");
+      suggestDivs(); guessFrame(); buildRows(); fitZoom();
+    };
+    img.src=e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+// 현재 라벨된 동작들을 가로 스트립 PNG로 잘라 다운로드 (임의 폴더 워크플로용)
+function downloadStrips(){
+  syncMeta();
+  const key=$("#mkey").value.trim();
+  if(!key){ alert("key를 입력하세요"); return; }
+  if(!monster.anims.length){ alert("라벨된 동작이 없습니다. '이 시트 라벨 → 몬스터에 반영'을 먼저 누르세요."); return; }
+  const SUF={idle:"", attack:"_attack", hurt:"_hurt", death:"_death", walk:"_walk", cast:"_cast", spawn:"_spawn"};
+  if(!cur.img){ alert("시트가 로드되지 않았습니다"); return; }
+  let n=0, skipped=[];
+  monster.anims.forEach(a=>{
+    if(a.file!==cur.path){ skipped.push(a.type+"("+a.file.split("/").pop()+")"); return; } // 현재 로드된 시트의 동작만
+    const c=document.createElement("canvas"); c.width=a.fw*a.frames; c.height=a.fh;
+    const x=c.getContext("2d"); x.imageSmoothingEnabled=false;
+    for(let i=0;i<a.frames;i++) x.drawImage(cur.img, i*a.fw, a.row*a.fh, a.fw, a.fh, i*a.fw, 0, a.fw, a.fh);
+    c.toBlob(b=>{ const link=document.createElement("a"); link.href=URL.createObjectURL(b); link.download=key+(SUF[a.type]||("_"+a.type))+".png"; link.click(); });
+    n++;
+  });
+  setTimeout(()=>{ alert(n+"개 스트립 다운로드 시작.\n파일을 D:\\ai\\text\\assets\\enemies\\ 에 넣으세요."+(skipped.length?"\n\n다른 시트의 동작은 제외됨(해당 시트를 열고 다시 다운로드): "+skipped.join(", "):"")); }, 200);
+}
+function syncMeta(){ if(monster){ monster.key=$("#mkey").value.trim(); monster.name=$("#mname").value.trim(); monster.tier=$("#mtier").value; } }
+function suggestDivs(){
+  const set=[8,16,24,32,48,64,96,128,192,256];
+  const box=$("#divW"); box.innerHTML="<span class='hint'>정사각 프레임 후보(누르면 열×행 자동입력):</span> ";
+  set.forEach(s=>{ if(cur.w%s===0 && cur.h%s===0){ const b=document.createElement("button"); b.textContent=s+"px → "+(cur.w/s)+"×"+(cur.h/s); b.onclick=()=>{ $("#fwpx").value=s; $("#fhpx").value=s; setBoth(cur.w/s,cur.h/s); onFrame(); }; box.appendChild(b);} });
+}
+function guessFrame(){ // 정사각 우선 추정 → 양쪽(칸/px) 모두 설정
+  const cands=[16,24,32,48,64,96,128,192];
+  for(const s of cands){ if(cur.w%s===0 && cur.h%s===0 && cur.w/s>=2){ $("#fwpx").value=s; $("#fhpx").value=s; setBoth(cur.w/s,cur.h/s); return; } }
+  $("#fwpx").value=cur.w; $("#fhpx").value=cur.h; setBoth(1,1);
+}
+function divmode(){ const r=document.querySelector('input[name="divmode"]:checked'); return r?r.value:"cell"; }
+function rawCols(){ return Math.max(1,parseInt($("#cols").value)||1); }
+function rawRows(){ return Math.max(1,parseInt($("#rows").value)||1); }
+function rawFwpx(){ return Math.max(1,parseInt($("#fwpx").value)||1); }
+function rawFhpx(){ return Math.max(1,parseInt($("#fhpx").value)||1); }
+// 모드에 따라 한쪽 입력에서 파생 (순환 없음 — 각자 raw 입력 기준)
+function fw(){ return divmode()==="px" ? rawFwpx() : Math.max(1,Math.floor(cur.w/rawCols())); }
+function fh(){ return divmode()==="px" ? rawFhpx() : Math.max(1,Math.floor(cur.h/rawRows())); }
+function cols(){ return divmode()==="px" ? Math.max(1,Math.floor(cur.w/rawFwpx())) : rawCols(); }
+function rows(){ return divmode()==="px" ? Math.max(1,Math.floor(cur.h/rawFhpx())) : rawRows(); }
+function setBoth(c,r){ $("#cols").value=c; $("#rows").value=r; if(cur.w&&cur.h){ $("#fwpx").value=Math.max(1,Math.floor(cur.w/c)); $("#fhpx").value=Math.max(1,Math.floor(cur.h/r)); } }
+
+function fitZoom(){
+  const box=$(".canvas-box"); if(!cur.img) return;
+  const pad=4;
+  const z=Math.min((box.clientWidth-pad)/cur.w, (box.clientHeight-pad)/cur.h);
+  zoomVal=Math.max(0.2, z);
+  $("#zoom").value=Math.max(1,Math.min(20,Math.round(zoomVal)));
+  draw();
+}
+function draw(){
+  if(!cur.img) return;
+  const z=zoomVal;
+  $("#zoomval").textContent="×"+z.toFixed(z<1?2:1);
+  const cv=$("#cv"); cv.width=Math.round(cur.w*z); cv.height=Math.round(cur.h*z);
+  const x=cv.getContext("2d"); x.imageSmoothingEnabled=false;
+  x.clearRect(0,0,cv.width,cv.height);
+  x.drawImage(cur.img,0,0,cv.width,cv.height);
+  if($("#showgrid").checked){
+    const W=fw()*z, H=fh()*z;
+    x.lineWidth=1;
+    x.strokeStyle="rgba(255,120,0,.45)";
+    for(let c=0;c<=cols();c++){ x.beginPath(); x.moveTo(c*W+.5,0); x.lineTo(c*W+.5,cv.height); x.stroke(); }
+    x.strokeStyle="rgba(255,40,40,.9)";
+    for(let r=0;r<=rows();r++){ x.beginPath(); x.moveTo(0,r*H+.5); x.lineTo(cv.width,r*H+.5); x.stroke(); }
+    x.fillStyle="#fff"; x.font="bold "+Math.max(10,z*4)+"px monospace";
+    for(let r=0;r<rows();r++){ x.fillStyle="rgba(0,0,0,.6)"; x.fillRect(1,r*H+1,16,14); x.fillStyle="#ffd"; x.fillText(r, 3, r*H+12); }
+  }
+  $("#frameinfo").textContent="→ "+cols()+"열×"+rows()+"행 · 프레임 "+fw()+"×"+fh()+"px";
+}
+
+// 행별 비어있지 않은 프레임 수 자동감지
+function detectFrames(row){
+  const W=fw(),H=fh(),c=cols();
+  const off=document.createElement("canvas"); off.width=cur.w; off.height=cur.h;
+  const o=off.getContext("2d"); o.imageSmoothingEnabled=false; o.drawImage(cur.img,0,0);
+  let last=0;
+  for(let i=0;i<c;i++){
+    const d=o.getImageData(i*W,row*H,W,H).data; let any=false;
+    for(let p=3;p<d.length;p+=4){ if(d[p]>10){ any=true; break; } }
+    if(any) last=i+1;
+  }
+  return last||c;
+}
+
+function buildRows(){
+  previewTimers.forEach(clearInterval); previewTimers=[];
+  const tb=$("#rowtbl tbody"); tb.innerHTML="";
+  for(let r=0;r<rows();r++){
+    const det=detectFrames(r);
+    // 기존 라벨 찾기
+    let existing=monster.anims.find(a=>a.file===cur.path && a.row===r);
+    const tr=document.createElement("tr");
+    const prev=document.createElement("canvas"); prev.className="prev"; prev.width=96; prev.height=96;
+    drawFramePrev(prev,r,0);
+    const tdR=document.createElement("td"); tdR.textContent=r;
+    const tdP=document.createElement("td"); tdP.appendChild(prev);
+    const tdT=document.createElement("td");
+    const sel=document.createElement("select");
+    TYPES.forEach(t=>{ const o=document.createElement("option"); o.value=t; o.textContent=t; sel.appendChild(o); });
+    sel.value=existing?existing.type:"none";
+    const tdF=document.createElement("td");
+    const inp=document.createElement("input"); inp.type="number"; inp.min=1; inp.style.width="56px"; inp.value=existing?existing.frames:det;
+    tdF.appendChild(inp);
+    const span=document.createElement("span"); span.className="hint"; span.textContent=" /"+cols()+" (감지"+det+")";
+    tdF.appendChild(span);
+    tdT.appendChild(sel);
+    tr.append(tdR,tdP,tdT,tdF);
+    tr._row=r; tr._sel=sel; tr._inp=inp;
+    // 미리보기: 모든 행을 상시 애니메이션 재생(라벨 판단용)
+    let f=0; previewTimers.push(setInterval(()=>{ const n=Math.max(1,parseInt(inp.value)||1); f=(f+1)%n; drawFramePrev(prev,r,f); },150));
+    tb.appendChild(tr);
+  }
+}
+function drawFramePrev(cv,row,frame){
+  const W=fw(),H=fh(); const x=cv.getContext("2d"); x.imageSmoothingEnabled=false;
+  const SZ=cv.width;
+  x.clearRect(0,0,SZ,SZ);
+  const s=Math.min(SZ/W,SZ/H); const dw=W*s,dh=H*s;
+  x.drawImage(cur.img, frame*W,row*H,W,H, (SZ-dw)/2,(SZ-dh)/2,dw,dh);
+}
+
+function applyFile(){
+  // 현재 시트의 라벨(none 아닌)을 monster.anims에 병합(같은 type은 덮어씀)
+  const trs=$("#rowtbl tbody").querySelectorAll("tr");
+  trs.forEach(tr=>{
+    const type=tr._sel.value; if(type==="none") return;
+    const frames=Math.max(1,parseInt(tr._inp.value)||1);
+    monster.anims=monster.anims.filter(a=>!(a.type===type)); // 같은 동작은 하나만
+    monster.anims.push({type, file:cur.path, row:tr._row, frames, fw:fw(), fh:fh()});
+  });
+  monster.anims.sort((a,b)=>TYPES.indexOf(a.type)-TYPES.indexOf(b.type));
+  updateCur();
+}
+function updateCur(){
+  $("#curanims").textContent = monster.anims.length? monster.anims.map(a=>a.type+"(r"+a.row+"×"+a.frames+"@"+a.fw+")").join("  ") : "(없음)";
+}
+function saveMon(){
+  syncMeta();
+  if(!monster.key){ alert("key를 입력하세요"); return; }
+  if(!monster.anims.find(a=>a.type==="idle")){ if(!confirm("idle 동작이 없습니다. 그래도 저장할까요?")) return; }
+  store[monster.key]={key:monster.key, name:monster.name||monster.key, tier:monster.tier||"normal", anims:monster.anims};
+  localStorage.setItem("slicerStore", JSON.stringify(store));
+  renderSaved();
+  buildMonDropdown();   // 체크표시 갱신
+  alert("저장됨: "+monster.name);
+}
+function renderSaved(){
+  const list=$("#savedList"); list.innerHTML="";
+  const entries=Object.values(store);
+  $("#savedCount").textContent="("+entries.length+" 저장됨)";
+  $("#progress").textContent="진행 "+entries.length+" 종 라벨 저장됨";
+  entries.forEach(s=>{
+    const d=document.createElement("div");
+    const types=s.anims.map(a=>'<span class="pill '+a.type+'">'+a.type+'</span>').join(" ");
+    const custom = !manifest.find(m=>m.key===s.key);
+    d.innerHTML='<span class="done">✔ '+(s.name||s.key)+(custom?' <span class="hint">(직접)</span>':'')+'</span> <span>'+types+'</span>';
+    const del=document.createElement("button"); del.textContent="✕"; del.style.padding="0 6px";
+    del.onclick=()=>{ delete store[s.key]; localStorage.setItem("slicerStore",JSON.stringify(store)); renderSaved(); };
+    d.appendChild(del); list.appendChild(d);
+  });
+}
+function exportJSON(){
+  const out={monsters:Object.values(store)};
+  $("#json").value=JSON.stringify(out,null,2);
+  const blob=new Blob([JSON.stringify(out,null,2)],{type:"application/json"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="slice_config.json"; a.click();
+}
+
+// 이벤트
+$("#mon").onchange=e=>selectMon(+e.target.value);
+$("#file").onchange=e=>{ if(String(e.target.value).startsWith("custom/")) return; loadFile(e.target.value); };
+$("#pickBtn").onclick=()=>$("#filepick").click();
+$("#filepick").onchange=e=>{ if(e.target.files[0]) loadPicked(e.target.files[0]); e.target.value=""; };
+$("#dlStrips").onclick=downloadStrips;
+["#mkey","#mname","#mtier"].forEach(s=>$(s).onchange=syncMeta);
+["#cols","#rows","#fwpx","#fhpx"].forEach(s=>$(s).oninput=onFrame);
+document.querySelectorAll('input[name="divmode"]').forEach(r=>r.onchange=()=>{
+  const px = divmode()==="px";
+  $("#pxRow").style.display = px ? "" : "none";
+  $("#cellRow").style.display = px ? "none" : "";
+  // 전환 시 격자 유지: 반대 모드 입력값으로부터 환산
+  if(cur.w&&cur.h){
+    if(px){ $("#fwpx").value=Math.max(1,Math.floor(cur.w/rawCols())); $("#fhpx").value=Math.max(1,Math.floor(cur.h/rawRows())); }
+    else  { $("#cols").value=Math.max(1,Math.floor(cur.w/rawFwpx())); $("#rows").value=Math.max(1,Math.floor(cur.h/rawFhpx())); }
+  }
+  onFrame();
+});
+function onFrame(){ draw(); buildRows(); }
+$("#zoom").oninput=()=>{ zoomVal=parseInt($("#zoom").value)||1; draw(); };
+$("#fitBtn").onclick=fitZoom;
+$("#showgrid").onchange=draw;
+$("#applyFile").onclick=applyFile;
+$("#saveMon").onclick=saveMon;
+$("#clearMon").onclick=()=>{ monster.anims=[]; updateCur(); buildRows(); };
+$("#exportBtn").onclick=exportJSON;
+$("#loadSavedBtn").onclick=()=>loadSavedFile(true);
+$("#copyBtn").onclick=()=>{ exportJSON(); $("#json").select(); document.execCommand("copy"); };
+$("#importBtn").onclick=()=>{ try{ const j=JSON.parse($("#json").value); j.monsters.forEach(m=>store[m.key]=m); localStorage.setItem("slicerStore",JSON.stringify(store)); renderSaved(); alert("가져오기 완료"); }catch(e){ alert("JSON 파싱 실패: "+e); } };
+</script>
+</body>
+</html>

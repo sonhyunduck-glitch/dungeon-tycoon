@@ -1,0 +1,183 @@
+/* ============================================================
+   네트워크 레이어 (Supabase) — 멀티플레이
+   - 익명 로그인 + 닉네임
+   - 클라우드 세이브 동기화
+   - 실제 랭킹(프로필 floor)
+   - 실시간 전역 채팅
+   설정(js/supa_config.js)이 비어 있으면 모든 함수가 오프라인으로 graceful 동작.
+   ============================================================ */
+(function(){
+  var G = window.G;
+  G.net = {
+    ready:false,     // 로그인 완료 + 사용 가능
+    sb:null,
+    uid:null,
+    nickname:null,
+    _chatChan:null,
+    _saveTimer:null,
+  };
+
+  G.net.configured = function(){
+    return !!(window.SUPA && SUPA.url && SUPA.anonKey && window.supabase && window.supabase.createClient);
+  };
+  G.net.online = function(){ return !!(G.net.ready && G.net.sb); };
+
+  /* ---------- 초기화: 클라이언트 + 익명 로그인 + 프로필 ---------- */
+  G.net.init = async function(){
+    if(!G.net.configured()){ console.info("[net] 오프라인 모드 (Supabase 미설정)"); return false; }
+    try{
+      G.net.sb = window.supabase.createClient(SUPA.url, SUPA.anonKey, {
+        auth:{ persistSession:true, autoRefreshToken:true }
+      });
+      var sb=G.net.sb;
+      var sess=(await sb.auth.getSession()).data.session;
+      if(!sess){
+        var si=await sb.auth.signInAnonymously();
+        if(si.error) throw si.error;
+      }
+      var u=(await sb.auth.getUser()).data.user;
+      if(!u) throw new Error("no user");
+      G.net.uid=u.id;
+
+      // 프로필(닉네임) 조회
+      var pr=await sb.from("profiles").select("nickname,floor").eq("id",G.net.uid).maybeSingle();
+      if(pr.data && pr.data.nickname){ G.net.nickname=pr.data.nickname; }
+      G.net.ready=true;
+      console.info("[net] 온라인. uid=",G.net.uid,"nick=",G.net.nickname);
+      return true;
+    }catch(e){
+      console.warn("[net] 초기화 실패 → 오프라인:",e.message||e);
+      G.net.ready=false; G.net.sb=null;
+      return false;
+    }
+  };
+
+  /* ---------- 닉네임 ---------- */
+  G.net.hasNickname = function(){ return !!G.net.nickname; };
+  G.net.setNickname = async function(name){
+    name=(name||"").trim().slice(0,16);
+    if(!name) return false;
+    G.net.nickname=name;
+    if(G.state) G.state.nickname=name;
+    if(!G.net.online()) return true;   // 오프라인이어도 로컬 닉네임은 유지
+    try{
+      await G.net.sb.from("profiles").upsert({
+        id:G.net.uid, nickname:name,
+        floor:(G.state&&G.state.dungeon&&G.state.dungeon.maxFloor)||1,
+        updated_at:new Date().toISOString()
+      });
+      return true;
+    }catch(e){ console.warn("[net] 닉네임 저장 실패",e); return false; }
+  };
+
+  /* ---------- 클라우드 세이브 ---------- */
+  G.net.pullSave = async function(){
+    if(!G.net.online()) return null;
+    try{
+      var r=await G.net.sb.from("saves").select("data,updated_at").eq("user_id",G.net.uid).maybeSingle();
+      return r.data || null;   // {data, updated_at} 또는 null
+    }catch(e){ console.warn("[net] 세이브 불러오기 실패",e); return null; }
+  };
+  G.net.pushSave = async function(state){
+    if(!G.net.online()) return false;
+    try{
+      await G.net.sb.from("saves").upsert({
+        user_id:G.net.uid, data:state, updated_at:new Date().toISOString()
+      });
+      // 랭킹용 프로필 floor도 함께 갱신
+      await G.net.syncProfile();
+      return true;
+    }catch(e){ console.warn("[net] 세이브 저장 실패",e); return false; }
+  };
+  // 디바운스 클라우드 저장(잦은 호출 방지)
+  G.net.queueSave = function(){
+    if(!G.net.online()) return;
+    if(G.net._saveTimer) clearTimeout(G.net._saveTimer);
+    G.net._saveTimer=setTimeout(function(){ G.net.pushSave(G.state); }, 4000);
+  };
+
+  /* ---------- 랭킹 ---------- */
+  G.net.syncProfile = async function(){
+    if(!G.net.online() || !G.net.nickname) return;
+    try{
+      await G.net.sb.from("profiles").upsert({
+        id:G.net.uid, nickname:G.net.nickname,
+        floor:(G.state&&G.state.dungeon&&G.state.dungeon.maxFloor)||1,
+        updated_at:new Date().toISOString()
+      });
+    }catch(e){ console.warn("[net] 프로필 동기화 실패",e); }
+  };
+
+  // 랭킹 뷰를 가져와 G.ranking.remoteView 에 캐시 후 재렌더
+  G.net.refreshRanking = async function(){
+    if(!G.net.online()) return null;
+    try{
+      var sb=G.net.sb;
+      var myFloor=(G.state.dungeon.maxFloor)||1;
+      // 총원
+      var cnt=await sb.from("profiles").select("id",{count:"exact",head:true});
+      var total=cnt.count||0;
+      // 상위 3
+      // 내 순위
+      var myRank=1;
+      var rr=await sb.rpc("my_rank",{ my_floor:myFloor });
+      if(!rr.error && typeof rr.data==="number") myRank=rr.data;
+      var topR=await sb.from("profiles").select("nickname,floor").order("floor",{ascending:false}).order("updated_at",{ascending:true}).limit(3);
+      var top=(topR.data||[]).map(function(p,i){ return { name:p.nickname, floor:p.floor, rank:i+1, me:(i+1)===myRank }; });
+      // 내 주변(위5·나·아래4) — 오프라인과 동일: 상위권이면 top3 뒤를 잇고, 아니면 내 주변
+      var myIdx=myRank-1;                       // 0-based
+      var start=(myIdx<=7)?3:(myIdx-5);
+      start=Math.max(3,start);                  // top3와 겹치지 않게
+      var end=start+9;                          // 10개(포함)
+      var arndR=await sb.from("profiles").select("nickname,floor").order("floor",{ascending:false}).order("updated_at",{ascending:true}).range(start,end);
+      var around=(arndR.data||[]).map(function(p,i){
+        return { name:p.nickname, floor:p.floor, rank:start+i+1, me:(start+i+1)===myRank };
+      });
+      var me={ name:G.net.nickname||"나", floor:myFloor, rank:myRank, me:true };
+      var gap = start>3;
+      var view={ total:total, me:me, top:top, around:around, gap:gap, remote:true };
+      G.ranking.remoteView=view;
+      if(G.state.ui.tab==="ranking" && G.ui.renderRanking) G.ui.renderRanking();
+      return view;
+    }catch(e){ console.warn("[net] 랭킹 조회 실패",e); return null; }
+  };
+
+  /* ---------- 채팅 ---------- */
+  G.net.chatHistory = async function(limit){
+    if(!G.net.online()) return [];
+    try{
+      var r=await G.net.sb.from("messages").select("nickname,text,user_id,created_at")
+              .order("created_at",{ascending:false}).limit(limit||40);
+      return (r.data||[]).reverse().map(function(m){
+        return { who:m.nickname, text:m.text, me:m.user_id===G.net.uid };
+      });
+    }catch(e){ console.warn("[net] 채팅 기록 실패",e); return []; }
+  };
+  G.net.chatSend = async function(text){
+    if(!G.net.online()) return false;
+    text=(text||"").trim().slice(0,200); if(!text) return false;
+    try{
+      await G.net.sb.from("messages").insert({
+        user_id:G.net.uid, nickname:G.net.nickname||"익명", text:text
+      });
+      return true;
+    }catch(e){ console.warn("[net] 메시지 전송 실패",e); return false; }
+  };
+  // 실시간 구독: onMsg({who,text,me})
+  G.net.chatSubscribe = function(onMsg){
+    if(!G.net.online()) return null;
+    if(G.net._chatChan) return G.net._chatChan;
+    try{
+      G.net._chatChan=G.net.sb.channel("public:messages")
+        .on("postgres_changes",{ event:"INSERT", schema:"public", table:"messages" }, function(payload){
+          var m=payload.new;
+          onMsg({ who:m.nickname, text:m.text, me:m.user_id===G.net.uid });
+        })
+        .subscribe();
+      return G.net._chatChan;
+    }catch(e){ console.warn("[net] 구독 실패",e); return null; }
+  };
+  G.net.chatUnsubscribe = function(){
+    if(G.net._chatChan){ try{ G.net.sb.removeChannel(G.net._chatChan); }catch(e){} G.net._chatChan=null; }
+  };
+})();

@@ -1,0 +1,4 @@
+/* 적 스프라이트 정의는 css/enemies_phaseb.css 로 일원화됨(60종 idle+모션).
+   과거 원본 28종 정의가 여기 있었으나, phaseb.css와 동일 이름 @keyframes가
+   끝값만 다르게 중복되어 일부 스프라이트가 빈 프레임으로 밀리는 문제가 있어 제거함.
+   .esprite 기본 스타일도 phaseb.css에 포함되어 있음. */
