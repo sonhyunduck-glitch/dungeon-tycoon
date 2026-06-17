@@ -1224,19 +1224,18 @@ G.ui.startScreen = function(){
   return new Promise(function(resolve){
     G.paused=true;
     var agreed=G.ui.termsAgreed();
-    var ov=document.createElement("div"); ov.className="modal-overlay show"; ov.id="start-ov";
-    ov.innerHTML='<div class="modal" style="text-align:center; width:min(400px,92vw)">'+
-      '<div style="font-size:2.8rem; line-height:1">🏯</div>'+
-      '<h2 style="margin-top:4px">탑아이들</h2>'+
-      '<div class="muted" style="margin-top:4px">어서 오세요, 모험가님</div>'+
-      '<label id="terms-row" style="display:flex; align-items:center; gap:8px; justify-content:center; margin-top:16px; font-size:.85rem; cursor:pointer">'+
-        '<input type="checkbox" id="terms-chk"'+(agreed?" checked":"")+' style="width:17px;height:17px;cursor:pointer">'+
-        '<span><b data-act="view-terms" style="color:var(--torch); text-decoration:underline; cursor:pointer">이용약관·개인정보 처리방침</b>에 동의합니다</span>'+
-      '</label>'+
-      '<button class="btn primary full" data-start="guest"  style="margin-top:12px">🎫 게스트로 시작</button>'+
-      '<button class="btn full"         data-start="login"  style="margin-top:8px">🔑 로그인</button>'+
-      '<button class="btn full"         data-start="signup" style="margin-top:8px">📧 계정 만들기</button>'+
-      '<p class="muted" style="margin-top:14px; font-size:.78rem; line-height:1.5">게스트는 <b>이 기기에서만</b> 저장됩니다.<br>계정을 만들면 <b>다른 기기에서도 이어하기</b>가 가능해요.</p>'+
+    var ov=document.createElement("div"); ov.className="start-screen"; ov.id="start-ov";
+    ov.innerHTML='<div class="start-frame" style="background-image:url(assets/topidle.png)">'+
+      '<div class="start-bottom">'+
+        '<label id="terms-row" style="display:flex; align-items:center; gap:8px; justify-content:center; font-size:.85rem; cursor:pointer">'+
+          '<input type="checkbox" id="terms-chk"'+(agreed?" checked":"")+' style="width:17px;height:17px;cursor:pointer">'+
+          '<span><b data-act="view-terms" style="color:var(--torch); text-decoration:underline; cursor:pointer">이용약관·개인정보 처리방침</b>에 동의합니다</span>'+
+        '</label>'+
+        '<button class="btn primary full" data-start="guest">🎫 게스트로 시작</button>'+
+        '<button class="btn full"         data-start="login">🔑 로그인</button>'+
+        '<button class="btn full"         data-start="signup">📧 계정 만들기</button>'+
+        '<p class="muted" style="text-align:center; font-size:.78rem; line-height:1.5; margin:2px 0 0">게스트는 <b>이 기기에서만</b> 저장됩니다.<br>계정을 만들면 <b>다른 기기에서도 이어하기</b>가 가능해요.</p>'+
+      '</div>'+
     '</div>';
     document.body.appendChild(ov);
 
