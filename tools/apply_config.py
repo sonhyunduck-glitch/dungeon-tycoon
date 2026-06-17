@@ -64,12 +64,13 @@ def css_idle(key, fw, fh, frames):
 
 def css_motion(key, typ, fw, fh, frames):
     cls=CLS[typ]; suf=SUFFIX[typ]; out=[]
+    stp=max(1, frames-1)   # 유한 모션: 마지막 실제 프레임에서 멈춤(끝에 빈 프레임 방지)
     for tag,scl in (("",big_scale),("-sm",sm_scale)):   # 타겟(big) + 비타겟(-sm) 모두
-        s=scl(key,fw,fh); W=round(fw*s); H=round(fh*s); BGW=W*frames
+        s=scl(key,fw,fh); W=round(fw*s); H=round(fh*s); BGW=W*frames; ENDW=W*stp
         nm="eska-%s-%s%s"%(key,cls,tag)
         out.append('.es-%s%s.%s{ background-image:url("../assets/enemies/%s%s.png"); background-size:%dpx %dpx; animation:%s %.2fs steps(%d) %s; }'
-                   %(key,tag,cls,key,suf,BGW,H,nm,DUR[typ]*frames,frames,FILL[typ]))
-        out.append('@keyframes %s{ from{ background-position:0 0; } to{ background-position:-%dpx 0; } }'%(nm,BGW))
+                   %(key,tag,cls,key,suf,BGW,H,nm,DUR[typ]*frames,stp,FILL[typ]))
+        out.append('@keyframes %s{ from{ background-position:0 0; } to{ background-position:-%dpx 0; } }'%(nm,ENDW))
     return "\n".join(out)
 
 def main():

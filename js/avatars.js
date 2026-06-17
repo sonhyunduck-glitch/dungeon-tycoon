@@ -92,9 +92,12 @@
     return true;
   };
 
-  function kf(name, m, fw, fh){
+  // loop=true(idle): N프레임 루프(to=-(N*fw)). loop=false(공격/피격/사망): 마지막 실제 프레임에서 멈춤(to=-((N-1)*fw)) → 끝에 빈 프레임 방지
+  function steps(m, loop){ return Math.max(1, loop ? m.frames : m.frames-1); }
+  function kf(name, m, fw, fh, loop){
     var y = -(m.row*fh);
-    return "@keyframes "+name+"{from{background-position:0 "+y+"px}to{background-position:"+(-(m.frames*fw))+"px "+y+"px}}";
+    var end = loop ? m.frames : Math.max(1, m.frames-1);
+    return "@keyframes "+name+"{from{background-position:0 "+y+"px}to{background-position:"+(-(end*fw))+"px "+y+"px}}";
   }
 
   // 선택 아바타용 스타일을 #pc-avatar-style 에 주입(시트/크기/애니메이션/키프레임)
@@ -103,12 +106,12 @@
     var css=
       '#pc-sprite{width:'+c.fw+'px;height:'+c.fh+'px;background-image:url("'+c.sheet+'");'+
         'transform:translateX(-50%) scale('+(c.scale||1.5)+');'+
-        'animation:pc-idle '+c.idle.dur+'s steps('+c.idle.frames+') infinite;}'+
-      '#pc-sprite.attack{animation:pc-attack '+c.attack.dur+'s steps('+c.attack.frames+') 1 forwards;}'+
-      '#pc-sprite.hurt{animation:pc-hurt '+c.hurt.dur+'s steps('+c.hurt.frames+') 1;}'+
-      '#pc-sprite.death{animation:pc-death '+c.death.dur+'s steps('+c.death.frames+') 1 forwards;}'+
-      kf("pc-idle",c.idle,c.fw,c.fh)+kf("pc-attack",c.attack,c.fw,c.fh)+
-      kf("pc-hurt",c.hurt,c.fw,c.fh)+kf("pc-death",c.death,c.fw,c.fh);
+        'animation:pc-idle '+c.idle.dur+'s steps('+steps(c.idle,true)+') infinite;}'+
+      '#pc-sprite.attack{animation:pc-attack '+c.attack.dur+'s steps('+steps(c.attack,false)+') 1 forwards;}'+
+      '#pc-sprite.hurt{animation:pc-hurt '+c.hurt.dur+'s steps('+steps(c.hurt,false)+') 1;}'+
+      '#pc-sprite.death{animation:pc-death '+c.death.dur+'s steps('+steps(c.death,false)+') 1 forwards;}'+
+      kf("pc-idle",c.idle,c.fw,c.fh,true)+kf("pc-attack",c.attack,c.fw,c.fh,false)+
+      kf("pc-hurt",c.hurt,c.fw,c.fh,false)+kf("pc-death",c.death,c.fw,c.fh,false);
     var st=document.getElementById("pc-avatar-style");
     if(!st){ st=document.createElement("style"); st.id="pc-avatar-style"; document.head.appendChild(st); }
     st.textContent=css;
