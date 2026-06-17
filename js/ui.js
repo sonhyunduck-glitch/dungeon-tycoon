@@ -751,13 +751,33 @@ G.ui.renderCharacter = function(){
 
   // 서브 탭
   var sub=G.state.ui.charSub||"stats";
-  var subTabs=[["stats","📊 스탯"],["detail","📋 상세"],["equip","🛡️ 장비"],["rune","🔮 룬"],["skill","⚔️ 스킬"],["unlock","🔓 해금"]];
+  var subTabs=[["stats","📊 스탯"],["detail","📋 상세"],["equip","🛡️ 장비"],["rune","🔮 룬"],["skill","⚔️ 스킬"],["avatar","🎭 아바타"],["unlock","🔓 해금"]];
   var tabBar='<div class="subtabs">'+subTabs.map(function(t){
     return '<button class="subtab'+(sub===t[0]?" active":"")+'" data-act="char-sub" data-sub="'+t[0]+'">'+t[1]+'</button>';
   }).join("")+'</div>';
 
-  var body = sub==="stats"?statsPanel : sub==="detail"?G.ui._statSheet() : sub==="equip"?equipPanel : sub==="rune"?runePanel : sub==="unlock"?G.ui._perksHTML() : G.ui._skills();
+  var body = sub==="stats"?statsPanel : sub==="detail"?G.ui._statSheet() : sub==="equip"?equipPanel : sub==="rune"?runePanel : sub==="avatar"?G.ui._avatarPanel() : sub==="unlock"?G.ui._perksHTML() : G.ui._skills();
   v.innerHTML = tabBar + body;
+};
+
+/* 아바타 선택 패널 */
+G.ui._avatarPanel = function(){
+  var cur=G.avatar.currentId();
+  var cards=G.DATA.AVATARS.map(function(a){
+    var sel=a.id===cur;
+    return '<div class="avatar-card'+(sel?" sel":"")+'" data-act="avatar-pick" data-id="'+a.id+'">'+
+      '<div class="avatar-prev">'+G.avatar.previewHTML(a)+'</div>'+
+      '<div class="avatar-name">'+esc(a.name)+'</div>'+
+      (sel?'<div class="avatar-badge">선택됨</div>':'')+
+    '</div>';
+  }).join("");
+  return '<div class="panel"><h2>🎭 아바타</h2>'+
+    '<div class="muted" style="margin-bottom:10px">전투 화면에 표시되는 내 캐릭터 외형을 선택하세요.</div>'+
+    '<div class="avatar-grid">'+cards+'</div>'+
+    (G.DATA.AVATARS.length<=1
+      ? '<div class="muted" style="margin-top:12px;font-size:.8rem;line-height:1.6">💡 더 많은 아바타는 <b>스프라이트 슬라이서</b>로 캐릭터 시트를 추가하면 늘어납니다.</div>'
+      : '')+
+  '</div>';
 };
 
 /* 상세 능력치 시트 — 적용된 모든 스탯 + 실제 효과 */

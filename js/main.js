@@ -99,6 +99,7 @@
     /* 캐릭터 */
     "char-sub": function(d){ G.state.ui.charSub=d.sub; G.ui.render(); },
     "unequip": function(d){ G.inventory.unequip(d.slot); G.ui.render(); },
+    "avatar-pick": function(d){ G.avatar.set(d.id); G.ui.render(); },
 
     /* 퀘스트(자동화) */
     "perk-toggle": function(d){ G.perks.toggle(d.id); G.ui.render(); },
@@ -272,6 +273,7 @@
   /* ---------- 부팅 ---------- */
   async function boot(){
     var loaded=G.save.load();
+    if(G.avatar) G.avatar.apply();   // 선택 아바타 스프라이트 적용
     if(G.audio){ G.audio.init(); G.audio.startBgm(); G.audio.armAutostart(); }   // 음소거 아니면 즉시 재생 시도 + (차단 시)첫 상호작용 폴백
     G.checkUnlocks();   // 자동화·스킬·배속 동기화(구버전 세이브 호환) — 신규 해금 시 모달
     G.ui.switchTab(G.state.ui.tab || "dungeon");   // 로컬 상태로 즉시 표시
