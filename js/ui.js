@@ -1179,27 +1179,80 @@ G.ui.renderRanking = function(){
     '</div>';
 };
 
+/* ---------- 약관 ---------- */
+G.ui.TERMS_VERSION = "1";
+G.ui.termsAgreed = function(){ try{ return localStorage.getItem("toweridle_terms")===G.ui.TERMS_VERSION; }catch(e){ return false; } };
+G.ui.setTermsAgreed = function(){ try{ localStorage.setItem("toweridle_terms", G.ui.TERMS_VERSION); }catch(e){} };
+
+G.ui.TERMS_HTML =
+  '<h3 style="color:var(--gold);margin:14px 0 6px">제1조 (서비스)</h3>'+
+  '<p>‘탑아이들’(이하 “게임”)은 무료로 제공되는 텍스트 기반 웹게임입니다. 운영자는 사정에 따라 서비스 내용을 변경하거나 중단할 수 있습니다.</p>'+
+  '<h3 style="color:var(--gold);margin:14px 0 6px">제2조 (계정)</h3>'+
+  '<p>이용자는 게스트(익명) 또는 이메일 계정으로 게임을 이용합니다. 닉네임, 게임 진행 데이터, 채팅 내용은 서버에 저장됩니다. 게스트 진행도는 해당 기기에서만 유지되며, 브라우저 데이터 삭제 시 복구되지 않을 수 있습니다.</p>'+
+  '<h3 style="color:var(--gold);margin:14px 0 6px">제3조 (이용자의 의무)</h3>'+
+  '<p>이용자는 다음 행위를 해서는 안 됩니다.</p>'+
+  '<ul style="margin:4px 0 0 18px;line-height:1.7">'+
+    '<li>욕설·비방·혐오 표현 등 타인에게 불쾌감을 주는 채팅</li>'+
+    '<li>비정상적인 방법으로 게임 데이터를 조작하는 행위</li>'+
+    '<li>서비스 운영을 방해하거나 서버에 과도한 부하를 유발하는 행위</li>'+
+  '</ul>'+
+  '<h3 style="color:var(--gold);margin:14px 0 6px">제4조 (게시물 책임)</h3>'+
+  '<p>채팅 등 이용자가 작성한 내용에 대한 책임은 작성자 본인에게 있으며, 운영자는 부적절한 게시물을 사전 통지 없이 삭제할 수 있습니다.</p>'+
+  '<h3 style="color:var(--gold);margin:14px 0 6px">제5조 (면책)</h3>'+
+  '<p>본 게임은 무료로 제공되며, 운영자는 게임 데이터의 손실, 서비스 중단·오류로 인한 손해에 대해 법령이 허용하는 범위에서 책임을 지지 않습니다.</p>'+
+  '<h2 style="color:var(--gold);margin:20px 0 6px;font-size:1.15rem">개인정보 처리방침</h2>'+
+  '<p><b>수집 항목</b>: 닉네임, 계정 식별자(익명/계정 ID), 계정 생성 시 이메일, 게임 진행 데이터, 채팅 메시지.</p>'+
+  '<p><b>이용 목적</b>: 게임 진행 저장, 랭킹 제공, 채팅 기능 제공, 계정 인증.</p>'+
+  '<p><b>보관 및 처리</b>: 데이터는 클라우드 서비스(Supabase)에 저장되며, 서비스 제공 기간 동안 보관됩니다. 그 외 제3자에게 제공하지 않습니다.</p>'+
+  '<p><b>이용자 권리</b>: 이용자는 본인 데이터의 삭제를 요청할 수 있습니다.</p>'+
+  '<p class="muted" style="margin-top:12px;font-size:.78rem">※ 본 약관은 기본 양식이며, 실제 서비스 운영 시 관련 법령에 맞게 보완이 필요할 수 있습니다.</p>';
+
+G.ui.termsModal = function(){
+  var ov=document.createElement("div"); ov.className="modal-overlay show"; ov.style.zIndex="300";
+  ov.innerHTML='<div class="modal" style="width:min(440px,94vw); text-align:left; max-height:80vh; display:flex; flex-direction:column">'+
+    '<h2 style="text-align:center; flex:0 0 auto">📜 이용약관 및 개인정보 처리방침</h2>'+
+    '<div style="flex:1; overflow-y:auto; margin-top:10px; font-size:.86rem; line-height:1.6">'+G.ui.TERMS_HTML+'</div>'+
+    '<button class="btn primary full" data-modal-close style="margin-top:12px; flex:0 0 auto">닫기</button>'+
+  '</div>';
+  document.body.appendChild(ov);
+  ov.addEventListener("click", function(e){ if(e.target.closest("[data-modal-close]")||e.target===ov) ov.remove(); });
+};
+
 /* 시작 화면 (온라인 첫 실행) — 게스트로 시작 / 로그인 / 계정 만들기 선택.
    닉네임이 정해지거나(게스트·가입) 로그인으로 진행되면 resolve. */
 G.ui.startScreen = function(){
   return new Promise(function(resolve){
     G.paused=true;
+    var agreed=G.ui.termsAgreed();
     var ov=document.createElement("div"); ov.className="modal-overlay show"; ov.id="start-ov";
     ov.innerHTML='<div class="modal" style="text-align:center; width:min(400px,92vw)">'+
-      '<div style="font-size:2.8rem; line-height:1">🏰</div>'+
-      '<h2 style="margin-top:4px">던전 &amp; 상점 타이쿤</h2>'+
+      '<div style="font-size:2.8rem; line-height:1">🏯</div>'+
+      '<h2 style="margin-top:4px">탑아이들</h2>'+
       '<div class="muted" style="margin-top:4px">어서 오세요, 모험가님</div>'+
-      '<button class="btn primary full" data-start="guest"  style="margin-top:18px">🎫 게스트로 시작</button>'+
+      '<label id="terms-row" style="display:flex; align-items:center; gap:8px; justify-content:center; margin-top:16px; font-size:.85rem; cursor:pointer">'+
+        '<input type="checkbox" id="terms-chk"'+(agreed?" checked":"")+' style="width:17px;height:17px;cursor:pointer">'+
+        '<span><b data-act="view-terms" style="color:var(--torch); text-decoration:underline; cursor:pointer">이용약관·개인정보 처리방침</b>에 동의합니다</span>'+
+      '</label>'+
+      '<button class="btn primary full" data-start="guest"  style="margin-top:12px">🎫 게스트로 시작</button>'+
       '<button class="btn full"         data-start="login"  style="margin-top:8px">🔑 로그인</button>'+
       '<button class="btn full"         data-start="signup" style="margin-top:8px">📧 계정 만들기</button>'+
       '<p class="muted" style="margin-top:14px; font-size:.78rem; line-height:1.5">게스트는 <b>이 기기에서만</b> 저장됩니다.<br>계정을 만들면 <b>다른 기기에서도 이어하기</b>가 가능해요.</p>'+
     '</div>';
     document.body.appendChild(ov);
 
+    var chk=ov.querySelector("#terms-chk");
+    var startBtns=[].slice.call(ov.querySelectorAll("[data-start]"));
+    function syncBtns(){ startBtns.forEach(function(b){ b.disabled=!chk.checked; b.style.opacity=chk.checked?"":".45"; }); }
+    syncBtns();
+    chk.addEventListener("change", syncBtns);
+
     function toNickname(){ if(ov.parentNode) ov.remove(); G.ui.nicknameModal(resolve); }
 
     ov.addEventListener("click", function(e){
+      if(e.target.closest('[data-act="view-terms"]')){ e.preventDefault(); e.stopPropagation(); G.ui.termsModal(); return; }
       var b=e.target.closest("[data-start]"); if(!b) return;
+      if(!chk.checked){ G.ui.toast("약관에 동의해 주세요"); return; }
+      G.ui.setTermsAgreed();
       var mode=b.dataset.start;
       if(mode==="guest"){
         toNickname();                       // 게스트 → 닉네임 설정
@@ -1385,6 +1438,7 @@ G.ui.renderSettings = function(){
         '3. <b>상점</b>에서 가격을 정하면 손님이 구매<br>'+
         '4. 골드로 장비를 모으고 상점을 키워 더 깊은 층 도전!'+
       '</p>'+
+      '<p style="margin-top:10px"><b data-act="view-terms" style="color:var(--torch); text-decoration:underline; cursor:pointer">📜 이용약관 및 개인정보 처리방침</b></p>'+
     '</div>';
 };
 
