@@ -8,18 +8,34 @@
   var G = window.G;
   G.DATA = G.DATA || {};
 
-  // 모션 = { row:행번호(0부터), frames:프레임수, dur:초 }
+  // 모션 = { row:행번호(0부터), frames:프레임수, dur:초 }  (슬라이서 아바타 JSON 내보내기로 추가)
   G.DATA.AVATARS = [
-    {
-      id:"adventurer", name:"모험가", sheet:"assets/adventurer.png",
-      fw:32, fh:32, scale:1.5,
-      idle:{row:0,frames:13,dur:1.4}, attack:{row:4,frames:10,dur:0.42},
-      hurt:{row:6,frames:4,dur:0.32}, death:{row:7,frames:7,dur:0.70}
-    }
-    // 슬라이서로 추가 예:
-    // { id:"mage", name:"마법사", sheet:"assets/mage.png", fw:32, fh:32, scale:1.5,
-    //   idle:{row:0,frames:8,dur:1.2}, attack:{row:3,frames:8,dur:0.5},
-    //   hurt:{row:5,frames:4,dur:0.3}, death:{row:6,frames:6,dur:0.7} }
+    { id:"adventurer", name:"모험가", sheet:"assets/adventurer.png", fw:32, fh:32, scale:1.5,
+      idle:{row:0,frames:13,dur:1.4}, attack:{row:4,frames:10,dur:0.42}, hurt:{row:6,frames:4,dur:0.32}, death:{row:7,frames:7,dur:0.70} },
+    { id:"dwarf", name:"드워프", sheet:"assets/avatars/dwarf.png", fw:64, fh:32, scale:0.9,
+      idle:{row:0,frames:5,dur:0.55}, attack:{row:3,frames:6,dur:0.27}, hurt:{row:6,frames:4,dur:0.32}, death:{row:7,frames:7,dur:0.7} },
+    { id:"elven_warrior", name:"엘프 전사", sheet:"assets/avatars/elven_warrior.png", fw:32, fh:32, scale:1.5,
+      idle:{row:0,frames:4,dur:0.44}, attack:{row:2,frames:4,dur:0.2}, hurt:{row:3,frames:3,dur:0.24}, death:{row:4,frames:6,dur:0.6} },
+    { id:"fishfolk_berserker", name:"어인 광전사", sheet:"assets/avatars/fishfolk_berserker.png", fw:96, fh:32, scale:0.9,
+      idle:{row:0,frames:4,dur:0.44}, attack:{row:4,frames:6,dur:0.27}, hurt:{row:5,frames:4,dur:0.32}, death:{row:6,frames:5,dur:0.5} },
+    { id:"fishfolk_brute", name:"어인 투사", sheet:"assets/avatars/fishfolk_brute.png", fw:64, fh:64, scale:0.9,
+      idle:{row:1,frames:5,dur:0.55}, attack:{row:3,frames:8,dur:0.36}, hurt:{row:4,frames:4,dur:0.32}, death:{row:5,frames:6,dur:0.6} },
+    { id:"fishfolk_knight", name:"어인 기사", sheet:"assets/avatars/fishfolk_knight.png", fw:32, fh:32, scale:1.5,
+      idle:{row:0,frames:4,dur:0.44}, attack:{row:2,frames:7,dur:0.32}, hurt:{row:4,frames:4,dur:0.32}, death:{row:5,frames:4,dur:0.4} },
+    { id:"fishfolk_whip", name:"어인 채찍병", sheet:"assets/avatars/fishfolk_whip.png", fw:64, fh:32, scale:0.9,
+      idle:{row:0,frames:4,dur:0.44}, attack:{row:2,frames:7,dur:0.32}, hurt:{row:3,frames:4,dur:0.32}, death:{row:4,frames:4,dur:0.4} },
+    { id:"goblin_assassin", name:"고블린 암살자", sheet:"assets/avatars/goblin_assassin.png", fw:32, fh:32, scale:1.5,
+      idle:{row:0,frames:4,dur:0.44}, attack:{row:4,frames:3,dur:0.2}, hurt:{row:6,frames:4,dur:0.32}, death:{row:7,frames:7,dur:0.7} },
+    { id:"lizardfolk_spearman", name:"리자드맨 창병", sheet:"assets/avatars/lizardfolk_spearman.png", fw:64, fh:64, scale:0.9,
+      idle:{row:0,frames:8,dur:0.88}, attack:{row:2,frames:8,dur:0.36}, hurt:{row:3,frames:4,dur:0.32}, death:{row:4,frames:5,dur:0.5} },
+    { id:"lizardfolk_warrior", name:"리자드맨 전사", sheet:"assets/avatars/lizardfolk_warrior.png", fw:64, fh:64, scale:0.9,
+      idle:{row:0,frames:4,dur:0.44}, attack:{row:2,frames:6,dur:0.27}, hurt:{row:4,frames:4,dur:0.32}, death:{row:5,frames:5,dur:0.5} },
+    { id:"vengeful_spirit", name:"원혼", sheet:"assets/avatars/vengeful_spirit.png", fw:64, fh:64, scale:0.9,
+      idle:{row:0,frames:6,dur:0.66}, attack:{row:1,frames:12,dur:0.54}, hurt:{row:2,frames:6,dur:0.48}, death:{row:3,frames:10,dur:1} },
+    { id:"wendigo", name:"웬디고", sheet:"assets/avatars/wendigo.png", fw:64, fh:64, scale:0.9,
+      idle:{row:0,frames:4,dur:0.44}, attack:{row:2,frames:8,dur:0.36}, hurt:{row:3,frames:8,dur:0.64}, death:{row:5,frames:8,dur:0.8} },
+    { id:"yeti", name:"예티", sheet:"assets/avatars/yeti.png", fw:64, fh:64, scale:0.9,
+      idle:{row:0,frames:7,dur:0.77}, attack:{row:2,frames:6,dur:0.27}, hurt:{row:4,frames:4,dur:0.32}, death:{row:5,frames:6,dur:0.6} }
   ];
 
   G.avatar = {};
