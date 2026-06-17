@@ -1351,12 +1351,6 @@ G.ui.renderSettings = function(){
   v.innerHTML=
     '<div class="panel"><h2>⚙️ 설정</h2>'+
       '<div class="row">'+
-        '<button class="btn" data-act="save">💾 저장</button>'+
-        '<button class="btn" data-act="export">📤 내보내기</button>'+
-        '<button class="btn" data-act="import">📥 가져오기</button>'+
-        '<button class="btn danger" data-act="reset">🗑️ 초기화</button>'+
-      '</div>'+
-      '<div class="row" style="margin-top:10px">'+
         '<button class="btn '+(G.state.muted?"":"primary")+'" data-act="toggle-mute">'+(G.state.muted?"🔇 사운드 꺼짐":"🔊 사운드 켜짐")+'</button>'+
       '</div>'+
       (function(){
