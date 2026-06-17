@@ -16,6 +16,7 @@
     var s=G.totalStats();
     return {
       name: nick(), power: G.power(), score: G.arena.score(),
+      avatar: (G.avatar && G.avatar.currentId) ? G.avatar.currentId() : "adventurer",
       maxHp: Math.round(s.maxHp), atk: Math.round(s.atk), def: Math.round(s.def),
       crit: clampStat(s.crit,80), critDmg: s.critDmg||0, dodge: clampStat(s.dodge,60),
       lifesteal: s.lifesteal||0, penet: s.penet||0, multihit: clampStat(s.multihit,80)
@@ -93,6 +94,7 @@
     var atk=Math.max(8, Math.round(14*f + power*0.06*f));
     return {
       name:botName(), power:Math.round(power*f), score:score,
+      avatar:(G.avatar?G.avatar.randomId():"adventurer"),
       maxHp:Math.round((120+power*0.9)*f), atk:atk, def:Math.round(atk*0.3),
       crit:5+Math.floor(Math.random()*20), critDmg:Math.floor(Math.random()*60),
       dodge:Math.floor(Math.random()*12), lifesteal:Math.floor(Math.random()*10),
@@ -125,11 +127,11 @@
   // 오프라인: 시드 봇 + 나
   function botRankPool(){
     var arr=[], n=80;
-    for(var i=0;i<n;i++){ arr.push({ name:botName(), score: 700+Math.floor(Math.random()*900) }); }
+    for(var i=0;i<n;i++){ arr.push({ name:botName(), score: 700+Math.floor(Math.random()*900), avatar:(G.avatar?G.avatar.randomId():"adventurer") }); }
     return arr;
   }
   G.arena.localRankView = function(){
-    var list=botRankPool(); list.push({ name:nick(), score:G.arena.score(), me:true });
+    var list=botRankPool(); list.push({ name:nick(), score:G.arena.score(), me:true, avatar:(G.avatar?G.avatar.currentId():"adventurer") });
     list.sort(function(a,b){ if(b.score!==a.score) return b.score-a.score; if(a.me) return -1; if(b.me) return 1; return 0; });
     for(var i=0;i<list.length;i++) list[i].rank=i+1;
     var meIdx=list.findIndex(function(x){return x.me;});

@@ -184,15 +184,17 @@
       var sb=G.net.sb, myScore=(G.state.arena&&G.state.arena.score)||1000;
       var cnt=await sb.from("profiles").select("id",{count:"exact",head:true});
       var total=cnt.count||0;
-      var topR=await sb.from("profiles").select("nickname,arena_score").order("arena_score",{ascending:false}).order("updated_at",{ascending:true}).limit(3);
+      var av=function(p){ return (p.snapshot&&p.snapshot.avatar)||"adventurer"; };
+      var topR=await sb.from("profiles").select("nickname,arena_score,snapshot").order("arena_score",{ascending:false}).order("updated_at",{ascending:true}).limit(3);
       if(topR.error) return null;   // arena 컬럼 미존재 등 → 폴백(로컬 랭킹)
-      var top=(topR.data||[]).map(function(p,i){ return { name:p.nickname, score:p.arena_score, rank:i+1 }; });
+      var top=(topR.data||[]).map(function(p,i){ return { name:p.nickname, score:p.arena_score, rank:i+1, avatar:av(p) }; });
       var rr=await sb.rpc("my_rank_arena", { my_score:myScore });
       var myRank = (!rr.error && typeof rr.data==="number") ? rr.data : 1;
       var myIdx=myRank-1, start=(myIdx<=7)?3:(myIdx-5); start=Math.max(3,start);
-      var arndR=await sb.from("profiles").select("nickname,arena_score").order("arena_score",{ascending:false}).order("updated_at",{ascending:true}).range(start,start+9);
-      var around=(arndR.data||[]).map(function(p,i){ return { name:p.nickname, score:p.arena_score, rank:start+i+1, me:(start+i+1)===myRank }; });
-      return { total:total, me:{ name:G.net.nickname||"나", score:myScore, rank:myRank, me:true }, top:top, around:around, gap:start>3 };
+      var arndR=await sb.from("profiles").select("nickname,arena_score,snapshot").order("arena_score",{ascending:false}).order("updated_at",{ascending:true}).range(start,start+9);
+      var around=(arndR.data||[]).map(function(p,i){ return { name:p.nickname, score:p.arena_score, rank:start+i+1, me:(start+i+1)===myRank, avatar:av(p) }; });
+      var myAv=(G.avatar&&G.avatar.currentId)?G.avatar.currentId():"adventurer";
+      return { total:total, me:{ name:G.net.nickname||"나", score:myScore, rank:myRank, me:true, avatar:myAv }, top:top, around:around, gap:start>3 };
     }catch(e){ console.warn("[net] 아레나 랭킹 실패",e); return null; }
   };
 
@@ -210,18 +212,20 @@
       var myRank=1;
       var rr=await sb.rpc("my_rank",{ my_floor:myFloor });
       if(!rr.error && typeof rr.data==="number") myRank=rr.data;
-      var topR=await sb.from("profiles").select("nickname,floor").order("floor",{ascending:false}).order("updated_at",{ascending:true}).limit(3);
-      var top=(topR.data||[]).map(function(p,i){ return { name:p.nickname, floor:p.floor, rank:i+1, me:(i+1)===myRank }; });
+      var av=function(p){ return (p.snapshot&&p.snapshot.avatar)||"adventurer"; };
+      var topR=await sb.from("profiles").select("nickname,floor,snapshot").order("floor",{ascending:false}).order("updated_at",{ascending:true}).limit(3);
+      var top=(topR.data||[]).map(function(p,i){ return { name:p.nickname, floor:p.floor, rank:i+1, me:(i+1)===myRank, avatar:av(p) }; });
       // 내 주변(위5·나·아래4) — 오프라인과 동일: 상위권이면 top3 뒤를 잇고, 아니면 내 주변
       var myIdx=myRank-1;                       // 0-based
       var start=(myIdx<=7)?3:(myIdx-5);
       start=Math.max(3,start);                  // top3와 겹치지 않게
       var end=start+9;                          // 10개(포함)
-      var arndR=await sb.from("profiles").select("nickname,floor").order("floor",{ascending:false}).order("updated_at",{ascending:true}).range(start,end);
+      var arndR=await sb.from("profiles").select("nickname,floor,snapshot").order("floor",{ascending:false}).order("updated_at",{ascending:true}).range(start,end);
       var around=(arndR.data||[]).map(function(p,i){
-        return { name:p.nickname, floor:p.floor, rank:start+i+1, me:(start+i+1)===myRank };
+        return { name:p.nickname, floor:p.floor, rank:start+i+1, me:(start+i+1)===myRank, avatar:av(p) };
       });
-      var me={ name:G.net.nickname||"나", floor:myFloor, rank:myRank, me:true };
+      var myAv=(G.avatar&&G.avatar.currentId)?G.avatar.currentId():"adventurer";
+      var me={ name:G.net.nickname||"나", floor:myFloor, rank:myRank, me:true, avatar:myAv };
       var gap = start>3;
       var view={ total:total, me:me, top:top, around:around, gap:gap, remote:true };
       G.ranking.remoteView=view;

@@ -40,6 +40,19 @@
 
   G.avatar = {};
   G.avatar.get = function(id){ return G.DATA.AVATARS.filter(function(a){return a.id===id;})[0] || G.DATA.AVATARS[0]; };
+  G.avatar.randomId = function(rnd){ var r=(typeof rnd==="function")?rnd():Math.random(); return G.DATA.AVATARS[Math.floor(r*G.DATA.AVATARS.length)].id; };
+
+  // 작은 정적 아바타(idle 0프레임) — 랭킹/아레나 등 목록에서 남들 아바타 표시용
+  G.avatar.miniHTML = function(id, size){
+    size = size||26;
+    var c=G.avatar.get(id||"adventurer");
+    var z=size/Math.max(c.fw,c.fh);
+    var y=-(c.idle.row*c.fh);
+    var inner='width:'+c.fw+'px;height:'+c.fh+'px;background:url(\''+c.sheet+'\') 0px '+y+'px no-repeat;background-size:auto;'+
+      'image-rendering:pixelated;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale('+z+');';
+    var box='position:relative;display:inline-block;width:'+size+'px;height:'+size+'px;vertical-align:middle;flex:0 0 auto;';
+    return '<span style="'+box+'"><span style="'+inner+'"></span></span>';
+  };
   G.avatar.currentId = function(){ return (G.state && G.state.avatar) || "adventurer"; };
   G.avatar.current = function(){ return G.avatar.get(G.avatar.currentId()); };
 

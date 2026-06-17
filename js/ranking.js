@@ -22,7 +22,7 @@
     for(var i=0;i<BOT_COUNT;i++){
       var f=Math.max(1, Math.min(1000, Math.round(Math.pow(r(),3)*999)+1));
       var nm=FIRST[Math.floor(r()*FIRST.length)]+SECOND[Math.floor(r()*SECOND.length)]+(Math.floor(r()*9000)+1000);
-      arr.push({ name:nm, floor:f, bot:true });
+      arr.push({ name:nm, floor:f, bot:true, avatar:(G.avatar?G.avatar.randomId(r):"adventurer") });
     }
     return arr;
   };
@@ -38,7 +38,7 @@
   // 전체 보드(봇 + 나) — 층 내림차순, 동률이면 내가 우선
   G.ranking.board = function(){
     var list=G.ranking.pool().slice();
-    list.push({ name:G.ranking.myName(), floor:(G.state.dungeon.maxFloor||1), me:true });
+    list.push({ name:G.ranking.myName(), floor:(G.state.dungeon.maxFloor||1), me:true, avatar:(G.avatar?G.avatar.currentId():"adventurer") });
     list.sort(function(a,b){
       if(b.floor!==a.floor) return b.floor-a.floor;
       if(a.me) return -1; if(b.me) return 1;          // 동률 시 내가 위

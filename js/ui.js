@@ -1193,7 +1193,7 @@ G.ui.renderArena = function(){
   else if(!foes.length){ foeCards='<div class="muted" style="padding:10px">상대가 없습니다. 새로고침해 보세요.</div>'; }
   else foeCards=foes.map(function(f,i){
     return '<div class="item">'+
-      '<div class="ico">🛡️</div>'+
+      '<div class="ico">'+((G.avatar&&G.avatar.miniHTML)?G.avatar.miniHTML(f.avatar,36):"🛡️")+'</div>'+
       '<div class="info">'+
         '<div class="iname">'+esc(f.name||"도전자")+' <span class="tag gold">'+G.ui.fmt(f.score||1000)+'점</span></div>'+
         '<div class="idesc">전투력 '+G.ui.fmt(f.power||0)+' · ❤️'+G.ui.fmt(f.maxHp||0)+' ⚔️'+G.ui.fmt(f.atk||0)+' 🛡️'+G.ui.fmt(f.def||0)+'</div>'+
@@ -1207,7 +1207,8 @@ G.ui.renderArena = function(){
   var rankPanel='';
   if(rv){
     function row(c){ var medal=c.rank===1?"🥇":(c.rank===2?"🥈":(c.rank===3?"🥉":"#"+c.rank));
-      return '<div class="rank-row'+(c.me?" me":"")+'"><span class="rk">'+medal+'</span><span class="rn">'+esc(c.name)+'</span><span class="rs gold">'+G.ui.fmt(c.score)+'</span></div>'; }
+      var mn=(G.avatar&&G.avatar.miniHTML)?G.avatar.miniHTML(c.me?G.avatar.currentId():c.avatar,22):"";
+      return '<div class="rank-row'+(c.me?" me":"")+'"><span class="rk">'+medal+'</span>'+mn+'<span class="rn">'+esc(c.name)+'</span><span class="rs gold">'+G.ui.fmt(c.score)+'</span></div>'; }
     rankPanel='<div class="panel"><h2>🏆 아레나 랭킹</h2>'+
       rv.top.map(row).join("")+(rv.gap?'<div class="muted" style="text-align:center">⋯</div>':'')+rv.around.map(row).join("")+
     '</div>';
@@ -1223,7 +1224,7 @@ G.ui.arenaResultModal = function(out){
   ov.innerHTML='<div class="modal" style="text-align:center; width:min(380px,92vw)">'+
     '<div style="font-size:3rem">'+(win?"🏆":"💀")+'</div>'+
     '<h2 style="color:'+(win?"var(--gold)":"var(--hp)")+'">'+(win?"승리!":"패배")+'</h2>'+
-    '<div class="muted" style="margin:6px 0">vs '+esc(foe.name||"도전자")+'</div>'+
+    '<div class="muted" style="margin:6px 0; display:flex; align-items:center; justify-content:center; gap:6px">vs '+((G.avatar&&G.avatar.miniHTML)?G.avatar.miniHTML(foe.avatar,28):"")+' '+esc(foe.name||"도전자")+'</div>'+
     '<div style="font-size:1.3rem; margin:10px 0; font-weight:800">아레나 점수 '+
       '<span class="'+(sc.delta>=0?"r-uncommon":"")+'" style="'+(sc.delta<0?"color:var(--hp)":"")+'">'+(sc.delta>=0?"+":"")+sc.delta+'</span>'+
       ' → <b class="gold">'+G.ui.fmt(sc.score)+'</b></div>'+
@@ -1248,6 +1249,7 @@ G.ui.renderRanking = function(){
     }
   }
   var vw=G.ranking.view();
+  function mini(c){ if(!(G.avatar&&G.avatar.miniHTML)) return ""; var id=c.me?G.avatar.currentId():c.avatar; return G.avatar.miniHTML(id,18); }
   function band(c){
     var medal = c.rank===1?"🥇":(c.rank===2?"🥈":(c.rank===3?"🥉":"#"+c.rank));
     if(c.me){
@@ -1256,13 +1258,13 @@ G.ui.renderRanking = function(){
         '<div class="tf-arrow l">◀</div><div class="tf-arrow r">▶</div>'+
         '<div class="tf-climber"></div>'+
         '<div class="tf-num">'+c.floor+'층</div>'+
-        '<div class="tf-who me">'+esc(c.name)+' <span class="tag r-uncommon">'+medal+'</span></div>'+
+        '<div class="tf-who me">'+mini(c)+' '+esc(c.name)+' <span class="tag r-uncommon">'+medal+'</span></div>'+
       '</div>';
     }
     return '<div class="tower-floor'+(c.rank<=3?" elite":"")+'">'+
       '<span class="tf-lamp l"></span><span class="tf-lamp r"></span>'+
       '<div class="tf-num">'+c.floor+'층</div>'+
-      '<div class="tf-who">'+medal+' '+esc(c.name)+'</div>'+
+      '<div class="tf-who">'+medal+' '+mini(c)+' '+esc(c.name)+'</div>'+
     '</div>';
   }
   v.innerHTML=
