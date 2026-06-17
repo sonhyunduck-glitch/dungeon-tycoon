@@ -606,6 +606,13 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
 .start-bottom .btn{ margin:0; }
 .start-bottom #terms-row{ margin-bottom:2px; }
 
+/* ---------- Twemoji (이모지 이미지 치환) ---------- */
+img.twemoji{
+  height:1em; width:1em; display:inline-block;
+  margin:0 .05em 0 .1em; vertical-align:-0.12em;
+  object-fit:contain;
+}
+
 /* ---------- 채팅 ---------- */
 .chat-fab{
   position:fixed; right:14px; bottom:calc(var(--nav-h) + 14px); z-index:150;
