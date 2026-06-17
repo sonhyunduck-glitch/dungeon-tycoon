@@ -36,21 +36,21 @@
     G.ui.renderHud();
 
     // 처치 후 다음 몬스터 등장까지 추가 지연(배속에 따라 단축, 최소 250ms)
-    var nextGap=Math.round(Math.max(250, 600/sp));
+    var nextGap=Math.round(Math.max(180, 500/sp));
     // 3) 결과 처리 (슬래시 보여준 뒤 본문 렌더)
     if(res.over && res.win){
       animBusy=true;
       var ddw=G.ui.foeDeathAnim();   // 마지막 적 사망 모션(있으면)
-      setTimeout(function(){ G.dungeon.advance(); G.ui.render(); animBusy=false; }, Math.max(360/sp, ddw)+nextGap);
+      setTimeout(function(){ G.dungeon.advance(); G.ui.render(); animBusy=false; }, Math.round(Math.max(360, ddw)/sp)+nextGap);
     } else if(res.over && res.dead){
       animBusy=true;
       G.ui.pcAnim("death");   // 사망 모션(7프레임 .7s) 재생 후 사망 화면으로
       setTimeout(function(){ G.ui.render(); G.save.save(true); animBusy=false; }, 820);
     } else if(targetDied){
-      // 타겟 처치(전투 계속): 사망 연출 + 다음 몬스터 등장 지연만큼 잠금
+      // 타겟 처치(전투 계속): 사망 연출 시간도 배속에 비례해 단축(고배속에서 빠르게)
       animBusy=true;
       var dd=G.ui.foeDeathAnim();
-      setTimeout(function(){ G.ui.refreshCombat(); animBusy=false; }, Math.max(220/sp, dd)+nextGap);
+      setTimeout(function(){ G.ui.refreshCombat(); animBusy=false; }, Math.round(Math.max(220, dd)/sp)+nextGap);
     } else {
       // 일반 턴: 스프라이트/애니메이션 보존을 위해 HP바만 갱신
       setTimeout(function(){ G.ui.refreshCombat(); }, 220/sp);
