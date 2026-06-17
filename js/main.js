@@ -261,7 +261,7 @@
       await G.net.init();
       if(G.net.online()){
         if(!G.net.nickname){
-          await new Promise(function(res){ G.ui.nicknameModal(res); });   // 최초 1회 닉네임
+          await G.ui.startScreen();   // 첫 실행: 게스트로 시작 / 로그인 / 계정 만들기 선택 → 닉네임
         }
         if(G.net.nickname && !G.state.nickname) G.state.nickname=G.net.nickname;
         var cloud=await G.net.pullSave();

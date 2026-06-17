@@ -1179,6 +1179,39 @@ G.ui.renderRanking = function(){
     '</div>';
 };
 
+/* 시작 화면 (온라인 첫 실행) — 게스트로 시작 / 로그인 / 계정 만들기 선택.
+   닉네임이 정해지거나(게스트·가입) 로그인으로 진행되면 resolve. */
+G.ui.startScreen = function(){
+  return new Promise(function(resolve){
+    G.paused=true;
+    var ov=document.createElement("div"); ov.className="modal-overlay show"; ov.id="start-ov";
+    ov.innerHTML='<div class="modal" style="text-align:center; width:min(400px,92vw)">'+
+      '<div style="font-size:2.8rem; line-height:1">🏰</div>'+
+      '<h2 style="margin-top:4px">던전 &amp; 상점 타이쿤</h2>'+
+      '<div class="muted" style="margin-top:4px">어서 오세요, 모험가님</div>'+
+      '<button class="btn primary full" data-start="guest"  style="margin-top:18px">🎫 게스트로 시작</button>'+
+      '<button class="btn full"         data-start="login"  style="margin-top:8px">🔑 로그인</button>'+
+      '<button class="btn full"         data-start="signup" style="margin-top:8px">📧 계정 만들기</button>'+
+      '<p class="muted" style="margin-top:14px; font-size:.78rem; line-height:1.5">게스트는 <b>이 기기에서만</b> 저장됩니다.<br>계정을 만들면 <b>다른 기기에서도 이어하기</b>가 가능해요.</p>'+
+    '</div>';
+    document.body.appendChild(ov);
+
+    function toNickname(){ if(ov.parentNode) ov.remove(); G.ui.nicknameModal(resolve); }
+
+    ov.addEventListener("click", function(e){
+      var b=e.target.closest("[data-start]"); if(!b) return;
+      var mode=b.dataset.start;
+      if(mode==="guest"){
+        toNickname();                       // 게스트 → 닉네임 설정
+      } else if(mode==="login"){
+        G.ui.authModal("login");            // 성공 시 페이지 새로고침(시작화면 위에 떠서, 취소 시 시작화면 유지)
+      } else if(mode==="signup"){
+        G.ui.authModal("signup", { onSuccess:function(){ G.net.syncProfile&&G.net.syncProfile(); toNickname(); } });
+      }
+    });
+  });
+};
+
 /* 닉네임 입력 모달 (온라인 최초 1회) — onDone 콜백 */
 G.ui.nicknameModal = function(onDone){
   G.paused=true;
@@ -1207,8 +1240,10 @@ G.ui.nicknameModal = function(onDone){
   inp.addEventListener("keydown", function(e){ if(e.key==="Enter") submit(); });
 };
 
-/* 계정 모달 — mode: "signup"(게스트→이메일 전환) | "login"(기존 계정 로그인) */
-G.ui.authModal = function(mode){
+/* 계정 모달 — mode: "signup"(게스트→이메일 전환) | "login"(기존 계정 로그인)
+   opts.onSuccess: 성공 시 기본 동작 대신 실행할 콜백(시작 화면에서 사용) */
+G.ui.authModal = function(mode, opts){
+  opts=opts||{};
   var isSignup = mode==="signup";
   G.paused=true;
   var ov=document.createElement("div"); ov.className="modal-overlay show";
@@ -1237,11 +1272,14 @@ G.ui.authModal = function(mode){
     var done=function(r){
       if(!r.ok){ msg.textContent="⚠️ "+r.msg; btn.disabled=false; btn.textContent=isSignup?"계정 만들기":"로그인"; return; }
       if(isSignup){
-        close();
-        G.ui.toast(r.needConfirm?"메일 확인 후 완료됩니다 📧":"계정 전환 완료! 이제 다른 기기에서 로그인하세요 ✅");
+        ov.remove();   // G.paused는 콜백/닉네임 흐름이 관리
+        G.ui.toast(r.needConfirm?"메일 확인 후 완료됩니다 📧":"계정 생성 완료 ✅");
+        if(opts.onSuccess){ opts.onSuccess(); return; }
+        G.paused=false;
         G.net.syncProfile&&G.net.syncProfile();
         G.ui.render();
       } else {
+        if(opts.onSuccess){ ov.remove(); opts.onSuccess(); return; }
         G.ui.toast("로그인 완료, 진행도 불러오는 중...");
         setTimeout(function(){ location.reload(); }, 500);
       }
