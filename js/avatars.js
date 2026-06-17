@@ -32,9 +32,10 @@
       idle:{row:0,frames:7,dur:0.77}, attack:{row:2,frames:6,dur:0.27}, hurt:{row:4,frames:4,dur:0.32}, death:{row:5,frames:6,dur:0.6} },
     { id:"wendigo", name:"웬디고", unlock:100, sheet:"assets/avatars/wendigo.png", fw:64, fh:64, scale:0.9,
       idle:{row:0,frames:4,dur:0.44}, attack:{row:2,frames:8,dur:0.36}, hurt:{row:3,frames:8,dur:0.64}, death:{row:5,frames:8,dur:0.8} },
+    { id:"elven_warrior", name:"엘프 전사", unlock:110, sheet:"assets/avatars/elven_warrior.png", fw:32, fh:32, scale:1.5,
+      idle:{row:0,frames:4,dur:0.44}, attack:{row:2,frames:4,dur:0.2}, hurt:{row:3,frames:3,dur:0.24}, death:{row:4,frames:6,dur:0.6} },
     { id:"vengeful_spirit", name:"원혼", unlock:150, sheet:"assets/avatars/vengeful_spirit.png", fw:64, fh:64, scale:0.9,
       idle:{row:0,frames:6,dur:0.66}, attack:{row:1,frames:12,dur:0.54}, hurt:{row:2,frames:6,dur:0.48}, death:{row:3,frames:10,dur:1} }
-    // 미사용(목록 제외): 엘프 전사(elven_warrior) — 층 지정 시 추가 가능
   ];
 
   G.avatar = {};
