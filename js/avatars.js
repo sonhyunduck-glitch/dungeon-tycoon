@@ -100,7 +100,7 @@
       var f=seq[k%seq.length];
       el.style.backgroundPosition = (-(f[0]*c.fw))+"px "+(-(f[1]*c.fh))+"px";
       k++;
-    }, 150);
+    }, 90);
     return t;
   };
 })();
