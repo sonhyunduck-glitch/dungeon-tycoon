@@ -299,7 +299,9 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
 .enemy-vis{ display:inline-block; line-height:0; z-index:1; }
 .enemy-vis-sm{ flex:0 0 auto; display:flex; align-items:center; justify-content:center; width:48px; }
 /* 전투 조작 버튼(상단 고정 영역) */
-.combat-actions{ margin-bottom:10px; }
+.combat-actions{ margin-bottom:6px; gap:6px; }
+/* 전투 버튼은 낮게 + 한 줄 고정(아레나가 밀려 스크롤되지 않도록) */
+.combat-actions .btn{ min-height:0; padding:7px 8px; font-size:.82rem; line-height:1.15; white-space:nowrap; }
 .combat-stage{ margin-top:4px; }
 /* 다중 적 행 */
 .enemy-row{ display:flex; align-items:center; gap:10px; padding:6px 4px; }
