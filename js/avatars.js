@@ -80,7 +80,7 @@
     var zoom=G.avatar.zoomFor(c);
     var y = -(c.idle.row*c.fh);
     var inner='width:'+c.fw+'px;height:'+c.fh+'px;'+
-      'background:url("'+c.sheet+'") 0px '+y+'px no-repeat;background-size:auto;'+
+      'background:url(\''+c.sheet+'\') 0px '+y+'px no-repeat;background-size:auto;'+
       'image-rendering:pixelated;position:absolute;left:0;top:0;'+
       'transform:scale('+zoom+');transform-origin:top left;';
     var box='position:relative;width:'+(c.fw*zoom)+'px;height:'+(c.fh*zoom)+'px;';
