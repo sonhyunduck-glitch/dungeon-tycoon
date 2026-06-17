@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/enemies.css">
 <link rel="stylesheet" href="css/enemies_phaseb.css">
+<script>/* 네이티브 앱이면 클래스 추가 → 글래스 블러(backdrop-filter) 비활성(WebView 깜빡임 방지) */
+try{ if(window.Capacitor && Capacitor.isNativePlatform && Capacitor.isNativePlatform()){ document.documentElement.classList.add("native-app"); } }catch(e){}</script>
 </head>
 <body>
 <div id="app" class="app">
