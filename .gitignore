@@ -10,3 +10,10 @@ Desktop.ini
 *.log
 *.tmp
 node_modules/
+
+# Capacitor / Android 빌드 산출물
+www/
+android/
+.gradle/
+*.apk
+*.aab

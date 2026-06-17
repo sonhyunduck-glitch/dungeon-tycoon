@@ -1,0 +1,8 @@
+{
+  "appId": "com.toweridle.game",
+  "appName": "탑아이들",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": false
+  }
+}

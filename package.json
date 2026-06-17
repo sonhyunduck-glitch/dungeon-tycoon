@@ -1,0 +1,18 @@
+{
+  "name": "tower-idle",
+  "version": "1.0.0",
+  "private": true,
+  "description": "탑아이들 — 텍스트 던전/상점 타이쿤 웹게임 (Capacitor 안드로이드 패키징)",
+  "scripts": {
+    "build:www": "node scripts/build-www.js",
+    "sync": "npm run build:www && npx cap sync android",
+    "apk:debug": "npm run sync && cd android && gradlew.bat assembleDebug"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.2.0"
+  },
+  "dependencies": {
+    "@capacitor/core": "^6.2.0",
+    "@capacitor/android": "^6.2.0"
+  }
+}
