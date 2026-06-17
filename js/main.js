@@ -276,27 +276,27 @@
     if(G.avatar) G.avatar.apply();   // 선택 아바타 스프라이트 적용
     if(G.audio){ G.audio.init(); G.audio.startBgm(); G.audio.armAutostart(); }   // 음소거 아니면 즉시 재생 시도 + (차단 시)첫 상호작용 폴백
     G.checkUnlocks();   // 자동화·스킬·배속 동기화(구버전 세이브 호환) — 신규 해금 시 모달
-    G.ui.switchTab(G.state.ui.tab || "dungeon");   // 로컬 상태로 즉시 표시
 
-    // ---------- 멀티플레이(Supabase) 로그인 + 클라우드 불러오기 ----------
+    // ---------- 멀티플레이(Supabase) 로그인 + 클라우드 불러오기 (시작 화면 뒤에서 진행) ----------
     var usedCloud=false;
-    try{
-      await G.net.init();
-      if(G.net.online()){
-        if(G.net.nickname && !G.state.nickname) G.state.nickname=G.net.nickname;
-        var cloud=await G.net.pullSave();
-        if(cloud && cloud.data){
-          // 클라우드 진행도를 권위로 사용(다른 기기 이어하기)
-          localStorage.setItem(G.save.KEY, JSON.stringify(cloud.data));
-          G.save.load();   // 마이그레이션 재적용
-          if(G.net.nickname) G.state.nickname=G.net.nickname;
-          G.checkUnlocks(); usedCloud=true;
+    var netReady = (async function(){
+      try{
+        await G.net.init();
+        if(G.net.online()){
+          if(G.net.nickname && !G.state.nickname) G.state.nickname=G.net.nickname;
+          var cloud=await G.net.pullSave();
+          if(cloud && cloud.data){
+            localStorage.setItem(G.save.KEY, JSON.stringify(cloud.data));   // 클라우드 권위(다른 기기 이어하기)
+            G.save.load();
+            if(G.net.nickname) G.state.nickname=G.net.nickname;
+            G.checkUnlocks(); usedCloud=true;
+          }
         }
-      }
-    }catch(e){ console.warn("[boot] 멀티 동기화 실패",e); }
+      }catch(e){ console.warn("[boot] 멀티 동기화 실패",e); }
+    })();
 
-    // ---------- 항상 메인 시작 화면(재접속마다) ----------
-    try{ await G.ui.startScreen(); }catch(e){}
+    // ---------- 시작 화면을 즉시 표시(게임 화면이 먼저 보이지 않도록) ----------
+    try{ await G.ui.startScreen(netReady); }catch(e){}
 
     // ---------- 시작 후 동기화(닉네임 확정 / 첫 업로드) ----------
     if(G.net.online()){
