@@ -10,9 +10,14 @@ const out = path.join(root, "www");
 fs.rmSync(out, { recursive: true, force: true });
 fs.mkdirSync(out, { recursive: true });
 
+// 런타임에 안 쓰는 아이콘 소스(앱 아이콘 생성용)는 번들 제외
+const EXCLUDE = new Set(["192.png", "96.png", "store.png"]);
 fs.copyFileSync(path.join(root, "index.html"), path.join(out, "index.html"));
 for (const dir of ["css", "js", "assets"]) {
-  fs.cpSync(path.join(root, dir), path.join(out, dir), { recursive: true });
+  fs.cpSync(path.join(root, dir), path.join(out, dir), {
+    recursive: true,
+    filter: function(s){ return !EXCLUDE.has(path.basename(s)); }
+  });
 }
 
 // 용량 합산
