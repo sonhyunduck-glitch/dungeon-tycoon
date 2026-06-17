@@ -8,11 +8,18 @@
   var G = window.G || (window.G = {});
   if(typeof twemoji === "undefined"){ console.info("[emoji] twemoji 미로드 — 네이티브 이모지 사용"); return; }
 
+  // UI 기호(이모지로 바꾸면 안 되는 문자)는 텍스트로 유지
+  var SKIP = { "2714":1, "2716":1, "25b6":1, "25c0":1, "25b8":1, "25c2":1 };
+
   var OPTS = {
     base: "https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/",
     folder: "svg",
     ext: ".svg",
-    className: "twemoji"
+    className: "twemoji",
+    callback: function(icon, options){
+      if(SKIP[icon]) return false;                 // ▶ ✔ 등 UI 기호는 변환 안 함
+      return options.base + options.folder + "/" + icon + options.ext;
+    }
   };
 
   var parsing=false;
