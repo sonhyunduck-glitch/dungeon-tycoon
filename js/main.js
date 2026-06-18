@@ -273,19 +273,36 @@
     if(!document.hidden) checkVersion();   // 앱 복귀 시 새 버전 확인
   });
 
-  /* ---------- 라이브 업데이트 알림: version.json 변경 감지 → 새로고침 안내 ---------- */
-  var loadedVer=null;
+  /* ---------- 라이브 업데이트: version.json 감지 → 선택 배너 / 강제 업데이트 ----------
+     version.json = { build:정수 빌드번호, min:정수 최소요구빌드 }
+       내 빌드 < min       → 닫을 수 없는 강제 업데이트 화면(구버전 차단)
+       서버 빌드 > 내 빌드   → 선택 업데이트 배너 */
+  var myBuild=null;
+  function softBanner(){
+    if(document.getElementById("update-banner")||document.getElementById("force-update")) return;
+    var b=document.createElement("div"); b.id="update-banner"; b.className="update-banner";
+    b.innerHTML='🔄 새 버전이 있어요 <button class="btn sm primary" data-act="apply-update">업데이트</button>';
+    document.body.appendChild(b);
+  }
+  function forceUpdate(){
+    if(document.getElementById("force-update")) return;
+    G.paused=true;
+    var sb=document.getElementById("update-banner"); if(sb) sb.remove();
+    var ov=document.createElement("div"); ov.id="force-update"; ov.className="force-update";
+    ov.innerHTML='<div class="fu-box"><div style="font-size:2.6rem">🔄</div>'+
+      '<h2 style="justify-content:center">업데이트가 필요합니다</h2>'+
+      '<div class="muted" style="margin:6px 0 4px">새로운 버전이 출시되었습니다.<br>계속하려면 업데이트하세요.</div>'+
+      '<button class="btn primary full" style="margin-top:14px" data-act="apply-update">지금 업데이트</button></div>';
+    document.body.appendChild(ov);
+  }
   function checkVersion(){
     fetch("version.json?t="+Date.now(), {cache:"no-store"})
       .then(function(r){ return r.ok?r.json():null; })
       .then(function(j){
-        var v=j&&j.version; if(!v) return;            // 번들 모드 등 파일 없으면 무시
-        if(loadedVer===null){ loadedVer=v; return; }  // 최초: 현재 버전 기록
-        if(v!==loadedVer && !document.getElementById("update-banner")){
-          var b=document.createElement("div"); b.id="update-banner"; b.className="update-banner";
-          b.innerHTML='🔄 새 버전이 있어요 <button class="btn sm primary" data-act="apply-update">업데이트</button>';
-          document.body.appendChild(b);
-        }
+        if(!j || typeof j.build!=="number") return;     // 번들 모드 등 파일 없으면 무시
+        if(myBuild===null) myBuild=j.build;             // 최초: 내 빌드 기록
+        if(typeof j.min==="number" && myBuild < j.min){ forceUpdate(); return; }  // 구버전 차단
+        if(j.build > myBuild) softBanner();             // 선택 업데이트
       }).catch(function(){});
   }
   checkVersion();

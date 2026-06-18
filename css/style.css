@@ -622,6 +622,17 @@ html.native-app body::before{ animation:none !important; }   /* 오로라 정지
   box-shadow:0 8px 22px rgba(0,0,0,.45); animation:fadeIn .3s ease;
 }
 
+/* ---------- 강제 업데이트(구버전 차단) ---------- */
+.force-update{
+  position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center;
+  padding:24px; background:rgba(6,4,12,.92); animation:fadeIn .25s ease;
+}
+.force-update .fu-box{
+  width:min(360px,92vw); text-align:center; padding:24px 22px; border-radius:20px;
+  background:var(--glass-strong); border:1px solid rgba(91,124,255,.5);
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+}
+
 /* ---------- 아바타 선택 ---------- */
 .avatar-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(96px,1fr)); gap:10px; }
 .avatar-card{ position:relative; display:flex; flex-direction:column; align-items:center; gap:6px;
