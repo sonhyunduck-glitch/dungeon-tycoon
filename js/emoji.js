@@ -41,7 +41,9 @@
             for(var j=0;j<added.length;j++){
               var n=added[j];
               if(n.nodeType===1){
-                if(n.classList && n.classList.contains("twemoji")) continue;  // 이미 변환된 이미지
+                if(n.classList && (n.classList.contains("twemoji")          // 이미 변환됨
+                  || n.classList.contains("fx-slash-img") || n.classList.contains("fx-ring")
+                  || n.classList.contains("float-up"))) continue;            // 전투 FX/데미지(이모지 없음) → 파싱 생략
                 parseEl(n);                                  // 추가된 요소만(전체 X)
               } else if(n.nodeType===3 && n.parentNode && n.parentNode.nodeType===1){
                 parseEl(n.parentNode);                       // 추가된 텍스트노드 → 부모 변환

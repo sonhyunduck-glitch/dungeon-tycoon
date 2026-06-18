@@ -241,7 +241,7 @@
 
   /* ---------- 자동화 루프 (특성) — 배속에 따라 간격 단축 ---------- */
   function autoStep(){
-    if(G.paused) return;   // 해금 모달 등으로 일시정지 중엔 진행 멈춤
+    if(G.paused || document.hidden) return;   // 일시정지/백그라운드(화면 꺼짐·앱 전환) 시 진행·연산 멈춤(배터리 절감)
     G.shop.autoStock();   // 사냥 중에도 빈 가판대를 가방템으로 계속 채움
     var run=G.state.dungeon.run;
     if(run){
@@ -259,9 +259,19 @@
   function autoLoop(){
     autoStep();
     var sp=Math.max(1, G.state.battleSpeed||1);
-    setTimeout(autoLoop, Math.round(650/sp));   // 1x=650ms, 2x≈325, 3x≈217, 4x≈163
+    var delay = document.hidden ? 2000 : Math.round(650/sp);   // 백그라운드는 깨우기 최소화
+    setTimeout(autoLoop, delay);   // 1x=650ms, 2x≈325, 3x≈217, 4x≈163
   }
   setTimeout(autoLoop, 650);
+
+  /* ---------- 백그라운드(화면 꺼짐·앱 전환) 시 오디오 정지 → 배터리/발열 절감 ---------- */
+  document.addEventListener("visibilitychange", function(){
+    if(!G.audio || !G.audio.ctx) return;
+    try{
+      if(document.hidden) G.audio.ctx.suspend();
+      else if(!(G.state && G.state.muted)) G.audio.ctx.resume();
+    }catch(e){}
+  });
 
   /* ---------- 자동 저장 (30초) + 종료 시 ---------- */
   setInterval(function(){ G.save.save(true); }, 30000);
