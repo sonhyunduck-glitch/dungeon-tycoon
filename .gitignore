@@ -17,3 +17,4 @@ www/
 *.apk
 *.aab
 # android/ 는 버전관리에 포함(네이티브 설정 보존). 빌드 산출물은 android/.gitignore가 제외.
+*.zip
