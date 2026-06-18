@@ -127,6 +127,7 @@
       G.arena._foes=null;          // 다음 상대 새로 추천
       G.ui.renderArena();
     },
+    "apply-update": function(){ location.reload(); },
     "net-retry": function(){
       G.ui.toast("재연결 중...");
       G.net.init().then(function(ok){
@@ -266,12 +267,29 @@
 
   /* ---------- 백그라운드(화면 꺼짐·앱 전환) 시 오디오 정지 → 배터리/발열 절감 ---------- */
   document.addEventListener("visibilitychange", function(){
-    if(!G.audio || !G.audio.ctx) return;
-    try{
-      if(document.hidden) G.audio.ctx.suspend();
-      else if(!(G.state && G.state.muted)) G.audio.ctx.resume();
-    }catch(e){}
+    if(G.audio && G.audio.ctx){
+      try{ if(document.hidden) G.audio.ctx.suspend(); else if(!(G.state && G.state.muted)) G.audio.ctx.resume(); }catch(e){}
+    }
+    if(!document.hidden) checkVersion();   // 앱 복귀 시 새 버전 확인
   });
+
+  /* ---------- 라이브 업데이트 알림: version.json 변경 감지 → 새로고침 안내 ---------- */
+  var loadedVer=null;
+  function checkVersion(){
+    fetch("version.json?t="+Date.now(), {cache:"no-store"})
+      .then(function(r){ return r.ok?r.json():null; })
+      .then(function(j){
+        var v=j&&j.version; if(!v) return;            // 번들 모드 등 파일 없으면 무시
+        if(loadedVer===null){ loadedVer=v; return; }  // 최초: 현재 버전 기록
+        if(v!==loadedVer && !document.getElementById("update-banner")){
+          var b=document.createElement("div"); b.id="update-banner"; b.className="update-banner";
+          b.innerHTML='🔄 새 버전이 있어요 <button class="btn sm primary" data-act="apply-update">업데이트</button>';
+          document.body.appendChild(b);
+        }
+      }).catch(function(){});
+  }
+  checkVersion();
+  setInterval(checkVersion, 180000);   // 3분마다 확인
 
   /* ---------- 자동 저장 (30초) + 종료 시 ---------- */
   setInterval(function(){ G.save.save(true); }, 30000);
