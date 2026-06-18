@@ -2,6 +2,10 @@
   "appId": "com.toweridle.game",
   "appName": "탑아이들",
   "webDir": "www",
+  "server": {
+    "url": "https://sonhyunduck-glitch.github.io/dungeon-tycoon/",
+    "cleartext": false
+  },
   "android": {
     "allowMixedContent": false
   }
