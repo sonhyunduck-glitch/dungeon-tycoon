@@ -463,7 +463,6 @@ G.ui._combatBox = function(c){
     '<div class="arena-pc">'+
       '<div class="arena-sprite-holder"><div id="pc-sprite"></div><div class="arena-shadow"></div></div>'+
       '<div class="arena-hp pc"><div class="arena-hp-fill" style="width:'+php+'%"></div></div>'+
-      '<div class="arena-label me">나</div>'+
     '</div>';
 
   // 클러스터에는 생존한 적만(최대 5마리 표시). 타겟은 크게+🎯+피격FX 대상(#enemy-emoji)
