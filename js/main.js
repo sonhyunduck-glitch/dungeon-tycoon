@@ -155,6 +155,18 @@
       if(rw) G.ui.toast("미션 완료! 🏅 +"+rw); else G.ui.toast("아직 달성하지 못했습니다");
       G.ui.renderArena();
     },
+    /* 🎰 외형 뽑기 */
+    "gacha-pull": function(d){
+      var r=G.gacha.pull(parseInt(d.n,10)||1);
+      if(!r.ok){ G.ui.toast(r.msg); return; }
+      G.ui.gachaResultModal(r.results);
+      if(G.state.ui.tab==="character") G.ui.render(); else G.ui.renderHud();
+    },
+    "gacha-exchange": function(d){
+      var r=G.gacha.exchange(d.id);
+      G.ui.toast(r.ok ? ("✨ "+r.name+" 획득!") : r.msg);
+      if(G.state.ui.tab==="character") G.ui.render();
+    },
     /* 🧥 망토 */
     "cape-open": function(){ G.ui.capeModal(); },
     "cape-buy": function(){

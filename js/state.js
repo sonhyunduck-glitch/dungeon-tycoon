@@ -26,6 +26,7 @@ G.newState = function(){
     equipment:{ weapon:null, helmet:null, armor:null, gloves:null, boots:null, ring:null, necklace:null,
                 rune1:null, rune2:null, rune3:null, rune4:null, rune5:null },
     cape:{ owned:false, level:0, fails:0 },   // 🧥 망토(아레나 전용): 코인 구매 + 코인 강화(공격력%/체력%)
+    cosmetics:{ owned:{}, shards:0, pity:{ legend:0 } },   // 🎰 외형 뽑기: 보유 스킨/외형 조각/천장
     inventory:[],
     invMax:20,
     warehouse:{ items:[], max:50 },

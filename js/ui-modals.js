@@ -297,6 +297,27 @@ G.ui.bagStatPickModal = function(){
   ov.addEventListener("click", function(e){ if(e.target.closest("[data-modal-close]")||e.target===ov) ov.remove(); });
 };
 
+/* 🎰 외형 뽑기 결과 모달 */
+G.ui.gachaResultModal = function(results){
+  var cards=(results||[]).map(function(r){
+    var rd=G.gacha.rdef(r.rarity);
+    return '<div class="gacha-card '+rd.cls+'">'+
+      '<div class="gacha-prev">'+((G.avatar&&G.avatar.miniHTML)?G.avatar.miniHTML(r.skin.id,60):"")+'</div>'+
+      '<div class="gacha-rname '+rd.cls+'">'+rd.label+'</div>'+
+      '<div class="gacha-skin">'+esc(r.skin.name)+'</div>'+
+      '<div class="gacha-tag '+(r.dupe?"dupe":"isnew")+'">'+(r.dupe?("중복 🧩+"+r.shards):"NEW")+'</div>'+
+    '</div>';
+  }).join("");
+  var ov=document.createElement("div"); ov.className="modal-overlay show";
+  ov.innerHTML='<div class="modal" style="width:min(460px,94vw)">'+
+    '<h2 style="justify-content:center">🎰 뽑기 결과</h2>'+
+    '<div class="gacha-grid">'+cards+'</div>'+
+    '<button class="btn primary full" style="margin-top:12px" data-modal-close>확인</button>'+
+  '</div>';
+  document.body.appendChild(ov);
+  ov.addEventListener("click", function(e){ if(e.target.closest("[data-modal-close]")||e.target===ov) ov.remove(); });
+};
+
 /* 🧥 망토 구매·강화 모달 */
 G.ui.capeModal = function(lastResult){
   var c=G.cape.get(), a=G.arena.ensure();

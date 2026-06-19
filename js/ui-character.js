@@ -68,14 +68,14 @@ G.ui.renderCharacter = function(){
 
   // 서브 탭
   var sub=G.state.ui.charSub||"stats";
-  var subTabs=[["stats","📊 스탯"],["detail","📋 상세"],["equip","🛡️ 장비"],["rune","🔮 룬"],["skill","⚔️ 스킬"],["avatar","🎭 아바타"],["unlock","🔓 해금"]];
+  var subTabs=[["stats","📊 스탯"],["detail","📋 상세"],["equip","🛡️ 장비"],["rune","🔮 룬"],["skill","⚔️ 스킬"],["avatar","🎭 아바타"],["gacha","🎰 뽑기"],["unlock","🔓 해금"]];
   var tabBar='<div class="subtabs">'+subTabs.map(function(t){
     return '<button class="subtab'+(sub===t[0]?" active":"")+'" data-act="char-sub" data-sub="'+t[0]+'">'+t[1]+'</button>';
   }).join("")+'</div>';
 
-  var body = sub==="stats"?statsPanel : sub==="detail"?G.ui._statSheet() : sub==="equip"?equipPanel : sub==="rune"?runePanel : sub==="avatar"?G.ui._avatarPanel() : sub==="unlock"?G.ui._perksHTML() : G.ui._skills();
+  var body = sub==="stats"?statsPanel : sub==="detail"?G.ui._statSheet() : sub==="equip"?equipPanel : sub==="rune"?runePanel : sub==="avatar"?G.ui._avatarPanel() : sub==="gacha"?G.ui._gachaPanel() : sub==="unlock"?G.ui._perksHTML() : G.ui._skills();
   v.innerHTML = tabBar + body;
-  if(sub==="avatar"){   // 미리보기 애니메이션(잠긴 건 정적)
+  if(sub==="avatar"||sub==="gacha"){   // 미리보기 애니메이션(잠긴 건 정적)
     v.querySelectorAll(".av-prev-inner").forEach(function(el){
       var card=el.closest(".avatar-card");
       if(card && card.classList.contains("locked")) return;
@@ -88,12 +88,13 @@ G.ui.renderCharacter = function(){
 G.ui._avatarPanel = function(){
   var cur=G.avatar.currentId();
   var cards=G.DATA.AVATARS.map(function(a){
-    var sel=a.id===cur, unlocked=G.avatar.unlocked(a);
-    return '<div class="avatar-card'+(sel?" sel":"")+(unlocked?"":" locked")+'" data-act="avatar-pick" data-id="'+a.id+'">'+
+    var sel=a.id===cur, owned=G.avatar.owned(a);
+    var lockLabel=(a.unlock!=null && a.unlock<9999) ? ("🔒 "+a.unlock+"층") : "🎰 뽑기";
+    return '<div class="avatar-card'+(sel?" sel":"")+(owned?"":" locked")+'" data-act="avatar-pick" data-id="'+a.id+'">'+
       '<div class="avatar-prev">'+G.avatar.previewHTML(a)+'</div>'+
       '<div class="avatar-name">'+esc(a.name)+'</div>'+
-      (unlocked ? (sel?'<div class="avatar-badge">선택됨</div>':'')
-                : '<div class="avatar-lock">🔒 '+a.unlock+'층</div>')+
+      (owned ? (sel?'<div class="avatar-badge">선택됨</div>':'')
+             : '<div class="avatar-lock">'+lockLabel+'</div>')+
     '</div>';
   }).join("");
   return '<div class="panel"><h2>🎭 아바타</h2>'+
@@ -103,6 +104,41 @@ G.ui._avatarPanel = function(){
       ? '<div class="muted" style="margin-top:12px;font-size:.8rem;line-height:1.6">💡 더 많은 아바타는 <b>스프라이트 슬라이서</b>로 캐릭터 시트를 추가하면 늘어납니다.</div>'
       : '')+
   '</div>';
+};
+
+/* 🎰 외형 뽑기 패널 */
+G.ui._gachaPanel = function(){
+  G.gacha.ensure();
+  var coins=G.arena.coins(), shards=G.gacha.shards(), pool=G.gacha.pool();
+  var ownedN=pool.filter(function(a){return G.gacha.isOwned(a);}).length;
+  var head='<div class="panel"><h2>🎰 외형 뽑기 <span class="muted" style="font-size:.66rem">코스메틱 · 무스탯</span></h2>'+
+    '<div class="stats">'+
+      '<div><span class="k">🏅 아레나 코인</span><b class="gold">'+G.ui.fmt(coins)+'</b></div>'+
+      '<div><span class="k">🧩 외형 조각</span><b>'+G.ui.fmt(shards)+'</b></div>'+
+      '<div><span class="k">보유</span><b>'+ownedN+' / '+pool.length+'</b></div>'+
+    '</div>'+
+    '<div class="row" style="margin-top:8px">'+
+      '<button class="btn primary" style="flex:1" data-act="gacha-pull" data-n="1" '+(coins<G.gacha.COST?"disabled":"")+'>단일 🏅'+G.gacha.COST+'</button>'+
+      '<button class="btn gold" style="flex:1" data-act="gacha-pull" data-n="10" '+(coins<G.gacha.COST10?"disabled":"")+'>10연차 🏅'+G.gacha.COST10+'</button>'+
+    '</div>'+
+    '<div class="muted" style="font-size:.64rem; margin-top:6px">10연차=영웅↑ 보장 · '+G.gacha.LEGEND_PITY+'연차 전설 천장 · 중복→조각</div>'+
+  '</div>';
+  if(!pool.length) return head+'<div class="empty">뽑기 풀이 비어 있습니다.</div>';
+  var dex='';
+  G.gacha.RARITY.slice().reverse().forEach(function(rd){
+    var list=G.gacha.poolByRarity(rd.key); if(!list.length) return;
+    var on=list.filter(function(a){return G.gacha.isOwned(a);}).length;
+    dex+='<div class="panel"><h3 class="'+rd.cls+'">'+rd.label+' <span class="muted" style="font-size:.62rem">'+on+'/'+list.length+'</span></h3><div class="avatar-grid">'+
+      list.map(function(a){ var owned=G.gacha.isOwned(a), ex=G.gacha.EXCHANGE[rd.key];
+        return '<div class="avatar-card dex '+rd.cls+(owned?"":" locked")+'">'+
+          '<div class="avatar-prev">'+G.avatar.previewHTML(a)+'</div>'+
+          '<div class="avatar-name">'+esc(a.name)+'</div>'+
+          (owned?'<div class="avatar-badge">보유</div>'
+                :'<button class="btn sm" data-act="gacha-exchange" data-id="'+a.id+'" '+(shards<ex?"disabled":"")+'>🧩'+ex+'</button>')+
+        '</div>';
+      }).join("")+'</div></div>';
+  });
+  return head+dex;
 };
 
 /* 상세 능력치 시트 — 적용된 모든 스탯 + 실제 효과 */

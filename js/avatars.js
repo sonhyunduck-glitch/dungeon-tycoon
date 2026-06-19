@@ -62,6 +62,12 @@
     var max=(G.state&&G.state.dungeon&&G.state.dungeon.maxFloor)||1;
     return max >= (a.unlock||0);
   };
+  // 보유 여부 = 층 해금 ∥ 외형 뽑기 보유 (선택 가능 판정 일원화)
+  G.avatar.owned = function(id){
+    var a=(typeof id==="object")?id:G.avatar.get(id); if(!a) return false;
+    if((a.unlock!=null) && G.avatar.unlocked(a)) return true;
+    var c=G.state&&G.state.cosmetics; return !!(c&&c.owned&&c.owned[a.id]);
+  };
 
   // 층 도달로 새로 해금된 아바타 → 해금 모달용 항목 반환(최초/구버전은 조용히 동기화)
   G.avatar.syncUnlocks = function(){
@@ -85,7 +91,10 @@
   G.avatar.set = function(id){
     if(!G.state) return false;
     var a=G.avatar.get(id);
-    if(!G.avatar.unlocked(a)){ if(G.ui&&G.ui.toast) G.ui.toast("🔒 "+a.unlock+"층 도달 시 해금됩니다"); return false; }
+    if(!G.avatar.owned(id)){
+      var msg=(a.unlock!=null && a.unlock<9999) ? ("🔒 "+a.unlock+"층 도달 시 해금됩니다") : "🎰 외형 뽑기에서 획득하세요";
+      if(G.ui&&G.ui.toast) G.ui.toast(msg); return false;
+    }
     G.state.avatar = id;
     if(G.save) G.save.save(true);
     G.avatar.apply();

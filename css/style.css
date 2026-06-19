@@ -379,6 +379,20 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
 /* 옵션 필터 — 다크 모달 선택창(네이티브 select 흰색 팝업 회피) */
 .statopt-grid{ display:flex; flex-wrap:wrap; gap:6px; max-height:56vh; overflow:auto; margin-top:4px; }
 .statopt{ flex:0 0 auto; font-size:.8rem; padding:7px 11px; }
+
+/* 🎰 외형 뽑기 결과 */
+.gacha-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:6px; }
+@media(max-width:520px){ .gacha-grid{ grid-template-columns:repeat(4,1fr); } }
+.gacha-card{ border:1px solid var(--line); border-left-width:4px; border-radius:9px; padding:6px 3px; text-align:center; background:rgba(255,255,255,.03); }
+.gacha-card.r-rare{ border-left-color:#5aa0ff; } .gacha-card.r-epic{ border-left-color:#c08bff; } .gacha-card.r-legend{ border-left-color:#ff7a3c; box-shadow:0 0 8px rgba(255,122,60,.35); }
+.gacha-prev{ height:48px; display:flex; align-items:center; justify-content:center; }
+.gacha-rname{ font-size:.6rem; font-weight:800; }
+.gacha-skin{ font-size:.62rem; color:var(--mut); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.gacha-tag{ font-size:.58rem; font-weight:800; margin-top:2px; }
+.gacha-tag.isnew{ color:#ffd86a; } .gacha-tag.dupe{ color:var(--mut); }
+/* 도감 카드(미보유는 디밍) */
+.avatar-card.dex.locked{ opacity:.55; }
+.avatar-card.dex .btn.sm{ margin-top:4px; font-size:.66rem; padding:3px 6px; }
 /* 전투장 바닥 글로우 */
 .combat-stage::before{
   content:""; position:absolute; left:50%; top:30%; width:200px; height:200px; transform:translate(-50%,-50%);
