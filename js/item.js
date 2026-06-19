@@ -135,7 +135,7 @@ G.item.generateRune = function(tier, level, baseName){
 
   var rdef=G.DATA.RARITY.find(function(r){return r.key===rarity.key;});
   var it={
-    id:G.util.uid(), name:base.base, runeBase:base.base, ico:base.ico, type:"rune", slot:"rune",
+    id:G.util.uid(), name:base.base, runeBase:base.base, ico:base.ico, iconImg:base.iconImg||null, type:"rune", slot:"rune",
     rarity:rarity.key, rarityLabel:rarity.label, rarityCls:rdef.cls,
     level:level, tier:tier, fixed:fixed, affixes:affixes, identified:true,
     attackElem: (level>=100) ? G.util.pick(G.DATA.ELEMENTS).key : null,   // 100층+ 룬 공격 속성

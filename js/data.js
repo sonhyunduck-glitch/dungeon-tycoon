@@ -60,16 +60,16 @@ G.DATA.RUNEWORDS = [
 ];
 /* craft:true = 대장간 제작 전용(드롭 안 됨) / 나머지(활력·황금·가시) = 사냥 드롭 */
 G.DATA.RUNE_BASES = [
-  { base:"공격의 룬", ico:"🔴", main:"atk",       val:12, craft:true },
-  { base:"수호의 룬", ico:"🔵", main:"def",       val:8,  craft:true },
-  { base:"활력의 룬", ico:"🟢", main:"hp",        val:40 },
-  { base:"치명의 룬", ico:"🟡", main:"crit",      val:4,  craft:true },
-  { base:"파멸의 룬", ico:"🟣", main:"critDmg",   val:14, craft:true },
-  { base:"흡혈의 룬", ico:"🟠", main:"lifesteal", val:3,  craft:true },
-  { base:"관통의 룬", ico:"⚪", main:"penet",     val:6,  craft:true },
-  { base:"질풍의 룬", ico:"🟤", main:"multihit",  val:3,  craft:true },
-  { base:"황금의 룬", ico:"🟡", main:"goldFind",  val:10 },
-  { base:"가시의 룬", ico:"🔶", main:"thorns",    val:6  },
+  { base:"공격의 룬", ico:"🔴", iconImg:"assets/icon/runs/1.PNG",  main:"atk",       val:12, craft:true },
+  { base:"수호의 룬", ico:"🔵", iconImg:"assets/icon/runs/2.PNG",  main:"def",       val:8,  craft:true },
+  { base:"활력의 룬", ico:"🟢", iconImg:"assets/icon/runs/3.png",  main:"hp",        val:40 },
+  { base:"치명의 룬", ico:"🟡", iconImg:"assets/icon/runs/4.PNG",  main:"crit",      val:4,  craft:true },
+  { base:"파멸의 룬", ico:"🟣", iconImg:"assets/icon/runs/5.PNG",  main:"critDmg",   val:14, craft:true },
+  { base:"흡혈의 룬", ico:"🟠", iconImg:"assets/icon/runs/6.PNG",  main:"lifesteal", val:3,  craft:true },
+  { base:"관통의 룬", ico:"⚪", iconImg:"assets/icon/runs/7.PNG",  main:"penet",     val:6,  craft:true },
+  { base:"질풍의 룬", ico:"🟤", iconImg:"assets/icon/runs/8.png",  main:"multihit",  val:3,  craft:true },
+  { base:"황금의 룬", ico:"🟡", iconImg:"assets/icon/runs/9.png",  main:"goldFind",  val:10 },
+  { base:"가시의 룬", ico:"🔶", iconImg:"assets/icon/runs/10.png", main:"thorns",    val:6  },
 ];
 
 /* 옵션(접사) 풀 — 디아블로식
