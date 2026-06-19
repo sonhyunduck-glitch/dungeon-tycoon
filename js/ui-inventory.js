@@ -28,7 +28,7 @@ G.ui._bagPanel = function(){
   var SLOT_ICONDIR={ weapon:"weapon_sword", helmet:"helmet", armor:"armor", gloves:"gloves", boots:"boots", ring:"ring", necklace:"necklace" };
   function slotChipInner(k){
     if(k==="all") return '<span class="chiptext">전체</span>';
-    if(k==="rune") return '<span class="chiptext">🔮</span>';
+    if(k==="rune") return '<img class="fico" src="assets/icon/runs/1.PNG" alt="룬">';
     var dir=SLOT_ICONDIR[k], list=G.DATA.EQUIP_ICONS&&G.DATA.EQUIP_ICONS[dir];
     if(list&&list.length) return '<img class="fico" src="assets/icon/equip/'+dir+'/'+list[0]+'" alt="">';
     return '<span class="chiptext">❔</span>';
