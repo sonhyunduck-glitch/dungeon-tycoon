@@ -335,6 +335,14 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
 .ar-detail summary{ cursor:pointer; color:var(--muted,#9a8fa8); font-size:.74rem; }
 .ar-logbox{ max-height:160px; overflow:auto; margin-top:6px; background:rgba(0,0,0,.25); border-radius:8px; padding:6px 8px; }
 .ar-log{ font-size:.72rem; padding:2px 0; border-bottom:1px solid rgba(255,255,255,.04); }
+/* 🧥 망토 */
+.cape-slot{ background:linear-gradient(135deg, rgba(200,121,255,.10), rgba(255,207,74,.06)); }
+.cape-bonus{ font-size:.86rem; margin:8px 0 4px; font-weight:700; }
+.cape-next{ font-size:.82rem; color:var(--gold,#ffcf4a); margin:2px 0; }
+.cape-rate{ font-size:.9rem; margin:8px 0 4px; font-weight:800; }
+.cape-res{ margin:6px 0; padding:6px 10px; border-radius:9px; font-weight:800; font-size:.86rem; }
+.cape-res.ok{ background:rgba(127,215,127,.16); color:#7fd77f; border:1px solid rgba(127,215,127,.4); }
+.cape-res.fail{ background:rgba(255,90,90,.14); color:#ff8a8a; border:1px solid rgba(255,90,90,.35); }
 /* 전투장 바닥 글로우 */
 .combat-stage::before{
   content:""; position:absolute; left:50%; top:30%; width:200px; height:200px; transform:translate(-50%,-50%);

@@ -150,6 +150,20 @@
       if(rw) G.ui.toast("미션 완료! 🏅 +"+rw); else G.ui.toast("아직 달성하지 못했습니다");
       G.ui.renderArena();
     },
+    /* 🧥 망토 */
+    "cape-open": function(){ G.ui.capeModal(); },
+    "cape-buy": function(){
+      var r=G.cape.buy(); G.ui.toast(r.msg);
+      var ov=document.querySelector(".modal-overlay.show"); if(ov) ov.remove();
+      G.ui.capeModal(); G.ui.render();
+    },
+    "cape-enhance": function(){
+      var r=G.cape.enhance();
+      if(!r.ok){ G.ui.toast(r.msg); return; }
+      var ov=document.querySelector(".modal-overlay.show"); if(ov) ov.remove();
+      G.ui.capeModal(r);        // 결과 피드백(성공/실패) 표시
+      G.ui.render();            // 스탯/HUD 갱신
+    },
     "apply-update": function(){ location.reload(); },
     "net-retry": function(){
       G.ui.toast("재연결 중...");

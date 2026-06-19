@@ -25,6 +25,7 @@ G.newState = function(){
     player:{ hp:150, maxHp:150, atk:14, def:4, crit:5, gold:50 },
     equipment:{ weapon:null, helmet:null, armor:null, gloves:null, boots:null, ring:null, necklace:null,
                 rune1:null, rune2:null, rune3:null, rune4:null, rune5:null },
+    cape:{ owned:false, level:0, fails:0 },   // 🧥 망토(아레나 전용): 코인 구매 + 코인 강화(공격력%/체력%)
     inventory:[],
     invMax:20,
     warehouse:{ items:[], max:50 },
@@ -89,6 +90,9 @@ G.totalStats = function(){
     s.potionBoost+= it.stats.potionBoost||0;
     s.hpBonus    += it.stats.hp         ||0;
   }
+  // 🧥 망토 보너스: 속성공격/올레지는 캡 적용 전에 합산(공격력%·체력%는 캡 이후 마지막에 적용)
+  var _cb = (G.cape && G.cape.bonus) ? G.cape.bonus() : null;
+  if(_cb){ s.elemAtk += _cb.elemAtk||0; s.allRes += _cb.allRes||0; }
   // 상한(% 스탯 누적으로 전투가 무력화되는 것 방지 → 예측 가능한 수치)
   s.crit       = Math.min(s.crit, 80);
   s.critDmg    = Math.min(s.critDmg, 150);
@@ -107,7 +111,9 @@ G.totalStats = function(){
   // 공격 속성(100층+ 디아블로식): 무기 우선, 없으면 장착 룬에서
   s.atkElem = (eq.weapon && eq.weapon.attackElem) || null;
   if(!s.atkElem){ for(var rk in eq){ var rit=eq[rk]; if(rit && rit.slot==="rune" && rit.attackElem){ s.atkElem=rit.attackElem; break; } } }
-  s.maxHp = p.maxHp + s.hpBonus;
+  // 🧥 망토 공격력%/체력% (캡 없는 atk와 최종 maxHp에 곱연산)
+  if(_cb && _cb.atkPct) s.atk = Math.round(s.atk * (1 + _cb.atkPct/100));
+  s.maxHp = Math.round((p.maxHp + s.hpBonus) * (1 + ((_cb&&_cb.hpPct)||0)/100));
   return s;
 };
 

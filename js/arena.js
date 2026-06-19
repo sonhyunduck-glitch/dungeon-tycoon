@@ -305,4 +305,48 @@
     var start=meIdx<=7?3:meIdx-5; start=Math.max(3,start);
     return { total:list.length, me:list[meIdx], top:list.slice(0,3), around:list.slice(start,start+10), gap:start>3 };
   };
+
+  /* ============================================================
+     🧥 망토 (아레나 전용) — 코인 구매 + 코인 강화(공격력%/체력%)
+     강화 실패: 코인만 소모(레벨 유지) + 천장(연속 실패 +가산, N회 확정)
+     ============================================================ */
+  G.cape = {};
+  G.cape.LV_MAX = 10;
+  G.cape.BUY_COST = 50;
+  G.cape.RATE = { 1:90, 2:80, 3:65, 4:50, 5:35, 6:25, 7:15, 8:9, 9:5, 10:3 };  // 목표레벨별 기본 성공률(%) — 하드코어
+  G.cape.PITY_STEP = 4;    // 연속 실패 시 다음 시도 +4%p
+  G.cape.PITY_MAX  = 15;   // 15연속 실패 시 다음 강화는 확정 성공
+  G.cape.upCost = function(L){ return 20 + L*15; };   // L=목표레벨 도달 비용(성공/실패 공통 소모)
+
+  G.cape.get = function(){
+    var c=G.state.cape=G.state.cape||{};
+    if(c.owned==null) c.owned=false; if(c.level==null) c.level=0; if(c.fails==null) c.fails=0;
+    return c;
+  };
+  function capeBonusAt(L){ return { atkPct:L*4, hpPct:L*3, elemAtk:(L>=7?(L-6)*5:0), allRes:(L>=7?(L-6)*3:0) }; }
+  G.cape.bonus = function(){ var c=G.cape.get(); return (c.owned&&c.level>0)?capeBonusAt(c.level):{atkPct:0,hpPct:0,elemAtk:0,allRes:0}; };
+  G.cape.nextBonus = function(){ var c=G.cape.get(); return capeBonusAt(Math.min(G.cape.LV_MAX, c.level+1)); };
+  G.cape.successRate = function(){
+    var c=G.cape.get(), L=c.level+1; if(L>G.cape.LV_MAX) return 0;
+    if(c.fails>=G.cape.PITY_MAX) return 100;
+    return Math.min(100, (G.cape.RATE[L]||0) + c.fails*G.cape.PITY_STEP);
+  };
+  G.cape.buy = function(){
+    var c=G.cape.get(); if(c.owned) return { ok:false, msg:"이미 보유 중입니다" };
+    var a=G.arena.ensure(); if((a.coins||0)<G.cape.BUY_COST) return { ok:false, msg:"코인이 부족합니다 (🏅"+G.cape.BUY_COST+")" };
+    a.coins-=G.cape.BUY_COST; c.owned=true; c.level=0; c.fails=0; G.save.save(true);
+    return { ok:true, msg:"🧥 망토 획득! 강화로 키우세요" };
+  };
+  G.cape.enhance = function(){
+    var c=G.cape.get(); if(!c.owned) return { ok:false, msg:"먼저 망토를 구매하세요" };
+    if(c.level>=G.cape.LV_MAX) return { ok:false, msg:"이미 최대 강화(+"+G.cape.LV_MAX+")입니다" };
+    var L=c.level+1, cost=G.cape.upCost(L), a=G.arena.ensure();
+    if((a.coins||0)<cost) return { ok:false, msg:"코인이 부족합니다 (🏅"+cost+")" };
+    var rate=G.cape.successRate();
+    a.coins-=cost;
+    var success = (c.fails>=G.cape.PITY_MAX) || (Math.random()*100 < rate);
+    if(success){ c.level=L; c.fails=0; G.save.save(true); return { ok:true, success:true, level:L, cost:cost, rate:rate }; }
+    c.fails=(c.fails||0)+1; G.save.save(true);
+    return { ok:true, success:false, level:c.level, cost:cost, rate:rate, fails:c.fails };
+  };
 })();

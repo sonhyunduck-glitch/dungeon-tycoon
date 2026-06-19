@@ -207,6 +207,7 @@ G.ui.arenaShopModal = function(){
   ov.innerHTML='<div class="modal" style="width:min(420px,93vw)">'+
     '<h2 style="display:flex; align-items:center; justify-content:space-between">🛒 아레나 상점 <span class="gold" style="font-size:.9rem">🏅 '+G.ui.fmt(a.coins||0)+'</span></h2>'+
     '<div class="muted" style="font-size:.72rem; margin-bottom:8px">아레나 코인으로 구매합니다. 도전 보상·일일 미션으로 코인을 모으세요.</div>'+
+    '<button class="btn primary full" style="margin-bottom:10px" data-act="cape-open">🧥 망토 강화소 (아레나 전용 장비)</button>'+
     G.arena.SHOP.map(itemRow).join("")+
     '<button class="btn full" style="margin-top:12px" data-modal-close>닫기</button>'+
   '</div>';
@@ -217,6 +218,45 @@ G.ui.arenaShopModal = function(){
 /* ============================================================
    랭킹 뷰
    ============================================================ */
+/* 🧥 망토 구매·강화 모달 */
+G.ui.capeModal = function(lastResult){
+  var c=G.cape.get(), a=G.arena.ensure();
+  var maxed=c.level>=G.cape.LV_MAX;
+  function bt(b){ if(!b||(!b.atkPct&&!b.hpPct)) return '없음'; var t=['⚔️공격력 +'+b.atkPct+'%','❤️체력 +'+b.hpPct+'%'];
+    if(b.elemAtk)t.push('🔥속성공격 +'+b.elemAtk+'%'); if(b.allRes)t.push('🛡️모든저항 +'+b.allRes+'%'); return t.join(' · '); }
+  var cur=G.cape.bonus(), nxt=G.cape.nextBonus(), rate=G.cape.successRate(), cost=G.cape.upCost(c.level+1);
+  var resultHtml = lastResult ? (lastResult.success
+      ? '<div class="cape-res ok">✨ 강화 성공! → +'+lastResult.level+'</div>'
+      : '<div class="cape-res fail">💥 강화 실패 — 🏅'+lastResult.cost+' 소모 (레벨 유지)</div>') : '';
+  var pity = c.owned&&!maxed ? (c.fails>0
+      ? '<div class="muted" style="font-size:.68rem">연속 실패 '+c.fails+'회 · 보정 +'+(c.fails*G.cape.PITY_STEP)+'%p'+(c.fails>=G.cape.PITY_MAX?' · <b class="r-uncommon">다음 확정!</b>':'')+'</div>'
+      : '<div class="muted" style="font-size:.68rem">천장: 실패할수록 확률↑ · 15연속 실패 시 확정</div>') : '';
+  var inner;
+  if(!c.owned){
+    inner='<div class="muted" style="margin:8px 0">아레나 전용 장비. 코인으로 구매 후 강화로 키웁니다.</div>'+
+      '<div class="cape-bonus">+1 효과: '+bt(nxt)+'</div>'+
+      '<button class="btn primary full" style="margin-top:10px" data-act="cape-buy" '+((a.coins||0)>=G.cape.BUY_COST?'':'disabled')+'>🧥 구매 (🏅'+G.cape.BUY_COST+')</button>';
+  } else if(maxed){
+    inner='<div class="cape-bonus">현재 +'+c.level+': '+bt(cur)+'</div>'+
+      '<div class="r-legend" style="margin-top:10px; font-weight:800">★ 최대 강화 달성 ★</div>';
+  } else {
+    inner='<div class="cape-bonus">현재 +'+c.level+': '+bt(cur)+'</div>'+
+      '<div class="cape-next">→ +'+(c.level+1)+': '+bt(nxt)+'</div>'+
+      '<div class="cape-rate">성공률 <b class="gold">'+rate+'%</b> · 비용 🏅'+cost+'</div>'+pity+
+      '<button class="btn primary full" style="margin-top:10px" data-act="cape-enhance" '+((a.coins||0)>=cost?'':'disabled')+'>🔨 강화 (+'+(c.level+1)+')</button>';
+  }
+  var ov=document.createElement("div"); ov.className="modal-overlay show";
+  ov.innerHTML='<div class="modal" style="text-align:center; width:min(380px,93vw)">'+
+    '<div style="font-size:2.4rem">🧥</div>'+
+    '<h2 style="margin:2px 0">망토'+(c.owned?' <span class="gold">+'+c.level+'</span>':'')+'</h2>'+
+    '<div class="muted" style="font-size:.72rem">보유 🏅'+G.ui.fmt(a.coins||0)+'</div>'+
+    resultHtml + inner +
+    '<button class="btn full" style="margin-top:10px" data-modal-close>닫기</button>'+
+  '</div>';
+  document.body.appendChild(ov);
+  ov.addEventListener("click", function(e){ if(e.target.closest("[data-modal-close]")||e.target===ov) ov.remove(); });
+};
+
 G.ui.TERMS_VERSION = "1";
 G.ui.termsAgreed = function(){ try{ return localStorage.getItem("toweridle_terms")===G.ui.TERMS_VERSION; }catch(e){ return false; } };
 G.ui.setTermsAgreed = function(){ try{ localStorage.setItem("toweridle_terms", G.ui.TERMS_VERSION); }catch(e){} };
