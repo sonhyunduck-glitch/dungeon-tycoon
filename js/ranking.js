@@ -61,4 +61,42 @@
     var around=list.slice(start, start+10);
     return { total:list.length, me:list[meIdx], top:top, around:around, gap:gap };
   };
+
+  // 탑 표시용: 같은 층은 한 방(room)에 모음. 방=층, 방 안에 여러 명 입주.
+  // 오프라인=전체 board() 그룹화, 온라인=서버가 준 top+around 행만 그룹화(부분).
+  G.ranking.towerView = function(){
+    var people, total;
+    if(G.ranking.remoteView){
+      var rv=G.ranking.remoteView, seen={}; people=[];
+      (rv.top||[]).concat(rv.around||[]).forEach(function(c){ if(c&&!seen[c.rank]){ seen[c.rank]=1; people.push(c); } });
+      total=rv.total||people.length;
+    } else {
+      people=G.ranking.board(); total=people.length;
+    }
+    // 층별 그룹 (people는 층 내림차순·순위 오름차순 정렬돼 있음)
+    var rooms=[], idx={};
+    people.forEach(function(c){
+      var k=c.floor;
+      if(idx[k]==null){ idx[k]=rooms.length; rooms.push({ floor:c.floor, members:[], me:false }); }
+      var room=rooms[idx[k]];
+      room.members.push(c);
+      if(c.me) room.me=true;
+    });
+    rooms.sort(function(a,b){ return b.floor-a.floor; });                 // 층 내림차순(안전)
+    rooms.forEach(function(r,i){
+      r.rank=i+1;                                                          // 방 순위(=높은 층일수록 상위)
+      r.members.sort(function(a,b){ if(a.me)return -1; if(b.me)return 1; return (a.rank||0)-(b.rank||0); });
+    });
+    var meIdx=rooms.findIndex(function(r){return r.me;});
+    if(meIdx<0) meIdx=rooms.length-1;
+    var meRoom=rooms[meIdx];
+    var mePerson=meRoom&&meRoom.members.filter(function(m){return m.me;})[0];
+    var myRank=mePerson?mePerson.rank:total;
+    // 윈도우: 상위 3개 방 + 내 방 주변
+    var top=rooms.slice(0,3), start, gap;
+    if(meIdx<=6){ start=3; gap=false; } else { start=meIdx-4; gap=true; }
+    start=Math.max(3, start);
+    var around=rooms.slice(start, start+9);
+    return { total:total, totalFloors:rooms.length, myRank:myRank, top:top, around:around, gap:gap, meRoom:meRoom };
+  };
 })();
