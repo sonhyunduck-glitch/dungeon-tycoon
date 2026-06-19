@@ -24,7 +24,7 @@
     // 1) 즉시: 적 피격 슬래시 + 피격 모션(타겟 생존 시)
     if(eh){
       if(eh.aoe){ G.ui.attackFxAll(eh.crit); G.ui.floatDmgAll(eh.dmgs, eh.crit); G.ui.refreshFoeHp(); }   // 광역: 모든 적에 FX/데미지
-      else { G.ui.attackFx(eh.crit); G.ui.floatDmg("#enemy-emoji", eh.value, eh.crit); if(!targetDied){ G.ui.refreshFoeHp(); G.ui.foeHurtAnim(); } }
+      else { G.ui.attackFx(eh.crit); G.ui.floatDmg("#enemy-emoji", eh.value, eh.crit); if(!targetDied){ G.ui.refreshFoeHp(); G.ui.foeHurtAnim(); } else { G.ui.zeroTargetHp(); } }
     }
     // 2) 살짝 뒤: 적 반격 → 적 전원 공격 모션 + 화면 진동 + 플레이어 피격 모션 (회피 시엔 진동 없이 표시)
     if(ph){ setTimeout(function(){

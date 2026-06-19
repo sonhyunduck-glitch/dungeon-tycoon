@@ -197,6 +197,12 @@ G.ui.refreshFoeHp = function(){
   others.forEach(function(e,i){ if(bars[i]) bars[i].style.width=Math.max(0,(e.hp/e.maxHp)*100)+"%"; });
 };
 
+/* 처치 타격 시: 타겟 HP바를 0으로 비움(사망 연출 중 'HP 남은 채 죽음' 방지) */
+G.ui.zeroTargetHp = function(){
+  var tf=document.querySelector(".target-bar .ebar-fill"); if(tf) tf.style.width="0%";
+  var th=document.querySelector(".target-bar .thp"); if(th) th.textContent="0";
+};
+
 /* 가벼운 전투 갱신 — 적이 죽지 않은 일반 턴엔 전체 재렌더 대신 HP바만 갱신
    (스프라이트/공격·피격 애니메이션이 재렌더로 잘리지 않게 보존) */
 G.ui.refreshCombat = function(){
