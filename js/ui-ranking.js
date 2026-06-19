@@ -12,34 +12,34 @@ G.ui.renderRanking = function(){
     }
   }
   var vw=G.ranking.view();
-  function mini(c){ if(!(G.avatar&&G.avatar.miniHTML)) return ""; var id=c.me?G.avatar.currentId():c.avatar; return G.avatar.miniHTML(id,45); }
+  function mini(c){ if(!(G.avatar&&G.avatar.miniHTML)) return ""; var id=c.me?G.avatar.currentId():c.avatar; return G.avatar.miniHTML(id,52); }
+  function badge(c){ return c.rank<=3 ? '<span class="tf-medal">'+["🥇","🥈","🥉"][c.rank-1]+'</span>' : '<span class="tf-rk">'+c.rank+'</span>'; }
+  // 방(층) 한 칸: 파란 벽돌방 · 중앙에 선 아바타 · 좌측 메달/순위 · 코인 장식
   function band(c){
-    var medal = c.rank===1?"🥇":(c.rank===2?"🥈":(c.rank===3?"🥉":"#"+c.rank));
     if(c.me){
-      return '<div class="tower-floor me">'+
-        '<div class="tf-glow"></div><div class="tf-door"></div>'+
+      return '<div class="tfloor me">'+
+        '<div class="tf-door"></div>'+
         '<div class="tf-arrow l">◀</div><div class="tf-arrow r">▶</div>'+
-        '<div class="tf-climber"></div>'+
-        '<div class="tf-num">'+c.floor+'층</div>'+
-        '<div class="tf-who me">'+mini(c)+' '+esc(c.name)+' <span class="tag r-uncommon">'+medal+'</span></div>'+
+        '<div class="tf-badge">'+badge(c)+'</div>'+
+        '<div class="tf-av">'+mini(c)+'</div>'+
+        '<div class="tf-name me">'+esc(c.name)+' · '+c.floor+'층</div>'+
       '</div>';
     }
-    return '<div class="tower-floor'+(c.rank<=3?" elite":"")+'">'+
-      '<span class="tf-lamp l"></span><span class="tf-lamp r"></span>'+
-      '<div class="tf-num">'+c.floor+'층</div>'+
-      '<div class="tf-who">'+medal+' '+mini(c)+' '+esc(c.name)+'</div>'+
+    return '<div class="tfloor'+(c.rank<=3?" elite":"")+'">'+
+      '<span class="tf-coin l"></span><span class="tf-coin r"></span>'+
+      '<div class="tf-badge">'+badge(c)+'</div>'+
+      '<div class="tf-av">'+mini(c)+'</div>'+
+      '<div class="tf-name">'+esc(c.name)+' · '+c.floor+'층</div>'+
     '</div>';
   }
   v.innerHTML=
     '<div class="panel"><h2>🏯 무한의 탑 <span class="muted" style="font-size:.7rem">랭킹 · 최고 도달 층</span></h2>'+
       '<div class="muted" style="margin-bottom:8px">내 순위 <b class="gold">'+vw.me.rank+'위</b> <span style="opacity:.7">/ '+vw.total+'명</span></div>'+
       '<div class="tower">'+
-        '<div class="tower-spire">👑</div><div class="tower-roof"></div>'+
-        '<div class="tower-body">'+
-          vw.top.map(band).join("")+
-          (vw.gap?'<div class="tower-gap">⋯</div>':'')+
-          vw.around.map(band).join("")+
-        '</div>'+
+        '<div class="tower-castle"><span class="tower-flag l">🚩</span><span class="tower-crown">👑</span><span class="tower-flag r">🚩</span></div>'+
+        vw.top.map(band).join("")+
+        (vw.gap?'<div class="tower-gap">⋯</div>':'')+
+        vw.around.map(band).join("")+
         '<div class="tower-base">⛰️ 도전자 '+vw.total+'명</div>'+
       '</div>'+
     '</div>';
