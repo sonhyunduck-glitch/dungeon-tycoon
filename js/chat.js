@@ -38,10 +38,14 @@
   function rint(n){ return Math.floor(Math.random()*n); }
   function pick(a){ return a[rint(a.length)]; }
 
-  // 봇 이름 풀(랭킹 시스템 재활용)
+  // 채팅용 봇 이름 풀(자체 생성 — 오프라인 채팅 시뮬용)
+  var NFIRST=["빛나는","불꽃","그림자","강철","폭풍","서리","황금","핏빛","천둥","고요한","광폭","신성한",
+              "어둠","질풍","용맹한","냉혹한","불멸","파멸","수호","무명","비전","월광","작열","혹한","태초"];
+  var NSECOND=["검사","마법사","사냥꾼","기사","도적","광전사","현자","용병","방랑자","챔피언",
+               "약탈자","수호자","처형자","추적자","정복자","술사","파수꾼","해결사","칼날","주술사"];
   G.chat._names = function(){
-    try{ return G.ranking.pool().map(function(b){ return b.name; }); }
-    catch(e){ return ["여명","사냥꾼","바람","그림자","서리","불꽃"]; }
+    var out=[]; for(var i=0;i<30;i++){ out.push(NFIRST[rint(NFIRST.length)]+NSECOND[rint(NSECOND.length)]+(rint(9000)+1000)); }
+    return out;
   };
 
   G.chat._msgs = null;
