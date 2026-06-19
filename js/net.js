@@ -170,10 +170,12 @@
     try{
       var r=await G.net.sb.rpc("arena_opponents", { my_id:G.net.uid, my_score:(G.state.arena&&G.state.arena.score)||1000 });
       if(r.error || !r.data) return [];
-      return r.data.filter(function(row){ return row.snapshot; }).map(function(row){
-        var s=row.snapshot||{};
-        return Object.assign({}, s, { name:row.nickname, score:row.arena_score, power:row.power });
-      });
+      var minFloor=(G.arena&&G.arena.UNLOCK_FLOOR)||100;
+      return r.data.filter(function(row){ return row.snapshot && (row.floor||0) >= minFloor; })   // 100층 미만 캐릭터는 상대로 제외
+        .map(function(row){
+          var s=row.snapshot||{};
+          return Object.assign({}, s, { name:row.nickname, score:row.arena_score, power:row.power });
+        });
     }catch(e){ console.warn("[net] 아레나 상대 조회 실패",e); return []; }
   };
 
