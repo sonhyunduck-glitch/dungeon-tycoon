@@ -68,14 +68,14 @@ G.ui.renderCharacter = function(){
 
   // 서브 탭
   var sub=G.state.ui.charSub||"stats";
-  var subTabs=[["stats","📊 스탯"],["detail","📋 상세"],["equip","🛡️ 장비"],["rune","🔮 룬"],["skill","⚔️ 스킬"],["avatar","🎭 아바타"],["gacha","🎰 뽑기"],["unlock","🔓 해금"]];
+  var subTabs=[["stats","📊 스탯"],["detail","📋 상세"],["equip","🛡️ 장비"],["rune","🔮 룬"],["skill","⚔️ 스킬"],["avatar","🎭 아바타"],["unlock","🔓 해금"]];
   var tabBar='<div class="subtabs">'+subTabs.map(function(t){
     return '<button class="subtab'+(sub===t[0]?" active":"")+'" data-act="char-sub" data-sub="'+t[0]+'">'+t[1]+'</button>';
   }).join("")+'</div>';
 
-  var body = sub==="stats"?statsPanel : sub==="detail"?G.ui._statSheet() : sub==="equip"?equipPanel : sub==="rune"?runePanel : sub==="avatar"?G.ui._avatarPanel() : sub==="gacha"?G.ui._gachaPanel() : sub==="unlock"?G.ui._perksHTML() : G.ui._skills();
+  var body = sub==="stats"?statsPanel : sub==="detail"?G.ui._statSheet() : sub==="equip"?equipPanel : sub==="rune"?runePanel : sub==="avatar"?G.ui._avatarPanel() : sub==="unlock"?G.ui._perksHTML() : G.ui._skills();
   v.innerHTML = tabBar + body;
-  if(sub==="avatar"||sub==="gacha"){   // 미리보기 애니메이션(잠긴 건 정적)
+  if(sub==="avatar"){   // 미리보기 애니메이션(잠긴 건 정적)
     v.querySelectorAll(".av-prev-inner").forEach(function(el){
       var card=el.closest(".avatar-card");
       if(card && card.classList.contains("locked")) return;

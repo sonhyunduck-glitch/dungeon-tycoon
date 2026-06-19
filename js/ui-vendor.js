@@ -3,21 +3,36 @@ var G = window.G;
 
 G.ui.renderVendor = function(){
   var v=el("view-vendor");
+  var sub=G.state.ui.vendorSub||"potion";
+  var subTabs=[["potion","🧪 물약"],["forge","🔨 대장간"],["gacha","🎰 아바타뽑기"]];
+  var tabBar='<div class="subtabs">'+subTabs.map(function(t){
+    return '<button class="subtab'+(sub===t[0]?" active":"")+'" data-act="vendor-sub" data-sub="'+t[0]+'">'+t[1]+'</button>';
+  }).join("")+'</div>';
+  var body = sub==="potion" ? G.ui._potionShop() : sub==="forge" ? G.ui._forge() : G.ui._gachaPanel();
+  v.innerHTML = tabBar + body;
+  if(sub==="gacha"){   // 도감 미리보기 애니메이션(잠긴 건 정적)
+    v.querySelectorAll(".av-prev-inner").forEach(function(el){
+      var card=el.closest(".avatar-card"); if(card && card.classList.contains("locked")) return;
+      G.avatar.animatePreview(el);
+    });
+  }
+};
+
+/* 소모품(물약) 탭 */
+G.ui._potionShop = function(){
   var pot=G.state.consumables.potion_s||0;
   var max=G.state.potionMax||20;
   var price=G.potionPrice(); // 회복 HP당 1골드
   var gold=G.state.player.gold;
   var full=pot>=max;
   var can1=!full && gold>=price;
-  var maxQty=Math.max(0, Math.min(max-pot, Math.floor(gold/Math.max(1,price))));   // 골드·소지한도 내 최대 구매 수량
+  var maxQty=Math.max(0, Math.min(max-pot, Math.floor(gold/Math.max(1,price))));
   var canMax=!full && maxQty>0;
   var potCls = full?"r-legend":"muted";
-
-  v.innerHTML=
-    '<div class="panel theme-shop"><h2>🏬 상점</h2>'+
+  return '<div class="panel theme-shop"><h2>🧪 물약 상점</h2>'+
       '<div class="muted">소모품을 구매하는 곳입니다. 보유 골드 🪙'+G.ui.fmt(gold)+'</div>'+
     '</div>'+
-    '<div class="panel"><h3>소모품</h3>'+
+    '<div class="panel">'+
       '<div class="item"><div class="ico">🧪</div>'+
         '<div class="info">'+
           '<div class="iname">체력 물약 <span class="'+potCls+'">'+pot+' / '+max+'</span></div>'+
@@ -29,8 +44,7 @@ G.ui.renderVendor = function(){
         '</div>'+
       '</div>'+
       '<div class="muted" style="margin-top:8px">💡 가격은 회복량과 동일(회복 HP당 1골드). 최대 '+max+'개 소지. (특성 「자동 물약」 추천)</div>'+
-    '</div>'+
-    G.ui._forge();
+    '</div>';
 };
 
 /* 대장간 — 확정 제작 */
