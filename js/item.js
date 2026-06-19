@@ -30,14 +30,26 @@ G.item.recompute = mergeStats;
 /* 부위별 옵션 값 배율 */
 function slotMult(slot, stat){ var m=G.DATA.SLOT_AFFIX_MULT[slot]; return (m&&m[stat])||1; }
 
-/* 옵션 값 1개 굴리기 (부위 배율 반영) */
+/* 옵션 롤 편향(하드코어): 값이 클수록 희귀하게(파워커브). 1=균등, 클수록 저값 쏠림.
+   AFFIX_BIAS=옵션 값, COUNT_BIAS=옵션 개수(고등급 풀옵션 희소화). 밸런스 수치 한곳에서 조절. */
+G.item.AFFIX_BIAS = 3.0;
+G.item.COUNT_BIAS = 2.2;
+function skewT(bias){ return Math.pow(Math.random(), bias); }   // 0~1, 0(min)쪽으로 쏠림
+
+/* 옵션 값 1개 굴리기 (부위 배율 + 하드코어 편향 반영) */
 function rollAffixValue(af, lvlMult, slot){
+  var t = skewT(G.item.AFFIX_BIAS);                 // 고값(=max 근처)일수록 드묾
   if(af.dec){ // 소수점 % 옵션 (1자리)
-    var fv=(af.min + Math.random()*(af.max-af.min)) * slotMult(slot, af.stat);
+    var fv=(af.min + t*(af.max-af.min)) * slotMult(slot, af.stat);
     return Math.max(0.1, Math.round(fv*10)/10);
   }
-  var base = af.flat ? G.util.rand(af.min, af.max) * lvlMult : G.util.rand(af.min, af.max);
+  var span = af.min + t*(af.max-af.min);
+  var base = af.flat ? span * lvlMult : span;
   return Math.max(1, Math.round(base * slotMult(slot, af.stat)));
+}
+/* 등급 옵션 개수 — affMin~affMax, 저개수 쏠림(최대 개수는 드묾) */
+function rollAffixCount(rarity){
+  return rarity.affMin + Math.round((rarity.affMax - rarity.affMin) * skewT(G.item.COUNT_BIAS));
 }
 
 /* 가격 재계산 (stats 기반) */
@@ -66,7 +78,7 @@ G.item.generate = function(tier, level, partType){
   if(base.type==="armor") fixed.hp = (fixed.hp||0) + Math.round(base.val * 4 * rarity.mult * lvlMult);
 
   // 옵션(접사): 등급이 개수 범위 결정, 수치 랜덤, 중복 없음 — 부위별 허용 옵션만
-  var affixCount = G.util.rand(rarity.affMin, rarity.affMax);
+  var affixCount = rollAffixCount(rarity);
   var allowed = G.DATA.SLOT_AFFIXES[base.slot] || [];
   var pool = G.DATA.AFFIXES.filter(function(a){ return allowed.indexOf(a.stat)>=0; });
   var affixes=[];
@@ -113,7 +125,7 @@ G.item.generateRune = function(tier, level, baseName){
     ? Math.max(1, Math.round(base.val * rarity.mult))                         // 퍼센트 주스탯: 레벨 무관
     : Math.max(1, Math.round(base.val * rarity.mult * lvlMult * (0.85+Math.random()*0.4)));
 
-  var affixCount=G.util.rand(rarity.affMin, rarity.affMax);
+  var affixCount=rollAffixCount(rarity);
   var pool=G.DATA.AFFIXES.slice(), affixes=[];
   for(var i=0;i<affixCount && pool.length>0;i++){
     var idx=Math.floor(Math.random()*pool.length);
