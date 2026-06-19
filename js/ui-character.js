@@ -74,7 +74,7 @@ G.ui.renderCharacter = function(){
 
   // 서브 탭
   var sub=G.state.ui.charSub||"stats";
-  var subTabs=[["stats","📊 스탯"],["detail","📋 상세"],["equip","🛡️ 장비"],["rune","🔮 룬"],["skill","⚔️ 스킬"],["avatar","🎭 아바타"],["collection","📒 컬렉션"],["unlock","🔓 해금"]];
+  var subTabs=[["stats","스탯"],["detail","상세"],["equip","장비"],["rune","룬"],["skill","스킬"],["avatar","아바타"],["collection","컬렉션"],["unlock","해금"]];
   var tabBar='<div class="subtabs">'+subTabs.map(function(t){
     return '<button class="subtab'+(sub===t[0]?" active":"")+'" data-act="char-sub" data-sub="'+t[0]+'">'+t[1]+'</button>';
   }).join("")+'</div>';
