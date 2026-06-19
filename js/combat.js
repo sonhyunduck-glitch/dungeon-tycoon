@@ -271,11 +271,11 @@ G.combat.skillToggle = function(id){
 
 G.combat._lose = function(){
   var run=G.state.dungeon.run;
-  // 캐주얼: 페널티 없음 — 전리품·골드 안전, 체력만 회복해 귀환
-  G.log("🛡️ 쓰러졌지만 전리품은 모두 안전합니다. 마을로 귀환!", "r-uncommon");
+  // 캐주얼: 전리품·골드 안전. 부활 시 체력은 최대치의 10%로 회복(나머지는 물약/시간으로)
+  G.log("🛡️ 쓰러졌지만 전리품은 모두 안전합니다. 체력 10%로 마을 귀환!", "r-uncommon");
   run.combat=null;
   run.dead=true;
-  G.state.player.hp = G.totalStats().maxHp;
+  G.state.player.hp = Math.max(1, Math.round(G.totalStats().maxHp * 0.10));
   return { over:true, win:false, dead:true };
 };
 

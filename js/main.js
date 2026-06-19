@@ -157,12 +157,18 @@
     "unlist": function(d){ G.shop.unlist(parseInt(d.idx,10)); G.ui.render(); },
     "price-edit": function(d){ G.ui.priceModal(parseInt(d.idx,10)); },
     "buy-potion": function(d){
-      var qty=parseInt(d.qty,10)||1;
       var max=G.state.potionMax||20;
       var have=G.state.consumables.potion_s||0;
       if(have>=max){ G.ui.toast("물약은 최대 "+max+"개까지 소지할 수 있습니다"); return; }
-      qty=Math.min(qty, max-have);                 // 한도 초과분은 잘라냄
       var H=G.potionHealAmount();                   // 구매 시점 회복량(=개당 가격)
+      var room=max-have;
+      var qty;
+      if(d.qty==="max"){                            // 골드가 허용하는 최대치(소지 한도 내)
+        qty=Math.min(room, Math.floor((G.state.player.gold||0)/Math.max(1,H)));
+        if(qty<=0){ G.ui.toast("골드가 부족합니다 (개당 🪙"+G.ui.fmt(H)+")"); return; }
+      } else {
+        qty=Math.min(parseInt(d.qty,10)||1, room);  // 한도 초과분은 잘라냄
+      }
       var cost=H*qty;
       if(G.state.player.gold<cost){ G.ui.toast("골드가 부족합니다 (🪙"+G.ui.fmt(cost)+")"); return; }
       G.state.player.gold-=cost;

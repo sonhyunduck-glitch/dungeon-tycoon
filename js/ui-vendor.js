@@ -8,7 +8,9 @@ G.ui.renderVendor = function(){
   var price=G.potionPrice(); // 회복 HP당 1골드
   var gold=G.state.player.gold;
   var full=pot>=max;
-  var can1=!full && gold>=price, can10=!full && gold>=price;
+  var can1=!full && gold>=price;
+  var maxQty=Math.max(0, Math.min(max-pot, Math.floor(gold/Math.max(1,price))));   // 골드·소지한도 내 최대 구매 수량
+  var canMax=!full && maxQty>0;
   var potCls = full?"r-legend":"muted";
 
   v.innerHTML=
@@ -23,7 +25,7 @@ G.ui.renderVendor = function(){
         '</div>'+
         '<div class="iacts">'+
           '<button class="btn sm primary" data-act="buy-potion" data-qty="1" '+(can1?"":"disabled")+'>+1</button>'+
-          '<button class="btn sm gold" data-act="buy-potion" data-qty="10" '+(can10?"":"disabled")+'>+10 🪙'+G.ui.fmt(price*10)+'</button>'+
+          '<button class="btn sm gold" data-act="buy-potion" data-qty="max" '+(canMax?"":"disabled")+'>MAX ×'+maxQty+' 🪙'+G.ui.fmt(price*maxQty)+'</button>'+
         '</div>'+
       '</div>'+
       '<div class="muted" style="margin-top:8px">💡 가격은 회복량과 동일(회복 HP당 1골드). 최대 '+max+'개 소지. (특성 「자동 물약」 추천)</div>'+
