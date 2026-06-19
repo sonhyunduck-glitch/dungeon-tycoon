@@ -135,6 +135,31 @@
     return '<div style="'+box+'"><div class="av-prev-inner" data-av="'+c.id+'" style="'+inner+'"></div></div>';
   };
 
+  // 전투용 파이터 스프라이트(아레나 전투화면 등) — 임의 아바타를 holder에 렌더.
+  // idle 루프, set("attack"/"hurt"/"death")은 1회 재생 후 idle 복귀. flip=좌우반전(상대측).
+  G.avatar.makeFighter = function(holder, id, flip, dispScale){
+    var c=G.avatar.get(id);
+    var z=(dispScale||2.2)*(c.scale||1.5);
+    var sp=document.createElement("div");
+    sp.style.cssText="position:absolute;left:50%;bottom:0;width:"+c.fw+"px;height:"+c.fh+"px;"+
+      "background:url('"+c.sheet+"') 0 0 no-repeat;background-size:auto;image-rendering:pixelated;"+
+      "transform:translateX(-50%) scale("+z+")"+(flip?" scaleX(-1)":"")+";transform-origin:center bottom;"+
+      "filter:drop-shadow(0 3px 4px rgba(0,0,0,.55));";
+    holder.appendChild(sp);
+    var st={ mo:"idle", frame:0, t:null };
+    function mo(){ return c[st.mo]||c.idle; }
+    function draw(){ var m=mo(); var f=st.frame%Math.max(1,m.frames); sp.style.backgroundPosition=(-(f*c.fw))+"px "+(-(m.row*c.fh))+"px"; }
+    draw();
+    st.t=setInterval(function(){ if(!sp.isConnected){ clearInterval(st.t); return; }
+      var m=mo(); st.frame++;
+      if(st.mo!=="idle" && st.frame>=m.frames){ if(st.mo==="death"){ st.frame=m.frames-1; } else { st.mo="idle"; st.frame=0; } }
+      draw();
+    }, 90);
+    return { el:sp,
+      set:function(n){ if(c[n]){ st.mo=n; st.frame=0; draw(); } },
+      stop:function(){ if(st.t){ clearInterval(st.t); st.t=null; } } };
+  };
+
   // 프리뷰 요소를 idle 프레임들 → attack 프레임들 순차 재생(루프). DOM에서 제거되면 자동 정지.
   G.avatar.animatePreview = function(el){
     var c=G.avatar.get(el.getAttribute("data-av")); if(!c) return null;

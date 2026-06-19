@@ -218,6 +218,69 @@ G.ui.arenaShopModal = function(){
 /* ============================================================
    랭킹 뷰
    ============================================================ */
+/* 아레나 전투 화면 — 두 아바타 대치, rounds[] 리플레이(공격·피격·데미지·HP·스킬). 종료 시 onDone */
+G.ui.arenaBattle = function(out, onDone){
+  var foe=out.foe||{}, rounds=(out.res&&out.res.rounds)||[];
+  var myMax=Math.max(1, Math.round((G.totalStats?G.totalStats().maxHp:out.res.meHp)||1));
+  var foeMax=Math.max(1, foe.maxHp||1);
+  var sp=Math.max(1,(G.state.battleSpeed||1));
+  var meId=(G.avatar&&G.avatar.currentId)?G.avatar.currentId():"adventurer", foeId=foe.avatar||"adventurer";
+  var SK={}; (G.DATA.SKILLS||[]).forEach(function(s){SK[s.id]=s;});
+  var tb=function(s){ return (G.arena&&G.arena.tierBadge)?G.arena.tierBadge(s,true):""; };
+  var ov=document.createElement("div"); ov.className="modal-overlay show arena-battle";
+  ov.innerHTML='<div class="abattle">'+
+    '<div class="abattle-stage" id="abattle-stage">'+
+      '<div class="afoe-side">'+
+        '<div class="aname"><b class="r-uncommon">나</b> '+tb(G.arena.score())+'</div>'+
+        '<div class="ahp"><div class="ahp-fill me" style="width:100%"></div></div>'+
+        '<div class="afighter" id="af-me"></div>'+
+      '</div>'+
+      '<div class="avs">⚔️</div>'+
+      '<div class="afoe-side">'+
+        '<div class="aname">'+esc(foe.name||"상대")+' '+tb(foe.score||1000)+'</div>'+
+        '<div class="ahp"><div class="ahp-fill foe" style="width:100%"></div></div>'+
+        '<div class="afighter" id="af-foe"></div>'+
+      '</div>'+
+    '</div>'+
+    '<div class="abattle-ctrl">'+
+      '<label class="amini"><input type="checkbox" class="abattle-always"> 항상 스킵</label>'+
+      '<button class="btn sm abattle-skip">⏭ 스킵</button>'+
+    '</div>'+
+  '</div>';
+  document.body.appendChild(ov);
+  var meF=G.avatar.makeFighter(el("af-me"), meId, false);
+  var foeF=G.avatar.makeFighter(el("af-foe"), foeId, true);
+  var stage=el("abattle-stage");
+  var chk=ov.querySelector(".abattle-always");
+  if(chk){ chk.checked=!!G.state.arenaSkip; chk.addEventListener("change", function(){ G.state.arenaSkip=chk.checked; if(G.save) G.save.save(true); }); }
+  var i=0, MAXVIS=24, done=false, timer=null;
+  function finish(){ if(done) return; done=true; if(timer) clearTimeout(timer); meF.stop(); foeF.stop(); ov.remove(); if(onDone) onDone(); }
+  ov.addEventListener("click", function(e){ if(e.target.closest(".abattle-skip")) finish(); });
+  function setHp(sel, hp, max){ var f=ov.querySelector(sel); if(f) f.style.width=Math.max(0,Math.min(100, hp/max*100))+"%"; }
+  function step(){
+    if(done) return;
+    if(i>=rounds.length || i>=MAXVIS){ setHp(".ahp-fill.me", out.res.meHp, myMax); setHp(".ahp-fill.foe", out.res.foeHp, foeMax); timer=setTimeout(finish, 480); return; }
+    var r=rounds[i++];
+    var atkF=r.who==="me"?meF:foeF, defF=r.who==="me"?foeF:meF;
+    var defHolder=r.who==="me"?el("af-foe"):el("af-me");
+    var defSel=r.who==="me"?".ahp-fill.foe":".ahp-fill.me", defMax=r.who==="me"?foeMax:myMax;
+    if(r.stun){ floatDmgEl(atkF.el, "💫기절", false, "#7fe0ff"); }
+    else {
+      atkF.set("attack");
+      setTimeout(function(){
+        if(done) return;
+        if(r.skill && SK[r.skill]) floatDmgEl(atkF.el, SK[r.skill].ico, false, "#ffd86a");
+        if(r.dodge){ floatDmgEl(defHolder, "회피!", false, "#7fe0ff"); }
+        else if(r.dmg>0){ defF.set("hurt"); var c=foeCenter(stage, defHolder); spawnSlash(stage, c.x, c.y, r.crit); floatDmgEl(defHolder, (r.crit?"💥":"")+G.ui.fmt(r.dmg), r.crit); }
+        if(r.refl) floatDmgEl(atkF.el, "↩"+G.ui.fmt(r.refl), false, "#ffd86a");
+        var hp=r.who==="me"?r.foeHp:r.meHp; if(hp!=null) setHp(defSel, hp, defMax);
+      }, Math.round(150/sp));
+    }
+    timer=setTimeout(step, Math.round(Math.max(220, 470/sp)));
+  }
+  timer=setTimeout(step, 350);
+};
+
 /* 가방 옵션(스탯) 필터 선택 — 다크 모달(네이티브 select 흰색 팝업 회피) */
 G.ui.bagStatPickModal = function(){
   var cur=G.state.ui.bagFilterStat||"all";

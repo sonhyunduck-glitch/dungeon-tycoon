@@ -351,6 +351,26 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
 .slotchip.active{ border-color:var(--acc); box-shadow:0 0 0 1px var(--acc) inset; background:#2a2433; }
 .slotchip .fico{ width:28px; height:28px; image-rendering:pixelated; object-fit:contain; }
 .slotchip .chiptext{ font-size:.78rem; color:var(--txt); font-weight:700; }
+/* 아레나 전투 화면 */
+.abattle{ width:min(460px,95vw); }
+.abattle-stage{ position:relative; display:flex; align-items:flex-end; justify-content:space-between; gap:6px;
+  height:210px; padding:14px 12px 12px; border-radius:14px; overflow:hidden;
+  background:
+    radial-gradient(160px 70px at 50% 102%, rgba(255,170,80,.13), transparent 72%),
+    radial-gradient(180px 110px at 50% 50%, var(--torch-glow,rgba(255,150,70,.10)), transparent 74%),
+    linear-gradient(to bottom, #14101b 0%, #1a1422 46%, #2d2128 100%);
+  box-shadow: inset 0 16px 28px rgba(0,0,0,.5), inset 0 -8px 18px rgba(0,0,0,.34); border:1px solid rgba(255,255,255,.06); }
+.afoe-side{ flex:0 0 42%; display:flex; flex-direction:column; align-items:center; gap:6px; z-index:2; }
+.afoe-side .aname{ font-size:.72rem; text-align:center; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:100%; }
+.afighter{ position:relative; width:100%; height:120px; }
+.ahp{ width:88%; height:9px; border-radius:5px; overflow:hidden; background:rgba(0,0,0,.42); border:1px solid rgba(255,255,255,.08); }
+.ahp-fill{ height:100%; border-radius:5px; transition:width .25s ease; }
+.ahp-fill.me{ background:linear-gradient(90deg,#43d17a,#7be8a4); }
+.ahp-fill.foe{ background:linear-gradient(90deg,#e0556a,#ff8a9a); }
+.avs{ align-self:center; font-size:1.4rem; z-index:2; filter:drop-shadow(0 2px 3px rgba(0,0,0,.6)); }
+.abattle-ctrl{ display:flex; align-items:center; justify-content:space-between; margin-top:10px; }
+.abattle-ctrl .amini{ font-size:.74rem; color:var(--mut,#9a8fa8); display:inline-flex; align-items:center; gap:5px; cursor:pointer; }
+
 /* 옵션 필터 — 다크 모달 선택창(네이티브 select 흰색 팝업 회피) */
 .statopt-grid{ display:flex; flex-wrap:wrap; gap:6px; max-height:56vh; overflow:auto; margin-top:4px; }
 .statopt{ flex:0 0 auto; font-size:.8rem; padding:7px 11px; }

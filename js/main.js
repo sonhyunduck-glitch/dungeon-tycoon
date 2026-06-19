@@ -137,9 +137,10 @@
       if(G.arena.fightsLeft()<=0){ G.ui.toast("오늘 도전을 모두 사용했습니다 (내일 리셋)"); return; }
       var foes=G.arena._foes||[]; var foe=foes[parseInt(d.i,10)]; if(!foe) return;
       var out=G.arena.challenge(foe);
-      G.ui.arenaResultModal(out);
       G.arena._foes=null;          // 다음 상대 새로 추천
-      G.ui.renderArena();
+      var reduced=false; try{ reduced=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){}
+      if(G.state.arenaSkip || reduced){ G.ui.arenaResultModal(out); G.ui.renderArena(); }
+      else { G.ui.arenaBattle(out, function(){ G.ui.arenaResultModal(out); G.ui.renderArena(); }); }
     },
     "arena-shop": function(){ G.ui.arenaShopModal(); },
     "arena-buy": function(d){
