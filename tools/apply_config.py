@@ -16,8 +16,8 @@ TOOLS = os.path.join(ROOT,"tools")
 OUT_DIR = os.path.join(ROOT,"assets","enemies")
 CSS_OUT = os.path.join(ROOT,"css","enemies_phaseb.css")
 
-DUR = {"idle":0.12, "attack":0.07, "hurt":0.085, "death":0.10}
-SUFFIX = {"idle":"", "attack":"_attack", "hurt":"_hurt", "death":"_death"}
+DUR = {"idle":0.12, "attack":0.07, "hurt":0.085, "death":0.10, "walk":0.11}
+SUFFIX = {"idle":"", "attack":"_attack", "hurt":"_hurt", "death":"_death", "walk":"_walk"}
 CLS = {"attack":"atk", "hurt":"hurt", "death":"die"}
 FILL = {"attack":"1 forwards", "hurt":"1", "death":"1 forwards"}
 ANIMKEY = {"attack":"atk","hurt":"hurt","death":"die"}
@@ -38,10 +38,13 @@ def big_scale(key,fw,fh):
 def sm_scale(key,fw,fh):
     return _cap(SCALE_OVERRIDE.get(key, SCALE_SM), fw, fh)
 
-def extract(src, fw, fh, row, frames, outname):
+def extract(src, fw, fh, row, frames, outname, overwrite=True):
     """소스 시트에서 행을 가로 스트립으로 추출. 소스가 없으면(커스텀: 슬라이서에서 직접 다운로드)
-       이미 assets/enemies에 있는 스트립을 그대로 사용. 둘 다 없으면 False."""
+       이미 assets/enemies에 있는 스트립을 그대로 사용. 둘 다 없으면 False.
+       overwrite=False: 대상 스트립이 이미 있으면 재추출하지 않고 재사용(불필요한 PNG 재기록 방지)."""
     tgt = os.path.join(OUT_DIR, outname)
+    if not overwrite and os.path.exists(tgt):
+        return True
     if not os.path.exists(src):
         if os.path.exists(tgt):
             print("   · 소스없음→기존 스트립 사용:", outname); return True
@@ -71,6 +74,17 @@ def css_motion(key, typ, fw, fh, frames):
         out.append('.es-%s%s.%s{ background-image:url("../assets/enemies/%s%s.png"); background-size:%dpx %dpx; animation:%s %.2fs steps(%d) %s; }'
                    %(key,tag,cls,key,suf,BGW,H,nm,DUR[typ]*frames,stp,FILL[typ]))
         out.append('@keyframes %s{ from{ background-position:0 0; } to{ background-position:-%dpx 0; } }'%(nm,ENDW))
+    return "\n".join(out)
+
+def css_walk(key, fw, fh, frames):
+    """걷기 = idle 처럼 루프(steps(frames), to=-BGW)지만 별도 스트립(_walk.png) + .walk 클래스."""
+    out=[]
+    for tag,scl in (("",big_scale),("-sm",sm_scale)):
+        s=scl(key,fw,fh); W=round(fw*s); H=round(fh*s); BGW=W*frames
+        nm="eska-%s-walk%s"%(key,tag)
+        out.append('.es-%s%s.walk{ background-image:url("../assets/enemies/%s_walk.png"); background-size:%dpx %dpx; animation:%s %.2fs steps(%d) infinite; }'
+                   %(key,tag,key,BGW,H,nm,DUR["walk"]*frames,frames))
+        out.append('@keyframes %s{ from{ background-position:0 0; } to{ background-position:-%dpx 0; } }'%(nm,BGW))
     return "\n".join(out)
 
 def main():
@@ -108,6 +122,11 @@ def main():
                     continue
                 css.append(css_motion(key,a["type"],a["fw"],a["fh"],a["frames"]))
                 amap[ANIMKEY[a["type"]]]=a["frames"]
+            elif a["type"]=="walk":
+                if not extract(os.path.join(TOOLS,a["file"]),a["fw"],a["fh"],a["row"],a["frames"],key+"_walk.png",overwrite=True):
+                    continue
+                css.append(css_walk(key,a["fw"],a["fh"],a["frames"]))
+                amap["walk"]=a["frames"]
         sprites.append('  "%s":"%s",'%(name,key))
         if amap:
             anims.append('  %s: { %s },'%(key, ", ".join("%s:%d"%(k,v) for k,v in amap.items())))

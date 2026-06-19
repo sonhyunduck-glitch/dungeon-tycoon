@@ -17,6 +17,10 @@
 @keyframes eska-giant_slime-die{ from{ background-position:0 0; } to{ background-position:-384px 0; } }
 .es-giant_slime-sm.die{ background-image:url("../assets/enemies/giant_slime_death.png"); background-size:448px 96px; animation:eska-giant_slime-die-sm 0.70s steps(6) 1 forwards; }
 @keyframes eska-giant_slime-die-sm{ from{ background-position:0 0; } to{ background-position:-384px 0; } }
+.es-giant_slime.walk{ background-image:url("../assets/enemies/giant_slime_walk.png"); background-size:512px 96px; animation:eska-giant_slime-walk 0.88s steps(8) infinite; }
+@keyframes eska-giant_slime-walk{ from{ background-position:0 0; } to{ background-position:-512px 0; } }
+.es-giant_slime-sm.walk{ background-image:url("../assets/enemies/giant_slime_walk.png"); background-size:512px 96px; animation:eska-giant_slime-walk-sm 0.88s steps(8) infinite; }
+@keyframes eska-giant_slime-walk-sm{ from{ background-position:0 0; } to{ background-position:-512px 0; } }
 /* 검은 푸딩 */
 .es-black_pudding{ width:48px; height:48px; background:url("../assets/enemies/black_pudding.png") 0 0 no-repeat; background-size:240px 48px; animation:eska-black_pudding 0.60s steps(5) infinite; }
 @keyframes eska-black_pudding{ from{ background-position:0 0; } to{ background-position:-240px 0; } }
@@ -553,6 +557,10 @@
 @keyframes eska-slime-die{ from{ background-position:0 0; } to{ background-position:-288px 0; } }
 .es-slime-sm.die{ background-image:url("../assets/enemies/slime_death.png"); background-size:224px 32px; animation:eska-slime-die-sm 0.70s steps(6) 1 forwards; }
 @keyframes eska-slime-die-sm{ from{ background-position:0 0; } to{ background-position:-192px 0; } }
+.es-slime.walk{ background-image:url("../assets/enemies/slime_walk.png"); background-size:384px 48px; animation:eska-slime-walk 0.88s steps(8) infinite; }
+@keyframes eska-slime-walk{ from{ background-position:0 0; } to{ background-position:-384px 0; } }
+.es-slime-sm.walk{ background-image:url("../assets/enemies/slime_walk.png"); background-size:256px 32px; animation:eska-slime-walk-sm 0.88s steps(8) infinite; }
+@keyframes eska-slime-walk-sm{ from{ background-position:0 0; } to{ background-position:-256px 0; } }
 /* 박쥐 */
 .es-bat{ width:24px; height:36px; background:url("../assets/enemies/bat.png") 0 0 no-repeat; background-size:120px 36px; animation:eska-bat 0.60s steps(5) infinite; }
 @keyframes eska-bat{ from{ background-position:0 0; } to{ background-position:-120px 0; } }
@@ -583,6 +591,10 @@
 @keyframes eska-goblin-die{ from{ background-position:0 0; } to{ background-position:-240px 0; } }
 .es-goblin-sm.die{ background-image:url("../assets/enemies/goblin_death.png"); background-size:192px 32px; animation:eska-goblin-die-sm 0.60s steps(5) 1 forwards; }
 @keyframes eska-goblin-die-sm{ from{ background-position:0 0; } to{ background-position:-160px 0; } }
+.es-goblin.walk{ background-image:url("../assets/enemies/goblin_walk.png"); background-size:384px 48px; animation:eska-goblin-walk 0.88s steps(8) infinite; }
+@keyframes eska-goblin-walk{ from{ background-position:0 0; } to{ background-position:-384px 0; } }
+.es-goblin-sm.walk{ background-image:url("../assets/enemies/goblin_walk.png"); background-size:256px 32px; animation:eska-goblin-walk-sm 0.88s steps(8) infinite; }
+@keyframes eska-goblin-walk-sm{ from{ background-position:0 0; } to{ background-position:-256px 0; } }
 /* 화염 해골 */
 .es-skeleton{ width:96px; height:96px; background:url("../assets/enemies/skeleton.png") 0 0 no-repeat; background-size:768px 96px; animation:eska-skeleton 0.96s steps(8) infinite; }
 @keyframes eska-skeleton{ from{ background-position:0 0; } to{ background-position:-768px 0; } }
@@ -600,6 +612,10 @@
 @keyframes eska-skeleton-die{ from{ background-position:0 0; } to{ background-position:-672px 0; } }
 .es-skeleton-sm.die{ background-image:url("../assets/enemies/skeleton_death.png"); background-size:512px 64px; animation:eska-skeleton-die-sm 0.80s steps(7) 1 forwards; }
 @keyframes eska-skeleton-die-sm{ from{ background-position:0 0; } to{ background-position:-448px 0; } }
+.es-skeleton.walk{ background-image:url("../assets/enemies/skeleton_walk.png"); background-size:768px 96px; animation:eska-skeleton-walk 0.88s steps(8) infinite; }
+@keyframes eska-skeleton-walk{ from{ background-position:0 0; } to{ background-position:-768px 0; } }
+.es-skeleton-sm.walk{ background-image:url("../assets/enemies/skeleton_walk.png"); background-size:512px 64px; animation:eska-skeleton-walk-sm 0.88s steps(8) infinite; }
+@keyframes eska-skeleton-walk-sm{ from{ background-position:0 0; } to{ background-position:-512px 0; } }
 /* 거미 */
 .es-spider{ width:48px; height:48px; background:url("../assets/enemies/spider.png") 0 0 no-repeat; background-size:240px 48px; animation:eska-spider 0.60s steps(5) infinite; }
 @keyframes eska-spider{ from{ background-position:0 0; } to{ background-position:-240px 0; } }
@@ -617,6 +633,10 @@
 @keyframes eska-spider-die{ from{ background-position:0 0; } to{ background-position:-384px 0; } }
 .es-spider-sm.die{ background-image:url("../assets/enemies/spider_death.png"); background-size:288px 32px; animation:eska-spider-die-sm 0.90s steps(8) 1 forwards; }
 @keyframes eska-spider-die-sm{ from{ background-position:0 0; } to{ background-position:-256px 0; } }
+.es-spider.walk{ background-image:url("../assets/enemies/spider_walk.png"); background-size:288px 48px; animation:eska-spider-walk 0.66s steps(6) infinite; }
+@keyframes eska-spider-walk{ from{ background-position:0 0; } to{ background-position:-288px 0; } }
+.es-spider-sm.walk{ background-image:url("../assets/enemies/spider_walk.png"); background-size:192px 32px; animation:eska-spider-walk-sm 0.66s steps(6) infinite; }
+@keyframes eska-spider-walk-sm{ from{ background-position:0 0; } to{ background-position:-192px 0; } }
 /* 늑대 */
 .es-wolf{ width:96px; height:96px; background:url("../assets/enemies/wolf.png") 0 0 no-repeat; background-size:768px 96px; animation:eska-wolf 0.96s steps(8) infinite; }
 @keyframes eska-wolf{ from{ background-position:0 0; } to{ background-position:-768px 0; } }
@@ -634,6 +654,10 @@
 @keyframes eska-wolf-die{ from{ background-position:0 0; } to{ background-position:-288px 0; } }
 .es-wolf-sm.die{ background-image:url("../assets/enemies/wolf_death.png"); background-size:256px 64px; animation:eska-wolf-die-sm 0.40s steps(3) 1 forwards; }
 @keyframes eska-wolf-die-sm{ from{ background-position:0 0; } to{ background-position:-192px 0; } }
+.es-wolf.walk{ background-image:url("../assets/enemies/wolf_walk.png"); background-size:768px 96px; animation:eska-wolf-walk 0.88s steps(8) infinite; }
+@keyframes eska-wolf-walk{ from{ background-position:0 0; } to{ background-position:-768px 0; } }
+.es-wolf-sm.walk{ background-image:url("../assets/enemies/wolf_walk.png"); background-size:512px 64px; animation:eska-wolf-walk-sm 0.88s steps(8) infinite; }
+@keyframes eska-wolf-walk-sm{ from{ background-position:0 0; } to{ background-position:-512px 0; } }
 /* 오크 전사 */
 .es-orc{ width:96px; height:96px; background:url("../assets/enemies/orc.png") 0 0 no-repeat; background-size:480px 96px; animation:eska-orc 0.60s steps(5) infinite; }
 @keyframes eska-orc{ from{ background-position:0 0; } to{ background-position:-480px 0; } }
@@ -651,6 +675,10 @@
 @keyframes eska-orc-die{ from{ background-position:0 0; } to{ background-position:-480px 0; } }
 .es-orc-sm.die{ background-image:url("../assets/enemies/orc_death.png"); background-size:384px 64px; animation:eska-orc-die-sm 0.60s steps(5) 1 forwards; }
 @keyframes eska-orc-die-sm{ from{ background-position:0 0; } to{ background-position:-320px 0; } }
+.es-orc.walk{ background-image:url("../assets/enemies/orc_walk.png"); background-size:768px 96px; animation:eska-orc-walk 0.88s steps(8) infinite; }
+@keyframes eska-orc-walk{ from{ background-position:0 0; } to{ background-position:-768px 0; } }
+.es-orc-sm.walk{ background-image:url("../assets/enemies/orc_walk.png"); background-size:512px 64px; animation:eska-orc-walk-sm 0.88s steps(8) infinite; }
+@keyframes eska-orc-walk-sm{ from{ background-position:0 0; } to{ background-position:-512px 0; } }
 /* 골렘 */
 .es-golem{ width:48px; height:48px; background:url("../assets/enemies/golem.png") 0 0 no-repeat; background-size:480px 48px; animation:eska-golem 1.20s steps(10) infinite; }
 @keyframes eska-golem{ from{ background-position:0 0; } to{ background-position:-480px 0; } }
@@ -668,6 +696,10 @@
 @keyframes eska-golem-die{ from{ background-position:0 0; } to{ background-position:-432px 0; } }
 .es-golem-sm.die{ background-image:url("../assets/enemies/golem_death.png"); background-size:320px 32px; animation:eska-golem-die-sm 1.00s steps(9) 1 forwards; }
 @keyframes eska-golem-die-sm{ from{ background-position:0 0; } to{ background-position:-288px 0; } }
+.es-golem.walk{ background-image:url("../assets/enemies/golem_walk.png"); background-size:240px 48px; animation:eska-golem-walk 0.55s steps(5) infinite; }
+@keyframes eska-golem-walk{ from{ background-position:0 0; } to{ background-position:-240px 0; } }
+.es-golem-sm.walk{ background-image:url("../assets/enemies/golem_walk.png"); background-size:160px 32px; animation:eska-golem-walk-sm 0.55s steps(5) infinite; }
+@keyframes eska-golem-walk-sm{ from{ background-position:0 0; } to{ background-position:-160px 0; } }
 /* 유령 */
 .es-ghost{ width:48px; height:48px; background:url("../assets/enemies/ghost.png") 0 0 no-repeat; background-size:336px 48px; animation:eska-ghost 0.84s steps(7) infinite; }
 @keyframes eska-ghost{ from{ background-position:0 0; } to{ background-position:-336px 0; } }
@@ -685,6 +717,10 @@
 @keyframes eska-ghost-die{ from{ background-position:0 0; } to{ background-position:-384px 0; } }
 .es-ghost-sm.die{ background-image:url("../assets/enemies/ghost_death.png"); background-size:288px 32px; animation:eska-ghost-die-sm 0.90s steps(8) 1 forwards; }
 @keyframes eska-ghost-die-sm{ from{ background-position:0 0; } to{ background-position:-256px 0; } }
+.es-ghost.walk{ background-image:url("../assets/enemies/ghost_walk.png"); background-size:336px 48px; animation:eska-ghost-walk 0.77s steps(7) infinite; }
+@keyframes eska-ghost-walk{ from{ background-position:0 0; } to{ background-position:-336px 0; } }
+.es-ghost-sm.walk{ background-image:url("../assets/enemies/ghost_walk.png"); background-size:224px 32px; animation:eska-ghost-walk-sm 0.77s steps(7) infinite; }
+@keyframes eska-ghost-walk-sm{ from{ background-position:0 0; } to{ background-position:-224px 0; } }
 /* 리치 */
 .es-lich{ width:128px; height:107px; background:url("../assets/enemies/lich.png") 0 0 no-repeat; background-size:1024px 107px; animation:eska-lich 0.96s steps(8) infinite; }
 @keyframes eska-lich{ from{ background-position:0 0; } to{ background-position:-1024px 0; } }
@@ -703,10 +739,10 @@
 .es-lich-sm.die{ background-image:url("../assets/enemies/lich_death.png"); background-size:2048px 107px; animation:eska-lich-die-sm 1.60s steps(15) 1 forwards; }
 @keyframes eska-lich-die-sm{ from{ background-position:0 0; } to{ background-position:-1920px 0; } }
 /* 화염 정령 */
-.es-fire_elem{ width:48px; height:48px; background:url("../assets/enemies/fire_elem.png") 0 0 no-repeat; background-size:384px 48px; animation:eska-fire_elem 0.96s steps(8) infinite; }
-@keyframes eska-fire_elem{ from{ background-position:0 0; } to{ background-position:-384px 0; } }
-.es-fire_elem-sm{ width:32px; height:32px; background:url("../assets/enemies/fire_elem.png") 0 0 no-repeat; background-size:256px 32px; animation:eska-fire_elem-sm 0.96s steps(8) infinite; }
-@keyframes eska-fire_elem-sm{ from{ background-position:0 0; } to{ background-position:-256px 0; } }
+.es-fire_elem{ width:48px; height:48px; background:url("../assets/enemies/fire_elem.png") 0 0 no-repeat; background-size:288px 48px; animation:eska-fire_elem 0.72s steps(6) infinite; }
+@keyframes eska-fire_elem{ from{ background-position:0 0; } to{ background-position:-288px 0; } }
+.es-fire_elem-sm{ width:32px; height:32px; background:url("../assets/enemies/fire_elem.png") 0 0 no-repeat; background-size:192px 32px; animation:eska-fire_elem-sm 0.72s steps(6) infinite; }
+@keyframes eska-fire_elem-sm{ from{ background-position:0 0; } to{ background-position:-192px 0; } }
 .es-fire_elem.atk{ background-image:url("../assets/enemies/fire_elem_attack.png"); background-size:384px 48px; animation:eska-fire_elem-atk 0.56s steps(7) 1 forwards; }
 @keyframes eska-fire_elem-atk{ from{ background-position:0 0; } to{ background-position:-336px 0; } }
 .es-fire_elem-sm.atk{ background-image:url("../assets/enemies/fire_elem_attack.png"); background-size:256px 32px; animation:eska-fire_elem-atk-sm 0.56s steps(7) 1 forwards; }
@@ -719,6 +755,10 @@
 @keyframes eska-fire_elem-die{ from{ background-position:0 0; } to{ background-position:-336px 0; } }
 .es-fire_elem-sm.die{ background-image:url("../assets/enemies/fire_elem_death.png"); background-size:256px 32px; animation:eska-fire_elem-die-sm 0.80s steps(7) 1 forwards; }
 @keyframes eska-fire_elem-die-sm{ from{ background-position:0 0; } to{ background-position:-224px 0; } }
+.es-fire_elem.walk{ background-image:url("../assets/enemies/fire_elem_walk.png"); background-size:384px 48px; animation:eska-fire_elem-walk 0.88s steps(8) infinite; }
+@keyframes eska-fire_elem-walk{ from{ background-position:0 0; } to{ background-position:-384px 0; } }
+.es-fire_elem-sm.walk{ background-image:url("../assets/enemies/fire_elem_walk.png"); background-size:256px 32px; animation:eska-fire_elem-walk-sm 0.88s steps(8) infinite; }
+@keyframes eska-fire_elem-walk-sm{ from{ background-position:0 0; } to{ background-position:-256px 0; } }
 /* 냉기 정령 */
 .es-ice_elem{ width:48px; height:48px; background:url("../assets/enemies/ice_elem.png") 0 0 no-repeat; background-size:288px 48px; animation:eska-ice_elem 0.72s steps(6) infinite; }
 @keyframes eska-ice_elem{ from{ background-position:0 0; } to{ background-position:-288px 0; } }
@@ -736,6 +776,10 @@
 @keyframes eska-ice_elem-die{ from{ background-position:0 0; } to{ background-position:-336px 0; } }
 .es-ice_elem-sm.die{ background-image:url("../assets/enemies/ice_elem_death.png"); background-size:256px 32px; animation:eska-ice_elem-die-sm 0.80s steps(7) 1 forwards; }
 @keyframes eska-ice_elem-die-sm{ from{ background-position:0 0; } to{ background-position:-224px 0; } }
+.es-ice_elem.walk{ background-image:url("../assets/enemies/ice_elem_walk.png"); background-size:192px 48px; animation:eska-ice_elem-walk 0.44s steps(4) infinite; }
+@keyframes eska-ice_elem-walk{ from{ background-position:0 0; } to{ background-position:-192px 0; } }
+.es-ice_elem-sm.walk{ background-image:url("../assets/enemies/ice_elem_walk.png"); background-size:128px 32px; animation:eska-ice_elem-walk-sm 0.44s steps(4) infinite; }
+@keyframes eska-ice_elem-walk-sm{ from{ background-position:0 0; } to{ background-position:-128px 0; } }
 /* 뱀 */
 .es-snake{ width:48px; height:48px; background:url("../assets/enemies/snake.png") 0 0 no-repeat; background-size:240px 48px; animation:eska-snake 0.60s steps(5) infinite; }
 @keyframes eska-snake{ from{ background-position:0 0; } to{ background-position:-240px 0; } }
@@ -753,6 +797,10 @@
 @keyframes eska-snake-die{ from{ background-position:0 0; } to{ background-position:-192px 0; } }
 .es-snake-sm.die{ background-image:url("../assets/enemies/snake_death.png"); background-size:160px 32px; animation:eska-snake-die-sm 0.50s steps(4) 1 forwards; }
 @keyframes eska-snake-die-sm{ from{ background-position:0 0; } to{ background-position:-128px 0; } }
+.es-snake.walk{ background-image:url("../assets/enemies/snake_walk.png"); background-size:240px 48px; animation:eska-snake-walk 0.55s steps(5) infinite; }
+@keyframes eska-snake-walk{ from{ background-position:0 0; } to{ background-position:-240px 0; } }
+.es-snake-sm.walk{ background-image:url("../assets/enemies/snake_walk.png"); background-size:160px 32px; animation:eska-snake-walk-sm 0.55s steps(5) infinite; }
+@keyframes eska-snake-walk-sm{ from{ background-position:0 0; } to{ background-position:-160px 0; } }
 /* 하피 */
 .es-harpy{ width:96px; height:96px; background:url("../assets/enemies/harpy.png") 0 0 no-repeat; background-size:480px 96px; animation:eska-harpy 0.60s steps(5) infinite; }
 @keyframes eska-harpy{ from{ background-position:0 0; } to{ background-position:-480px 0; } }
@@ -787,6 +835,10 @@
 @keyframes eska-wyvern-die{ from{ background-position:0 0; } to{ background-position:-432px 0; } }
 .es-wyvern-sm.die{ background-image:url("../assets/enemies/wyvern_death.png"); background-size:320px 32px; animation:eska-wyvern-die-sm 1.00s steps(9) 1 forwards; }
 @keyframes eska-wyvern-die-sm{ from{ background-position:0 0; } to{ background-position:-288px 0; } }
+.es-wyvern.walk{ background-image:url("../assets/enemies/wyvern_walk.png"); background-size:240px 48px; animation:eska-wyvern-walk 0.55s steps(5) infinite; }
+@keyframes eska-wyvern-walk{ from{ background-position:0 0; } to{ background-position:-240px 0; } }
+.es-wyvern-sm.walk{ background-image:url("../assets/enemies/wyvern_walk.png"); background-size:160px 32px; animation:eska-wyvern-walk-sm 0.55s steps(5) infinite; }
+@keyframes eska-wyvern-walk-sm{ from{ background-position:0 0; } to{ background-position:-160px 0; } }
 /* 문어 */
 .es-octopus{ width:48px; height:48px; background:url("../assets/enemies/octopus.png") 0 0 no-repeat; background-size:192px 48px; animation:eska-octopus 0.48s steps(4) infinite; }
 @keyframes eska-octopus{ from{ background-position:0 0; } to{ background-position:-192px 0; } }
@@ -804,6 +856,10 @@
 @keyframes eska-octopus-die{ from{ background-position:0 0; } to{ background-position:-288px 0; } }
 .es-octopus-sm.die{ background-image:url("../assets/enemies/octopus_death.png"); background-size:224px 32px; animation:eska-octopus-die-sm 0.70s steps(6) 1 forwards; }
 @keyframes eska-octopus-die-sm{ from{ background-position:0 0; } to{ background-position:-192px 0; } }
+.es-octopus.walk{ background-image:url("../assets/enemies/octopus_walk.png"); background-size:192px 48px; animation:eska-octopus-walk 0.44s steps(4) infinite; }
+@keyframes eska-octopus-walk{ from{ background-position:0 0; } to{ background-position:-192px 0; } }
+.es-octopus-sm.walk{ background-image:url("../assets/enemies/octopus_walk.png"); background-size:128px 32px; animation:eska-octopus-walk-sm 0.44s steps(4) infinite; }
+@keyframes eska-octopus-walk-sm{ from{ background-position:0 0; } to{ background-position:-128px 0; } }
 /* 떠다니는 눈 */
 .es-eye{ width:48px; height:48px; background:url("../assets/enemies/eye.png") 0 0 no-repeat; background-size:384px 48px; animation:eska-eye 0.96s steps(8) infinite; }
 @keyframes eska-eye{ from{ background-position:0 0; } to{ background-position:-384px 0; } }
@@ -834,6 +890,10 @@
 @keyframes eska-goblin_lord-die{ from{ background-position:0 0; } to{ background-position:-336px 0; } }
 .es-goblin_lord-sm.die{ background-image:url("../assets/enemies/goblin_lord_death.png"); background-size:256px 32px; animation:eska-goblin_lord-die-sm 0.80s steps(7) 1 forwards; }
 @keyframes eska-goblin_lord-die-sm{ from{ background-position:0 0; } to{ background-position:-224px 0; } }
+.es-goblin_lord.walk{ background-image:url("../assets/enemies/goblin_lord_walk.png"); background-size:384px 48px; animation:eska-goblin_lord-walk 0.88s steps(8) infinite; }
+@keyframes eska-goblin_lord-walk{ from{ background-position:0 0; } to{ background-position:-384px 0; } }
+.es-goblin_lord-sm.walk{ background-image:url("../assets/enemies/goblin_lord_walk.png"); background-size:256px 32px; animation:eska-goblin_lord-walk-sm 0.88s steps(8) infinite; }
+@keyframes eska-goblin_lord-walk-sm{ from{ background-position:0 0; } to{ background-position:-256px 0; } }
 /* 오크 감독관 */
 .es-orc_chief{ width:96px; height:48px; background:url("../assets/enemies/orc_chief.png") 0 0 no-repeat; background-size:768px 48px; animation:eska-orc_chief 0.96s steps(8) infinite; }
 @keyframes eska-orc_chief{ from{ background-position:0 0; } to{ background-position:-768px 0; } }
@@ -851,6 +911,10 @@
 @keyframes eska-orc_chief-die{ from{ background-position:0 0; } to{ background-position:-480px 0; } }
 .es-orc_chief-sm.die{ background-image:url("../assets/enemies/orc_chief_death.png"); background-size:384px 32px; animation:eska-orc_chief-die-sm 0.60s steps(5) 1 forwards; }
 @keyframes eska-orc_chief-die-sm{ from{ background-position:0 0; } to{ background-position:-320px 0; } }
+.es-orc_chief.walk{ background-image:url("../assets/enemies/orc_chief_walk.png"); background-size:768px 48px; animation:eska-orc_chief-walk 0.88s steps(8) infinite; }
+@keyframes eska-orc_chief-walk{ from{ background-position:0 0; } to{ background-position:-768px 0; } }
+.es-orc_chief-sm.walk{ background-image:url("../assets/enemies/orc_chief_walk.png"); background-size:512px 32px; animation:eska-orc_chief-walk-sm 0.88s steps(8) infinite; }
+@keyframes eska-orc_chief-walk-sm{ from{ background-position:0 0; } to{ background-position:-512px 0; } }
 /* 마녀 */
 .es-witch{ width:48px; height:48px; background:url("../assets/enemies/witch.png") 0 0 no-repeat; background-size:192px 48px; animation:eska-witch 0.48s steps(4) infinite; }
 @keyframes eska-witch{ from{ background-position:0 0; } to{ background-position:-192px 0; } }
@@ -868,6 +932,10 @@
 @keyframes eska-witch-die{ from{ background-position:0 0; } to{ background-position:-432px 0; } }
 .es-witch-sm.die{ background-image:url("../assets/enemies/witch_death.png"); background-size:320px 32px; animation:eska-witch-die-sm 1.00s steps(9) 1 forwards; }
 @keyframes eska-witch-die-sm{ from{ background-position:0 0; } to{ background-position:-288px 0; } }
+.es-witch.walk{ background-image:url("../assets/enemies/witch_walk.png"); background-size:384px 48px; animation:eska-witch-walk 0.88s steps(8) infinite; }
+@keyframes eska-witch-walk{ from{ background-position:0 0; } to{ background-position:-384px 0; } }
+.es-witch-sm.walk{ background-image:url("../assets/enemies/witch_walk.png"); background-size:256px 32px; animation:eska-witch-walk-sm 0.88s steps(8) infinite; }
+@keyframes eska-witch-walk-sm{ from{ background-position:0 0; } to{ background-position:-256px 0; } }
 /* 서리 거인 */
 .es-fire_giant{ width:96px; height:96px; background:url("../assets/enemies/fire_giant.png") 0 0 no-repeat; background-size:384px 96px; animation:eska-fire_giant 0.48s steps(4) infinite; }
 @keyframes eska-fire_giant{ from{ background-position:0 0; } to{ background-position:-384px 0; } }
@@ -885,6 +953,10 @@
 @keyframes eska-fire_giant-die{ from{ background-position:0 0; } to{ background-position:-576px 0; } }
 .es-fire_giant-sm.die{ background-image:url("../assets/enemies/fire_giant_death.png"); background-size:448px 64px; animation:eska-fire_giant-die-sm 0.70s steps(6) 1 forwards; }
 @keyframes eska-fire_giant-die-sm{ from{ background-position:0 0; } to{ background-position:-384px 0; } }
+.es-fire_giant.walk{ background-image:url("../assets/enemies/fire_giant_walk.png"); background-size:576px 96px; animation:eska-fire_giant-walk 0.66s steps(6) infinite; }
+@keyframes eska-fire_giant-walk{ from{ background-position:0 0; } to{ background-position:-576px 0; } }
+.es-fire_giant-sm.walk{ background-image:url("../assets/enemies/fire_giant_walk.png"); background-size:384px 64px; animation:eska-fire_giant-walk-sm 0.66s steps(6) infinite; }
+@keyframes eska-fire_giant-walk-sm{ from{ background-position:0 0; } to{ background-position:-384px 0; } }
 /* 드래곤 */
 .es-ice_dragon{ width:128px; height:128px; background:url("../assets/enemies/ice_dragon.png") 0 0 no-repeat; background-size:640px 128px; animation:eska-ice_dragon 0.60s steps(5) infinite; }
 @keyframes eska-ice_dragon{ from{ background-position:0 0; } to{ background-position:-640px 0; } }
@@ -919,6 +991,10 @@
 @keyframes eska-demon_lord-die{ from{ background-position:0 0; } to{ background-position:-384px 0; } }
 .es-demon_lord-sm.die{ background-image:url("../assets/enemies/demon_lord_death.png"); background-size:320px 32px; animation:eska-demon_lord-die-sm 0.50s steps(4) 1 forwards; }
 @keyframes eska-demon_lord-die-sm{ from{ background-position:0 0; } to{ background-position:-256px 0; } }
+.es-demon_lord.walk{ background-image:url("../assets/enemies/demon_lord_walk.png"); background-size:768px 48px; animation:eska-demon_lord-walk 0.88s steps(8) infinite; }
+@keyframes eska-demon_lord-walk{ from{ background-position:0 0; } to{ background-position:-768px 0; } }
+.es-demon_lord-sm.walk{ background-image:url("../assets/enemies/demon_lord_walk.png"); background-size:512px 32px; animation:eska-demon_lord-walk-sm 0.88s steps(8) infinite; }
+@keyframes eska-demon_lord-walk-sm{ from{ background-position:0 0; } to{ background-position:-512px 0; } }
 /* 대천사 */
 .es-fallen_angel{ width:96px; height:96px; background:url("../assets/enemies/fallen_angel.png") 0 0 no-repeat; background-size:768px 96px; animation:eska-fallen_angel 0.96s steps(8) infinite; }
 @keyframes eska-fallen_angel{ from{ background-position:0 0; } to{ background-position:-768px 0; } }
@@ -936,6 +1012,10 @@
 @keyframes eska-fallen_angel-die{ from{ background-position:0 0; } to{ background-position:-576px 0; } }
 .es-fallen_angel-sm.die{ background-image:url("../assets/enemies/fallen_angel_death.png"); background-size:672px 96px; animation:eska-fallen_angel-die-sm 0.70s steps(6) 1 forwards; }
 @keyframes eska-fallen_angel-die-sm{ from{ background-position:0 0; } to{ background-position:-576px 0; } }
+.es-fallen_angel.walk{ background-image:url("../assets/enemies/fallen_angel_walk.png"); background-size:768px 96px; animation:eska-fallen_angel-walk 0.88s steps(8) infinite; }
+@keyframes eska-fallen_angel-walk{ from{ background-position:0 0; } to{ background-position:-768px 0; } }
+.es-fallen_angel-sm.walk{ background-image:url("../assets/enemies/fallen_angel_walk.png"); background-size:768px 96px; animation:eska-fallen_angel-walk-sm 0.88s steps(8) infinite; }
+@keyframes eska-fallen_angel-walk-sm{ from{ background-position:0 0; } to{ background-position:-768px 0; } }
 /* 요정 드래곤 */
 .es-ancient_dragon{ width:96px; height:96px; background:url("../assets/enemies/ancient_dragon.png") 0 0 no-repeat; background-size:384px 96px; animation:eska-ancient_dragon 0.48s steps(4) infinite; }
 @keyframes eska-ancient_dragon{ from{ background-position:0 0; } to{ background-position:-384px 0; } }
@@ -970,6 +1050,10 @@
 @keyframes eska-demon_king-die{ from{ background-position:0 0; } to{ background-position:-192px 0; } }
 .es-demon_king-sm.die{ background-image:url("../assets/enemies/demon_king_death.png"); background-size:160px 32px; animation:eska-demon_king-die-sm 0.50s steps(4) 1 forwards; }
 @keyframes eska-demon_king-die-sm{ from{ background-position:0 0; } to{ background-position:-128px 0; } }
+.es-demon_king.walk{ background-image:url("../assets/enemies/demon_king_walk.png"); background-size:384px 48px; animation:eska-demon_king-walk 0.88s steps(8) infinite; }
+@keyframes eska-demon_king-walk{ from{ background-position:0 0; } to{ background-position:-384px 0; } }
+.es-demon_king-sm.walk{ background-image:url("../assets/enemies/demon_king_walk.png"); background-size:256px 32px; animation:eska-demon_king-walk-sm 0.88s steps(8) infinite; }
+@keyframes eska-demon_king-walk-sm{ from{ background-position:0 0; } to{ background-position:-256px 0; } }
 /* 미노타우로스 */
 .es-minotaur{ width:96px; height:96px; background:url("../assets/enemies/minotaur.png") 0 0 no-repeat; background-size:480px 96px; animation:eska-minotaur 0.60s steps(5) infinite; }
 @keyframes eska-minotaur{ from{ background-position:0 0; } to{ background-position:-480px 0; } }
@@ -987,6 +1071,10 @@
 @keyframes eska-minotaur-die{ from{ background-position:0 0; } to{ background-position:-480px 0; } }
 .es-minotaur-sm.die{ background-image:url("../assets/enemies/minotaur_death.png"); background-size:576px 96px; animation:eska-minotaur-die-sm 0.60s steps(5) 1 forwards; }
 @keyframes eska-minotaur-die-sm{ from{ background-position:0 0; } to{ background-position:-480px 0; } }
+.es-minotaur.walk{ background-image:url("../assets/enemies/minotaur_walk.png"); background-size:768px 96px; animation:eska-minotaur-walk 0.88s steps(8) infinite; }
+@keyframes eska-minotaur-walk{ from{ background-position:0 0; } to{ background-position:-768px 0; } }
+.es-minotaur-sm.walk{ background-image:url("../assets/enemies/minotaur_walk.png"); background-size:768px 96px; animation:eska-minotaur-walk-sm 0.88s steps(8) infinite; }
+@keyframes eska-minotaur-walk-sm{ from{ background-position:0 0; } to{ background-position:-768px 0; } }
 /* 해골 왕 */
 .es-skeleton_king{ width:96px; height:96px; background:url("../assets/enemies/skeleton_king.png") 0 0 no-repeat; background-size:384px 96px; animation:eska-skeleton_king 0.48s steps(4) infinite; }
 @keyframes eska-skeleton_king{ from{ background-position:0 0; } to{ background-position:-384px 0; } }
@@ -1004,3 +1092,7 @@
 @keyframes eska-skeleton_king-die{ from{ background-position:0 0; } to{ background-position:-768px 0; } }
 .es-skeleton_king-sm.die{ background-image:url("../assets/enemies/skeleton_king_death.png"); background-size:864px 96px; animation:eska-skeleton_king-die-sm 0.90s steps(8) 1 forwards; }
 @keyframes eska-skeleton_king-die-sm{ from{ background-position:0 0; } to{ background-position:-768px 0; } }
+.es-skeleton_king.walk{ background-image:url("../assets/enemies/skeleton_king_walk.png"); background-size:768px 96px; animation:eska-skeleton_king-walk 0.88s steps(8) infinite; }
+@keyframes eska-skeleton_king-walk{ from{ background-position:0 0; } to{ background-position:-768px 0; } }
+.es-skeleton_king-sm.walk{ background-image:url("../assets/enemies/skeleton_king_walk.png"); background-size:768px 96px; animation:eska-skeleton_king-walk-sm 0.88s steps(8) infinite; }
+@keyframes eska-skeleton_king-walk-sm{ from{ background-position:0 0; } to{ background-position:-768px 0; } }

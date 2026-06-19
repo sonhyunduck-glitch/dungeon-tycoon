@@ -91,11 +91,14 @@ G.ui.foeWalkIn = function(cb){
   if(!foes.length){ cb(); return; }
   var ms=Math.max(160, 520/_sp()), fin=_once(cb), pending=foes.length;
   foes.forEach(function(f,i){
+    var sp=f.querySelector(".esprite");
+    var hasW=!!(sp && foeAnims(sp) && foeAnims(sp).walk);   // 걷기 프레임 보유 적만 walk 재생, 없으면 idle 유지
     f.style.transition="none"; f.style.transform="translateX(150px)"; f.style.willChange="transform";
-    void f.offsetWidth;   // 적은 idle 애니메이션(es- 배경) 그대로 둔 채 우측에서 미끄러져 들어옴
+    if(hasW) sp.classList.add("walk");
+    void f.offsetWidth;   // 우측에서 미끄러져 들어옴
     setTimeout(function(){
       f.style.transition=""; f.style.transitionDuration=(ms/1000)+"s"; f.style.transform="translateX(0)";
-      var done=_once(function(){ f.style.willChange=""; f.style.transition=""; f.style.transitionDuration=""; f.style.transform=""; if(--pending<=0) fin(); });
+      var done=_once(function(){ if(hasW&&sp) sp.classList.remove("walk"); f.style.willChange=""; f.style.transition=""; f.style.transitionDuration=""; f.style.transform=""; if(--pending<=0) fin(); });
       var t=setTimeout(done, ms+160);
       f.addEventListener("transitionend", function te(){ f.removeEventListener("transitionend",te); clearTimeout(t); done(); }, {once:true});
     }, Math.round(i*90/_sp()));

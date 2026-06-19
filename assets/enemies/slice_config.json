@@ -1340,6 +1340,14 @@
           "frames": 7,
           "fw": 32,
           "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/slime/Slime Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
         }
       ]
     },
@@ -1412,6 +1420,14 @@
           "fh": 32
         },
         {
+          "type": "walk",
+          "file": "sheets/goblin/Imp Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
           "type": "spawn",
           "file": "sheets/goblin/Imp Sprite Sheet.png",
           "row": 5,
@@ -1457,6 +1473,14 @@
           "frames": 8,
           "fw": 64,
           "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/skeleton/Skullflame Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
         }
       ]
     },
@@ -1494,6 +1518,14 @@
           "file": "sheets/spider/Spider Sprite Sheet.png",
           "row": 6,
           "frames": 9,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/spider/Spider Sprite Sheet.png",
+          "row": 1,
+          "frames": 6,
           "fw": 32,
           "fh": 32
         }
@@ -1535,6 +1567,14 @@
           "frames": 4,
           "fw": 64,
           "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/wolf/Wolf Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
         }
       ]
     },
@@ -1572,6 +1612,14 @@
           "file": "sheets/orc/Orc Warrior Sprite Sheet.png",
           "row": 8,
           "frames": 6,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/orc/Orc Warrior Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
           "fw": 64,
           "fh": 64
         }
@@ -1613,6 +1661,14 @@
           "frames": 10,
           "fw": 32,
           "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/golem/Golem Sprite Sheet.png",
+          "row": 1,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
         }
       ]
     },
@@ -1650,6 +1706,14 @@
           "file": "sheets/ghost/Ghost Sprite Sheet.png",
           "row": 6,
           "frames": 9,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/ghost/Ghost Sprite Sheet.png",
+          "row": 1,
+          "frames": 7,
           "fw": 32,
           "fh": 32
         }
@@ -1702,8 +1766,8 @@
         {
           "type": "idle",
           "file": "sheets/fire_elem/Fire Elemental Sprite Sheet.png",
-          "row": 0,
-          "frames": 8,
+          "row": 1,
+          "frames": 6,
           "fw": 32,
           "fh": 32
         },
@@ -1727,6 +1791,14 @@
           "type": "death",
           "file": "sheets/fire_elem/Fire Elemental Sprite Sheet.png",
           "row": 4,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/fire_elem/Fire Elemental Sprite Sheet.png",
+          "row": 0,
           "frames": 8,
           "fw": 32,
           "fh": 32
@@ -1769,6 +1841,14 @@
           "frames": 8,
           "fw": 32,
           "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/ice_elem/Ice Elemental Sprite Sheet.png",
+          "row": 1,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
         }
       ]
     },
@@ -1805,6 +1885,14 @@
           "type": "death",
           "file": "sheets/snake/Snake Sprite Sheet.png",
           "row": 4,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/snake/Snake Sprite Sheet.png",
+          "row": 1,
           "frames": 5,
           "fw": 32,
           "fh": 32
@@ -1886,6 +1974,14 @@
           "frames": 10,
           "fw": 32,
           "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/wyvern/Dragon Hatchling Sprite Sheet.png",
+          "row": 1,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
         }
       ]
     },
@@ -1923,6 +2019,14 @@
           "file": "sheets/octopus/Octopus Sprite Sheet.png",
           "row": 6,
           "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/octopus/Octopus Sprite Sheet.png",
+          "row": 1,
+          "frames": 4,
           "fw": 32,
           "fh": 32
         }
@@ -1995,6 +2099,14 @@
           "frames": 8,
           "fw": 32,
           "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/goblin_lord/Necromancer Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
         }
       ]
     },
@@ -2032,6 +2144,14 @@
           "file": "sheets/orc_chief/Orc Taskmaster Sprite Sheet.png",
           "row": 5,
           "frames": 6,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/orc_chief/Orc Taskmaster Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
           "fw": 64,
           "fh": 32
         }
@@ -2073,6 +2193,14 @@
           "frames": 10,
           "fw": 32,
           "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/witch/Witch Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
         }
       ]
     },
@@ -2110,6 +2238,14 @@
           "file": "sheets/fire_giant/Frost Giant Sprite Sheet.png",
           "row": 9,
           "frames": 7,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/fire_giant/Frost Giant Sprite Sheet.png",
+          "row": 1,
+          "frames": 6,
           "fw": 64,
           "fh": 64
         }
@@ -2190,6 +2326,14 @@
           "frames": 5,
           "fw": 64,
           "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/demon_lord/Maw Demon Sprite Sheet Green.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
         }
       ]
     },
@@ -2227,6 +2371,14 @@
           "file": "sheets/fallen_angel/Archangel Sprite Sheet.png",
           "row": 6,
           "frames": 7,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "walk",
+          "file": "sheets/fallen_angel/Archangel Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
           "fw": 96,
           "fh": 96
         }
@@ -2307,6 +2459,14 @@
           "frames": 5,
           "fw": 32,
           "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/demon_king/Demon Sprite Sheet.png",
+          "row": 5,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
         }
       ]
     },
@@ -2344,6 +2504,14 @@
           "file": "sheets/minotaur/Minotaur Sprite Sheet.png",
           "row": 9,
           "frames": 6,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "walk",
+          "file": "sheets/minotaur/Minotaur Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
           "fw": 96,
           "fh": 96
         }
