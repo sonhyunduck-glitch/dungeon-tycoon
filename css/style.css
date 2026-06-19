@@ -265,8 +265,8 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
 .arena-label{ font-size:.62rem; color:var(--muted,#9a8fa8); }
 .arena-label.me{ color:#9fc2ff; }
 
-/* 적 클러스터 개체 — transition:transform 은 '걸어 들어오기'(JS 인라인 translateX) 연출용 */
-.arena-foe{ position:relative; display:flex; flex-direction:column; align-items:center; transition:transform .5s ease-out; }
+/* 적 클러스터 개체 — 등장 전이(transform/opacity)는 JS(foeWalkIn)가 인라인으로 등속 지정 */
+.arena-foe{ position:relative; display:flex; flex-direction:column; align-items:center; transition:transform .9s linear, opacity .3s linear; }
 .arena-foe .esprite, .arena-foe .emoji-big, .arena-foe .emoji-mid{ position:relative; z-index:1; }
 /* 타겟 몬스터: 테두리박스 대신 스프라이트 외곽선(색상) */
 #enemy-emoji .esprite{

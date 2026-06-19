@@ -58,6 +58,7 @@ G.ui.pcAnim = function(state){
    ============================================================ */
 function _once(fn){ var d=false; return function(){ if(d) return; d=true; fn(); }; }
 function _sp(){ return Math.max(1, (G.state&&G.state.battleSpeed)||1); }
+function _reduced(){ try{ return window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){ return false; } }
 
 /* 플레이어 걷기 토글 — 진짜 walk 프레임 보유 시 #pc-sprite.walk, 없으면 idle 유지(별도 처리 없음) */
 G.ui.pcWalk = function(on){
@@ -70,6 +71,7 @@ G.ui.pcWalk = function(on){
 G.ui.advanceWorld = function(cb){
   cb=cb||function(){};
   var grid=document.querySelector(".arena-bg-grid");
+  if(_reduced()){ cb(); return; }   // 모션 최소화: 전진 연출 생략(즉시 진행)
   G.ui.pcWalk(true);
   var fin=_once(function(){
     G.ui.pcWalk(false);
@@ -84,24 +86,48 @@ G.ui.advanceWorld = function(cb){
   grid.addEventListener("transitionend", function te(){ grid.removeEventListener("transitionend",te); clearTimeout(t); fin(); }, {once:true});
 };
 
-/* 적 걸어 들어오기: 각 .arena-foe 를 우측 화면밖→0 으로 전이(스태거). 완료 후 인라인 transform 제거 */
+/* 적 등장:
+   - 걷기 프레임 보유 적: 우측 화면밖 → 0 으로 '등속(linear)'·충분히 길게 이동(walk 사이클이 보이게) = 진짜 걸어옴
+   - 걷기 없는 적: 미끄러뜨리지 않고 제자리 페이드 인(idle 글라이딩=순간이동 슬라이드 방지)
+   완료 시 인라인 스타일 정리. transitionend + 타임아웃 폴백(1회 가드). */
 G.ui.foeWalkIn = function(cb){
   cb=cb||function(){};
   var foes=document.querySelectorAll(".arena-foe");
   if(!foes.length){ cb(); return; }
-  var ms=Math.max(160, 520/_sp()), fin=_once(cb), pending=foes.length;
+  // 모션 최소화(접근성/배터리): 애니메이션 없이 제자리에 즉시 배치(화면밖 잔류 방지)
+  if(_reduced()){ foes.forEach(function(f){ f.style.transition="none"; f.style.transform=""; f.style.opacity="1"; }); cb(); return; }
+  var sp=_sp();
+  var walkMs=Math.max(280, 950/sp), fadeMs=Math.max(120, 300/sp), startX=190;
+  var fin=_once(cb), pending=foes.length;
   foes.forEach(function(f,i){
-    var sp=f.querySelector(".esprite");
-    var hasW=!!(sp && foeAnims(sp) && foeAnims(sp).walk);   // 걷기 프레임 보유 적만 walk 재생, 없으면 idle 유지
-    f.style.transition="none"; f.style.transform="translateX(150px)"; f.style.willChange="transform";
-    if(hasW) sp.classList.add("walk");
-    void f.offsetWidth;   // 우측에서 미끄러져 들어옴
-    setTimeout(function(){
-      f.style.transition=""; f.style.transitionDuration=(ms/1000)+"s"; f.style.transform="translateX(0)";
-      var done=_once(function(){ if(hasW&&sp) sp.classList.remove("walk"); f.style.willChange=""; f.style.transition=""; f.style.transitionDuration=""; f.style.transform=""; if(--pending<=0) fin(); });
-      var t=setTimeout(done, ms+160);
-      f.addEventListener("transitionend", function te(){ f.removeEventListener("transitionend",te); clearTimeout(t); done(); }, {once:true});
-    }, Math.round(i*90/_sp()));
+    var es=f.querySelector(".esprite");
+    var hasW=!!(es && foeAnims(es) && foeAnims(es).walk);
+    f.style.willChange="transform,opacity";
+    var done=_once(function(){
+      if(hasW&&es) es.classList.remove("walk");
+      f.style.willChange=""; f.style.transition=""; f.style.transitionDuration=""; f.style.transform=""; f.style.opacity="";
+      if(--pending<=0) fin();
+    });
+    if(hasW){
+      f.style.transition="none"; f.style.opacity="1"; f.style.transform="translateX("+startX+"px)";
+      es.classList.add("walk");
+      void f.offsetWidth;
+      setTimeout(function(){
+        f.style.transition="transform "+(walkMs/1000)+"s linear";   // 등속 = 걷는 속도감
+        f.style.transform="translateX(0)";
+        var t=setTimeout(done, walkMs+160);
+        f.addEventListener("transitionend", function te(){ f.removeEventListener("transitionend",te); clearTimeout(t); done(); }, {once:true});
+      }, Math.round(i*130/sp));
+    } else {
+      f.style.transition="none"; f.style.transform="translateX(0)"; f.style.opacity="0";
+      void f.offsetWidth;
+      setTimeout(function(){
+        f.style.transition="opacity "+(fadeMs/1000)+"s linear";
+        f.style.opacity="1";
+        var t=setTimeout(done, fadeMs+120);
+        f.addEventListener("transitionend", function te(){ f.removeEventListener("transitionend",te); clearTimeout(t); done(); }, {once:true});
+      }, Math.round(i*70/sp));
+    }
   });
 };
 
@@ -111,7 +137,7 @@ G.ui.sceneEnter = function(run, cb){
   cb=cb||function(){};
   if(!run || run.dead || run.cleared){ cb(); return; }
   if(run.combat){
-    document.querySelectorAll(".arena-foe").forEach(function(f){ f.style.transition="none"; f.style.transform="translateX(150px)"; });  // 전진 중 적 숨김(플래시 방지)
+    document.querySelectorAll(".arena-foe").forEach(function(f){ f.style.transition="none"; f.style.opacity="0"; f.style.transform=""; });  // 전진 중 적 숨김(opacity, 플래시/점프 방지)
     G.ui.advanceWorld(function(){ G.ui.foeWalkIn(cb); });
   } else {
     G.ui.advanceWorld(cb);
