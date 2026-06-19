@@ -170,8 +170,8 @@
     return { delta:delta, score:ns };
   };
 
-  /* ---------- 보상 ---------- */
-  G.arena.winReward = function(tierIdx, streak){ return { coins:10+tierIdx*2+Math.min(streak,10), gold:100*(tierIdx+1) }; };
+  /* ---------- 보상 (골드는 고층에서 무의미 → 아레나 코인으로 일원화) ---------- */
+  G.arena.winReward = function(tierIdx, streak){ return { coins:12+tierIdx*3+Math.min(streak,10), gold:0 }; };
 
   /* ---------- 도전 실행 (시뮬+점수+보상+연승+일일+티어변동) ---------- */
   G.arena.challenge = function(foe){
@@ -217,8 +217,8 @@
   /* ---------- 코인 상점 ---------- */
   G.arena.SHOP = [
     { key:"pot5",  ico:"🧪", name:"체력 물약 ×5",   cost:30, desc:"즉시 물약 5개(소지 한도 내)" },
-    { key:"mat20", ico:"🔩", name:"분해 재료 ×20",  cost:40, desc:"룬 제작용 재료 20개" },
-    { key:"gold",  ico:"🪙", name:"골드 주머니",     cost:25, desc:"티어 비례 골드 획득" },
+    { key:"mat20", ico:"🔩", name:"분해 재료 ×20",  cost:40, desc:"룬 제작·재련용 재료 20개" },
+    { key:"mat60", ico:"🔩", name:"분해 재료 ×60",  cost:90, desc:"재료 대량(개당 더 저렴)" },
     { key:"stam",  ico:"⚡", name:"행동력 가득",     cost:20, desc:"행동력을 최대로 회복" }
   ];
   G.arena.buy = function(key){
@@ -232,8 +232,8 @@
       var add=Math.min(5, max-have), H=G.potionHealAmount(), oh=G.state.consumables.potionHeal||H;
       G.state.consumables.potionHeal=Math.round((have*oh+add*H)/(have+add));
       G.state.consumables.potion_s=have+add; msg="🧪 물약 ×"+add+" 획득";
-    } else if(key==="mat20"){ G.state.materials=(G.state.materials||0)+20;
-    } else if(key==="gold"){ var g=500*(ti+1); G.state.player.gold+=g; msg="🪙 골드 +"+G.ui.fmt(g);
+    } else if(key==="mat20"){ G.state.materials=(G.state.materials||0)+20; msg="🔩 분해재료 +20";
+    } else if(key==="mat60"){ G.state.materials=(G.state.materials||0)+60; msg="🔩 분해재료 +60";
     } else if(key==="stam"){ if(G.state.stamina){ G.state.stamina.cur=G.state.stamina.max; G.state.stamina.lastTick=Date.now(); } }
     a.coins-=item.cost; G.save.save(true);
     return { ok:true, msg:msg };
