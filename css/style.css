@@ -351,6 +351,11 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
 .slotchip.active{ border-color:var(--acc); box-shadow:0 0 0 1px var(--acc) inset; background:#2a2433; }
 .slotchip .fico{ width:28px; height:28px; image-rendering:pixelated; object-fit:contain; }
 .slotchip .chiptext{ font-size:.78rem; color:var(--txt); font-weight:700; }
+/* 잠긴 탭(예: 100층 전 아레나) — 흐리게 + 🔒 오버레이 */
+.nav-btn.locked{ position:relative; }
+.nav-btn.locked span, .nav-btn.locked b{ filter:grayscale(1); opacity:.35; }
+.nav-btn.locked::after{ content:"🔒"; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:1.15rem; pointer-events:none; text-shadow:0 1px 3px rgba(0,0,0,.7); }
+
 /* 아레나 전투 화면 */
 .abattle{ width:min(460px,95vw); }
 .abattle-stage{ position:relative; display:flex; align-items:flex-end; justify-content:space-between; gap:6px;

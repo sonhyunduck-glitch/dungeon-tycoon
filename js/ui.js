@@ -67,9 +67,9 @@ G.ui.renderHud = function(){
   el("hud-hptext").textContent=fmt(p.hp)+"/"+fmt(s.maxHp);
   el("hud-power").textContent=fmt(G.power());
   el("hud-gold").textContent=fmt(p.gold);
-  // 아레나 탭 — 100층 돌파 시 노출
+  // 아레나 탭 — 100층 돌파 전엔 잠금(🔒) 표시(숨기지 않음)
   var arenaBtn=document.querySelector('.nav-btn[data-tab="arena"]');
-  if(arenaBtn) arenaBtn.style.display = (G.arena&&G.arena.unlocked&&G.arena.unlocked()) ? "" : "none";
+  if(arenaBtn){ arenaBtn.style.display=""; arenaBtn.classList.toggle("locked", !(G.arena&&G.arena.unlocked&&G.arena.unlocked())); }
   // 하단 메뉴 가방 버튼에 보유/최대 표시
   var invBtn=document.querySelector('.nav-btn[data-tab="inventory"] b');
   if(invBtn){
