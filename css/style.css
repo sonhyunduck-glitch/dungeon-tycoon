@@ -248,11 +248,13 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
 .arena-pc{ position:absolute; left:26%; bottom:12px; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:4px; z-index:2; }
 .arena-foes{ position:absolute; left:46%; right:8px; bottom:12px; display:flex; align-items:flex-end; justify-content:flex-start; gap:10px; flex-wrap:nowrap; overflow:visible; z-index:2; }
 /* 전진 패럴랙스 — 바닥 세로선이 좌측으로 흐르며 이동감(transform 전용, 배터리모드선 즉시컷) */
-.arena-bg-grid{ position:absolute; left:-20%; right:-20%; bottom:0; height:44%; z-index:1; pointer-events:none;
-  background:repeating-linear-gradient(90deg, rgba(255,180,110,.11) 0 1px, transparent 1px 40px);
+.arena-bg-grid{ position:absolute; left:-25%; right:-25%; bottom:0; height:48%; z-index:1; pointer-events:none;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,185,120,.22) 0 2px, transparent 2px 44px),
+    repeating-linear-gradient(0deg,  rgba(255,185,120,.10) 0 1px, transparent 1px 26px);
   transform:perspective(130px) rotateX(60deg) translateX(var(--gscroll,0px)); transform-origin:bottom center;
-  transition:transform .5s linear;
-  -webkit-mask-image:linear-gradient(to top,#000 6%,transparent 88%); mask-image:linear-gradient(to top,#000 6%,transparent 88%); }
+  transition:transform .55s linear;
+  -webkit-mask-image:linear-gradient(to top,#000 6%,transparent 90%); mask-image:linear-gradient(to top,#000 6%,transparent 90%); }
 
 .arena-sprite-holder{ position:relative; width:90px; height:88px; }
 .arena-sprite-holder.foe{ width:auto; height:auto; min-width:46px; display:inline-flex; align-items:flex-end; justify-content:center; }

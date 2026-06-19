@@ -79,9 +79,9 @@ G.ui.advanceWorld = function(cb){
     cb();
   });
   if(!grid){ setTimeout(fin, Math.max(140,420/_sp())); return; }
-  var ms=Math.max(140, 500/_sp());
+  var ms=Math.max(160, 600/_sp());
   grid.style.transitionDuration=(ms/1000)+"s";
-  grid.style.setProperty("--gscroll","-120px");
+  grid.style.setProperty("--gscroll","-176px");   // 44px 타일 ×4 = 심리스, 더 또렷한 좌측 이동
   var t=setTimeout(fin, ms+140);
   grid.addEventListener("transitionend", function te(){ grid.removeEventListener("transitionend",te); clearTimeout(t); fin(); }, {once:true});
 };

@@ -42,9 +42,18 @@
       animBusy=true;
       var ddw=G.ui.foeDeathAnim();   // 마지막 적 사망 모션(있으면)
       setTimeout(function(){
-        G.dungeon.advance(); G.ui.render();
-        // 다음 노드로 전진(배경 스크롤)→적 워크인 동안 animBusy 유지, 완료 시 해제(모든 경로가 결국 해제)
-        G.ui.sceneEnter(G.state.dungeon.run, function(){ animBusy=false; });
+        G.dungeon.advance();
+        var run2=G.state.dungeon.run;
+        // 자동사냥(auto_next) 중 층 클리어 → 완료화면 깜빡임 없이 바로 다음 층 입장
+        if(run2 && run2.cleared && G.perks.isOn("auto_next")){
+          var nf=(run2.floor < G.DATA.MAX_FLOOR && G.dungeon.isUnlocked(run2.floor+1)) ? run2.floor+1 : run2.floor;
+          G.dungeon.leave(); G.dungeon.enter(nf); G.ui.render();
+          G.ui.sceneEnter(G.state.dungeon.run, function(){ animBusy=false; });
+        } else {
+          G.ui.render();
+          // 다음 노드로 전진(배경 스크롤)→적 워크인 동안 animBusy 유지, 완료 시 해제
+          G.ui.sceneEnter(run2, function(){ animBusy=false; });
+        }
       }, Math.round(Math.max(360, ddw)/sp)+nextGap);
     } else if(res.over && res.dead){
       animBusy=true;
