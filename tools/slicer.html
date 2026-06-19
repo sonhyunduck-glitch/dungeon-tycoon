@@ -114,7 +114,7 @@
       <button id="clearMon">현재 초기화</button>
     </div>
     <hr style="border-color:var(--line)">
-    <div class="row"><b>저장된 몬스터</b> <span id="savedCount" class="badge"></span></div>
+    <div class="row"><b>저장된 몬스터</b> <span id="savedCount" class="badge"></span> <button id="clearAll" title="저장된 목록 전체 삭제(localStorage 초기화)">🗑 전체 초기화</button></div>
     <div class="saved-list" id="savedList"></div>
     <div class="row" style="margin-top:8px">
       <button id="exportBtn" class="acc">⬇ 전체 JSON 내보내기</button>
@@ -494,6 +494,7 @@ $("#showgrid").onchange=draw;
 $("#applyFile").onclick=applyFile;
 $("#saveMon").onclick=saveMon;
 $("#clearMon").onclick=()=>{ monster.anims=[]; updateCur(); buildRows(); };
+$("#clearAll").onclick=()=>{ if(!confirm("저장된 몬스터/FX 목록을 전부 삭제할까요? (되돌릴 수 없음)")) return; store={}; fxStore={}; localStorage.removeItem("slicerStore"); renderSaved(); alert("전체 초기화 완료"); };
 $("#exportBtn").onclick=exportJSON;
 $("#avatarBtn").onclick=exportAvatars;
 $("#fxmode").onchange=toggleFx;
