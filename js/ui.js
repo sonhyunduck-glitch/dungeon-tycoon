@@ -67,6 +67,9 @@ G.ui.renderHud = function(){
   el("hud-hptext").textContent=fmt(p.hp)+"/"+fmt(s.maxHp);
   el("hud-power").textContent=fmt(G.power());
   el("hud-gold").textContent=fmt(p.gold);
+  // 아레나 탭 — 100층 돌파 시 노출
+  var arenaBtn=document.querySelector('.nav-btn[data-tab="arena"]');
+  if(arenaBtn) arenaBtn.style.display = (G.arena&&G.arena.unlocked&&G.arena.unlocked()) ? "" : "none";
   // 하단 메뉴 가방 버튼에 보유/최대 표시
   var invBtn=document.querySelector('.nav-btn[data-tab="inventory"] b');
   if(invBtn){
@@ -126,6 +129,10 @@ G.ui.render = function(){
 /* ---------- 탭 전환 ---------- */
 G.ui.switchTab = function(tab){
   if(!el("view-"+tab)) tab="dungeon";   // 삭제된 탭(예: market) 방어
+  if(tab==="arena" && G.arena && G.arena.unlocked && !G.arena.unlocked()){   // 아레나: 100층 돌파 전 차단
+    G.ui.toast("🏟️ 아레나는 "+G.arena.UNLOCK_FLOOR+"층 돌파 시 열립니다");
+    tab="dungeon";
+  }
   // 던전 진행 중 다른 영역으로 이동 → 전투/탐험 종료(귀환)
   if(tab!=="dungeon" && G.state.dungeon.run){
     G.dungeon.leave();

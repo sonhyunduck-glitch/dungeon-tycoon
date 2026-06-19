@@ -55,6 +55,20 @@
   };
   G.arena.fightsLeft = function(){ var a=G.arena.ensureDaily(); return Math.max(0, G.arena.MAX_DAILY - (a.daily.fights||0)); };
 
+  /* 해금 — 100층 돌파 시 개방 */
+  G.arena.UNLOCK_FLOOR = 100;
+  G.arena.unlocked = function(){ return ((G.state&&G.state.dungeon&&G.state.dungeon.maxFloor)||1) >= G.arena.UNLOCK_FLOOR; };
+  G.arena.syncUnlock = function(){   // checkUnlocks용 — 신규 해금만 알림(최초/구버전은 조용히 동기화)
+    var a=G.arena.ensure();
+    if(a.unlockSeen===undefined){ a.unlockSeen=G.arena.unlocked(); return []; }
+    if(G.arena.unlocked() && !a.unlockSeen){
+      a.unlockSeen=true;
+      G.log("🏟️ 아레나 해금! ("+G.arena.UNLOCK_FLOOR+"층 돌파)","r-legend");
+      return [{ ico:"🏟️", name:"아레나 해금", desc:"PvP 비동기 대전 · 코인/티어/망토", sub:"아레나 · "+G.arena.UNLOCK_FLOOR+"층" }];
+    }
+    return [];
+  };
+
   /* ---------- 점수/전적/코인/연승 ---------- */
   G.arena.score  = function(){ return (G.state.arena&&G.state.arena.score)||1000; };
   G.arena.wins   = function(){ return (G.state.arena&&G.state.arena.wins)||0; };
