@@ -24,7 +24,7 @@ G.newState = function(){
     nickname:null,       // 멀티: 닉네임(온라인 프로필/채팅/랭킹 표시명)
     player:{ hp:150, maxHp:150, atk:14, def:4, crit:5, gold:50 },
     equipment:{ weapon:null, helmet:null, armor:null, gloves:null, boots:null, ring:null, necklace:null,
-                rune1:null, rune2:null, rune3:null, rune4:null, rune5:null },
+                rune1:null, rune2:null, rune3:null },
     cape:{ owned:false, level:0, fails:0 },   // 🧥 망토(아레나 전용): 코인 구매 + 코인 강화(공격력%/체력%)
     cosmetics:{ owned:{}, shards:0, pity:{ legend:0 } },   // 🎰 외형 뽑기: 보유 스킨/외형 조각/천장
     collection:{ uniques:{} },   // 🌟 고유 장비 연대기(발견 기록)
@@ -95,6 +95,9 @@ G.totalStats = function(){
   // 🧥 망토 보너스: 속성공격/올레지는 캡 적용 전에 합산(공격력%·체력%는 캡 이후 마지막에 적용)
   var _cb = (G.cape && G.cape.bonus) ? G.cape.bonus() : null;
   if(_cb){ s.elemAtk += _cb.elemAtk||0; s.allRes += _cb.allRes||0; }
+  // 🔗 룬워드 보너스(% 보조) — 캡 적용 전에 합산
+  var _rw = (G.runeword && G.runeword.activeBonus) ? G.runeword.activeBonus() : null;
+  if(_rw){ for(var _rk in _rw){ s[_rk]=(s[_rk]||0)+_rw[_rk]; } }
   // 상한(% 스탯 누적으로 전투가 무력화되는 것 방지 → 예측 가능한 수치)
   s.crit       = Math.min(s.crit, 80);
   s.critDmg    = Math.min(s.critDmg, 150);

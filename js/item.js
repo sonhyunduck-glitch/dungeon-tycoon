@@ -135,7 +135,7 @@ G.item.generateRune = function(tier, level, baseName){
 
   var rdef=G.DATA.RARITY.find(function(r){return r.key===rarity.key;});
   var it={
-    id:G.util.uid(), name:base.base, ico:base.ico, type:"rune", slot:"rune",
+    id:G.util.uid(), name:base.base, runeBase:base.base, ico:base.ico, type:"rune", slot:"rune",
     rarity:rarity.key, rarityLabel:rarity.label, rarityCls:rdef.cls,
     level:level, tier:tier, fixed:fixed, affixes:affixes, identified:true,
     attackElem: (level>=100) ? G.util.pick(G.DATA.ELEMENTS).key : null,   // 100층+ 룬 공격 속성
@@ -170,6 +170,30 @@ G.item.generateUnique = function(u, level){
   G.state.collection.uniques[u.id]=true;
   return it;
 };
+
+/* ============================================================
+   🔗 룬워드 — 룬 3칸 조합으로 발동(순서 무관). 개별 룬 + 룬워드 % 보너스
+   ============================================================ */
+G.runeword = {};
+G.runeword.equippedBases = function(){
+  var eq=G.state.equipment, out=[];
+  (G.DATA.RUNE_SLOTS||[]).forEach(function(k){ var it=eq[k]; if(it) out.push(it.runeBase||it.name); });
+  return out;
+};
+function _multisetEq(a,b){
+  if(a.length!==b.length) return false;
+  var m={},i; for(i=0;i<a.length;i++) m[a[i]]=(m[a[i]]||0)+1;
+  for(i=0;i<b.length;i++){ if(!m[b[i]]) return false; m[b[i]]--; }
+  return true;
+}
+G.runeword.active = function(){
+  var bases=G.runeword.equippedBases();
+  if(bases.length < 3) return null;
+  var ws=G.DATA.RUNEWORDS||[];
+  for(var i=0;i<ws.length;i++){ if(_multisetEq(bases, ws[i].runes)) return ws[i]; }
+  return null;
+};
+G.runeword.activeBonus = function(){ var w=G.runeword.active(); return w?w.bonus:null; };
 
 /* 감정 */
 G.item.identifyCost = function(it){

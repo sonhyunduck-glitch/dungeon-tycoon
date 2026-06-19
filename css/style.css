@@ -406,6 +406,13 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
 .uniq-q{ font-size:1.3rem; opacity:.5; }
 .uniq-card.got .uniq-ico{ border-color:#ff5e3a; box-shadow:0 0 8px rgba(255,94,58,.3); }
 .uniq-name{ font-weight:800; font-size:.84rem; }
+
+/* 🔗 룬워드 */
+.rw-active{ background:rgba(255,207,74,.1); border:1px solid rgba(255,207,74,.35); border-radius:9px; padding:7px 10px; margin-bottom:8px; font-size:.84rem; }
+.rw-list{ display:flex; flex-direction:column; gap:6px; }
+.rw-card{ border:1px solid var(--line); border-left-width:3px; border-radius:8px; padding:6px 9px; }
+.rw-card.on{ border-left-color:#ffcf4a; background:rgba(255,207,74,.07); }
+.rw-name{ font-weight:700; font-size:.82rem; }
 /* 전투장 바닥 글로우 */
 .combat-stage::before{
   content:""; position:absolute; left:50%; top:30%; width:200px; height:200px; transform:translate(-50%,-50%);

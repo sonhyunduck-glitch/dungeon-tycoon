@@ -42,6 +42,11 @@ G.save.load = function(){
     if(data.stamina) delete data.stamina;   // 행동력 시스템 제거 — 구버전 세이브 잔여 필드 정리
     if(!data.cosmetics) data.cosmetics={ owned:{}, shards:0, pity:{ legend:0 } };   // 외형 뽑기
     if(!data.collection) data.collection={ uniques:{} };   // 고유 장비 연대기
+    // 룬칸 5→3 축소: rune4/rune5에 끼워둔 룬은 가방으로 되돌려 손실 방지
+    if(data.equipment){ ["rune4","rune5"].forEach(function(k){
+      if(data.equipment[k]){ data.inventory=data.inventory||[]; data.inventory.push(data.equipment[k]); }
+      delete data.equipment[k];
+    }); }
     if(data.dungeon && !data.dungeon.stars) data.dungeon.stars={};
     if(data.shop && !data.shop.guestbook) data.shop.guestbook=[];
     if(data.shop && data.shop.slots){ while(data.shop.slots.length<5) data.shop.slots.push(null); }

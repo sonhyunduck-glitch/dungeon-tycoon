@@ -32,7 +32,17 @@ G.DATA.ITEM_BASES = [
 G.DATA.PREFIX = ["낡은","녹슨","평범한","단단한","날카로운","빛나는","고대의","용맹한","파괴적인","불멸의"];
 
 /* 룬: 장비 룬 슬롯에 장착하는 순수 스탯 아이템 (main = 주 스탯) */
-G.DATA.RUNE_SLOTS = ["rune1","rune2","rune3","rune4","rune5"];
+G.DATA.RUNE_SLOTS = ["rune1","rune2","rune3"];   // 룬워드 3룬 조합 기준(5→3 축소)
+
+/* 🔗 룬워드 — 룬 3칸을 특정 룬 조합으로 채우면 발동(순서 무관). 개별 룬 효과에 추가로 % 보조 보너스 */
+G.DATA.RUNEWORDS = [
+  { id:"berserk",  name:"광전사", ico:"🔥", runes:["공격의 룬","치명의 룬","파멸의 룬"], bonus:{ crit:8, critDmg:25, multihit:6 }, desc:"공격 특화 — 치명·연타" },
+  { id:"fortress", name:"철벽",   ico:"🛡️", runes:["수호의 룬","활력의 룬","가시의 룬"], bonus:{ thorns:25, stunResist:20, allRes:8 }, desc:"방어 특화 — 반사·저항" },
+  { id:"vampire",  name:"흡왕",   ico:"🩸", runes:["흡혈의 룬","공격의 룬","질풍의 룬"], bonus:{ lifesteal:8, multihit:8, crit:5 }, desc:"흡혈 지속 딜" },
+  { id:"greed",    name:"황금광", ico:"💰", runes:["황금의 룬","활력의 룬","수호의 룬"], bonus:{ goldFind:60, allRes:6 }, desc:"골드 획득 대폭" },
+  { id:"storm",    name:"폭풍",   ico:"⚡", runes:["질풍의 룬","치명의 룬","관통의 룬"], bonus:{ multihit:10, crit:6, penet:10 }, desc:"연타·관통" },
+  { id:"piercer",  name:"파괴자", ico:"💢", runes:["관통의 룬","파멸의 룬","공격의 룬"], bonus:{ penet:14, critDmg:20, crit:4 }, desc:"방어 무시 폭딜" }
+];
 /* craft:true = 대장간 제작 전용(드롭 안 됨) / 나머지(활력·황금·가시) = 사냥 드롭 */
 G.DATA.RUNE_BASES = [
   { base:"공격의 룬", ico:"🔴", main:"atk",       val:12, craft:true },
