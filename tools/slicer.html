@@ -82,6 +82,7 @@
       <label>줌</label><input id="zoom" type="range" min="1" max="20" value="3"><span id="zoomval" class="hint"></span>
       <button id="fitBtn">전체 맞춤</button>
       <label><input id="showgrid" type="checkbox" checked> 격자</label>
+      <label title="행 구분 없이 전체 프레임을 순차 재생(이펙트용)"><input id="fxmode" type="checkbox"> 🎬 FX 모드(순차)</label>
     </div>
     <div class="row divs" id="divW"></div>
     <div class="canvas-box"><canvas id="cv"></canvas></div>
@@ -90,10 +91,22 @@
 
   <!-- 우: 행 라벨 + 저장 -->
   <div class="col right">
+    <!-- FX 순차 미리보기(FX 모드일 때만) -->
+    <div id="fxWrap" style="display:none">
+      <div class="row"><b>🎬 FX 순차 미리보기</b> <span class="hint">전체 프레임을 좌→우·위→아래 순서로 재생</span></div>
+      <div class="canvas-box" style="height:auto; padding:14px; display:flex; align-items:center; justify-content:center"><canvas id="fxPrev"></canvas></div>
+      <div class="row"><label>속도</label><input id="fxSpeed" type="range" min="2" max="30" value="12"><span id="fxFps" class="hint"></span>
+        <label>줌</label><input id="fxZoom" type="range" min="1" max="14" value="4"></div>
+      <div class="row"><span id="fxInfo" class="hint"></span></div>
+      <div class="row"><button id="fxSave" class="acc">✨ FX 저장</button> <button id="fxExport" class="acc">🎬 FX JSON 내보내기</button></div>
+      <hr style="border-color:var(--line)">
+    </div>
+    <div id="rowWrap">
     <div class="row"><b>행 라벨</b> <span class="hint">현재 시트의 행마다 동작 지정</span></div>
     <table id="rowtbl"><thead><tr><th>행</th><th>미리보기</th><th>동작</th><th>프레임</th></tr></thead><tbody></tbody></table>
     <div class="row" style="margin-top:8px">
       <button id="applyFile" class="acc">이 시트 라벨 → 몬스터에 반영</button>
+    </div>
     </div>
     <div class="row"><b>현재 몬스터 수집:</b> <span id="curanims" class="mono"></span></div>
     <div class="row">
@@ -184,6 +197,8 @@ function selectMon(i){
   if(saved && saved.file && files.indexOf(saved.file)>=0){ target=saved.file; savedFrame={fw:saved.fw,fh:saved.fh}; }
   if(target){ fsel.value=target; loadFile(target, savedFrame); }
   updateCur();
+  $("#fxmode").checked = (monster.tier==="fx");   // FX 종류면 자동 FX 모드
+  toggleFx();
 }
 function loadFile(path, savedFrame){
   const img=new Image();
@@ -192,7 +207,8 @@ function loadFile(path, savedFrame){
       $("#fwpx").value=savedFrame.fw; $("#fhpx").value=savedFrame.fh;
       setBoth(Math.max(1,Math.floor(cur.w/savedFrame.fw)), Math.max(1,Math.floor(cur.h/savedFrame.fh)));
     } else { guessFrame(); }
-    buildRows(); fitZoom(); };
+    buildRows(); fitZoom();
+    if($("#fxmode").checked) startFx(); };
   img.src=path;
 }
 // 내 PC에서 임의 PNG 열기 (폴더 지정)
@@ -298,6 +314,53 @@ function detectFrames(row){
     if(any) last=i+1;
   }
   return last||c;
+}
+
+/* ===== FX 순차 미리보기 (행 구분 없이 전체 프레임 좌→우·위→아래 재생) ===== */
+let fxTimer=null, fxFrame=0, fxTotal=1, fxStore={};
+function fxFramesCount(){
+  if(!cur.img) return 1;
+  const C=cols(),R=rows(),W=fw(),H=fh(),total=C*R;
+  const off=document.createElement("canvas"); off.width=cur.w; off.height=cur.h;
+  const o=off.getContext("2d"); o.imageSmoothingEnabled=false; o.drawImage(cur.img,0,0);
+  let last=0;
+  for(let k=0;k<total;k++){ const r=Math.floor(k/C),c=k%C; const d=o.getImageData(c*W,r*H,W,H).data; let any=false; for(let p=3;p<d.length;p+=4){ if(d[p]>10){any=true;break;} } if(any) last=k+1; }
+  return last||total;
+}
+function drawFx(){
+  if(!cur.img) return;
+  const C=cols(),W=fw(),H=fh(),z=parseInt($("#fxZoom").value)||4;
+  const k=fxFrame%Math.max(1,fxTotal), r=Math.floor(k/C), c=k%C;
+  const cv=$("#fxPrev"); cv.width=W*z; cv.height=H*z;
+  const x=cv.getContext("2d"); x.imageSmoothingEnabled=false; x.clearRect(0,0,cv.width,cv.height);
+  x.drawImage(cur.img, c*W, r*H, W, H, 0,0, cv.width, cv.height);
+}
+function startFx(){
+  stopFx(); if(!cur.img) return;
+  fxTotal=fxFramesCount(); fxFrame=0;
+  const fps=parseInt($("#fxSpeed").value)||12;
+  $("#fxFps").textContent=fps+"fps"; $("#fxInfo").textContent="총 "+fxTotal+"프레임 · "+fw()+"×"+fh()+"px";
+  drawFx(); fxTimer=setInterval(()=>{ fxFrame++; drawFx(); }, Math.round(1000/fps));
+}
+function stopFx(){ if(fxTimer){ clearInterval(fxTimer); fxTimer=null; } }
+function toggleFx(){
+  const on=$("#fxmode").checked;
+  $("#fxWrap").style.display=on?"":"none";
+  $("#rowWrap").style.display=on?"none":"";
+  if(on) startFx(); else stopFx();
+}
+function fxSheetPath(){ return (cur.path||"").replace(/^(\.\.\/)+/,""); }   // ../assets/fx/X.png → assets/fx/X.png
+function saveFx(){
+  if(!cur.img){ alert("시트가 로드되지 않았습니다"); return; }
+  const key=($("#mkey").value.trim())||fxSheetPath();
+  fxStore[key]={ key, name:($("#mname").value.trim()||key), sheet:fxSheetPath(), fw:fw(), fh:fh(), frames:fxFramesCount(), fps:parseInt($("#fxSpeed").value)||12 };
+  alert("FX 저장: "+key+" ("+fxStore[key].frames+"프레임 · "+fw()+"×"+fh()+")");
+}
+function exportFx(){
+  const list=Object.values(fxStore);
+  if(!list.length){ alert("저장된 FX가 없습니다. 'FX 저장'을 먼저 누르세요."); return; }
+  const s=JSON.stringify(list,null,2); $("#json").value=s;
+  const blob=new Blob([s],{type:"application/json"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="fx.json"; a.click();
 }
 
 function buildRows(){
@@ -424,7 +487,7 @@ document.querySelectorAll('input[name="divmode"]').forEach(r=>r.onchange=()=>{
   }
   onFrame();
 });
-function onFrame(){ draw(); buildRows(); }
+function onFrame(){ draw(); buildRows(); if($("#fxmode").checked) startFx(); }
 $("#zoom").oninput=()=>{ zoomVal=parseInt($("#zoom").value)||1; draw(); };
 $("#fitBtn").onclick=fitZoom;
 $("#showgrid").onchange=draw;
@@ -433,6 +496,11 @@ $("#saveMon").onclick=saveMon;
 $("#clearMon").onclick=()=>{ monster.anims=[]; updateCur(); buildRows(); };
 $("#exportBtn").onclick=exportJSON;
 $("#avatarBtn").onclick=exportAvatars;
+$("#fxmode").onchange=toggleFx;
+$("#fxSpeed").oninput=()=>{ if($("#fxmode").checked) startFx(); };
+$("#fxZoom").oninput=drawFx;
+$("#fxSave").onclick=saveFx;
+$("#fxExport").onclick=exportFx;
 $("#loadSavedBtn").onclick=()=>loadSavedFile(true);
 $("#copyBtn").onclick=()=>{ exportJSON(); $("#json").select(); document.execCommand("copy"); };
 $("#importBtn").onclick=()=>{ try{ const j=JSON.parse($("#json").value); j.monsters.forEach(m=>store[m.key]=m); localStorage.setItem("slicerStore",JSON.stringify(store)); renderSaved(); alert("가져오기 완료"); }catch(e){ alert("JSON 파싱 실패: "+e); } };

@@ -779,6 +779,786 @@
       "files": [
         "../assets/avatars/yeti.png"
       ]
+    },
+    {
+      "key": "fx_block",
+      "name": "Block",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Block.png"
+      ]
+    },
+    {
+      "key": "fx_bloodsplatter0",
+      "name": "BloodSplatter0",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/BloodSplatter0.png"
+      ]
+    },
+    {
+      "key": "fx_bloodsplatter1",
+      "name": "BloodSplatter1",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/BloodSplatter1.png"
+      ]
+    },
+    {
+      "key": "fx_bloodsplatter2",
+      "name": "BloodSplatter2",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/BloodSplatter2.png"
+      ]
+    },
+    {
+      "key": "fx_bloodsplatter3",
+      "name": "BloodSplatter3",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/BloodSplatter3.png"
+      ]
+    },
+    {
+      "key": "fx_box",
+      "name": "Box",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Box.png"
+      ]
+    },
+    {
+      "key": "fx_bubble",
+      "name": "Bubble",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Bubble.png"
+      ]
+    },
+    {
+      "key": "fx_circle",
+      "name": "Circle",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Circle.png"
+      ]
+    },
+    {
+      "key": "fx_claw",
+      "name": "Claw",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Claw.png"
+      ]
+    },
+    {
+      "key": "fx_consume0",
+      "name": "Consume0",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Consume0.png"
+      ]
+    },
+    {
+      "key": "fx_consume1",
+      "name": "Consume1",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Consume1.png"
+      ]
+    },
+    {
+      "key": "fx_consume2",
+      "name": "Consume2",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Consume2.png"
+      ]
+    },
+    {
+      "key": "fx_dark",
+      "name": "Dark",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Dark.png"
+      ]
+    },
+    {
+      "key": "fx_earth0",
+      "name": "Earth0",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Earth0.png"
+      ]
+    },
+    {
+      "key": "fx_earth1",
+      "name": "Earth1",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Earth1.png"
+      ]
+    },
+    {
+      "key": "fx_earth2",
+      "name": "Earth2",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Earth2.png"
+      ]
+    },
+    {
+      "key": "fx_electric",
+      "name": "Electric",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Electric.png"
+      ]
+    },
+    {
+      "key": "fx_explodea",
+      "name": "ExplodeA",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/ExplodeA.png"
+      ]
+    },
+    {
+      "key": "fx_explodeb",
+      "name": "ExplodeB",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/ExplodeB.png"
+      ]
+    },
+    {
+      "key": "fx_explodec",
+      "name": "ExplodeC",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/ExplodeC.png"
+      ]
+    },
+    {
+      "key": "fx_exploded",
+      "name": "ExplodeD",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/ExplodeD.png"
+      ]
+    },
+    {
+      "key": "fx_explodee",
+      "name": "ExplodeE",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/ExplodeE.png"
+      ]
+    },
+    {
+      "key": "fx_fire0",
+      "name": "Fire0",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Fire0.png"
+      ]
+    },
+    {
+      "key": "fx_fire1",
+      "name": "Fire1",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Fire1.png"
+      ]
+    },
+    {
+      "key": "fx_fire2",
+      "name": "Fire2",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Fire2.png"
+      ]
+    },
+    {
+      "key": "fx_flame",
+      "name": "Flame",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Flame.png"
+      ]
+    },
+    {
+      "key": "fx_flamealt",
+      "name": "FlameAlt",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/FlameAlt.png"
+      ]
+    },
+    {
+      "key": "fx_footprints",
+      "name": "Footprints",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Footprints.png"
+      ]
+    },
+    {
+      "key": "fx_footprintssand",
+      "name": "FootprintsSand",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/FootprintsSand.png"
+      ]
+    },
+    {
+      "key": "fx_footprintssandnight",
+      "name": "FootprintsSandNight",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/FootprintsSandNight.png"
+      ]
+    },
+    {
+      "key": "fx_glint",
+      "name": "Glint",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Glint.png"
+      ]
+    },
+    {
+      "key": "fx_heal0back",
+      "name": "Heal0Back",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Heal0Back.png"
+      ]
+    },
+    {
+      "key": "fx_heal0fore",
+      "name": "Heal0Fore",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Heal0Fore.png"
+      ]
+    },
+    {
+      "key": "fx_heal1back",
+      "name": "Heal1Back",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Heal1Back.png"
+      ]
+    },
+    {
+      "key": "fx_heal1fore",
+      "name": "Heal1Fore",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Heal1Fore.png"
+      ]
+    },
+    {
+      "key": "fx_ice0",
+      "name": "Ice0",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Ice0.png"
+      ]
+    },
+    {
+      "key": "fx_ice1",
+      "name": "Ice1",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Ice1.png"
+      ]
+    },
+    {
+      "key": "fx_ice2",
+      "name": "Ice2",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Ice2.png"
+      ]
+    },
+    {
+      "key": "fx_lightning",
+      "name": "Lightning",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Lightning.png"
+      ]
+    },
+    {
+      "key": "fx_nucleara0",
+      "name": "NuclearA0",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/NuclearA0.png"
+      ]
+    },
+    {
+      "key": "fx_nucleara1",
+      "name": "NuclearA1",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/NuclearA1.png"
+      ]
+    },
+    {
+      "key": "fx_nuclearb0",
+      "name": "NuclearB0",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/NuclearB0.png"
+      ]
+    },
+    {
+      "key": "fx_nuclearb1",
+      "name": "NuclearB1",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/NuclearB1.png"
+      ]
+    },
+    {
+      "key": "fx_path",
+      "name": "Path",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Path.png"
+      ]
+    },
+    {
+      "key": "fx_poison",
+      "name": "Poison",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Poison.png"
+      ]
+    },
+    {
+      "key": "fx_puff",
+      "name": "Puff",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Puff.png"
+      ]
+    },
+    {
+      "key": "fx_select0",
+      "name": "Select0",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Select0.png"
+      ]
+    },
+    {
+      "key": "fx_select1",
+      "name": "Select1",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Select1.png"
+      ]
+    },
+    {
+      "key": "fx_shield0",
+      "name": "Shield0",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Shield0.png"
+      ]
+    },
+    {
+      "key": "fx_shield1",
+      "name": "Shield1",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Shield1.png"
+      ]
+    },
+    {
+      "key": "fx_shield2",
+      "name": "Shield2",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Shield2.png"
+      ]
+    },
+    {
+      "key": "fx_shield3",
+      "name": "Shield3",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Shield3.png"
+      ]
+    },
+    {
+      "key": "fx_sick",
+      "name": "Sick",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Sick.png"
+      ]
+    },
+    {
+      "key": "fx_slash0",
+      "name": "Slash0",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Slash0.png"
+      ]
+    },
+    {
+      "key": "fx_slash1",
+      "name": "Slash1",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Slash1.png"
+      ]
+    },
+    {
+      "key": "fx_sleep",
+      "name": "Sleep",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Sleep.png"
+      ]
+    },
+    {
+      "key": "fx_sleepflip",
+      "name": "SleepFlip",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/SleepFlip.png"
+      ]
+    },
+    {
+      "key": "fx_slimesplatter0",
+      "name": "SlimeSplatter0",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/SlimeSplatter0.png"
+      ]
+    },
+    {
+      "key": "fx_slimesplatter1",
+      "name": "SlimeSplatter1",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/SlimeSplatter1.png"
+      ]
+    },
+    {
+      "key": "fx_slimesplatter2",
+      "name": "SlimeSplatter2",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/SlimeSplatter2.png"
+      ]
+    },
+    {
+      "key": "fx_slimesplatter3",
+      "name": "SlimeSplatter3",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/SlimeSplatter3.png"
+      ]
+    },
+    {
+      "key": "fx_spark0",
+      "name": "Spark0",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Spark0.png"
+      ]
+    },
+    {
+      "key": "fx_spark1",
+      "name": "Spark1",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Spark1.png"
+      ]
+    },
+    {
+      "key": "fx_square0back",
+      "name": "Square0Back",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Square0Back.png"
+      ]
+    },
+    {
+      "key": "fx_square0fore",
+      "name": "Square0Fore",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Square0Fore.png"
+      ]
+    },
+    {
+      "key": "fx_square1back",
+      "name": "Square1Back",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Square1Back.png"
+      ]
+    },
+    {
+      "key": "fx_square1fore",
+      "name": "Square1Fore",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Square1Fore.png"
+      ]
+    },
+    {
+      "key": "fx_star",
+      "name": "Star",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Star.png"
+      ]
+    },
+    {
+      "key": "fx_teleport0",
+      "name": "Teleport0",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Teleport0.png"
+      ]
+    },
+    {
+      "key": "fx_teleport1",
+      "name": "Teleport1",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Teleport1.png"
+      ]
+    },
+    {
+      "key": "fx_teleport2",
+      "name": "Teleport2",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Teleport2.png"
+      ]
+    },
+    {
+      "key": "fx_touch0",
+      "name": "Touch0",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Touch0.png"
+      ]
+    },
+    {
+      "key": "fx_touch1",
+      "name": "Touch1",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Touch1.png"
+      ]
+    },
+    {
+      "key": "fx_warp0",
+      "name": "Warp0",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Warp0.png"
+      ]
+    },
+    {
+      "key": "fx_warp1",
+      "name": "Warp1",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Warp1.png"
+      ]
+    },
+    {
+      "key": "fx_water",
+      "name": "Water",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/Water.png"
+      ]
+    },
+    {
+      "key": "fx_webback",
+      "name": "WebBack",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/WebBack.png"
+      ]
+    },
+    {
+      "key": "fx_webfore",
+      "name": "WebFore",
+      "tier": "fx",
+      "folder": "fx",
+      "group": "✨ FX",
+      "files": [
+        "../assets/fx/WebFore.png"
+      ]
     }
   ]
 }
