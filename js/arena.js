@@ -12,25 +12,42 @@
   function nick(){ return (G.net&&G.net.nickname) || (G.state&&G.state.nickname) || "나"; }
   function clampStat(v,m){ return Math.min(m, v||0); }
 
-  /* ---------- 티어/리그 ---------- */
+  /* ---------- 티어/리그 (LoL식: 아이언~챌린저, 하위 7티어 4디비전) ---------- */
   G.arena.TIERS = [
-    { key:"bronze",    name:"브론즈",   min:0,    icon:"🥉", color:"#cd7f32" },
-    { key:"silver",    name:"실버",     min:1000, icon:"🥈", color:"#c0c0c0" },
-    { key:"gold",      name:"골드",     min:1200, icon:"🥇", color:"#ffcf4a" },
-    { key:"platinum",  name:"플래티넘", min:1400, icon:"💠", color:"#4ad6c8" },
-    { key:"diamond",   name:"다이아",   min:1600, icon:"💎", color:"#7ab8ff" },
-    { key:"master",    name:"마스터",   min:1800, icon:"👑", color:"#c879ff" },
-    { key:"challenger",name:"챌린저",   min:2000, icon:"🏆", color:"#ff7a3c" }
+    { key:"iron",       name:"아이언",       min:0,    color:"#7a7a7a", div:true },
+    { key:"bronze",     name:"브론즈",       min:600,  color:"#cd7f32", div:true },
+    { key:"silver",     name:"실버",         min:900,  color:"#c0c0c0", div:true },
+    { key:"gold",       name:"골드",         min:1200, color:"#ffcf4a", div:true },
+    { key:"platinum",   name:"플래티넘",     min:1500, color:"#4ad6c8", div:true },
+    { key:"emerald",    name:"에메랄드",     min:1800, color:"#2ec26b", div:true },
+    { key:"diamond",    name:"다이아",       min:2100, color:"#7ab8ff", div:true },
+    { key:"master",     name:"마스터",       min:2400, color:"#c879ff", div:false },
+    { key:"grandmaster",name:"그랜드마스터", min:2700, color:"#ff5a6a", div:false },
+    { key:"challenger", name:"챌린저",       min:3000, color:"#ffd86a", div:false }
   ];
+  var _ROMAN=["I","II","III","IV"];
   G.arena.tierIndex = function(score){ var t=0,T=G.arena.TIERS; for(var i=0;i<T.length;i++){ if((score||0)>=T[i].min) t=i; } return t; };
   G.arena.tierOf    = function(score){ return G.arena.TIERS[G.arena.tierIndex(score)]; };
   G.arena.tierProgress = function(score){ var T=G.arena.TIERS, i=G.arena.tierIndex(score), cur=T[i], nxt=T[i+1];
     if(!nxt) return 100; return Math.max(0,Math.min(100, Math.round(((score-cur.min)/(nxt.min-cur.min))*100))); };
-  // 작은 티어 배지 HTML
-  G.arena.tierBadge = function(score, small){
-    var t=G.arena.tierOf(score);
-    return '<span class="tier-badge'+(small?" sm":"")+'" style="--tier:'+t.color+'">'+t.icon+' '+t.name+'</span>';
+  // 점수 → {tier, div(1~4|null), icon경로, label}. 디비전 티어는 밴드를 4등분(IV저~I고)
+  G.arena.tierInfo = function(score){
+    var i=G.arena.tierIndex(score), t=G.arena.TIERS[i], nxt=G.arena.TIERS[i+1], div=null, key=t.key;
+    if(t.div){
+      var hi = nxt ? nxt.min : (t.min+300);
+      var d=Math.floor((score - t.min)/((hi - t.min)/4)); if(d<0) d=0; if(d>3) d=3;
+      div = 4 - d;                       // 4(IV,하단) ~ 1(I,상단)
+      key = t.key+"_"+div;
+    }
+    return { tier:t, div:div, icon:"assets/icon/tier/"+key+".png", label:t.name+(div?(" "+_ROMAN[div-1]):"") };
   };
+  // 티어 배지 HTML (아이콘 이미지 + 라벨)
+  G.arena.tierBadge = function(score, small){
+    var info=G.arena.tierInfo(score);
+    return '<span class="tier-badge'+(small?" sm":"")+'" style="--tier:'+info.tier.color+'"><img class="tiericon" src="'+info.icon+'" alt="">'+info.label+'</span>';
+  };
+  // 닉네임 기반 의사 티어(점수 미상 시 일관 표시 — 채팅 등)
+  G.arena.pseudoScore = function(name){ var h=0,s=String(name||""); for(var i=0;i<s.length;i++){ h=(h*31+s.charCodeAt(i))>>>0; } return 500 + (h % 2200); };
 
   /* ---------- 상태 보장(구버전 세이브 마이그레이션) + 일일 ---------- */
   G.arena.MAX_DAILY = 10;

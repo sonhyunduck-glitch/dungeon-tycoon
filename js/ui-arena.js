@@ -24,11 +24,12 @@ G.ui.renderArena = function(){
   var rv=G.arena._rank;
   var a=G.state.arena;
   var sc=G.arena.score(), tier=G.arena.tierOf(sc), prog=G.arena.tierProgress(sc), ti=G.arena.tierIndex(sc);
+  var tinfo=G.arena.tierInfo(sc);
   var left=G.arena.fightsLeft();
 
   var head='<div class="panel"><h2>🏟️ 아레나 <span class="muted" style="font-size:.7rem">PvP · 비동기 대전</span></h2>'+
     '<div class="arena-tier">'+
-      '<div class="tier-big" style="--tier:'+tier.color+'">'+tier.icon+' '+tier.name+' <span class="gold" style="font-weight:800">'+G.ui.fmt(sc)+'</span></div>'+
+      '<div class="tier-big" style="--tier:'+tier.color+'"><img class="tiericon lg" src="'+tinfo.icon+'" alt="">'+tinfo.label+' <span class="gold" style="font-weight:800">'+G.ui.fmt(sc)+'</span></div>'+
       '<div class="tier-bar"><div class="tier-fill" style="width:'+prog+'%; background:'+tier.color+'"></div></div>'+
       '<div class="muted" style="font-size:.64rem">'+(ti<G.arena.TIERS.length-1?('다음 '+G.arena.TIERS[ti+1].name+'까지 '+prog+'%'):'최고 티어 달성')+'</div>'+
     '</div>'+

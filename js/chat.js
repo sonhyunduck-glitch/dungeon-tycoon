@@ -70,7 +70,8 @@
       if(m.me){
         return '<div class="cmsg me"><div class="cbub me">'+esc(m.text)+'</div></div>';
       }
-      return '<div class="cmsg"><div class="cwho">'+esc(m.who)+'</div><div class="cbub">'+esc(m.text)+'</div></div>';
+      var tico = (G.arena && G.arena.tierInfo) ? '<img class="chat-tier" src="'+G.arena.tierInfo(G.arena.pseudoScore(m.who)).icon+'" alt="">' : '';
+      return '<div class="cmsg"><div class="cwho">'+tico+esc(m.who)+'</div><div class="cbub">'+esc(m.text)+'</div></div>';
     }).join("");
     body.scrollTop = body.scrollHeight;
   };
