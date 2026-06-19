@@ -393,6 +393,19 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
 /* 도감 카드(미보유는 디밍) */
 .avatar-card.dex.locked{ opacity:.55; }
 .avatar-card.dex .btn.sm{ margin-top:4px; font-size:.66rem; padding:3px 6px; }
+
+/* 🌟 고유 장비 등급 */
+.r-unique{ color:#ff5e3a; border-left-color:#ff5e3a !important; text-shadow:0 0 10px rgba(255,94,58,.6); }
+.item.r-unique{ box-shadow:0 0 20px rgba(255,94,58,.22); }
+/* 장비 연대기 카드 */
+.uniq-card{ display:flex; gap:10px; align-items:center; padding:8px 6px; border-bottom:1px solid var(--line); }
+.uniq-card:last-child{ border-bottom:none; }
+.uniq-card.locked{ opacity:.5; }
+.uniq-ico{ width:42px; height:42px; flex:0 0 auto; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.25); border-radius:8px; border:1px solid var(--line); }
+.uniq-ico .icoimg{ width:34px; height:34px; image-rendering:pixelated; }
+.uniq-q{ font-size:1.3rem; opacity:.5; }
+.uniq-card.got .uniq-ico{ border-color:#ff5e3a; box-shadow:0 0 8px rgba(255,94,58,.3); }
+.uniq-name{ font-weight:800; font-size:.84rem; }
 /* 전투장 바닥 글로우 */
 .combat-stage::before{
   content:""; position:absolute; left:50%; top:30%; width:200px; height:200px; transform:translate(-50%,-50%);

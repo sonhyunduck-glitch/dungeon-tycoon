@@ -64,6 +64,15 @@ function killEnemy(e){
   var dropChance={ full:1, mini:0.55, elite:0.4, normal:0.18 }[e.kind]||0.18;
   if(Math.random()<dropChance){ var bonus=e.kind==="full"?2:(e.kind==="mini"?1:0); G.perks.routeLoot(G.item.generate(e.dropTier+bonus, e.floor)); }
   if(Math.random()<(e.kind==="full"?0.3:e.kind==="mini"?0.1:0.04)){ G.perks.routeLoot(G.item.generateRune(e.dropTier, e.floor)); }
+  // 🌟 고유 장비 — 보스(full) 처치 시 낮은 확률로 발견(연대기 도감)
+  if(e.kind==="full" && G.DATA.UNIQUES){
+    var elig=G.DATA.UNIQUES.filter(function(u){ return (u.minFloor||1)<=e.floor; });
+    if(elig.length && Math.random()<0.06){
+      var uq=elig[Math.floor(Math.random()*elig.length)];
+      G.perks.routeLoot(G.item.generateUnique(uq, e.floor));
+      G.log("🌟 고유 장비 발견 — "+uq.name+"!", "r-legend");
+    }
+  }
   if(e.kind==="full" && e.species){
     var bs=G.DATA.BOSS_SPECIES.find(function(b){return b.name===e.species.name;});
     if(bs){ var amt=G.util.rand(1,2); G.state.monMats[bs.name]=(G.state.monMats[bs.name]||0)+amt; G.log("🧩 "+bs.mat+" +"+amt+" 획득","r-rare"); }

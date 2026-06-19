@@ -145,6 +145,32 @@ G.item.generateRune = function(tier, level, baseName){
   return it;
 };
 
+/* 🌟 고유(unique) 장비 생성 — 시그니처 옵션 고정(최고급), 층 비례 스케일. 획득 시 연대기 기록 */
+G.item.generateUnique = function(u, level){
+  level=level||1; var lvlMult=Math.pow(1.112, level-1);
+  var fixed={}, mm=G.DATA.STAT_META[u.main];
+  fixed[u.main] = (mm&&mm.pct) ? u.mainVal : Math.max(1, Math.round(u.mainVal*lvlMult));
+  if(u.slot==="armor") fixed.hp = (fixed.hp||0) + Math.round(u.mainVal*5*lvlMult);
+  var affixes=u.affixes.map(function(a){
+    var v = a.flat ? Math.max(1, Math.round(a.v*lvlMult)) : a.v;
+    return { stat:a.stat, value:v, pct:!!a.pct, flat:!!a.flat };
+  });
+  var type = u.slot==="weapon"?"weapon" : (u.slot==="ring"||u.slot==="necklace"?"accessory":"armor");
+  var it = {
+    id:G.util.uid(), name:u.name, ico:"🌟",
+    iconImg:(u.iconDir&&u.icon)?("assets/icon/equip/"+u.iconDir+"/"+u.icon):null,
+    type:type, slot:u.slot, rarity:"unique", rarityLabel:"고유", rarityCls:"r-unique",
+    uniqueId:u.id, desc:u.desc, level:level, tier:5, fixed:fixed, affixes:affixes, identified:true
+  };
+  mergeStats(it);
+  it.basePrice = priceOf(it, { price:24 }, 5);
+  // 연대기(도감) 기록 — 한 번이라도 획득하면 발견 처리
+  G.state.collection = G.state.collection || { uniques:{} };
+  if(!G.state.collection.uniques) G.state.collection.uniques={};
+  G.state.collection.uniques[u.id]=true;
+  return it;
+};
+
 /* 감정 */
 G.item.identifyCost = function(it){
   var c=Math.max(80, Math.round((it.basePrice||50)*0.35));

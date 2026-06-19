@@ -191,6 +191,35 @@ G.DATA.SKILLS = [
   { id:"guard",   name:"가시 방패",   ico:"🪖", req:250, cd:4, desc:"2턴간 받는 피해 40% 감소 + 피해반사 2배." },
 ];
 
+/* 🌟 고유(unique) 장비 — 보스 처치 시 낮은 확률 발견, 시그니처 옵션 고정. 연대기 도감 수집 대상.
+   affixes의 v: flat(공/방/체)은 층 비례 스케일, %는 고정. 슬롯 허용 옵션에 맞춤. */
+G.DATA.UNIQUES = [
+  { id:"u_bloodfang", name:"피의 송곳니", slot:"weapon", iconDir:"weapon_dagger", icon:"kn_t_01.png", main:"atk", mainVal:14, minFloor:15,
+    affixes:[{stat:"atk",v:12,flat:true},{stat:"lifesteal",v:8,pct:true},{stat:"crit",v:7,pct:true}], desc:"적의 피를 갈망하는 단검." },
+  { id:"u_shadowedge", name:"그림자 칼날", slot:"weapon", iconDir:"weapon_sword", icon:"sv_t_05.png", main:"atk", mainVal:15, minFloor:35,
+    affixes:[{stat:"atk",v:13,flat:true},{stat:"critDmg",v:35,pct:true},{stat:"multihit",v:8,pct:true}], desc:"그림자에서 벼려진 검." },
+  { id:"u_dragonsplit", name:"용살자 도끼", slot:"weapon", iconDir:"weapon_axe", icon:"axe_t_03.png", main:"atk", mainVal:18, minFloor:80,
+    affixes:[{stat:"atk",v:16,flat:true},{stat:"penet",v:14,pct:true},{stat:"elemAtk",v:24,pct:true}], desc:"용의 비늘을 가르는 도끼." },
+  { id:"u_aegishelm", name:"수호의 투구", slot:"helmet", iconDir:"helmet", icon:"helmets_3.PNG", main:"def", mainVal:10, minFloor:25,
+    affixes:[{stat:"hp",v:70,flat:true},{stat:"stunResist",v:18,pct:true},{stat:"allRes",v:10,pct:true}], desc:"무너지지 않는 의지." },
+  { id:"u_sagecrown", name:"현자의 관", slot:"helmet", iconDir:"helmet", icon:"helmets_8.PNG", main:"def", mainVal:9, minFloor:110,
+    affixes:[{stat:"hp",v:90,flat:true},{stat:"elemAtk",v:26,pct:true},{stat:"allRes",v:12,pct:true}], desc:"고대 지혜가 깃든 관." },
+  { id:"u_titanplate", name:"거인의 갑주", slot:"armor", iconDir:"armor", icon:"armor_4.png", main:"def", mainVal:12, minFloor:50,
+    affixes:[{stat:"hp",v:110,flat:true},{stat:"thorns",v:16,pct:true},{stat:"def",v:10,flat:true}], desc:"거인의 힘을 두른 갑옷." },
+  { id:"u_phoenixmail", name:"불사조 흉갑", slot:"armor", iconDir:"armor", icon:"armor_9.png", main:"def", mainVal:11, minFloor:130,
+    affixes:[{stat:"hp",v:140,flat:true},{stat:"allRes",v:14,pct:true},{stat:"thorns",v:14,pct:true}], desc:"재에서 되살아나는 가호." },
+  { id:"u_swiftgrips", name:"신속의 장갑", slot:"gloves", iconDir:"gloves", icon:"gloves_2.PNG", main:"atk", mainVal:9, minFloor:40,
+    affixes:[{stat:"multihit",v:8,pct:true},{stat:"crit",v:7,pct:true},{stat:"atk",v:10,flat:true}], desc:"바람보다 빠른 손놀림." },
+  { id:"u_crushfist", name:"분쇄의 건틀릿", slot:"gloves", iconDir:"gloves", icon:"gloves_6.png", main:"atk", mainVal:11, minFloor:95,
+    affixes:[{stat:"penet",v:14,pct:true},{stat:"atk",v:14,flat:true},{stat:"def",v:8,flat:true}], desc:"방어를 부수는 일격." },
+  { id:"u_galeboots", name:"질풍의 군화", slot:"boots", iconDir:"boots", icon:"boots_3.png", main:"def", mainVal:8, minFloor:30,
+    affixes:[{stat:"dodge",v:6,pct:true},{stat:"hp",v:60,flat:true},{stat:"goldFind",v:20,pct:true}], desc:"질풍처럼 스치는 발걸음." },
+  { id:"u_conqueror_ring", name:"정복자의 반지", slot:"ring", iconDir:"ring", icon:"rings_2.PNG", main:"crit", mainVal:6, minFloor:60,
+    affixes:[{stat:"critDmg",v:35,pct:true},{stat:"lifesteal",v:7,pct:true},{stat:"crit",v:6,pct:true}], desc:"승리를 새긴 반지." },
+  { id:"u_sovereign_amulet", name:"군주의 목걸이", slot:"necklace", iconDir:"necklace", icon:"necklace_2.PNG", main:"hp", mainVal:80, minFloor:110,
+    affixes:[{stat:"critDmg",v:30,pct:true},{stat:"allRes",v:12,pct:true},{stat:"elemAtk",v:22,pct:true}], desc:"군주의 위엄이 깃든 목걸이." }
+];
+
 /* 최대 층수 */
 G.DATA.MAX_FLOOR = 1000;
 

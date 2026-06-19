@@ -68,14 +68,14 @@ G.ui.renderCharacter = function(){
 
   // 서브 탭
   var sub=G.state.ui.charSub||"stats";
-  var subTabs=[["stats","📊 스탯"],["detail","📋 상세"],["equip","🛡️ 장비"],["rune","🔮 룬"],["skill","⚔️ 스킬"],["avatar","🎭 아바타"],["unlock","🔓 해금"]];
+  var subTabs=[["stats","📊 스탯"],["detail","📋 상세"],["equip","🛡️ 장비"],["rune","🔮 룬"],["skill","⚔️ 스킬"],["avatar","🎭 아바타"],["collection","📒 컬렉션"],["unlock","🔓 해금"]];
   var tabBar='<div class="subtabs">'+subTabs.map(function(t){
     return '<button class="subtab'+(sub===t[0]?" active":"")+'" data-act="char-sub" data-sub="'+t[0]+'">'+t[1]+'</button>';
   }).join("")+'</div>';
 
-  var body = sub==="stats"?statsPanel : sub==="detail"?G.ui._statSheet() : sub==="equip"?equipPanel : sub==="rune"?runePanel : sub==="avatar"?G.ui._avatarPanel() : sub==="unlock"?G.ui._perksHTML() : G.ui._skills();
+  var body = sub==="stats"?statsPanel : sub==="detail"?G.ui._statSheet() : sub==="equip"?equipPanel : sub==="rune"?runePanel : sub==="avatar"?G.ui._avatarPanel() : sub==="collection"?G.ui._collectionPanel() : sub==="unlock"?G.ui._perksHTML() : G.ui._skills();
   v.innerHTML = tabBar + body;
-  if(sub==="avatar"){   // 미리보기 애니메이션(잠긴 건 정적)
+  if(sub==="avatar"||sub==="collection"){   // 미리보기 애니메이션(잠긴 건 정적)
     v.querySelectorAll(".av-prev-inner").forEach(function(el){
       var card=el.closest(".avatar-card");
       if(card && card.classList.contains("locked")) return;
@@ -104,6 +104,38 @@ G.ui._avatarPanel = function(){
       ? '<div class="muted" style="margin-top:12px;font-size:.8rem;line-height:1.6">💡 더 많은 아바타는 <b>스프라이트 슬라이서</b>로 캐릭터 시트를 추가하면 늘어납니다.</div>'
       : '')+
   '</div>';
+};
+
+/* 📒 컬렉션 — 🌟 장비 연대기(고유템 도감) + 🎭 아바타 도감 */
+G.ui._collectionPanel = function(){
+  G.state.collection=G.state.collection||{uniques:{}};
+  var disc=G.state.collection.uniques||{};
+  var uniques=G.DATA.UNIQUES||[];
+  var dN=uniques.filter(function(u){return disc[u.id];}).length;
+  function affTxt(u){ return u.affixes.map(function(a){ var m=G.DATA.STAT_META[a.stat]; return m?(m.label+" +"+a.v+(a.pct?"%":"")):""; }).filter(Boolean).join(" · "); }
+  var uList=uniques.map(function(u){
+    var got=!!disc[u.id];
+    var icon = got ? '<img class="icoimg" src="assets/icon/equip/'+u.iconDir+'/'+u.icon+'" alt="">' : '<span class="uniq-q">❔</span>';
+    return '<div class="uniq-card'+(got?" got":" locked")+'">'+
+      '<div class="uniq-ico">'+icon+'</div>'+
+      '<div class="uniq-info">'+
+        '<div class="uniq-name '+(got?"r-unique":"muted")+'">'+(got?esc(u.name):"??? 미발견")+'</div>'+
+        '<div class="idesc muted">'+(got ? ((SLOT_LABELS[u.slot]||u.slot)+" · "+affTxt(u)) : ("발견 조건: "+u.minFloor+"층+ 보스 처치"))+'</div>'+
+      '</div>'+
+    '</div>';
+  }).join("");
+  var equipDex='<div class="panel"><h2>🗡️ 장비 연대기 <span class="muted" style="font-size:.66rem">'+dN+' / '+uniques.length+'</span></h2>'+
+    '<div class="muted" style="font-size:.66rem; margin-bottom:8px">보스 처치 시 낮은 확률로 발견하는 고유 장비</div>'+uList+'</div>';
+
+  var av=G.DATA.AVATARS||[];
+  var avOwned=av.filter(function(a){return G.avatar.owned(a);}).length;
+  var avList=av.map(function(a){ var owned=G.avatar.owned(a);
+    return '<div class="avatar-card dex'+(owned?"":" locked")+'">'+
+      '<div class="avatar-prev">'+G.avatar.previewHTML(a)+'</div>'+
+      '<div class="avatar-name">'+esc(a.name)+'</div>'+(owned?'<div class="avatar-badge">보유</div>':'')+'</div>';
+  }).join("");
+  var avDex='<div class="panel"><h2>🎭 아바타 도감 <span class="muted" style="font-size:.66rem">'+avOwned+' / '+av.length+'</span></h2><div class="avatar-grid">'+avList+'</div></div>';
+  return equipDex+avDex;
 };
 
 /* 🎰 외형 뽑기 패널 */
