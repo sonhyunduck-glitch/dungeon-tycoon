@@ -102,6 +102,7 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
   gap:2px; font-size:.62rem; color:var(--text-dim); border-radius:12px; transition:.18s;
 }
 .nav-btn span{ font-size:1.2rem; filter:grayscale(.3); transition:.18s; }
+.nav-btn .navico{ width:24px; height:24px; object-fit:contain; image-rendering:auto; vertical-align:middle; display:block; }
 .nav-btn.active{
   color:var(--torch); font-weight:700;
   background:linear-gradient(160deg, rgba(255,154,69,.22), rgba(255,154,69,.05));
