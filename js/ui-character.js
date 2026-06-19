@@ -38,18 +38,13 @@ G.ui.renderCharacter = function(){
     }
     return '<div class="eqslot"><div class="slotlbl">룬 '+(i+1)+'</div><div class="muted">비어있음</div></div>';
   }).join("");
-  var runePanel='<div class="panel"><h2>🔮 룬 슬롯 <span class="muted">'+G.DATA.RUNE_SLOTS.filter(function(k){return G.state.equipment[k];}).length+'/'+G.DATA.RUNE_SLOTS.length+'</span></h2><div class="eqgrid">'+runeSlots+'</div></div>';
-  // 🔗 룬워드 — 활성 + 레시피 도감
-  function rwBonus(w){ return Object.keys(w.bonus).map(function(k){ var m=G.DATA.STAT_META[k]; return m?(m.label+" +"+w.bonus[k]+(m.pct?"%":"")):""; }).filter(Boolean).join(" · "); }
+  // 🔗 룬워드 — 발동 시 룬창에 이름·능력 표시(조합법은 숨김=발견형)
   var rwA=G.runeword.active();
-  var rwHead = rwA ? '<div class="rw-active">발동 중: <b class="r-legend">'+rwA.ico+' '+esc(rwA.name)+'</b><div class="idesc" style="color:var(--gold)">'+rwBonus(rwA)+'</div></div>'
-                   : '<div class="muted" style="font-size:.7rem; margin-bottom:6px">룬 3칸을 아래 조합으로 채우면 룬워드가 발동됩니다(순서 무관).</div>';
-  var rwList=(G.DATA.RUNEWORDS||[]).map(function(w){ var on=rwA&&rwA.id===w.id;
-    return '<div class="rw-card'+(on?" on":"")+'"><div class="rw-name">'+w.ico+' '+esc(w.name)+(on?' <span class="tag r-uncommon">발동중</span>':'')+'</div>'+
-      '<div class="idesc muted">'+w.runes.join(" + ")+'</div>'+
-      '<div class="idesc" style="color:var(--gold)">'+rwBonus(w)+'</div></div>';
-  }).join("");
-  runePanel += '<div class="panel"><h2>🔗 룬워드 <span class="muted" style="font-size:.62rem">3룬 조합</span></h2>'+rwHead+'<div class="rw-list">'+rwList+'</div></div>';
+  var rwBonus=function(w){ return Object.keys(w.bonus).map(function(k){ var m=G.DATA.STAT_META[k]; return m?(m.label+" +"+w.bonus[k]+(m.pct?"%":"")):""; }).filter(Boolean).join(" · "); };
+  var rwBanner = rwA
+    ? '<div class="rw-active">🔗 룬워드 <b class="r-legend">'+rwA.ico+' '+esc(rwA.name)+'</b> 발동!<div class="idesc" style="color:var(--gold)">'+rwBonus(rwA)+'</div></div>'
+    : '<div class="muted" style="font-size:.66rem; margin-top:6px">💡 특정 룬 3개를 조합하면 숨겨진 <b>룬워드</b>가 발동합니다.</div>';
+  var runePanel='<div class="panel"><h2>🔮 룬 슬롯 <span class="muted">'+G.DATA.RUNE_SLOTS.filter(function(k){return G.state.equipment[k];}).length+'/'+G.DATA.RUNE_SLOTS.length+'</span></h2><div class="eqgrid">'+runeSlots+'</div>'+rwBanner+'</div>';
 
   var statsPanel=
     '<div class="panel"><h2>👤 스탯</h2>'+

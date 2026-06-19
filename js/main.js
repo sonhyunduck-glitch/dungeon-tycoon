@@ -97,7 +97,13 @@
       var it=G.state.inventory.concat(G.state.warehouse.items).find(function(x){return x.id===d.id;});
       if(it){ it.locked=!it.locked; G.ui.render(); }
     },
-    "equip": function(d){ G.inventory.equip(d.id); G.ui.render(); },
+    "equip": function(d){
+      var was=(G.runeword&&G.runeword.active&&G.runeword.active()||{}).id;
+      G.inventory.equip(d.id);
+      var now=G.runeword&&G.runeword.active&&G.runeword.active();
+      if(now && now.id!==was) G.ui.toast("🔗 룬워드 발동: "+now.ico+" "+now.name+"!");
+      G.ui.render();
+    },
     "quicksell": function(d){ G.inventory.quickSell(d.id); G.ui.render(); },
     "list": function(d){ G.shop.list(d.id); G.ui.render(); },
     "bag-upgrade": function(){ G.inventory.upgradeBag(); G.ui.render(); },
