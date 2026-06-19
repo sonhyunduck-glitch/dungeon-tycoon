@@ -100,8 +100,8 @@
     "equip": function(d){
       var was=(G.runeword&&G.runeword.active&&G.runeword.active()||{}).id;
       G.inventory.equip(d.id);
-      var now=G.runeword&&G.runeword.active&&G.runeword.active();
-      if(now && now.id!==was) G.ui.toast("🔗 룬워드 발동: "+now.ico+" "+now.name+"!");
+      var now=G.runeword&&G.runeword.recordActive&&G.runeword.recordActive();
+      if(now && now.id!==was){ G.ui.toast("🔗 룬워드 발동: "+now.ico+" "+now.name+"!"); G.save.save(true); }
       G.ui.render();
     },
     "quicksell": function(d){ G.inventory.quickSell(d.id); G.ui.render(); },

@@ -133,6 +133,23 @@ G.ui._collectionPanel = function(){
   var equipDex='<div class="panel"><h2>🗡️ 장비 연대기 <span class="muted" style="font-size:.66rem">'+dN+' / '+uniques.length+'</span></h2>'+
     '<div class="muted" style="font-size:.66rem; margin-bottom:8px">보스 처치 시 낮은 확률로 발견하는 고유 장비</div>'+uList+'</div>';
 
+  // 🔗 룬워드 연대기(발견한 것만 공개)
+  if(G.runeword&&G.runeword.recordActive) G.runeword.recordActive();   // 현재 발동 중이면 등록
+  var rwDisc=(G.state.collection.runewords)||{};
+  var rws=G.DATA.RUNEWORDS||[];
+  var rwN=rws.filter(function(w){return rwDisc[w.id];}).length;
+  function rwBonusTxt(w){ return Object.keys(w.bonus).map(function(k){ var m=G.DATA.STAT_META[k]; return m?(m.label+" +"+w.bonus[k]+(m.pct?"%":"")):""; }).filter(Boolean).join(" · "); }
+  var rwList=rws.map(function(w){ var got=!!rwDisc[w.id];
+    return '<div class="uniq-card'+(got?" got":" locked")+'">'+
+      '<div class="uniq-ico"><span class="uniq-q">'+(got?w.ico:"❔")+'</span></div>'+
+      '<div class="uniq-info">'+
+        '<div class="uniq-name '+(got?"r-uncommon":"muted")+'">'+(got?esc(w.name):"??? 미발견")+'</div>'+
+        '<div class="idesc muted">'+(got?rwBonusTxt(w):"룬 3개 조합으로 발견")+'</div>'+
+      '</div></div>';
+  }).join("");
+  var rwDex='<div class="panel"><h2>🔗 룬워드 연대기 <span class="muted" style="font-size:.66rem">'+rwN+' / '+rws.length+'</span></h2>'+
+    '<div class="muted" style="font-size:.66rem; margin-bottom:8px">룬 3개 조합으로 발견하는 룬워드</div>'+rwList+'</div>';
+
   var av=G.DATA.AVATARS||[];
   var avOwned=av.filter(function(a){return G.avatar.owned(a);}).length;
   var avList=av.map(function(a){ var owned=G.avatar.owned(a);
@@ -141,7 +158,7 @@ G.ui._collectionPanel = function(){
       '<div class="avatar-name">'+esc(a.name)+'</div>'+(owned?'<div class="avatar-badge">보유</div>':'')+'</div>';
   }).join("");
   var avDex='<div class="panel"><h2>🎭 아바타 도감 <span class="muted" style="font-size:.66rem">'+avOwned+' / '+av.length+'</span></h2><div class="avatar-grid">'+avList+'</div></div>';
-  return equipDex+avDex;
+  return equipDex+rwDex+avDex;
 };
 
 /* 🎰 외형 뽑기 패널 */

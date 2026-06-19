@@ -194,6 +194,12 @@ G.runeword.active = function(){
   return null;
 };
 G.runeword.activeBonus = function(){ var w=G.runeword.active(); return w?w.bonus:null; };
+/* 현재 발동 중인 룬워드를 연대기에 발견 등록(저장은 호출측에서) */
+G.runeword.recordActive = function(){
+  var w=G.runeword.active(); if(!w) return null;
+  G.state.collection=G.state.collection||{}; G.state.collection.runewords=G.state.collection.runewords||{};
+  G.state.collection.runewords[w.id]=true; return w;
+};
 
 /* 감정 */
 G.item.identifyCost = function(it){
