@@ -145,17 +145,70 @@ G.ui.pushAlert = function(msg){
    특성 뷰 (자동화)
    ============================================================ */
 G.ui.arenaResultModal = function(out){
-  var win=out.res.win, sc=out.score, foe=out.foe;
+  var win=out.res.win, sc=out.score, foe=out.foe, rw=out.reward||{coins:0,gold:0};
+  var reduced=false; try{ reduced=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){}
+  var myMax=Math.max(1, (G.totalStats?Math.round(G.totalStats().maxHp):out.res.meHp)||1);
+  var mePct=Math.max(0,Math.min(100, Math.round(out.res.meHp/myMax*100)));
+  var foePct=Math.max(0,Math.min(100, Math.round(out.res.foeHp/(foe.maxHp||1)*100)));
+  var tierBanner='';
+  if(out.tierChange===1) tierBanner='<div class="tier-banner up">🎖️ 승급! '+G.arena.TIERS[out.tierAfter].icon+' '+G.arena.TIERS[out.tierAfter].name+' 진입</div>';
+  else if(out.tierChange===-1) tierBanner='<div class="tier-banner down">⬇️ 강등 — '+G.arena.TIERS[out.tierAfter].icon+' '+G.arena.TIERS[out.tierAfter].name+'</div>';
+
+  var SK={}; (G.DATA.SKILLS||[]).forEach(function(s){SK[s.id]=s;});
+  var logRows=(out.res.rounds||[]).map(function(r){
+    var side=r.who==="me"?'<span class="r-uncommon">나</span>':'<span style="color:var(--hp)">'+esc(foe.name||"상대")+'</span>';
+    if(r.stun) return '<div class="ar-log">'+side+' 💫 기절 — 행동 불가</div>';
+    if(r.skill==="guard") return '<div class="ar-log">'+side+' 🪖 가시 방패 (받피↓·반사↑)</div>';
+    var sk=r.skill&&SK[r.skill]?(SK[r.skill].ico+' '):'';
+    var dmg=r.dodge?'<span style="color:#7fe0ff">회피!</span>':(G.ui.fmt(r.dmg)+(r.crit?' 💥':''));
+    var rf=r.refl?' <span style="color:#ffd86a">↩'+G.ui.fmt(r.refl)+'</span>':'';
+    return '<div class="ar-log">'+side+' '+sk+'→ '+dmg+rf+'</div>';
+  }).join("");
+
   var ov=document.createElement("div"); ov.className="modal-overlay show";
-  ov.innerHTML='<div class="modal" style="text-align:center; width:min(380px,92vw)">'+
-    '<div style="font-size:3rem">'+(win?"🏆":"💀")+'</div>'+
-    '<h2 style="color:'+(win?"var(--gold)":"var(--hp)")+'">'+(win?"승리!":"패배")+'</h2>'+
-    '<div class="muted" style="margin:6px 0; display:flex; align-items:center; justify-content:center; gap:6px">vs '+((G.avatar&&G.avatar.miniHTML)?G.avatar.miniHTML(foe.avatar,60):"")+' '+esc(foe.name||"도전자")+'</div>'+
-    '<div style="font-size:1.3rem; margin:10px 0; font-weight:800">아레나 점수 '+
+  ov.innerHTML='<div class="modal" style="text-align:center; width:min(400px,93vw)">'+
+    '<div style="font-size:2.6rem">'+(win?"🏆":"💀")+'</div>'+
+    '<h2 style="color:'+(win?"var(--gold)":"var(--hp)")+'; margin:2px 0">'+(win?"승리!":"패배")+'</h2>'+
+    tierBanner+
+    '<div class="muted" style="margin:6px 0; display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap">vs '+((G.avatar&&G.avatar.miniHTML)?G.avatar.miniHTML(foe.avatar,52):"")+' '+esc(foe.name||"도전자")+' '+G.arena.tierBadge(foe.score||1000,true)+'</div>'+
+    '<div class="ar-hpwrap"><span class="muted">나</span><div class="ar-hp"><div class="ar-hp-fill me" style="width:'+(reduced?mePct:100)+'%"></div></div></div>'+
+    '<div class="ar-hpwrap"><span class="muted">상대</span><div class="ar-hp"><div class="ar-hp-fill foe" style="width:'+(reduced?foePct:100)+'%"></div></div></div>'+
+    '<div style="font-size:1.2rem; margin:10px 0; font-weight:800">아레나 점수 '+
       '<span class="'+(sc.delta>=0?"r-uncommon":"")+'" style="'+(sc.delta<0?"color:var(--hp)":"")+'">'+(sc.delta>=0?"+":"")+sc.delta+'</span>'+
       ' → <b class="gold">'+G.ui.fmt(sc.score)+'</b></div>'+
-    '<div class="muted" style="font-size:.8rem">내 HP '+G.ui.fmt(Math.round(out.res.meHp))+' · 상대 HP '+G.ui.fmt(Math.round(out.res.foeHp))+' 남음</div>'+
-    '<button class="btn primary full" style="margin-top:14px" data-modal-close>확인</button>'+
+    '<div class="ar-reward">'+
+      (rw.gold>0?'<span>🪙 +'+G.ui.fmt(rw.gold)+'</span>':'')+
+      '<span>🏅 코인 +'+G.ui.fmt(rw.coins)+'</span>'+
+      (win&&out.streak>1?'<span>🔥 '+out.streak+'연승</span>':'')+
+    '</div>'+
+    '<details class="ar-detail"><summary>전투 기록 ('+(out.res.rounds||[]).length+'턴)</summary><div class="ar-logbox">'+logRows+'</div></details>'+
+    '<button class="btn primary full" style="margin-top:12px" data-modal-close>확인</button>'+
+  '</div>';
+  document.body.appendChild(ov);
+  if(!reduced){ requestAnimationFrame(function(){ requestAnimationFrame(function(){
+    var mf=ov.querySelector(".ar-hp-fill.me"), ff=ov.querySelector(".ar-hp-fill.foe");
+    if(mf) mf.style.width=mePct+"%"; if(ff) ff.style.width=foePct+"%";
+  }); }); }
+  ov.addEventListener("click", function(e){ if(e.target.closest("[data-modal-close]")||e.target===ov) ov.remove(); });
+};
+
+/* 아레나 코인 상점 */
+G.ui.arenaShopModal = function(){
+  var a=G.arena.ensure();
+  function itemRow(it){
+    var afford=(a.coins||0)>=it.cost;
+    return '<div class="item">'+
+      '<div class="ico">'+it.ico+'</div>'+
+      '<div class="info"><div class="iname">'+esc(it.name)+'</div><div class="idesc muted">'+esc(it.desc)+'</div></div>'+
+      '<div class="iacts"><button class="btn sm '+(afford?'primary':'')+'" data-act="arena-buy" data-key="'+it.key+'" '+(afford?'':'disabled')+'>🏅'+it.cost+'</button></div>'+
+    '</div>';
+  }
+  var ov=document.createElement("div"); ov.className="modal-overlay show";
+  ov.innerHTML='<div class="modal" style="width:min(420px,93vw)">'+
+    '<h2 style="display:flex; align-items:center; justify-content:space-between">🛒 아레나 상점 <span class="gold" style="font-size:.9rem">🏅 '+G.ui.fmt(a.coins||0)+'</span></h2>'+
+    '<div class="muted" style="font-size:.72rem; margin-bottom:8px">아레나 코인으로 구매합니다. 도전 보상·일일 미션으로 코인을 모으세요.</div>'+
+    G.arena.SHOP.map(itemRow).join("")+
+    '<button class="btn full" style="margin-top:12px" data-modal-close>닫기</button>'+
   '</div>';
   document.body.appendChild(ov);
   ov.addEventListener("click", function(e){ if(e.target.closest("[data-modal-close]")||e.target===ov) ov.remove(); });

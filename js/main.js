@@ -130,10 +130,24 @@
     /* 아레나(PvP) */
     "arena-refresh": function(){ G.arena._foes=null; G.ui.renderArena(); },
     "arena-fight": function(d){
+      if(G.arena.fightsLeft()<=0){ G.ui.toast("오늘 도전을 모두 사용했습니다 (내일 리셋)"); return; }
       var foes=G.arena._foes||[]; var foe=foes[parseInt(d.i,10)]; if(!foe) return;
       var out=G.arena.challenge(foe);
       G.ui.arenaResultModal(out);
       G.arena._foes=null;          // 다음 상대 새로 추천
+      G.ui.renderArena();
+    },
+    "arena-shop": function(){ G.ui.arenaShopModal(); },
+    "arena-buy": function(d){
+      var r=G.arena.buy(d.key);
+      G.ui.toast(r.msg);
+      var ov=document.querySelector(".modal-overlay.show"); if(ov) ov.remove();   // 모달 갱신(코인 잔액 반영)
+      G.ui.arenaShopModal();
+      if(G.state.ui.tab==="arena") G.ui.renderArena();
+    },
+    "arena-claim": function(d){
+      var rw=G.arena.claimMission(d.key);
+      if(rw) G.ui.toast("미션 완료! 🏅 +"+rw); else G.ui.toast("아직 달성하지 못했습니다");
       G.ui.renderArena();
     },
     "apply-update": function(){ location.reload(); },

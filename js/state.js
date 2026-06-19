@@ -35,7 +35,8 @@ G.newState = function(){
     battleSpeed:1,       // 자동 전투 배속 (진행도에 따라 해금)
     muted:false,         // 사운드 음소거(마스터)
     shake:true,          // 피격 시 화면 흔들림 효과
-    arena:{ score:1000, wins:0, losses:0 },   // PvP 아레나(비동기): 점수/전적
+    arena:{ score:1000, wins:0, losses:0, coins:0, streak:0, bestStreak:0,   // PvP 아레나: 점수/전적/코인/연승
+            daily:{ date:"", fights:0, win:0, maxStreak:0, claimed:{} } },
     avatar:"adventurer",  // 플레이어 전투 스프라이트(아바타) id
     bgmVol:0.32,         // 배경음 볼륨 0~1
     sfxVol:0.55,         // 효과음 볼륨 0~1
