@@ -138,8 +138,8 @@
       var foes=G.arena._foes||[]; var foe=foes[parseInt(d.i,10)]; if(!foe) return;
       var out=G.arena.challenge(foe);
       G.arena._foes=null;          // 다음 상대 새로 추천
-      var reduced=false; try{ reduced=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){}
-      if(G.state.arenaSkip || reduced){ G.ui.arenaResultModal(out); G.ui.renderArena(); }
+      // '항상 스킵'을 켰을 때만 바로 결과(전투화면은 reduced-motion에서도 정상 동작 → 자동 스킵 안 함)
+      if(G.state.arenaSkip){ G.ui.arenaResultModal(out); G.ui.renderArena(); }
       else { G.ui.arenaBattle(out, function(){ G.ui.arenaResultModal(out); G.ui.renderArena(); }); }
     },
     "arena-shop": function(){ G.ui.arenaShopModal(); },
