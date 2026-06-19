@@ -1559,6 +1559,1823 @@
       "files": [
         "../assets/fx/WebFore.png"
       ]
+    },
+    {
+      "key": "abyssal_chicken",
+      "name": "Abyssal Chicken",
+      "tier": "normal",
+      "folder": "Abyssal Chicken",
+      "group": "👹 악마·이계",
+      "files": [
+        "sheets/abyssal_chicken/Abbysal Chicken Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "adventurer",
+      "name": "Adventurer",
+      "tier": "normal",
+      "folder": "Adventurer",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/adventurer/Adventurer Sprite Sheet v1.5.png"
+      ]
+    },
+    {
+      "key": "adventurer_female",
+      "name": "Adventurer - Female",
+      "tier": "normal",
+      "folder": "Adventurer - Female",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/adventurer_female/Adventurer Female Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "akaname",
+      "name": "Akaname",
+      "tier": "normal",
+      "folder": "Akaname",
+      "group": "💀 언데드·영혼",
+      "files": [
+        "sheets/akaname/Akaname Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "alien_horror",
+      "name": "Alien Horror",
+      "tier": "normal",
+      "folder": "Alien Horror",
+      "group": "👹 악마·이계",
+      "files": [
+        "sheets/alien_horror/Alien Horror Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "alien_trader_bot",
+      "name": "Alien Trader Bot",
+      "tier": "normal",
+      "folder": "Alien Trader Bot",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/alien_trader_bot/Alien Trader Bot Sprite Sheet.png",
+        "sheets/alien_trader_bot/Futuristic Crate.png",
+        "sheets/alien_trader_bot/Futuristic Stall Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "alien_trooper",
+      "name": "Alien Trooper",
+      "tier": "normal",
+      "folder": "Alien Trooper",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/alien_trooper/Alien Trooper Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "ancient_crustacean",
+      "name": "Ancient Crustacean",
+      "tier": "normal",
+      "folder": "Ancient Crustacean",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/ancient_crustacean/Ancient Crutacean Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "angel",
+      "name": "Angel",
+      "tier": "normal",
+      "folder": "Angel",
+      "group": "✦ 기타·특수",
+      "files": [
+        "sheets/angel/Angel Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "anubis_warrior",
+      "name": "Anubis Warrior",
+      "tier": "normal",
+      "folder": "Anubis Warrior",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/anubis_warrior/Anubis Warrior Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "arcane_golem",
+      "name": "Arcane Golem",
+      "tier": "normal",
+      "folder": "Arcane Golem",
+      "group": "🔥 정령·골렘",
+      "files": [
+        "sheets/arcane_golem/Arcane Golem - Damaged Tileset.png",
+        "sheets/arcane_golem/Arcane Golem - More Damaged Tileset.png",
+        "sheets/arcane_golem/Arcane Golem Tileset.png",
+        "sheets/arcane_golem/Energy Beam Sprite Sheet.png",
+        "sheets/arcane_golem/Energy Wave Attack Back Sprite Sheet.png",
+        "sheets/arcane_golem/Energy Wave Attack Front Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "archer",
+      "name": "Archer",
+      "tier": "normal",
+      "folder": "Archer",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/archer/Archer Sprite Sheet.png",
+        "sheets/archer/Arrow.png"
+      ]
+    },
+    {
+      "key": "armadillo",
+      "name": "Armadillo",
+      "tier": "normal",
+      "folder": "Armadillo",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/armadillo/Armadillo Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "attic_whisperer",
+      "name": "Attic Whisperer",
+      "tier": "normal",
+      "folder": "Attic Whisperer",
+      "group": "💀 언데드·영혼",
+      "files": [
+        "sheets/attic_whisperer/Attic Whisperer Aura Sprite Sheet.png",
+        "sheets/attic_whisperer/Attic Whisperer Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "bandit",
+      "name": "Bandit",
+      "tier": "normal",
+      "folder": "Bandit",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/bandit/Bandit Archer Sprite Sheet.png",
+        "sheets/bandit/Bandit Leader Sprite Sheet.png",
+        "sheets/bandit/Bandit Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "bandit_mage",
+      "name": "Bandit Mage",
+      "tier": "normal",
+      "folder": "Bandit Mage",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/bandit_mage/Bandit Mage Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "bandit_slingshot",
+      "name": "Bandit Slingshot",
+      "tier": "normal",
+      "folder": "Bandit Slingshot",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/bandit_slingshot/Bandit Slingshot Sprite Sheet.png",
+        "sheets/bandit_slingshot/Pebble.png"
+      ]
+    },
+    {
+      "key": "bandittrapster",
+      "name": "BanditTrapster",
+      "tier": "normal",
+      "folder": "BanditTrapster",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/bandittrapster/Bandit Trapster Sprite Sheet.png",
+        "sheets/bandittrapster/Mine Explosion Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "barbarian",
+      "name": "Barbarian",
+      "tier": "normal",
+      "folder": "Barbarian",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/barbarian/Barbarian Sprite Sheet-Sheet.png"
+      ]
+    },
+    {
+      "key": "basilisk",
+      "name": "Basilisk",
+      "tier": "normal",
+      "folder": "Basilisk",
+      "group": "🐉 용·파충류",
+      "files": [
+        "sheets/basilisk/Basilisk Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "beast",
+      "name": "Beast",
+      "tier": "normal",
+      "folder": "Beast",
+      "group": "🧌 거인·괴수",
+      "files": [
+        "sheets/beast/Beast Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "brain_mole_monarch",
+      "name": "Brain Mole Monarch",
+      "tier": "normal",
+      "folder": "Brain Mole Monarch",
+      "group": "👹 악마·이계",
+      "files": [
+        "sheets/brain_mole_monarch/Brain Mole Monarch Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "brownie",
+      "name": "Brownie",
+      "tier": "normal",
+      "folder": "Brownie",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/brownie/Brownie Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "bugbear",
+      "name": "Bugbear",
+      "tier": "normal",
+      "folder": "Bugbear",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/bugbear/Bugbear Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "bull",
+      "name": "Bull",
+      "tier": "normal",
+      "folder": "Bull",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/bull/Bull Sheet.png"
+      ]
+    },
+    {
+      "key": "bullywug_warrior",
+      "name": "Bullywug Warrior",
+      "tier": "normal",
+      "folder": "Bullywug Warrior",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/bullywug_warrior/Bullywug Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "cacodaemon",
+      "name": "Cacodaemon",
+      "tier": "normal",
+      "folder": "Cacodaemon",
+      "group": "👹 악마·이계",
+      "files": [
+        "sheets/cacodaemon/Cacodaemon Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "cat",
+      "name": "Cat",
+      "tier": "normal",
+      "folder": "Cat",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/cat/Cat Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "centaur",
+      "name": "Centaur",
+      "tier": "normal",
+      "folder": "Centaur",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/centaur/Centaur Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "chicken",
+      "name": "Chicken",
+      "tier": "normal",
+      "folder": "Chicken",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/chicken/Chick and Egg.png",
+        "sheets/chicken/Chicken Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "cloaker",
+      "name": "Cloaker",
+      "tier": "normal",
+      "folder": "Cloaker",
+      "group": "💀 언데드·영혼",
+      "files": [
+        "sheets/cloaker/Cloaker Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "compsognathus",
+      "name": "Compsognathus",
+      "tier": "normal",
+      "folder": "Compsognathus",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/compsognathus/Compsognathus Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "cow",
+      "name": "Cow",
+      "tier": "normal",
+      "folder": "Cow",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/cow/Cow Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "cultist_horror",
+      "name": "Cultist Horror",
+      "tier": "normal",
+      "folder": "Cultist Horror",
+      "group": "👹 악마·이계",
+      "files": [
+        "sheets/cultist_horror/Cultist Horror Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "cultists",
+      "name": "Cultists",
+      "tier": "normal",
+      "folder": "Cultists",
+      "group": "👹 악마·이계",
+      "files": [
+        "sheets/cultists/Cultist Brute Sprite Sheet.png",
+        "sheets/cultists/Cultist Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "death",
+      "name": "Death",
+      "tier": "normal",
+      "folder": "Death",
+      "group": "💀 언데드·영혼",
+      "files": [
+        "sheets/death/Death Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "deer",
+      "name": "Deer",
+      "tier": "normal",
+      "folder": "Deer",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/deer/Deer Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "dopperganger",
+      "name": "Dopperganger",
+      "tier": "normal",
+      "folder": "Dopperganger",
+      "group": "✦ 기타·특수",
+      "files": [
+        "sheets/dopperganger/Doppelganger Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "dragonfly",
+      "name": "Dragonfly",
+      "tier": "normal",
+      "folder": "Dragonfly",
+      "group": "🐉 용·파충류",
+      "files": [
+        "sheets/dragonfly/Dragonfly Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "dwarven_guardian_construct",
+      "name": "Dwarven Guardian Construct",
+      "tier": "normal",
+      "folder": "Dwarven Guardian Construct",
+      "group": "🔥 정령·골렘",
+      "files": [
+        "sheets/dwarven_guardian_construct/Arm Sprite Sheet.png",
+        "sheets/dwarven_guardian_construct/Dwarven Guardian Construct Sprite Sheet.png",
+        "sheets/dwarven_guardian_construct/Fire Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "fairy",
+      "name": "Fairy",
+      "tier": "normal",
+      "folder": "Fairy",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/fairy/Fairy Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "fairy_queen",
+      "name": "Fairy Queen",
+      "tier": "normal",
+      "folder": "Fairy Queen",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/fairy_queen/Fairy Queen Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "fishfolk_inkbender",
+      "name": "Fishfolk Inkbender",
+      "tier": "normal",
+      "folder": "Fishfolk Inkbender",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/fishfolk_inkbender/Fishfolk Inkbender Spritesheet.png"
+      ]
+    },
+    {
+      "key": "flesh_horror",
+      "name": "Flesh Horror",
+      "tier": "normal",
+      "folder": "Flesh Horror",
+      "group": "👹 악마·이계",
+      "files": [
+        "sheets/flesh_horror/Flesh Horror Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "flying_brain_monster",
+      "name": "Flying Brain Monster",
+      "tier": "normal",
+      "folder": "Flying Brain Monster",
+      "group": "👹 악마·이계",
+      "files": [
+        "sheets/flying_brain_monster/Flying Brain Monster Mind Blast.png",
+        "sheets/flying_brain_monster/Flying Brain Monster Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "flytrap_leshy",
+      "name": "Flytrap Leshy",
+      "tier": "normal",
+      "folder": "Flytrap Leshy",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/flytrap_leshy/Leshy Flytrap Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "forest_guardian",
+      "name": "Forest Guardian",
+      "tier": "normal",
+      "folder": "Forest Guardian",
+      "group": "🔥 정령·골렘",
+      "files": [
+        "sheets/forest_guardian/Forest Guardian Sprite Sheet.png",
+        "sheets/forest_guardian/Spell 1 Sprite Sheet.png",
+        "sheets/forest_guardian/Spell 2 Sprite Sheet.png",
+        "sheets/forest_guardian/Spell 3 Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "fox",
+      "name": "Fox",
+      "tier": "normal",
+      "folder": "Fox",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/fox/Fox Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "froghemoth",
+      "name": "Froghemoth",
+      "tier": "normal",
+      "folder": "Froghemoth",
+      "group": "🧌 거인·괴수",
+      "files": [
+        "sheets/froghemoth/Froghemoth Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "fungal_monster_medium",
+      "name": "Fungal Monster - medium",
+      "tier": "normal",
+      "folder": "Fungal Monster - medium",
+      "group": "🧌 거인·괴수",
+      "files": [
+        "sheets/fungal_monster_medium/Fungal Monster Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "fungal_monster_small",
+      "name": "Fungal Monster - Small",
+      "tier": "normal",
+      "folder": "Fungal Monster - Small",
+      "group": "🧌 거인·괴수",
+      "files": [
+        "sheets/fungal_monster_small/Mushroom Monster Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "garbage_disposal_bot",
+      "name": "Garbage Disposal Bot",
+      "tier": "normal",
+      "folder": "Garbage Disposal Bot",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/garbage_disposal_bot/Garbage Disposal Bot Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "genie_of_the_lamp",
+      "name": "Genie of the Lamp",
+      "tier": "normal",
+      "folder": "Genie of the Lamp",
+      "group": "👹 악마·이계",
+      "files": [
+        "sheets/genie_of_the_lamp/Genie Sprite Sheet.png",
+        "sheets/genie_of_the_lamp/Whirlwind.png"
+      ]
+    },
+    {
+      "key": "geonid",
+      "name": "Geonid",
+      "tier": "normal",
+      "folder": "Geonid",
+      "group": "🔥 정령·골렘",
+      "files": [
+        "sheets/geonid/Geonid Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "giant_golem",
+      "name": "Giant Golem",
+      "tier": "normal",
+      "folder": "Giant Golem",
+      "group": "🔥 정령·골렘",
+      "files": [
+        "sheets/giant_golem/Giant Golem Sprite Sheet.png",
+        "sheets/giant_golem/Rock Blast Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "giant_mushroom_monster",
+      "name": "Giant Mushroom Monster",
+      "tier": "normal",
+      "folder": "Giant Mushroom Monster",
+      "group": "🧌 거인·괴수",
+      "files": [
+        "sheets/giant_mushroom_monster/Fungal Monster Sprite Sheet.png",
+        "sheets/giant_mushroom_monster/Giant Mushroom Arms Sprite Sheet.png",
+        "sheets/giant_mushroom_monster/Giant Mushroom Sprite Sheet.png",
+        "sheets/giant_mushroom_monster/Shroomwave Sprite Sheet.png",
+        "sheets/giant_mushroom_monster/Spore.png"
+      ]
+    },
+    {
+      "key": "gladiator",
+      "name": "Gladiator",
+      "tier": "normal",
+      "folder": "Gladiator",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/gladiator/Gladiator Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "glutmon",
+      "name": "Glutmon",
+      "tier": "normal",
+      "folder": "Glutmon",
+      "group": "👹 악마·이계",
+      "files": [
+        "sheets/glutmon/Glutmon Form One Sprite Sheet.png",
+        "sheets/glutmon/Glutmon Form Three Sprite Sheet.png",
+        "sheets/glutmon/Glutmon Form Two Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "hedgehog",
+      "name": "Hedgehog",
+      "tier": "normal",
+      "folder": "Hedgehog",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/hedgehog/Hedgehog Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "hell_critter",
+      "name": "Hell Critter",
+      "tier": "normal",
+      "folder": "Hell Critter",
+      "group": "👹 악마·이계",
+      "files": [
+        "sheets/hell_critter/Hell Critter Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "hermit_crab",
+      "name": "Hermit Crab",
+      "tier": "normal",
+      "folder": "Hermit Crab",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/hermit_crab/Hermit Crab Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "homunculus",
+      "name": "Homunculus",
+      "tier": "normal",
+      "folder": "Homunculus",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/homunculus/Homunculus Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "horse",
+      "name": "Horse",
+      "tier": "normal",
+      "folder": "Horse",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/horse/Horse Sprite Sheet Black.png",
+        "sheets/horse/Horse Sprite Sheet Brown.png",
+        "sheets/horse/Horse Sprite Sheet White.png",
+        "sheets/horse/Saddle.png"
+      ]
+    },
+    {
+      "key": "ifrit",
+      "name": "Ifrit",
+      "tier": "normal",
+      "folder": "Ifrit",
+      "group": "🔥 정령·골렘",
+      "files": [
+        "sheets/ifrit/Ifrit Fireball Sprite Sheet.png",
+        "sheets/ifrit/Ifrit Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "infantry",
+      "name": "Infantry",
+      "tier": "normal",
+      "folder": "Infantry",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/infantry/Grenade sprite.png",
+        "sheets/infantry/Infantry Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "intellect_devourer",
+      "name": "Intellect Devourer",
+      "tier": "normal",
+      "folder": "Intellect Devourer",
+      "group": "👹 악마·이계",
+      "files": [
+        "sheets/intellect_devourer/Intellect Devourer Sprites.png"
+      ]
+    },
+    {
+      "key": "jackalope_small",
+      "name": "Jackalope - Small",
+      "tier": "normal",
+      "folder": "Jackalope - Small",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/jackalope_small/Jackalope Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "knight",
+      "name": "Knight",
+      "tier": "normal",
+      "folder": "Knight",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/knight/Knight (Riding) Sprite Sheet.png",
+        "sheets/knight/Knight Shield Bash.png",
+        "sheets/knight/Knight Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "knight_s_assistant",
+      "name": "Knight's Assistant",
+      "tier": "normal",
+      "folder": "Knight's Assistant",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/knight_s_assistant/Knight's Assistant Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "korred",
+      "name": "Korred",
+      "tier": "normal",
+      "folder": "Korred",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/korred/Korred Sprite Sheet.png",
+        "sheets/korred/Rock Blast.png",
+        "sheets/korred/Rock.png"
+      ]
+    },
+    {
+      "key": "ladybug",
+      "name": "LadyBug",
+      "tier": "normal",
+      "folder": "LadyBug",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/ladybug/Ladybug Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "lizardfolk_archer",
+      "name": "Lizardfolk Archer",
+      "tier": "normal",
+      "folder": "Lizardfolk Archer",
+      "group": "🐉 용·파충류",
+      "files": [
+        "sheets/lizardfolk_archer/Lizardfolk Archer Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "lizardfolk_monk",
+      "name": "Lizardfolk Monk",
+      "tier": "normal",
+      "folder": "Lizardfolk Monk",
+      "group": "🐉 용·파충류",
+      "files": [
+        "sheets/lizardfolk_monk/Lizardfolk Monk Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "mad_professor",
+      "name": "Mad Professor",
+      "tier": "normal",
+      "folder": "Mad Professor",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/mad_professor/Acid Flask Sprite Sheet 64x32.png",
+        "sheets/mad_professor/Explode Flask 64x64.png",
+        "sheets/mad_professor/Mad Professor Sprite Sheet.png",
+        "sheets/mad_professor/Poison Cloud Flask Sprite Sheet 128x64.png"
+      ]
+    },
+    {
+      "key": "mage",
+      "name": "Mage",
+      "tier": "normal",
+      "folder": "Mage",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/mage/Mage Extra Cast Animation.png",
+        "sheets/mage/Mage Sprite Sheet Blue.png",
+        "sheets/mage/Mage Sprite Sheet Red.png"
+      ]
+    },
+    {
+      "key": "mageripper",
+      "name": "Mageripper",
+      "tier": "normal",
+      "folder": "Mageripper",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/mageripper/Mageripper Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "medium_fire_elemental",
+      "name": "Medium Fire Elemental",
+      "tier": "normal",
+      "folder": "Medium Fire Elemental",
+      "group": "🔥 정령·골렘",
+      "files": [
+        "sheets/medium_fire_elemental/Blast Sprite Sheet.png",
+        "sheets/medium_fire_elemental/Medium Fire Elemental Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "military_incursion_bot",
+      "name": "Military Incursion Bot",
+      "tier": "normal",
+      "folder": "Military Incursion Bot",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/military_incursion_bot/Chest Sprites.png",
+        "sheets/military_incursion_bot/Death Beam Spawn Sprite Sheet.png",
+        "sheets/military_incursion_bot/Death Beam Sprite Sheet.png",
+        "sheets/military_incursion_bot/Left Arm Sprites.png",
+        "sheets/military_incursion_bot/Left Leg Sprites.png",
+        "sheets/military_incursion_bot/Military Incursion Bot Sprite Sheet.png",
+        "sheets/military_incursion_bot/Right Arm Sprites.png",
+        "sheets/military_incursion_bot/Right Leg Sprites.png",
+        "sheets/military_incursion_bot/Robot Pieces.png"
+      ]
+    },
+    {
+      "key": "mimic",
+      "name": "Mimic",
+      "tier": "normal",
+      "folder": "Mimic",
+      "group": "✦ 기타·특수",
+      "files": [
+        "sheets/mimic/Mimic Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "monster_snail",
+      "name": "Monster Snail",
+      "tier": "normal",
+      "folder": "Monster Snail",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/monster_snail/Snail Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "naga",
+      "name": "Naga",
+      "tier": "normal",
+      "folder": "Naga",
+      "group": "🐉 용·파충류",
+      "files": [
+        "sheets/naga/Naga Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "naked_molerat",
+      "name": "Naked Molerat",
+      "tier": "normal",
+      "folder": "Naked Molerat",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/naked_molerat/Dirt Sprite Sheet.png",
+        "sheets/naked_molerat/Naked Mole Rat Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "ninja",
+      "name": "Ninja",
+      "tier": "normal",
+      "folder": "Ninja",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/ninja/Novice Ninja Sprites.png"
+      ]
+    },
+    {
+      "key": "nothic",
+      "name": "Nothic",
+      "tier": "normal",
+      "folder": "Nothic",
+      "group": "👹 악마·이계",
+      "files": [
+        "sheets/nothic/Nothic Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "octopus_king",
+      "name": "Octopus King",
+      "tier": "normal",
+      "folder": "Octopus King",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/octopus_king/Octopus King Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "orc_hunter",
+      "name": "Orc Hunter",
+      "tier": "normal",
+      "folder": "Orc Hunter",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/orc_hunter/Orc Hunter Sprite Sheet.png",
+        "sheets/orc_hunter/Spear.png"
+      ]
+    },
+    {
+      "key": "orc_kamikaze",
+      "name": "Orc Kamikaze",
+      "tier": "normal",
+      "folder": "Orc Kamikaze",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/orc_kamikaze/Orc Kamikaze Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "orc_shaman",
+      "name": "Orc Shaman",
+      "tier": "normal",
+      "folder": "Orc Shaman",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/orc_shaman/Orc Shaman Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "orc_warlock",
+      "name": "Orc Warlock",
+      "tier": "normal",
+      "folder": "Orc Warlock",
+      "group": "👹 악마·이계",
+      "files": [
+        "sheets/orc_warlock/Bat_Sprite_Sheet.png",
+        "sheets/orc_warlock/Frog Sprite Sheet.png",
+        "sheets/orc_warlock/Hell Portal Sprite Sheet.png",
+        "sheets/orc_warlock/Orc Warlock Sprite Sheet.png",
+        "sheets/orc_warlock/Quasit Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "orc_worker",
+      "name": "Orc Worker",
+      "tier": "normal",
+      "folder": "Orc Worker",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/orc_worker/Orc Peon Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "owl",
+      "name": "Owl",
+      "tier": "normal",
+      "folder": "Owl",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/owl/Owl Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "owlbear",
+      "name": "Owlbear",
+      "tier": "normal",
+      "folder": "Owlbear",
+      "group": "🧌 거인·괴수",
+      "files": [
+        "sheets/owlbear/Owlbear Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "paladin",
+      "name": "Paladin",
+      "tier": "normal",
+      "folder": "Paladin",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/paladin/Horse Riding Sprite Sheet.png",
+        "sheets/paladin/Horse Sprite Sheet White.png",
+        "sheets/paladin/Paladin Sprite Sheet.png",
+        "sheets/paladin/Saddle.png",
+        "sheets/paladin/Smite Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "parrot",
+      "name": "Parrot",
+      "tier": "normal",
+      "folder": "Parrot",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/parrot/Feather Sprite Sheet.png",
+        "sheets/parrot/Parrot Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "penguin",
+      "name": "Penguin",
+      "tier": "normal",
+      "folder": "Penguin",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/penguin/Penguin Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "pidgeon_sprite",
+      "name": "Pidgeon Sprite",
+      "tier": "normal",
+      "folder": "Pidgeon Sprite",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/pidgeon_sprite/Pidgeon Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "pig",
+      "name": "Pig",
+      "tier": "normal",
+      "folder": "Pig",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/pig/Pig Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "pirates",
+      "name": "Pirates",
+      "tier": "normal",
+      "folder": "Pirates",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/pirates/Pirates Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "plague_doctor",
+      "name": "Plague Doctor",
+      "tier": "normal",
+      "folder": "Plague Doctor",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/plague_doctor/Plague Doctor Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "porcupine",
+      "name": "Porcupine",
+      "tier": "normal",
+      "folder": "Porcupine",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/porcupine/Porcupine Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "priestess",
+      "name": "Priestess",
+      "tier": "normal",
+      "folder": "Priestess",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/priestess/Priestess Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "pyromancer",
+      "name": "Pyromancer",
+      "tier": "normal",
+      "folder": "Pyromancer",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/pyromancer/Fire Kick Sprite Sheet(64px).png",
+        "sheets/pyromancer/Fireball Sprite Sheet.png",
+        "sheets/pyromancer/Pyromancer Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "quickling",
+      "name": "Quickling",
+      "tier": "normal",
+      "folder": "Quickling",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/quickling/Quickling Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "raccoon",
+      "name": "Raccoon",
+      "tier": "normal",
+      "folder": "Raccoon",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/raccoon/Raccoon Sprite Sheet.png",
+        "sheets/raccoon/Raccoon2 Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "rat",
+      "name": "Rat",
+      "tier": "normal",
+      "folder": "Rat",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/rat/Rat Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "ratfolk_axe",
+      "name": "Ratfolk Axe(완)",
+      "tier": "normal",
+      "folder": "Ratfolk Axe(완)",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/ratfolk_axe/Ratfolk Axe Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "2x",
+      "name": "2x",
+      "tier": "normal",
+      "folder": "2x",
+      "group": "✦ 기타·특수",
+      "files": [
+        "sheets/2x/Ratfolk Axe.png"
+      ]
+    },
+    {
+      "key": "ratfolk_druid",
+      "name": "Ratfolk Druid(중)",
+      "tier": "normal",
+      "folder": "Ratfolk Druid(중)",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/ratfolk_druid/Boar Form Sprite Sheet.png",
+        "sheets/ratfolk_druid/Boar.png",
+        "sheets/ratfolk_druid/Ratfolk Druid skill.png",
+        "sheets/ratfolk_druid/Ratfolk Druid Sprite Sheet.png",
+        "sheets/ratfolk_druid/Ratfolk Druid.png"
+      ]
+    },
+    {
+      "key": "ratfolk_king",
+      "name": "Ratfolk King",
+      "tier": "normal",
+      "folder": "Ratfolk King",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/ratfolk_king/Ratfolk King Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "ratfolk_knight",
+      "name": "Ratfolk Knight(완)",
+      "tier": "normal",
+      "folder": "Ratfolk Knight(완)",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/ratfolk_knight/Ratfolk Knight Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "ratfolk_mage",
+      "name": "Ratfolk Mage(완)",
+      "tier": "normal",
+      "folder": "Ratfolk Mage(완)",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/ratfolk_mage/Ratfolk Mage Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "ratfolk_necromancer",
+      "name": "Ratfolk Necromancer(완)",
+      "tier": "normal",
+      "folder": "Ratfolk Necromancer(완)",
+      "group": "💀 언데드·영혼",
+      "files": [
+        "sheets/ratfolk_necromancer/Ratfolk Necromancer Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "ratfolk_priest",
+      "name": "Ratfolk Priest(완)",
+      "tier": "normal",
+      "folder": "Ratfolk Priest(완)",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/ratfolk_priest/Ratfolk Priest Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "ratfolk_ranger",
+      "name": "Ratfolk Ranger(완)",
+      "tier": "normal",
+      "folder": "Ratfolk Ranger(완)",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/ratfolk_ranger/Ratfolk Ranger Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "ratfolk_rogue",
+      "name": "Ratfolk Rogue(완)",
+      "tier": "normal",
+      "folder": "Ratfolk Rogue(완)",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/ratfolk_rogue/Ratfolk Rogue Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "ratfolk_warrior",
+      "name": "Ratfolk Warrior(완)",
+      "tier": "normal",
+      "folder": "Ratfolk Warrior(완)",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/ratfolk_warrior/Ratfolk Warrior Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "ratfolk_zombie",
+      "name": "Ratfolk Zombie",
+      "tier": "normal",
+      "folder": "Ratfolk Zombie",
+      "group": "💀 언데드·영혼",
+      "files": [
+        "sheets/ratfolk_zombie/Ratfolk Zombie Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "wererat",
+      "name": "Wererat",
+      "tier": "normal",
+      "folder": "Wererat",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/wererat/Ratfolk Commoner.png",
+        "sheets/wererat/Wererat Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "ratfolk_berserker_sprite",
+      "name": "Ratfolk Berserker Sprite",
+      "tier": "normal",
+      "folder": "Ratfolk Berserker Sprite",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/ratfolk_berserker_sprite/Ratfolk Berserker Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "ratfolk_cyberpunk_sprite",
+      "name": "Ratfolk Cyberpunk Sprite",
+      "tier": "normal",
+      "folder": "Ratfolk Cyberpunk Sprite",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/ratfolk_cyberpunk_sprite/Ratfolk Cyberpunk Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "ratfolk_tamer",
+      "name": "ratfolk tamer",
+      "tier": "normal",
+      "folder": "ratfolk tamer",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/ratfolk_tamer/Ratfolk Tamer Spritesheet.png"
+      ]
+    },
+    {
+      "key": "raven",
+      "name": "Raven",
+      "tier": "normal",
+      "folder": "Raven",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/raven/Raven Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "robotic_drone",
+      "name": "Robotic Drone",
+      "tier": "normal",
+      "folder": "Robotic Drone",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/robotic_drone/Robotic Drone Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "rogue",
+      "name": "Rogue",
+      "tier": "normal",
+      "folder": "Rogue",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/rogue/Knife.png",
+        "sheets/rogue/Rogue Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "rooster",
+      "name": "Rooster",
+      "tier": "normal",
+      "folder": "Rooster",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/rooster/Rooster Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "scarab",
+      "name": "Scarab",
+      "tier": "normal",
+      "folder": "Scarab",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/scarab/Scarab Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "shadow_entity",
+      "name": "Shadow Entity",
+      "tier": "normal",
+      "folder": "Shadow Entity",
+      "group": "💀 언데드·영혼",
+      "files": [
+        "sheets/shadow_entity/Hand Sprite Sheet.png",
+        "sheets/shadow_entity/Shadow Entity Sprite Sheet 1.1.png"
+      ]
+    },
+    {
+      "key": "shardsoul_slayer",
+      "name": "Shardsoul Slayer",
+      "tier": "normal",
+      "folder": "Shardsoul Slayer",
+      "group": "✦ 기타·특수",
+      "files": [
+        "sheets/shardsoul_slayer/Shardsoul Slayer Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "shield_guardian",
+      "name": "Shield Guardian",
+      "tier": "normal",
+      "folder": "Shield Guardian",
+      "group": "🔥 정령·골렘",
+      "files": [
+        "sheets/shield_guardian/Shield Guardian Pieces.png",
+        "sheets/shield_guardian/Shield Guardian Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "skeletal_archer",
+      "name": "Skeletal Archer",
+      "tier": "normal",
+      "folder": "Skeletal Archer",
+      "group": "💀 언데드·영혼",
+      "files": [
+        "sheets/skeletal_archer/Skeletal Archer Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "skeletal_mage",
+      "name": "Skeletal Mage",
+      "tier": "normal",
+      "folder": "Skeletal Mage",
+      "group": "💀 언데드·영혼",
+      "files": [
+        "sheets/skeletal_mage/Skeletal Mage Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "skeletal_warrior",
+      "name": "Skeletal Warrior",
+      "tier": "normal",
+      "folder": "Skeletal Warrior",
+      "group": "💀 언데드·영혼",
+      "files": [
+        "sheets/skeletal_warrior/Skeletal Warrior Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "skunk",
+      "name": "Skunk",
+      "tier": "normal",
+      "folder": "Skunk",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/skunk/Gas.png",
+        "sheets/skunk/Skunk Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "slime_medium",
+      "name": "Slime - Medium",
+      "tier": "normal",
+      "folder": "Slime - Medium",
+      "group": "✦ 기타·특수",
+      "files": [
+        "sheets/slime_medium/Slime Medium Sprite Sheet.png",
+        "sheets/slime_medium/Slime Spit.png"
+      ]
+    },
+    {
+      "key": "squirrel",
+      "name": "Squirrel",
+      "tier": "normal",
+      "folder": "Squirrel",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/squirrel/Squirrel Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "succubus",
+      "name": "Succubus",
+      "tier": "normal",
+      "folder": "Succubus",
+      "group": "👹 악마·이계",
+      "files": [
+        "sheets/succubus/Succubus Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "terminotaur",
+      "name": "Terminotaur",
+      "tier": "normal",
+      "folder": "Terminotaur",
+      "group": "🧌 거인·괴수",
+      "files": [
+        "sheets/terminotaur/Terminotaur Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "thief_medieval",
+      "name": "Thief - medieval",
+      "tier": "normal",
+      "folder": "Thief - medieval",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/thief_medieval/Medieval Thief Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "thunder_beast",
+      "name": "Thunder Beast",
+      "tier": "normal",
+      "folder": "Thunder Beast",
+      "group": "🧌 거인·괴수",
+      "files": [
+        "sheets/thunder_beast/TB  Attack1 Sprite Sheet.png",
+        "sheets/thunder_beast/TB Attack2 Sprite Sheet.png",
+        "sheets/thunder_beast/TB Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "turtle_small",
+      "name": "Turtle - Small",
+      "tier": "normal",
+      "folder": "Turtle - Small",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/turtle_small/Turtle Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "umber_hulk",
+      "name": "Umber Hulk",
+      "tier": "normal",
+      "folder": "Umber Hulk",
+      "group": "🧌 거인·괴수",
+      "files": [
+        "sheets/umber_hulk/Umber Hulk Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "vargouille",
+      "name": "Vargouille",
+      "tier": "normal",
+      "folder": "Vargouille",
+      "group": "👹 악마·이계",
+      "files": [
+        "sheets/vargouille/Shriek.png",
+        "sheets/vargouille/Vargouille Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "vulture",
+      "name": "Vulture",
+      "tier": "normal",
+      "folder": "Vulture",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/vulture/Vulture Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "warlock",
+      "name": "Warlock",
+      "tier": "normal",
+      "folder": "Warlock",
+      "group": "👹 악마·이계",
+      "files": [
+        "sheets/warlock/Hell Portal Sprite Sheet.png",
+        "sheets/warlock/Warlock Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "worm",
+      "name": "Worm",
+      "tier": "normal",
+      "folder": "Worm",
+      "group": "🐺 야수·동물",
+      "files": [
+        "sheets/worm/Worm Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "goblin_bomber",
+      "name": "Goblin Bomber",
+      "tier": "normal",
+      "folder": "Goblin Bomber",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/goblin_bomber/Goblin Bomber Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "goblin_king",
+      "name": "Goblin King",
+      "tier": "normal",
+      "folder": "Goblin King",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/goblin_king/Coin Bag Sprite Sheet.png",
+        "sheets/goblin_king/Goblin King Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "goblin_mech_rider",
+      "name": "Goblin Mech Rider",
+      "tier": "normal",
+      "folder": "Goblin Mech Rider",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/goblin_mech_rider/Goblin Mech Rider Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "goblin_shaman",
+      "name": "Goblin Shaman",
+      "tier": "normal",
+      "folder": "Goblin Shaman",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/goblin_shaman/Goblin Shaman Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "goblin_worker",
+      "name": "Goblin Worker",
+      "tier": "normal",
+      "folder": "Goblin Worker",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/goblin_worker/Goblin Worker Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "dwarf_arbelest",
+      "name": "Dwarf Arbelest",
+      "tier": "normal",
+      "folder": "Dwarf Arbelest",
+      "group": "✦ 기타·특수",
+      "files": [
+        "sheets/dwarf_arbelest/Dwarf Arbelest Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "dwarf_necromancer",
+      "name": "Dwarf Necromancer",
+      "tier": "normal",
+      "folder": "Dwarf Necromancer",
+      "group": "💀 언데드·영혼",
+      "files": [
+        "sheets/dwarf_necromancer/Dwarf Necromancer Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "dwarf_undead",
+      "name": "Dwarf Undead",
+      "tier": "normal",
+      "folder": "Dwarf Undead",
+      "group": "💀 언데드·영혼",
+      "files": [
+        "sheets/dwarf_undead/Dwarf Undead Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "grenadier_dwarf",
+      "name": "Grenadier Dwarf",
+      "tier": "normal",
+      "folder": "Grenadier Dwarf",
+      "group": "✦ 기타·특수",
+      "files": [
+        "sheets/grenadier_dwarf/Dwarf Grenadier Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "king_dwarf",
+      "name": "King Dwarf",
+      "tier": "normal",
+      "folder": "King Dwarf",
+      "group": "✦ 기타·특수",
+      "files": [
+        "sheets/king_dwarf/King Dwarf Attack Animation 160x160.png",
+        "sheets/king_dwarf/King Dwarf Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "lizardfolk_mage",
+      "name": "Lizardfolk Mage",
+      "tier": "normal",
+      "folder": "Lizardfolk Mage",
+      "group": "🐉 용·파충류",
+      "files": [
+        "sheets/lizardfolk_mage/Lizardfolk Mage Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "fishfolk_archpriest",
+      "name": "Fishfolk Archpriest",
+      "tier": "normal",
+      "folder": "Fishfolk Archpriest",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/fishfolk_archpriest/Fishfolk Archpriest Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "fishfolk_bubblemancer",
+      "name": "Fishfolk Bubblemancer",
+      "tier": "normal",
+      "folder": "Fishfolk Bubblemancer",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/fishfolk_bubblemancer/Big Bubble Sprite Sheet.png",
+        "sheets/fishfolk_bubblemancer/Bubbles1.png",
+        "sheets/fishfolk_bubblemancer/Fishfolk Bubblemancer Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "fishfolk_hypnotist",
+      "name": "Fishfolk Hypnotist",
+      "tier": "normal",
+      "folder": "Fishfolk Hypnotist",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/fishfolk_hypnotist/Fishfolk Hypnotist Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "fishfolk_jelly",
+      "name": "Fishfolk Jelly",
+      "tier": "normal",
+      "folder": "Fishfolk Jelly",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/fishfolk_jelly/Fishfolk Jelly Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "fishfolk_net",
+      "name": "Fishfolk Net",
+      "tier": "normal",
+      "folder": "Fishfolk Net",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/fishfolk_net/Fishfolk Sprite Sheet.png",
+        "sheets/fishfolk_net/Net.png"
+      ]
+    },
+    {
+      "key": "fishfolk_shaman",
+      "name": "Fishfolk Shaman",
+      "tier": "normal",
+      "folder": "Fishfolk Shaman",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/fishfolk_shaman/Fishfolk Shaman Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "elven_archer",
+      "name": "Elven Archer",
+      "tier": "normal",
+      "folder": "Elven Archer",
+      "group": "🗡️ 인간형·종족",
+      "files": [
+        "sheets/elven_archer/Elven Archer Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "elven_wizard",
+      "name": "Elven Wizard",
+      "tier": "normal",
+      "folder": "Elven Wizard",
+      "group": "✦ 기타·특수",
+      "files": [
+        "sheets/elven_wizard/Elven Wizard Sprite Sheet.png",
+        "sheets/elven_wizard/Projectile.png"
+      ]
+    },
+    {
+      "key": "kobold",
+      "name": "Kobold",
+      "tier": "normal",
+      "folder": "Kobold",
+      "group": "🐉 용·파충류",
+      "files": [
+        "sheets/kobold/Kobold Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "kobold_dragonshield",
+      "name": "Kobold Dragonshield",
+      "tier": "normal",
+      "folder": "Kobold Dragonshield",
+      "group": "🐉 용·파충류",
+      "files": [
+        "sheets/kobold_dragonshield/Kobold Dragonshield Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "kobold_priest",
+      "name": "Kobold Priest",
+      "tier": "normal",
+      "folder": "Kobold Priest",
+      "group": "🐉 용·파충류",
+      "files": [
+        "sheets/kobold_priest/Kobold Priest Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "kobold_pyromancer",
+      "name": "Kobold Pyromancer",
+      "tier": "normal",
+      "folder": "Kobold Pyromancer",
+      "group": "🐉 용·파충류",
+      "files": [
+        "sheets/kobold_pyromancer/Kobold Pyromancer Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "kobold_shaman",
+      "name": "Kobold Shaman",
+      "tier": "normal",
+      "folder": "Kobold Shaman",
+      "group": "🐉 용·파충류",
+      "files": [
+        "sheets/kobold_shaman/Kobold Shaman Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "kobold_slinger",
+      "name": "Kobold Slinger",
+      "tier": "normal",
+      "folder": "Kobold Slinger",
+      "group": "🐉 용·파충류",
+      "files": [
+        "sheets/kobold_slinger/Kobold Slinger Sprite Sheet.png",
+        "sheets/kobold_slinger/Rock.png"
+      ]
+    },
+    {
+      "key": "kobold_trapmaster",
+      "name": "Kobold Trapmaster",
+      "tier": "normal",
+      "folder": "Kobold Trapmaster",
+      "group": "🐉 용·파충류",
+      "files": [
+        "sheets/kobold_trapmaster/Kobold Trapmaster Sprite Sheet -Sheet.png"
+      ]
+    },
+    {
+      "key": "kobold_worker",
+      "name": "Kobold Worker",
+      "tier": "normal",
+      "folder": "Kobold Worker",
+      "group": "🐉 용·파충류",
+      "files": [
+        "sheets/kobold_worker/Kobold Worker Builder Sprite Sheet.png"
+      ]
+    },
+    {
+      "key": "winged_kobold",
+      "name": "Winged Kobold",
+      "tier": "normal",
+      "folder": "Winged Kobold",
+      "group": "🐉 용·파충류",
+      "files": [
+        "sheets/winged_kobold/Winged Kobold Sprite Sheet.png"
+      ]
     }
   ]
 }
