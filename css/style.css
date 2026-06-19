@@ -271,8 +271,8 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
 /* 타겟 몬스터: 테두리박스 대신 스프라이트 외곽선(색상) */
 #enemy-emoji .esprite{
   filter:
-    drop-shadow( 2px 0 0 var(--foe-outline)) drop-shadow(-2px 0 0 var(--foe-outline))
-    drop-shadow( 0 2px 0 var(--foe-outline)) drop-shadow( 0 -2px 0 var(--foe-outline))
+    drop-shadow( 1px 0 0 var(--foe-outline)) drop-shadow(-1px 0 0 var(--foe-outline))
+    drop-shadow( 0 1px 0 var(--foe-outline)) drop-shadow( 0 -1px 0 var(--foe-outline))
     drop-shadow(0 4px 6px rgba(0,0,0,.55));
 }
 .foe-mark{ position:absolute; top:-15px; left:50%; transform:translateX(-50%); font-size:14px; z-index:3; }

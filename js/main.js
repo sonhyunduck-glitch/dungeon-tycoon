@@ -407,7 +407,6 @@
 
     // ---------- 방치 정산(최종 상태 기준) ----------
     if(loaded||usedCloud){
-      G.stamina.regen();
       var idle=G.shop.settleIdle();
       G.log("🌙 돌아오신 걸 환영합니다.","");
       if(idle.gold>0){ setTimeout(function(){ G.ui.idlePopup(idle.gold, idle.sold); }, 450); }

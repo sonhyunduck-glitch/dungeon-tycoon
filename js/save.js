@@ -39,7 +39,7 @@ G.save.load = function(){
     if(!data.avatar) data.avatar="adventurer";
     if(!data.monMats) data.monMats={};
     if(!data.orders) data.orders=[];
-    if(!data.stamina) data.stamina={ cur:60, max:60, lastTick:Date.now() };
+    if(data.stamina) delete data.stamina;   // 행동력 시스템 제거 — 구버전 세이브 잔여 필드 정리
     if(data.dungeon && !data.dungeon.stars) data.dungeon.stars={};
     if(data.shop && !data.shop.guestbook) data.shop.guestbook=[];
     if(data.shop && data.shop.slots){ while(data.shop.slots.length<5) data.shop.slots.push(null); }

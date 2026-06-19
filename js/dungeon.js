@@ -132,7 +132,7 @@ G.dungeon.clearFloor = function(){
   var prev = G.state.dungeon.stars[run.floor]||0;
   if(stars>prev){ G.state.dungeon.stars[run.floor]=stars; }
   run.stars=stars;
-  if(stars>=3 && prev<3) G.log("⭐⭐⭐ 완벽 클리어(평균 "+avg.toFixed(1)+"턴)! "+run.floor+"층 [소탕] 해금","r-legend");
+  if(stars>=3 && prev<3) G.log("⭐⭐⭐ 완벽 클리어(평균 "+avg.toFixed(1)+"턴)! "+run.floor+"층","r-legend");
 
   // 다음 층 해금
   var next=G.dungeon.getFloor(run.floor+1);
@@ -149,45 +149,4 @@ G.dungeon.clearFloor = function(){
 /* 던전 나가기 (run 종료) */
 G.dungeon.leave = function(){
   G.state.dungeon.run=null;
-};
-
-/* ============================================================
-   행동력(스태미나) — 시간당 자동 회복
-   ============================================================ */
-G.stamina = {};
-G.stamina.PER_MS = 90000;   // 90초당 1 회복
-G.stamina.regen = function(){
-  var st=G.state.stamina; if(!st) return;
-  var now=Date.now();
-  if(st.cur>=st.max){ st.lastTick=now; return; }
-  var elapsed=now-(st.lastTick||now);
-  var gain=Math.floor(elapsed/G.stamina.PER_MS);
-  if(gain>0){
-    st.cur=Math.min(st.max, st.cur+gain);
-    st.lastTick = (st.cur>=st.max) ? now : st.lastTick + gain*G.stamina.PER_MS;
-  }
-};
-
-/* ============================================================
-   소탕 — 3성 클리어한 층을 전투 없이 즉시 보상 (행동력 소모)
-   ============================================================ */
-G.dungeon.SWEEP_COST = 6;
-G.dungeon.canSweep = function(floorNum){ return (G.state.dungeon.stars[floorNum]||0) >= 3; };
-G.dungeon.sweep = function(floorNum){
-  floorNum=parseInt(floorNum,10);
-  if(!G.dungeon.canSweep(floorNum)){ G.ui.toast("3성 클리어 후 소탕할 수 있습니다"); return; }
-  G.stamina.regen();
-  if(G.state.stamina.cur < G.dungeon.SWEEP_COST){ G.ui.toast("행동력이 부족합니다 ("+G.dungeon.SWEEP_COST+")"); return; }
-  G.state.stamina.cur -= G.dungeon.SWEEP_COST;
-
-  var fl=G.dungeon.getFloor(floorNum);
-  var gf=G.totalStats().goldFind||0;
-  var gold=Math.round(fl.gold*(1+gf/100));
-  G.state.player.gold+=gold;
-  var drops=0;
-  fl.nodes.forEach(function(n){
-    if(n.type==="boss"){ G.perks.routeLoot(G.item.generate(fl.dropTier+2, fl.floor)); drops++; }
-    else if(Math.random()<0.2){ G.perks.routeLoot(G.item.generate(fl.dropTier, fl.floor)); drops++; }
-  });
-  G.log("🧹 "+floorNum+"층 소탕! 🪙+"+G.ui.fmt(gold)+" · 전리품 "+drops+"개 (행동력 -"+G.dungeon.SWEEP_COST+")","r-uncommon");
 };

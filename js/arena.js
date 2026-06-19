@@ -218,8 +218,7 @@
   G.arena.SHOP = [
     { key:"pot5",  ico:"🧪", name:"체력 물약 ×5",   cost:30, desc:"즉시 물약 5개(소지 한도 내)" },
     { key:"mat20", ico:"🔩", name:"분해 재료 ×20",  cost:40, desc:"룬 제작·재련용 재료 20개" },
-    { key:"mat60", ico:"🔩", name:"분해 재료 ×60",  cost:90, desc:"재료 대량(개당 더 저렴)" },
-    { key:"stam",  ico:"⚡", name:"행동력 가득",     cost:20, desc:"행동력을 최대로 회복" }
+    { key:"mat60", ico:"🔩", name:"분해 재료 ×60",  cost:90, desc:"재료 대량(개당 더 저렴)" }
   ];
   G.arena.buy = function(key){
     var a=G.arena.ensure();
@@ -233,8 +232,7 @@
       G.state.consumables.potionHeal=Math.round((have*oh+add*H)/(have+add));
       G.state.consumables.potion_s=have+add; msg="🧪 물약 ×"+add+" 획득";
     } else if(key==="mat20"){ G.state.materials=(G.state.materials||0)+20; msg="🔩 분해재료 +20";
-    } else if(key==="mat60"){ G.state.materials=(G.state.materials||0)+60; msg="🔩 분해재료 +60";
-    } else if(key==="stam"){ if(G.state.stamina){ G.state.stamina.cur=G.state.stamina.max; G.state.stamina.lastTick=Date.now(); } }
+    } else if(key==="mat60"){ G.state.materials=(G.state.materials||0)+60; msg="🔩 분해재료 +60"; }
     a.coins-=item.cost; G.save.save(true);
     return { ok:true, msg:msg };
   };
