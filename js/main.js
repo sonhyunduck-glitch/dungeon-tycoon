@@ -88,6 +88,9 @@
     /* 인벤토리 / 창고 */
     "inv-sub": function(d){ G.state.ui.invSub=d.sub; G.ui.render(); },
     "bag-sort": function(){ var o={price:"power",power:"recent",recent:"price"}; G.state.ui.bagSort=o[G.state.ui.bagSort||"price"]; G.ui.render(); },
+    "bag-filter-slot": function(d){ G.state.ui.bagFilterSlot=d.value; G.ui.renderInventory(); },
+    "bag-filter-stat": function(d){ G.state.ui.bagFilterStat=d.value; G.ui.renderInventory(); },
+    "bag-filter-clear": function(){ G.state.ui.bagFilterSlot="all"; G.state.ui.bagFilterStat="all"; G.ui.renderInventory(); },
     "compare": function(d){ G.ui.compareModal(d.id); },
     "lock": function(d){
       var it=G.state.inventory.concat(G.state.warehouse.items).find(function(x){return x.id===d.id;});
@@ -244,7 +247,7 @@
     if(nav){ G.ui.switchTab(nav.dataset.tab); return; }
     // 액션
     var btn=e.target.closest("[data-act]");
-    if(!btn || btn.tagName==="INPUT") return;
+    if(!btn || btn.tagName==="INPUT" || btn.tagName==="SELECT") return;   // select은 change로 처리
     var act=btn.dataset.act;
     if(actions[act]){ e.preventDefault(); actions[act](btn.dataset); }
   });
@@ -257,6 +260,8 @@
     var lbl=document.getElementById(which+"vol-lbl"); if(lbl) lbl.textContent=Math.round(v*100)+"%";
   });
   document.addEventListener("change", function(e){
+    var sel=e.target.closest('select[data-act]');           // 필터 등 select 액션
+    if(sel){ var a=sel.dataset.act; if(actions[a]) actions[a]({ value:sel.value }); return; }
     var s=e.target.closest('[data-vol="sfx"]'); if(!s) return;
     if(G.audio) G.audio.play("sword");   // 효과음 볼륨 조절 후 미리듣기
   });

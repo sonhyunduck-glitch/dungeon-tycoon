@@ -343,6 +343,9 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
 .cape-res{ margin:6px 0; padding:6px 10px; border-radius:9px; font-weight:800; font-size:.86rem; }
 .cape-res.ok{ background:rgba(127,215,127,.16); color:#7fd77f; border:1px solid rgba(127,215,127,.4); }
 .cape-res.fail{ background:rgba(255,90,90,.14); color:#ff8a8a; border:1px solid rgba(255,90,90,.35); }
+/* 가방 필터 */
+.bagfilter-row{ gap:6px; }
+select.bagfilter{ flex:1; min-width:0; font-size:.8rem; padding:5px 6px; }
 /* 전투장 바닥 글로우 */
 .combat-stage::before{
   content:""; position:absolute; left:50%; top:30%; width:200px; height:200px; transform:translate(-50%,-50%);
