@@ -218,6 +218,22 @@ G.ui.arenaShopModal = function(){
 /* ============================================================
    랭킹 뷰
    ============================================================ */
+/* 가방 옵션(스탯) 필터 선택 — 다크 모달(네이티브 select 흰색 팝업 회피) */
+G.ui.bagStatPickModal = function(){
+  var cur=G.state.ui.bagFilterStat||"all";
+  var keys=G.DATA.STAT_KEYS||Object.keys(G.DATA.STAT_META);
+  function opt(k,label){ return '<button class="btn statopt'+(cur===k?' primary':'')+'" data-act="bag-filter-stat" data-key="'+k+'">'+esc(label)+(cur===k?' ✓':'')+'</button>'; }
+  var grid=opt("all","전체 옵션")+keys.map(function(k){ var m=G.DATA.STAT_META[k]; return m?opt(k,m.label):''; }).join("");
+  var ov=document.createElement("div"); ov.className="modal-overlay show";
+  ov.innerHTML='<div class="modal" style="width:min(440px,94vw)">'+
+    '<h2>🏷️ 옵션 필터</h2>'+
+    '<div class="statopt-grid">'+grid+'</div>'+
+    '<button class="btn full" style="margin-top:10px" data-modal-close>닫기</button>'+
+  '</div>';
+  document.body.appendChild(ov);
+  ov.addEventListener("click", function(e){ if(e.target.closest("[data-modal-close]")||e.target===ov) ov.remove(); });
+};
+
 /* 🧥 망토 구매·강화 모달 */
 G.ui.capeModal = function(lastResult){
   var c=G.cape.get(), a=G.arena.ensure();

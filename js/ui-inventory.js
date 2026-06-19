@@ -36,9 +36,9 @@ G.ui._bagPanel = function(){
   var slotChips='<div class="slotchips">'+["all","weapon","helmet","armor","gloves","boots","ring","necklace","rune"].map(function(k){
     return '<button class="slotchip'+(fslot===k?' active':'')+'" data-act="bag-filter-slot" data-slot="'+k+'" title="'+(SLOT_LABELS[k]||(k==="rune"?"룬":"전체"))+'">'+slotChipInner(k)+'</button>';
   }).join("")+'</div>';
-  var statKeys=G.DATA.STAT_KEYS||Object.keys(G.DATA.STAT_META);
-  var statSel='<select class="bagfilter" data-act="bag-filter-stat"><option value="all"'+(fstat==="all"?' selected':'')+'>전체 옵션</option>'+
-    statKeys.map(function(k){ var m=G.DATA.STAT_META[k]; return m?'<option value="'+k+'"'+(fstat===k?' selected':'')+'>'+m.label+'</option>':''; }).join("")+'</select>';
+  // 옵션 필터 — 네이티브 select 팝업이 구형 WebView(LDPlayer)에서 흰색으로 떠서, 다크 모달 선택창 버튼으로 대체
+  var statLabel = fstat==="all" ? "전체 옵션" : ((G.DATA.STAT_META[fstat]&&G.DATA.STAT_META[fstat].label)||"옵션");
+  var statBtn='<button class="btn sm bagstat-btn'+(fstat!=="all"?" gold":"")+'" data-act="bag-stat-pick">🏷️ '+esc(statLabel)+' ▾</button>';
   var filtered = fslot!=="all" || fstat!=="all";
   var head='<div class="panel"><h2>🎒 가방 <span class="muted '+(full?"r-legend":"")+'">('+inv.length+' / '+G.state.invMax+')</span></h2>'+
     '<div class="row" style="margin-bottom:8px; align-items:center">'+
@@ -48,7 +48,7 @@ G.ui._bagPanel = function(){
     '</div>'+
     '<div class="bagfilter-wrap" style="margin-bottom:8px">'+
       slotChips +
-      '<div class="row" style="margin-top:6px; align-items:center">'+ statSel +
+      '<div class="row" style="margin-top:6px; align-items:center">'+ statBtn +
         (filtered?'<button class="btn sm" data-act="bag-filter-clear">초기화</button>':'')+
       '</div>'+
     '</div>'+

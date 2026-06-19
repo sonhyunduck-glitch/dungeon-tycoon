@@ -351,12 +351,9 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
 .slotchip.active{ border-color:var(--acc); box-shadow:0 0 0 1px var(--acc) inset; background:#2a2433; }
 .slotchip .fico{ width:28px; height:28px; image-rendering:pixelated; object-fit:contain; }
 .slotchip .chiptext{ font-size:.78rem; color:var(--txt); font-weight:700; }
-/* 옵션 select — 전체 다크 테마에 맞춤(흰색 방지) */
-select.bagfilter{ flex:1; min-width:0; font-size:.8rem; padding:6px 8px; color:var(--txt); background:#1e1e28;
-  border:1px solid var(--line); border-radius:6px; -webkit-appearance:none; appearance:none;
-  background-image:linear-gradient(45deg,transparent 50%,var(--mut) 50%),linear-gradient(135deg,var(--mut) 50%,transparent 50%);
-  background-position:calc(100% - 14px) 52%, calc(100% - 9px) 52%; background-size:5px 5px,5px 5px; background-repeat:no-repeat; padding-right:26px; }
-select.bagfilter option{ background:#1e1e28; color:var(--txt); }
+/* 옵션 필터 — 다크 모달 선택창(네이티브 select 흰색 팝업 회피) */
+.statopt-grid{ display:flex; flex-wrap:wrap; gap:6px; max-height:56vh; overflow:auto; margin-top:4px; }
+.statopt{ flex:0 0 auto; font-size:.8rem; padding:7px 11px; }
 /* 전투장 바닥 글로우 */
 .combat-stage::before{
   content:""; position:absolute; left:50%; top:30%; width:200px; height:200px; transform:translate(-50%,-50%);
