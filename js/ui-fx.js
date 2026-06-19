@@ -52,6 +52,72 @@ G.ui.pcAnim = function(state){
   setTimeout(function(){ if(s && s.classList) s.classList.remove(state); }, dur);
 };
 
+/* ============================================================
+   사이드스크롤 이동 연출 — 전진(배경 스크롤) + 적 걸어 들어오기
+   모두 콜백 기반 + transitionend + 타임아웃 폴백(1회만 발화). 이동 구간은 main.js가 animBusy로 잠금.
+   ============================================================ */
+function _once(fn){ var d=false; return function(){ if(d) return; d=true; fn(); }; }
+function _sp(){ return Math.max(1, (G.state&&G.state.battleSpeed)||1); }
+
+/* 플레이어 걷기 토글 — 진짜 walk 프레임 보유 시 #pc-sprite.walk, 없으면 홀더 bob(폴백) */
+G.ui.pcWalk = function(on){
+  var s=el("pc-sprite"), holder=document.querySelector(".arena-pc .arena-sprite-holder");
+  var real = !!(G.avatar && G.avatar.hasWalk && G.avatar.hasWalk());
+  if(real && s){ if(on) s.classList.add("walk"); else s.classList.remove("walk"); }
+  if((!real || on===false) && holder){ if(on&&!real) holder.classList.add("ss-walk"); else holder.classList.remove("ss-walk"); }
+};
+
+/* 전진: 바닥 그리드를 좌측으로 스크롤(transform), 플레이어 걷기. 완료 후 그리드 0 리셋(40px 배수라 무회귀) */
+G.ui.advanceWorld = function(cb){
+  cb=cb||function(){};
+  var grid=document.querySelector(".arena-bg-grid");
+  G.ui.pcWalk(true);
+  var fin=_once(function(){
+    G.ui.pcWalk(false);
+    if(grid){ grid.style.transition="none"; grid.style.setProperty("--gscroll","0px"); void grid.offsetWidth; grid.style.transition=""; grid.style.transitionDuration=""; }
+    cb();
+  });
+  if(!grid){ setTimeout(fin, Math.max(140,420/_sp())); return; }
+  var ms=Math.max(140, 500/_sp());
+  grid.style.transitionDuration=(ms/1000)+"s";
+  grid.style.setProperty("--gscroll","-120px");
+  var t=setTimeout(fin, ms+140);
+  grid.addEventListener("transitionend", function te(){ grid.removeEventListener("transitionend",te); clearTimeout(t); fin(); }, {once:true});
+};
+
+/* 적 걸어 들어오기: 각 .arena-foe 를 우측 화면밖→0 으로 전이(스태거). 완료 후 인라인 transform 제거 */
+G.ui.foeWalkIn = function(cb){
+  cb=cb||function(){};
+  var foes=document.querySelectorAll(".arena-foe");
+  if(!foes.length){ cb(); return; }
+  var ms=Math.max(160, 520/_sp()), fin=_once(cb), pending=foes.length;
+  foes.forEach(function(f,i){
+    var holder=f.querySelector(".arena-sprite-holder.foe");
+    f.style.transition="none"; f.style.transform="translateX(150px)"; f.style.willChange="transform";
+    if(holder) holder.classList.add("ss-walk");
+    void f.offsetWidth;
+    setTimeout(function(){
+      f.style.transition=""; f.style.transitionDuration=(ms/1000)+"s"; f.style.transform="translateX(0)";
+      var done=_once(function(){ if(holder) holder.classList.remove("ss-walk"); f.style.willChange=""; f.style.transition=""; f.style.transitionDuration=""; f.style.transform=""; if(--pending<=0) fin(); });
+      var t=setTimeout(done, ms+160);
+      f.addEventListener("transitionend", function te(){ f.removeEventListener("transitionend",te); clearTimeout(t); done(); }, {once:true});
+    }, Math.round(i*90/_sp()));
+  });
+};
+
+/* 씬 진입 컨트롤러 — 새 노드: 전투면 전진→적 워크인, 이벤트/빈 노드면 전진만. 비전투/종료면 즉시 cb.
+   (win-branch·doAdvance·enter 공용. targetDied 경로는 이걸 호출하지 않음 → 잔존 적 재워크인 없음) */
+G.ui.sceneEnter = function(run, cb){
+  cb=cb||function(){};
+  if(!run || run.dead || run.cleared){ cb(); return; }
+  if(run.combat){
+    document.querySelectorAll(".arena-foe").forEach(function(f){ f.style.transition="none"; f.style.transform="translateX(150px)"; });  // 전진 중 적 숨김(플래시 방지)
+    G.ui.advanceWorld(function(){ G.ui.foeWalkIn(cb); });
+  } else {
+    G.ui.advanceWorld(cb);
+  }
+};
+
 /* 스프라이트 엘리먼트의 모션 키 조회 (data-key → ENEMY_ANIMS) */
 G.ui.foeAttackAnim = function(){
   document.querySelectorAll(".arena-foe .esprite").forEach(function(s){

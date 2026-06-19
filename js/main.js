@@ -41,7 +41,11 @@
     if(res.over && res.win){
       animBusy=true;
       var ddw=G.ui.foeDeathAnim();   // 마지막 적 사망 모션(있으면)
-      setTimeout(function(){ G.dungeon.advance(); G.ui.render(); animBusy=false; }, Math.round(Math.max(360, ddw)/sp)+nextGap);
+      setTimeout(function(){
+        G.dungeon.advance(); G.ui.render();
+        // 다음 노드로 전진(배경 스크롤)→적 워크인 동안 animBusy 유지, 완료 시 해제(모든 경로가 결국 해제)
+        G.ui.sceneEnter(G.state.dungeon.run, function(){ animBusy=false; });
+      }, Math.round(Math.max(360, ddw)/sp)+nextGap);
     } else if(res.over && res.dead){
       animBusy=true;
       G.ui.pcAnim("death");   // 사망 모션(7프레임 .7s) 재생 후 사망 화면으로
@@ -56,7 +60,12 @@
       setTimeout(function(){ G.ui.refreshCombat(); }, 220/sp);
     }
   }
-  function doAdvance(){ G.dungeon.advance(); G.ui.render(); }
+  function doAdvance(){
+    if(animBusy || G.paused) return;        // 씬 이동 중엔 중복 전진 금지
+    animBusy=true;
+    G.dungeon.advance(); G.ui.render();
+    G.ui.sceneEnter(G.state.dungeon.run, function(){ animBusy=false; });
+  }
 
   /* ---------- 액션 핸들러 ---------- */
   var actions = {
@@ -67,14 +76,14 @@
       G.ui.render();
     },
     "floor-jump": function(){ G.state.dungeon.floor=G.state.dungeon.maxFloor||1; G.ui.render(); },
-    "enter": function(d){ G.dungeon.enter(d.floor); G.ui.render(); },
+    "enter": function(d){ G.dungeon.enter(d.floor); G.ui.render(); animBusy=true; G.ui.sceneEnter(G.state.dungeon.run, function(){ animBusy=false; }); },
     "node-next": doAdvance,
     "dungeon-leave": function(){ G.dungeon.leave(); G.ui.render(); G.save.save(true); },
     "speed-cycle": function(){ var m=G.maxSpeed(); var s=(G.state.battleSpeed||1)+1; if(s>m)s=1; G.state.battleSpeed=s; G.ui.render(); },
 
     "atk": doAttack,
-    "potion": function(){ if(G.combat.usePotion()) G.ui.render(); },
-    "use-potion": function(){ if(G.combat.usePotion()) G.ui.render(); },
+    "potion": function(){ if(animBusy) return; if(G.combat.usePotion()) G.ui.render(); },
+    "use-potion": function(){ if(animBusy) return; if(G.combat.usePotion()) G.ui.render(); },
 
     /* 인벤토리 / 창고 */
     "inv-sub": function(d){ G.state.ui.invSub=d.sub; G.ui.render(); },
@@ -248,8 +257,10 @@
     if(run){
       if(run.cleared){
         if(G.perks.isOn("auto_next")){
+          if(animBusy) return;   // 씬 이동/연출 중엔 다음 층 진입 보류
           var nf=(run.floor < G.DATA.MAX_FLOOR && G.dungeon.isUnlocked(run.floor+1)) ? run.floor+1 : run.floor;
           G.dungeon.leave(); G.dungeon.enter(nf); G.ui.render();
+          animBusy=true; G.ui.sceneEnter(G.state.dungeon.run, function(){ animBusy=false; });
         }
       } else if(!run.dead){
         if(run.combat){ if(G.perks.isOn("auto_battle")) doAttack(); }

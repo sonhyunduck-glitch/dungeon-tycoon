@@ -129,7 +129,11 @@ G.ui._combatBox = function(c){
   var more=living.length>shown.length?'<div class="arena-more">+'+(living.length-shown.length)+'</div>':'';
   var foeSide='<div class="arena-foes">'+foes+more+'</div>';
 
-  var arena='<div class="combat-arena" id="combat-stage">'+ pcSide + foeSide +'</div>';
+  // 사이드스크롤: 패럴랙스 바닥 그리드 + 월드(플레이어 좌·적 레인 우). 셀렉터 계약(#combat-stage/#pc-sprite/#enemy-emoji/.arena-foe) 유지
+  var arena='<div class="combat-arena" id="combat-stage">'+
+      '<div class="arena-bg-grid"></div>'+
+      '<div class="arena-world">'+ pcSide + foeSide +'</div>'+
+    '</div>';
 
   /* ---- 타겟 정보 바 ---- */
   var tpct=Math.max(0,(target.hp/target.maxHp)*100);

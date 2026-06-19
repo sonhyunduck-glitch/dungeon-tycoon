@@ -242,8 +242,19 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
   background:linear-gradient(90deg, transparent, rgba(255,185,115,.30), transparent);
   box-shadow:0 6px 12px rgba(255,150,70,.06); pointer-events:none; z-index:0;
 }
-.arena-pc{ flex:0 0 auto; display:flex; flex-direction:column; align-items:center; gap:4px; z-index:2; }
-.arena-foes{ flex:1; min-width:0; display:flex; align-items:flex-end; justify-content:center; gap:10px; flex-wrap:nowrap; overflow:hidden; z-index:2; }
+/* ===== 사이드스크롤: 플레이어(카메라 고정 ~26%) + 우측 적 레인 ===== */
+.arena-world{ position:absolute; inset:0; z-index:2; }
+.arena-pc{ position:absolute; left:26%; bottom:12px; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:4px; z-index:2; }
+.arena-foes{ position:absolute; left:46%; right:8px; bottom:12px; display:flex; align-items:flex-end; justify-content:flex-start; gap:10px; flex-wrap:nowrap; overflow:visible; z-index:2; }
+/* 전진 패럴랙스 — 바닥 세로선이 좌측으로 흐르며 이동감(transform 전용, 배터리모드선 즉시컷) */
+.arena-bg-grid{ position:absolute; left:-20%; right:-20%; bottom:0; height:44%; z-index:1; pointer-events:none;
+  background:repeating-linear-gradient(90deg, rgba(255,180,110,.11) 0 1px, transparent 1px 40px);
+  transform:perspective(130px) rotateX(60deg) translateX(var(--gscroll,0px)); transform-origin:bottom center;
+  transition:transform .5s linear;
+  -webkit-mask-image:linear-gradient(to top,#000 6%,transparent 88%); mask-image:linear-gradient(to top,#000 6%,transparent 88%); }
+/* 걷기 흔들림(폴백 + 전진 연출) — 스프라이트 홀더에 적용. 홀더는 reduced-motion 예외가 아니라 배터리모드선 자동 정지 */
+@keyframes ssBob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-3px); } }
+.arena-sprite-holder.ss-walk{ animation:ssBob .42s ease-in-out infinite; }
 
 .arena-sprite-holder{ position:relative; width:90px; height:88px; }
 .arena-sprite-holder.foe{ width:auto; height:auto; min-width:46px; display:inline-flex; align-items:flex-end; justify-content:center; }
@@ -257,8 +268,8 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
 .arena-label{ font-size:.62rem; color:var(--muted,#9a8fa8); }
 .arena-label.me{ color:#9fc2ff; }
 
-/* 적 클러스터 개체 */
-.arena-foe{ position:relative; display:flex; flex-direction:column; align-items:center; }
+/* 적 클러스터 개체 — transition:transform 은 '걸어 들어오기'(JS 인라인 translateX) 연출용 */
+.arena-foe{ position:relative; display:flex; flex-direction:column; align-items:center; transition:transform .5s ease-out; }
 .arena-foe .esprite, .arena-foe .emoji-big, .arena-foe .emoji-mid{ position:relative; z-index:1; }
 /* 타겟 몬스터: 테두리박스 대신 스프라이트 외곽선(색상) */
 #enemy-emoji .esprite{

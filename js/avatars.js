@@ -11,7 +11,7 @@
   // 모션={row,frames,dur}, unlock=해금 최고도달층(0=기본). 배치 순서 = 표시 순서.
   G.DATA.AVATARS = [
     { id:"adventurer", name:"모험가", unlock:0, sheet:"assets/adventurer.png", fw:32, fh:32, scale:1.5,
-      idle:{row:0,frames:13,dur:1.4}, attack:{row:4,frames:10,dur:0.42}, hurt:{row:6,frames:4,dur:0.32}, death:{row:7,frames:7,dur:0.70} },
+      idle:{row:0,frames:13,dur:1.4}, walk:{row:1,frames:8,dur:0.7}, attack:{row:4,frames:10,dur:0.42}, hurt:{row:6,frames:4,dur:0.32}, death:{row:7,frames:7,dur:0.70} },
     { id:"dwarf", name:"드워프", unlock:10, sheet:"assets/avatars/dwarf.png", fw:64, fh:32, scale:0.9,
       idle:{row:0,frames:5,dur:0.55}, attack:{row:3,frames:6,dur:0.27}, hurt:{row:6,frames:4,dur:0.32}, death:{row:7,frames:7,dur:0.7} },
     { id:"fishfolk_berserker", name:"어인 광전사", unlock:20, sheet:"assets/avatars/fishfolk_berserker.png", fw:96, fh:32, scale:0.9,
@@ -55,6 +55,7 @@
   };
   G.avatar.currentId = function(){ return (G.state && G.state.avatar) || "adventurer"; };
   G.avatar.current = function(){ return G.avatar.get(G.avatar.currentId()); };
+  G.avatar.hasWalk = function(){ var c=G.avatar.current(); return !!(c && c.walk); };   // 진짜 걷기 프레임 보유 여부
 
   G.avatar.unlocked = function(a){
     if(typeof a==="string") a=G.avatar.get(a);
@@ -103,13 +104,16 @@
   // 선택 아바타용 스타일을 #pc-avatar-style 에 주입(시트/크기/애니메이션/키프레임)
   G.avatar.apply = function(){
     var c=G.avatar.current(); if(!c) return;
+    var sc=(c.scale||1.5);
     var css=
-      '#pc-sprite{width:'+c.fw+'px;height:'+c.fh+'px;background-image:url("'+c.sheet+'");'+
-        'transform:translateX(-50%) scale('+(c.scale||1.5)+');'+
+      '#pc-sprite{--pc-scale:'+sc+';width:'+c.fw+'px;height:'+c.fh+'px;background-image:url("'+c.sheet+'");'+
+        'transform:translateX(-50%) scale('+sc+');'+
         'animation:pc-idle '+c.idle.dur+'s steps('+steps(c.idle,true)+') infinite;}'+
       '#pc-sprite.attack{animation:pc-attack '+c.attack.dur+'s steps('+steps(c.attack,false)+') 1 forwards;}'+
       '#pc-sprite.hurt{animation:pc-hurt '+c.hurt.dur+'s steps('+steps(c.hurt,false)+') 1;}'+
       '#pc-sprite.death{animation:pc-death '+c.death.dur+'s steps('+steps(c.death,false)+') 1 forwards;}'+
+      // walk 모션 보유 시 진짜 걷기 애니메이션 주입(없으면 .walk-fallback CSS가 idle+bob 처리)
+      (c.walk ? '#pc-sprite.walk{animation:pc-walk '+c.walk.dur+'s steps('+steps(c.walk,true)+') infinite;}'+kf("pc-walk",c.walk,c.fw,c.fh,true) : '')+
       kf("pc-idle",c.idle,c.fw,c.fh,true)+kf("pc-attack",c.attack,c.fw,c.fh,false)+
       kf("pc-hurt",c.hurt,c.fw,c.fh,false)+kf("pc-death",c.death,c.fw,c.fh,false);
     var st=document.getElementById("pc-avatar-style");
