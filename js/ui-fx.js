@@ -96,9 +96,10 @@ G.ui.foeWalkIn = function(cb){
   if(!foes.length){ cb(); return; }
   // 모션 최소화(접근성/배터리): 애니메이션 없이 제자리에 즉시 배치(화면밖 잔류 방지)
   if(_reduced()){ foes.forEach(function(f){ f.style.transition="none"; f.style.transform=""; f.style.opacity="1"; }); cb(); return; }
+  G.ui.pcWalk(true);   // 몬스터가 우측→좌측으로 걸어오는 동안 유저 캐릭터도 제자리 걷기
   var sp=_sp();
   var walkMs=Math.max(280, 950/sp), fadeMs=Math.max(120, 300/sp), startX=190;
-  var fin=_once(cb), pending=foes.length;
+  var fin=_once(function(){ G.ui.pcWalk(false); cb(); }), pending=foes.length;
   foes.forEach(function(f,i){
     var es=f.querySelector(".esprite");
     var hasW=!!(es && foeAnims(es) && foeAnims(es).walk);
