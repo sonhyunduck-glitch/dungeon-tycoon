@@ -59,12 +59,11 @@ G.ui.pcAnim = function(state){
 function _once(fn){ var d=false; return function(){ if(d) return; d=true; fn(); }; }
 function _sp(){ return Math.max(1, (G.state&&G.state.battleSpeed)||1); }
 
-/* 플레이어 걷기 토글 — 진짜 walk 프레임 보유 시 #pc-sprite.walk, 없으면 홀더 bob(폴백) */
+/* 플레이어 걷기 토글 — 진짜 walk 프레임 보유 시 #pc-sprite.walk, 없으면 idle 유지(별도 처리 없음) */
 G.ui.pcWalk = function(on){
-  var s=el("pc-sprite"), holder=document.querySelector(".arena-pc .arena-sprite-holder");
-  var real = !!(G.avatar && G.avatar.hasWalk && G.avatar.hasWalk());
-  if(real && s){ if(on) s.classList.add("walk"); else s.classList.remove("walk"); }
-  if((!real || on===false) && holder){ if(on&&!real) holder.classList.add("ss-walk"); else holder.classList.remove("ss-walk"); }
+  if(!(G.avatar && G.avatar.hasWalk && G.avatar.hasWalk())) return;   // walk 없는 아바타는 idle 그대로
+  var s=el("pc-sprite"); if(!s) return;
+  if(on) s.classList.add("walk"); else s.classList.remove("walk");
 };
 
 /* 전진: 바닥 그리드를 좌측으로 스크롤(transform), 플레이어 걷기. 완료 후 그리드 0 리셋(40px 배수라 무회귀) */
@@ -92,13 +91,11 @@ G.ui.foeWalkIn = function(cb){
   if(!foes.length){ cb(); return; }
   var ms=Math.max(160, 520/_sp()), fin=_once(cb), pending=foes.length;
   foes.forEach(function(f,i){
-    var holder=f.querySelector(".arena-sprite-holder.foe");
     f.style.transition="none"; f.style.transform="translateX(150px)"; f.style.willChange="transform";
-    if(holder) holder.classList.add("ss-walk");
-    void f.offsetWidth;
+    void f.offsetWidth;   // 적은 idle 애니메이션(es- 배경) 그대로 둔 채 우측에서 미끄러져 들어옴
     setTimeout(function(){
       f.style.transition=""; f.style.transitionDuration=(ms/1000)+"s"; f.style.transform="translateX(0)";
-      var done=_once(function(){ if(holder) holder.classList.remove("ss-walk"); f.style.willChange=""; f.style.transition=""; f.style.transitionDuration=""; f.style.transform=""; if(--pending<=0) fin(); });
+      var done=_once(function(){ f.style.willChange=""; f.style.transition=""; f.style.transitionDuration=""; f.style.transform=""; if(--pending<=0) fin(); });
       var t=setTimeout(done, ms+160);
       f.addEventListener("transitionend", function te(){ f.removeEventListener("transitionend",te); clearTimeout(t); done(); }, {once:true});
     }, Math.round(i*90/_sp()));

@@ -252,9 +252,6 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
   transform:perspective(130px) rotateX(60deg) translateX(var(--gscroll,0px)); transform-origin:bottom center;
   transition:transform .5s linear;
   -webkit-mask-image:linear-gradient(to top,#000 6%,transparent 88%); mask-image:linear-gradient(to top,#000 6%,transparent 88%); }
-/* 걷기 흔들림(폴백 + 전진 연출) — 스프라이트 홀더에 적용. 홀더는 reduced-motion 예외가 아니라 배터리모드선 자동 정지 */
-@keyframes ssBob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-3px); } }
-.arena-sprite-holder.ss-walk{ animation:ssBob .42s ease-in-out infinite; }
 
 .arena-sprite-holder{ position:relative; width:90px; height:88px; }
 .arena-sprite-holder.foe{ width:auto; height:auto; min-width:46px; display:inline-flex; align-items:flex-end; justify-content:center; }
