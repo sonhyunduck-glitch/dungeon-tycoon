@@ -46,6 +46,7 @@
 <div class="wrap">
   <!-- 좌: 캔버스 + 컨트롤 -->
   <div class="col left">
+    <div class="row" id="groupFilter" style="flex-wrap:wrap; gap:4px 10px"></div>
     <div class="row">
       <label>몬스터</label>
       <select id="mon"></select>
@@ -146,6 +147,7 @@ fetch("manifest.json").then(r=>r.json()).then(j=>{
     cfg.monsters.forEach(m=>{ if(!store[m.key]){ store[m.key]=m; added++; } });
     if(added){ localStorage.setItem("slicerStore",JSON.stringify(store)); }
   }
+  buildGroupFilter();
   buildMonDropdown();
   selectMon(0);
   renderSaved();
@@ -170,16 +172,34 @@ function loadSavedFile(force){
     alert("저장 파일에서 "+cfg.monsters.length+"종 불러옴(모션 포함)");
   }).catch(e=>alert("불러오기 실패: "+e+"\n("+SAVED_CFG+")"));
 }
+let groupFilter="__all__";
+function buildGroupFilter(){
+  const box=$("#groupFilter"); if(!box) return;
+  const order=[]; manifest.forEach(m=>{ const g=m.group||"기타"; if(order.indexOf(g)<0) order.push(g); });
+  const cats=["__all__"].concat(order);
+  box.innerHTML="";
+  cats.forEach(g=>{
+    const id="gf_"+g.replace(/[^a-z0-9]+/gi,"_");
+    const lab=document.createElement("label"); lab.style.cssText="display:inline-flex;align-items:center;gap:3px;cursor:pointer";
+    const r=document.createElement("input"); r.type="radio"; r.name="grpfilter"; r.value=g; r.id=id; r.checked=(g===groupFilter);
+    r.onchange=()=>{ groupFilter=g; buildMonDropdown(); const sel=$("#mon"); if(sel.value!=="") selectMon(+sel.value); };
+    const cnt=manifest.filter(m=>g==="__all__"||(m.group||"기타")===g).length;
+    lab.appendChild(r); lab.appendChild(document.createTextNode((g==="__all__"?"전체":g)+" ("+cnt+")"));
+    box.appendChild(lab);
+  });
+}
 function buildMonDropdown(){
   const sel=$("#mon"); const prev=sel.value; sel.innerHTML="";
   const groups={};
-  manifest.forEach((m,i)=>{ const g=m.group||"기타"; (groups[g]=groups[g]||[]).push(i); });
+  manifest.forEach((m,i)=>{ const g=m.group||"기타"; if(groupFilter!=="__all__"&&g!==groupFilter) return; (groups[g]=groups[g]||[]).push(i); });
   Object.keys(groups).forEach(g=>{
     const og=document.createElement("optgroup"); og.label=g;
     groups[g].forEach(i=>{ const m=manifest[i]; const o=document.createElement("option"); o.value=i; o.textContent=(store[m.key]?"✔ ":"")+m.name+" ("+m.key+")"+(m.tier==="boss"?" ★":""); og.appendChild(o); });
     sel.appendChild(og);
   });
-  if(prev!=="") sel.value=prev;
+  // 이전 선택이 현재 필터에 남아있으면 유지, 아니면 첫 항목
+  if(prev!==""&&sel.querySelector('option[value="'+prev+'"]')) sel.value=prev;
+  else if(sel.options.length) sel.selectedIndex=0;
 }
 
 function selectMon(i){
