@@ -128,11 +128,13 @@
 
   // 작은 정적 아바타(idle 0프레임) — 랭킹/아레나 등 목록에서 남들 아바타 표시용
   // 실제 콘텐츠(불투명영역) 높이 기준 정규화 — 프레임 패딩 무관하게 캐릭터 크기를 일정하게
-  G.avatar.contentH = function(c){
-    var h = G.DATA.AVATAR_FIT && G.DATA.AVATAR_FIT[c.id];
-    if(h) return h;
-    var s=G.avatar._src(c,"idle"); return s ? Math.round((s.fh||32)*0.7) : 24;   // 폴백: 프레임의 70%
+  // 콘텐츠 측정값 {h:높이, b:발밑 투명여백, cx:수평중심 오프셋}
+  G.avatar._fit = function(c){
+    var f = G.DATA.AVATAR_FIT && G.DATA.AVATAR_FIT[c.id];
+    if(f && f.h) return f;
+    var s=G.avatar._src(c,"idle"); return { h:(s?Math.round((s.fh||32)*0.7):24), b:0, cx:0 };   // 폴백
   };
+  G.avatar.contentH = function(c){ return G.avatar._fit(c).h; };
   // 실제 콘텐츠 크기에 비례해 zoom배 확대(큰 그림=크게/작은 그림=작게). cap=콘텐츠 표시 최대 높이(상한)
   G.avatar.fitScale = function(c, zoom, cap){
     var ch=G.avatar.contentH(c);
@@ -214,12 +216,15 @@
     var idle=S(c,"idle"), atk=S(c,"attack"), hurt=S(c,"hurt"), death=S(c,"death"), walk=S(c,"walk");
     if(!idle) return;
     var sc=G.avatar.fitScale(c, 2.0, 60);   // 콘텐츠 2배 확대(상한 60px) — 큰 그림 크게/작은 그림 작게
+    var _f=G.avatar._fit(c);
+    var _sx=(-_f.cx*sc).toFixed(1);   // 콘텐츠 수평중심을 가운데로
+    var _sy=(_f.b*sc).toFixed(1);     // 발밑 투명여백만큼 내려 발을 바닥(그림자)에
     function kf2(name, s, loop){ var end=loop?s.frames:Math.max(1,s.frames-1); var y=-(s.row*s.fh);
       return "@keyframes "+name+"{from{background-position:0 "+y+"px}to{background-position:"+(-(end*s.fw))+"px "+y+"px}}"; }
     function stp(s, loop){ return Math.max(1, loop?s.frames:s.frames-1); }
     var css=
       '#pc-sprite{--pc-scale:'+sc+';width:'+idle.fw+'px;height:'+idle.fh+'px;background-image:url("'+idle.url+'");background-repeat:no-repeat;background-size:auto;'+
-        'transform:translateX(-50%) scale('+sc+');animation:pc-idle '+c.idle.dur+'s steps('+stp(idle,true)+') infinite;}'+
+        'transform:translateX(calc(-50% + '+_sx+'px)) translateY('+_sy+'px) scale('+sc+');transform-origin:center bottom;animation:pc-idle '+c.idle.dur+'s steps('+stp(idle,true)+') infinite;}'+
       (atk ? '#pc-sprite.attack{background-image:url("'+atk.url+'");animation:pc-attack '+c.attack.dur+'s steps('+stp(atk,false)+') 1 forwards;}' : '')+
       (hurt ? '#pc-sprite.hurt{background-image:url("'+hurt.url+'");animation:pc-hurt '+c.hurt.dur+'s steps('+stp(hurt,false)+') 1;}' : '')+
       (death ? '#pc-sprite.death{background-image:url("'+death.url+'");animation:pc-death '+c.death.dur+'s steps('+stp(death,false)+') 1 forwards;}' : '')+
