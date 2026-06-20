@@ -66,20 +66,34 @@
 
   /* ---------- 닉네임 ---------- */
   G.net.hasNickname = function(){ return !!G.net.nickname; };
+  // 반환: {ok:true} | {ok:false, msg}
   G.net.setNickname = async function(name){
     name=(name||"").trim().slice(0,16);
-    if(!name) return false;
+    if(!name) return { ok:false, msg:"닉네임을 입력하세요" };
+    if(G.net.online()){
+      // 중복 검사(대소문자 무시, 본인 제외). ilike로 후보 조회 후 JS에서 정확 비교(와일드카드 오탐 방지)
+      try{
+        var q=await G.net.sb.from("profiles").select("id,nickname").ilike("nickname", name);
+        if(!q.error && q.data && q.data.some(function(row){
+          return row.id!==G.net.uid && (row.nickname||"").toLowerCase()===name.toLowerCase();
+        })) return { ok:false, msg:"이미 사용 중인 닉네임입니다" };
+      }catch(e){ /* 조회 실패 시 차단하지 않고 통과(서버 제약이 최종 방어) */ }
+    }
     G.net.nickname=name;
     if(G.state) G.state.nickname=name;
-    if(!G.net.online()) return true;   // 오프라인이어도 로컬 닉네임은 유지
+    if(!G.net.online()) return { ok:true };   // 오프라인이어도 로컬 닉네임은 유지
     try{
-      await G.net.sb.from("profiles").upsert({
+      var up=await G.net.sb.from("profiles").upsert({
         id:G.net.uid, nickname:name,
         floor:(G.state&&G.state.dungeon&&G.state.dungeon.maxFloor)||1,
         updated_at:new Date().toISOString()
       });
-      return true;
-    }catch(e){ console.warn("[net] 닉네임 저장 실패",e); return false; }
+      if(up && up.error){   // DB unique 제약 위반 등(경합) → 중복 처리
+        if(/duplicate|unique/i.test(up.error.message||"")) return { ok:false, msg:"이미 사용 중인 닉네임입니다" };
+        return { ok:false, msg:"저장 실패" };
+      }
+      return { ok:true };
+    }catch(e){ console.warn("[net] 닉네임 저장 실패",e); return { ok:false, msg:"저장 실패" }; }
   };
 
   /* ---------- 클라우드 세이브 ---------- */

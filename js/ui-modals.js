@@ -469,16 +469,22 @@ G.ui.nicknameModal = function(onDone){
     '<div class="muted" style="margin:8px 0 12px">다른 모험가들에게 보일 이름이에요. (최대 16자)</div>'+
     '<input type="text" id="nick-input" maxlength="16" placeholder="예: 용감한모험가" '+
       'style="width:100%;padding:12px 14px;border-radius:12px;background:rgba(0,0,0,.3);border:1px solid var(--glass-brd);color:var(--text);font-size:1rem;outline:none">'+
-    '<button class="btn primary full" id="nick-ok" style="margin-top:14px">시작하기</button>'+
+    '<div id="nick-msg" style="min-height:16px;margin-top:8px;font-size:.8rem;color:#ff9db0"></div>'+
+    '<button class="btn primary full" id="nick-ok" style="margin-top:8px">시작하기</button>'+
   '</div>';
   document.body.appendChild(ov);
-  var inp=ov.querySelector("#nick-input");
+  var inp=ov.querySelector("#nick-input"), msgEl=ov.querySelector("#nick-msg");
   setTimeout(function(){ inp.focus(); }, 60);
   function submit(){
     var v=(inp.value||"").trim();
     if(!v){ inp.focus(); return; }
-    var btn=ov.querySelector("#nick-ok"); btn.disabled=true; btn.textContent="설정 중...";
-    G.net.setNickname(v).then(function(){
+    var btn=ov.querySelector("#nick-ok"); btn.disabled=true; btn.textContent="확인 중..."; msgEl.textContent="";
+    G.net.setNickname(v).then(function(res){
+      if(!res || res.ok===false){
+        btn.disabled=false; btn.textContent="시작하기";
+        msgEl.textContent="⚠️ "+((res&&res.msg)||"닉네임 설정 실패");
+        return;
+      }
       ov.remove(); G.paused=false;
       G.ui.render();
       if(onDone) onDone();
