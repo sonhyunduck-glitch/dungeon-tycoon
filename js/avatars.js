@@ -133,16 +133,17 @@
     if(h) return h;
     var s=G.avatar._src(c,"idle"); return s ? Math.round((s.fh||32)*0.7) : 24;   // 폴백: 프레임의 70%
   };
-  // 콘텐츠가 targetPx 높이로 보이도록 하는 스케일(클램프)
-  G.avatar.fitScale = function(c, targetPx){
-    return Math.round(Math.max(0.4, Math.min(2.8, targetPx/G.avatar.contentH(c)))*100)/100;
+  // 실제 콘텐츠 크기에 비례해 zoom배 확대(큰 그림=크게/작은 그림=작게). cap=콘텐츠 표시 최대 높이(상한)
+  G.avatar.fitScale = function(c, zoom, cap){
+    var ch=G.avatar.contentH(c);
+    return Math.round(Math.min(zoom||2, (cap||60)/ch)*100)/100;
   };
 
   G.avatar.miniHTML = function(id, size){
     size = size||26;
     var c=G.avatar.get(id||"adventurer");
     var s=G.avatar._src(c,"idle"); if(!s) return "";
-    var z=Math.round((size*0.84)/G.avatar.contentH(c)*1000)/1000;   // 콘텐츠가 박스를 채우게(프레임 패딩 무관)
+    var z=G.avatar.fitScale(c, 1.5, size*0.92);   // 콘텐츠 1.5배(작은 그림 작게), 박스 초과는 상한
     var y=-(s.row*s.fh);
     var inner='width:'+s.fw+'px;height:'+s.fh+'px;background:url(\''+s.url+'\') 0px '+y+'px no-repeat;background-size:auto;'+
       'image-rendering:pixelated;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale('+z+');';
@@ -212,7 +213,7 @@
     var S=G.avatar._src;
     var idle=S(c,"idle"), atk=S(c,"attack"), hurt=S(c,"hurt"), death=S(c,"death"), walk=S(c,"walk");
     if(!idle) return;
-    var sc=G.avatar.fitScale(c, 46);   // 콘텐츠 높이 ~46px로 정규화(프레임 패딩 무관)
+    var sc=G.avatar.fitScale(c, 2.0, 60);   // 콘텐츠 2배 확대(상한 60px) — 큰 그림 크게/작은 그림 작게
     function kf2(name, s, loop){ var end=loop?s.frames:Math.max(1,s.frames-1); var y=-(s.row*s.fh);
       return "@keyframes "+name+"{from{background-position:0 "+y+"px}to{background-position:"+(-(end*s.fw))+"px "+y+"px}}"; }
     function stp(s, loop){ return Math.max(1, loop?s.frames:s.frames-1); }
@@ -264,7 +265,7 @@
 
   // 선택 UI용 프리뷰(컨테이너 fw*zoom × fh*zoom, 안쪽 원본크기 요소를 scale 확대).
   // 애니메이션(idle→attack 순차)은 animatePreview가 background-position을 갱신.
-  G.avatar.zoomFor = function(c){ return Math.max(0.5, Math.min(3.2, 50/G.avatar.contentH(c))); };   // 콘텐츠 ~50px
+  G.avatar.zoomFor = function(c){ return G.avatar.fitScale(c, 2.0, 52); };   // 콘텐츠 2배(상한 52px)
   G.avatar.previewHTML = function(c){
     var s=G.avatar._src(c,"idle"); if(!s) return "";
     var zoom=G.avatar.zoomFor(c);
@@ -283,7 +284,7 @@
   G.avatar.makeFighter = function(holder, id, flip, dispScale, glowTier){
     var c=G.avatar.get(id), S=G.avatar._src;
     var idle=S(c,"idle"); if(!idle) return null;
-    var z=Math.max(0.5, Math.min(5, ((dispScale||2.2)*46)/G.avatar.contentH(c)));   // 콘텐츠 기준 정규화(아레나)
+    var z=G.avatar.fitScale(c, 2.0, 60)*(dispScale||2.2);   // 콘텐츠 비례(전투와 동일) × 아레나 배율
     var gl=(glowTier && G.glow)? " "+G.glow.layers(glowTier) : "";
     var sp=document.createElement("div");
     sp.style.cssText="position:absolute;left:50%;bottom:0;width:"+idle.fw+"px;height:"+idle.fh+"px;"+
