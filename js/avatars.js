@@ -203,6 +203,39 @@
     var st=document.getElementById("pc-avatar-style");
     if(!st){ st=document.createElement("style"); st.id="pc-avatar-style"; document.head.appendChild(st); }
     st.textContent=css;
+    if(G.glow) G.glow.apply();   // 컬렉션 글로우 갱신
+  };
+
+  /* ============================================================
+     컬렉션 글로우 — 장비 연대기(고유장비) 발견 수에 따라 플레이어 스프라이트에 실루엣 글로우.
+     티어=발견/전체 비율 단계. #pc-glow-style(id) 주입 → 재렌더된 #pc-sprite에도 자동 적용.
+     ============================================================ */
+  G.glow = {};
+  G.glow.DEF = {                          // 티어 → {name, layers:[[색, 블러px], ...]}
+    1:{ name:"여명",   layers:[["#ffffff",2],["#ffffff",5]] },
+    2:{ name:"비취",   layers:[["#6ad0ff",2],["#3aa0ff",6]] },
+    3:{ name:"심령",   layers:[["#c08bff",2],["#9a4dff",6]] },
+    4:{ name:"황금",   layers:[["#ffe08a",2],["#ffb43c",5],["#ff9a2c",9]] },
+    5:{ name:"프리즘", layers:[["#7afcff",2],["#ff7ad0",6],["#ffe08a",10]] }
+  };
+  G.glow.total = function(){ return (G.DATA.UNIQUES||[]).length || 1; };
+  G.glow.discovered = function(){
+    var d=(G.state&&G.state.collection&&G.state.collection.uniques)||{};
+    var n=0; for(var k in d){ if(d[k]) n++; } return n;
+  };
+  G.glow.enabled = function(){ return !(G.state && G.state.glow===false); };
+  G.glow.tier = function(){
+    var p=G.glow.discovered()/G.glow.total();
+    return p>=1?5 : p>=0.8?4 : p>=0.6?3 : p>=0.4?2 : p>=0.2?1 : 0;
+  };
+  G.glow.layers = function(tier){ var d=G.glow.DEF[tier]; if(!d) return "";
+    return d.layers.map(function(l){ return "drop-shadow(0 0 "+l[1]+"px "+l[0]+")"; }).join(" "); };
+  G.glow.apply = function(){
+    var st=document.getElementById("pc-glow-style");
+    var tier=G.glow.enabled()?G.glow.tier():0;
+    if(!tier){ if(st) st.remove(); return; }
+    if(!st){ st=document.createElement("style"); st.id="pc-glow-style"; document.head.appendChild(st); }
+    st.textContent='#pc-sprite{ filter:drop-shadow(0 3px 4px rgba(0,0,0,.55)) '+G.glow.layers(tier)+'; }';
   };
 
   // 선택 UI용 프리뷰(컨테이너 fw*zoom × fh*zoom, 안쪽 원본크기 요소를 scale 확대).
@@ -222,15 +255,16 @@
 
   // 전투용 파이터 스프라이트(아레나 전투화면 등) — 임의 아바타를 holder에 렌더.
   // idle 루프, set("attack"/"hurt"/"death")은 1회 재생 후 idle 복귀. flip=좌우반전(상대측).
-  G.avatar.makeFighter = function(holder, id, flip, dispScale){
+  G.avatar.makeFighter = function(holder, id, flip, dispScale, glowTier){
     var c=G.avatar.get(id), S=G.avatar._src;
     var idle=S(c,"idle"); if(!idle) return null;
     var z=(dispScale||2.2)*(c.scale||1.5);
+    var gl=(glowTier && G.glow)? " "+G.glow.layers(glowTier) : "";
     var sp=document.createElement("div");
     sp.style.cssText="position:absolute;left:50%;bottom:0;width:"+idle.fw+"px;height:"+idle.fh+"px;"+
       "background:url('"+idle.url+"') 0 0 no-repeat;background-size:auto;image-rendering:pixelated;"+
       "transform:translateX(-50%) scale("+z+")"+(flip?" scaleX(-1)":"")+";transform-origin:center bottom;"+
-      "filter:drop-shadow(0 3px 4px rgba(0,0,0,.55));";
+      "filter:drop-shadow(0 3px 4px rgba(0,0,0,.55))"+gl+";";
     holder.appendChild(sp);
     var st={ mo:"idle", frame:0, t:null };
     function src(){ return S(c, st.mo) || idle; }

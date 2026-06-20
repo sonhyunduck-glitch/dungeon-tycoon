@@ -168,6 +168,7 @@ G.item.generateUnique = function(u, level){
   G.state.collection = G.state.collection || { uniques:{} };
   if(!G.state.collection.uniques) G.state.collection.uniques={};
   G.state.collection.uniques[u.id]=true;
+  if(G.glow) G.glow.apply();   // 새 고유 발견 → 글로우 티어 갱신 가능
   return it;
 };
 

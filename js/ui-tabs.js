@@ -81,7 +81,12 @@ G.ui.renderSettings = function(){
       '<div class="row">'+
         '<button class="btn '+(G.state.muted?"":"primary")+'" data-act="toggle-mute">'+(G.state.muted?"🔇 사운드 꺼짐":"🔊 사운드 켜짐")+'</button>'+
         '<button class="btn '+(G.state.shake===false?"":"primary")+'" data-act="toggle-shake">'+(G.state.shake===false?"📴 화면흔들림 꺼짐":"📳 화면흔들림 켜짐")+'</button>'+
+        '<button class="btn '+(G.state.glow===false?"":"primary")+'" data-act="toggle-glow">'+(G.state.glow===false?"🌑 컬렉션 글로우 꺼짐":"✨ 컬렉션 글로우 켜짐")+'</button>'+
       '</div>'+
+      (function(){ if(!G.glow) return ""; var t=G.glow.tier(), d=G.glow.DEF[t];
+        return '<div class="muted" style="margin-top:8px; font-size:.72rem">🗡️ 장비 연대기 '+G.glow.discovered()+' / '+G.glow.total()+
+          ' → 글로우 '+(t? ('<b class="r-unique">'+d.name+'</b> (티어 '+t+'/5)') : '없음 (20% 발견 시 시작)')+'</div>';
+      })()+
       (function(){
         var bv=Math.round((G.state.bgmVol!=null?G.state.bgmVol:0.32)*100);
         var sv=Math.round((G.state.sfxVol!=null?G.state.sfxVol:0.55)*100);

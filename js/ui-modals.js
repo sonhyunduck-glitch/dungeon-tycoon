@@ -248,7 +248,8 @@ G.ui.arenaBattle = function(out, onDone){
     '</div>'+
   '</div>';
   document.body.appendChild(ov);
-  var meF=G.avatar.makeFighter(el("af-me"), meId, false);
+  var meGlow=(G.glow && G.glow.enabled())? G.glow.tier() : 0;   // 내 캐릭터만 컬렉션 글로우
+  var meF=G.avatar.makeFighter(el("af-me"), meId, false, null, meGlow);
   var foeF=G.avatar.makeFighter(el("af-foe"), foeId, true);
   var stage=el("abattle-stage");
   var chk=ov.querySelector(".abattle-always");

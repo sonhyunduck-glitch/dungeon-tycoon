@@ -145,6 +145,7 @@
 
     /* 화면 흔들림 ON/OFF */
     "toggle-shake": function(){ G.state.shake = (G.state.shake===false); G.save.save(true); G.ui.render(); },
+    "toggle-glow": function(){ G.state.glow = (G.state.glow===false); if(G.glow) G.glow.apply(); G.save.save(true); G.ui.render(); },
 
     /* 아레나(PvP) */
     "arena-refresh": function(){ G.arena._foes=null; G.ui.renderArena(); },
