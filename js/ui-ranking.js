@@ -12,12 +12,17 @@ G.ui.renderRanking = function(){
     }
   }
   var vw=G.ranking.towerView();
-  var CAP=5;   // 방당 표시 아바타 수(초과는 +N명)
+  var CAP=4;   // 방당 표시 아바타 수(초과는 +N명) — 이름표 공간 확보 위해 4
   function mini(c){ if(!(G.avatar&&G.avatar.miniHTML)) return ""; var id=c.me?G.avatar.currentId():c.avatar; return G.avatar.miniHTML(id,40); }
   function badge(rm){ return rm.rank<=3 ? '<span class="tf-medal">'+["🥇","🥈","🥉"][rm.rank-1]+'</span>' : '<span class="tf-rk">'+rm.rank+'</span>'; }
   function avrow(rm){
     var shown=rm.members.slice(0,CAP), extra=rm.members.length-shown.length;
-    var avs=shown.map(function(c){ return '<div class="tf-av'+(c.me?" me":"")+'" title="'+esc(c.name)+'">'+mini(c)+'</div>'; }).join("");
+    var avs=shown.map(function(c){
+      return '<div class="tf-unit'+(c.me?" me":"")+'" title="'+esc(c.name)+'">'+
+        '<div class="tf-av'+(c.me?" me":"")+'">'+mini(c)+'</div>'+
+        '<div class="tf-uname'+(c.me?" me":"")+'">'+esc(c.name)+'</div>'+
+      '</div>';
+    }).join("");
     if(extra>0) avs+='<div class="tf-more">+'+extra+'</div>';
     return '<div class="tf-avrow">'+avs+'</div>';
   }

@@ -608,7 +608,7 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
 .tower-flag{ position:absolute; top:6px; font-size:1rem; opacity:.9; }
 .tower-flag.l{ left:10px; } .tower-flag.r{ right:10px; }
 /* 층 = 파란 벽돌방. 아바타가 바닥에 서 있고, 좌측에 메달/순위, 상단 코인 장식 */
-.tfloor{ position:relative; height:74px; margin:0 6px; display:flex; align-items:flex-end; justify-content:center; overflow:hidden;
+.tfloor{ position:relative; height:94px; margin:0 6px; display:flex; align-items:flex-end; justify-content:center; overflow:hidden;
   background:
     repeating-linear-gradient(0deg, rgba(0,0,0,.30) 0 2px, transparent 2px 16px),
     repeating-linear-gradient(90deg, rgba(0,0,0,.26) 0 2px, transparent 2px 30px),
@@ -621,11 +621,17 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
     repeating-linear-gradient(90deg, rgba(0,0,0,.24) 0 2px, transparent 2px 30px),
     linear-gradient(180deg,#39406a,#262c52);
   box-shadow:inset 0 0 20px rgba(255,205,90,.12), inset 0 -8px 9px -7px rgba(0,0,0,.7); }
-/* 같은 층 입주자들을 한 줄로 */
-.tf-avrow{ position:relative; z-index:2; display:flex; align-items:flex-end; justify-content:center; gap:1px;
-  flex-wrap:nowrap; max-width:80%; margin:0 auto 5px; }
+/* 같은 층 입주자들을 한 줄로 — 각자 아바타 아래 이름표 */
+.tf-avrow{ position:relative; z-index:2; display:flex; align-items:flex-end; justify-content:center; gap:4px;
+  flex-wrap:nowrap; max-width:92%; margin:0 auto 18px; }
+.tf-unit{ display:flex; flex-direction:column; align-items:center; min-width:0; max-width:64px; flex:0 1 auto; }
 .tf-av{ position:relative; flex:0 0 auto; filter:drop-shadow(0 3px 3px rgba(0,0,0,.55)); }
 .tf-av.me{ filter:drop-shadow(0 0 6px #ffc24a) drop-shadow(0 3px 3px rgba(0,0,0,.55)); }
+/* 캐릭터 이름표 — 배경칩으로 가독성 확보 */
+.tf-uname{ margin-top:2px; max-width:100%; font-size:.56rem; line-height:1.3; color:#eaf0ff; font-weight:600;
+  background:rgba(8,12,24,.78); border:1px solid rgba(150,180,255,.22); border-radius:7px; padding:1px 5px;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-shadow:0 1px 1px #000; }
+.tf-uname.me{ color:#1a1300; background:#ffce4a; border-color:#ffe79a; font-weight:800; }
 .tf-more{ align-self:center; font-size:.62rem; font-weight:800; color:#cdd8f5; background:rgba(0,0,0,.4);
   border:1px solid rgba(255,255,255,.15); border-radius:8px; padding:2px 5px; margin-left:2px; white-space:nowrap; }
 .tf-cnt{ font-size:.6rem; color:#9fb0dd; font-weight:600; }
@@ -642,7 +648,7 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
   background:radial-gradient(circle at 35% 30%, #ffe79a, #e0a528); box-shadow:0 0 6px #ffb43c; z-index:2; }
 .tf-coin.l{ left:20%; } .tf-coin.r{ right:20%; }
 /* 내 방 — 빛나는 아치형 출입구 + 화살표 */
-.tfloor.me{ height:104px;
+.tfloor.me{ height:124px;
   background:
     radial-gradient(ellipse at 50% 95%, rgba(255,200,90,.30), transparent 62%),
     repeating-linear-gradient(0deg, rgba(0,0,0,.30) 0 2px, transparent 2px 16px),
