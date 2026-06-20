@@ -127,14 +127,22 @@
   };
 
   // 작은 정적 아바타(idle 0프레임) — 랭킹/아레나 등 목록에서 남들 아바타 표시용
-  // 소형 아바타(프레임 높이 ≤32px) 표시 보정 — 전투/미리보기/랭킹/아레나 공통 1.5배
-  G.avatar.dispBoost = function(s){ return (s && (s.fh||0)<=32) ? 1.5 : 1; };
+  // 실제 콘텐츠(불투명영역) 높이 기준 정규화 — 프레임 패딩 무관하게 캐릭터 크기를 일정하게
+  G.avatar.contentH = function(c){
+    var h = G.DATA.AVATAR_FIT && G.DATA.AVATAR_FIT[c.id];
+    if(h) return h;
+    var s=G.avatar._src(c,"idle"); return s ? Math.round((s.fh||32)*0.7) : 24;   // 폴백: 프레임의 70%
+  };
+  // 콘텐츠가 targetPx 높이로 보이도록 하는 스케일(클램프)
+  G.avatar.fitScale = function(c, targetPx){
+    return Math.round(Math.max(0.4, Math.min(2.8, targetPx/G.avatar.contentH(c)))*100)/100;
+  };
 
   G.avatar.miniHTML = function(id, size){
     size = size||26;
     var c=G.avatar.get(id||"adventurer");
     var s=G.avatar._src(c,"idle"); if(!s) return "";
-    var z=size/Math.max(s.fw,s.fh)*G.avatar.dispBoost(s);
+    var z=Math.round((size*0.84)/G.avatar.contentH(c)*1000)/1000;   // 콘텐츠가 박스를 채우게(프레임 패딩 무관)
     var y=-(s.row*s.fh);
     var inner='width:'+s.fw+'px;height:'+s.fh+'px;background:url(\''+s.url+'\') 0px '+y+'px no-repeat;background-size:auto;'+
       'image-rendering:pixelated;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale('+z+');';
@@ -204,7 +212,7 @@
     var S=G.avatar._src;
     var idle=S(c,"idle"), atk=S(c,"attack"), hurt=S(c,"hurt"), death=S(c,"death"), walk=S(c,"walk");
     if(!idle) return;
-    var sc=Math.round((c.scale||1.5)*G.avatar.dispBoost(idle)*100)/100;   // ≤32px 소형 아바타 1.5배 확대(전투/미리보기/랭킹 공통)
+    var sc=G.avatar.fitScale(c, 46);   // 콘텐츠 높이 ~46px로 정규화(프레임 패딩 무관)
     function kf2(name, s, loop){ var end=loop?s.frames:Math.max(1,s.frames-1); var y=-(s.row*s.fh);
       return "@keyframes "+name+"{from{background-position:0 "+y+"px}to{background-position:"+(-(end*s.fw))+"px "+y+"px}}"; }
     function stp(s, loop){ return Math.max(1, loop?s.frames:s.frames-1); }
@@ -256,16 +264,17 @@
 
   // 선택 UI용 프리뷰(컨테이너 fw*zoom × fh*zoom, 안쪽 원본크기 요소를 scale 확대).
   // 애니메이션(idle→attack 순차)은 animatePreview가 background-position을 갱신.
-  G.avatar.zoomFor = function(c){ var s=G.avatar._src(c,"idle")||{fw:c.fw,fh:c.fh}; return Math.min(2.4, Math.max(1, 64/Math.max(s.fw,s.fh)))*G.avatar.dispBoost(s); };
+  G.avatar.zoomFor = function(c){ return Math.max(0.5, Math.min(3.2, 50/G.avatar.contentH(c))); };   // 콘텐츠 ~50px
   G.avatar.previewHTML = function(c){
     var s=G.avatar._src(c,"idle"); if(!s) return "";
     var zoom=G.avatar.zoomFor(c);
     var y = -(s.row*s.fh);
+    // 고정 60px 박스에 콘텐츠를 중앙·일정 크기로(프레임 패딩 무관). 투명 프레임 넘침은 안 보임
     var inner='width:'+s.fw+'px;height:'+s.fh+'px;'+
       'background:url(\''+s.url+'\') 0px '+y+'px no-repeat;background-size:auto;'+
-      'image-rendering:pixelated;position:absolute;left:0;top:0;'+
-      'transform:scale('+zoom+');transform-origin:top left;';
-    var box='position:relative;width:'+(s.fw*zoom)+'px;height:'+(s.fh*zoom)+'px;';
+      'image-rendering:pixelated;position:absolute;left:50%;top:50%;'+
+      'transform:translate(-50%,-50%) scale('+zoom+');transform-origin:center;';
+    var box='position:relative;width:60px;height:60px;overflow:hidden;';
     return '<div style="'+box+'"><div class="av-prev-inner" data-av="'+c.id+'" style="'+inner+'"></div></div>';
   };
 
@@ -274,7 +283,7 @@
   G.avatar.makeFighter = function(holder, id, flip, dispScale, glowTier){
     var c=G.avatar.get(id), S=G.avatar._src;
     var idle=S(c,"idle"); if(!idle) return null;
-    var z=(dispScale||2.2)*(c.scale||1.5)*G.avatar.dispBoost(idle);
+    var z=Math.max(0.5, Math.min(5, ((dispScale||2.2)*46)/G.avatar.contentH(c)));   // 콘텐츠 기준 정규화(아레나)
     var gl=(glowTier && G.glow)? " "+G.glow.layers(glowTier) : "";
     var sp=document.createElement("div");
     sp.style.cssText="position:absolute;left:50%;bottom:0;width:"+idle.fw+"px;height:"+idle.fh+"px;"+
