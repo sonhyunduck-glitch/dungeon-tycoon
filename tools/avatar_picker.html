@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>아바타 후보 선택 — 몬스터 갤러리</title>
+<link rel="stylesheet" href="../css/enemies_phaseb.css">
+<style>
+  :root{ --bg:#111320; --panel:#1b1f33; --brd:#2c3450; --gold:#c79a3a; --txt:#e7ecff; --dim:#9fb0dd; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--txt); font-family:"Segoe UI","Malgun Gothic",sans-serif; padding-bottom:160px; }
+  header{ position:sticky; top:0; z-index:10; background:linear-gradient(180deg,#161a2b,#11131f); border-bottom:2px solid var(--gold); padding:12px 16px; }
+  h1{ margin:0 0 8px; font-size:1.1rem; }
+  .controls{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .chip{ background:var(--panel); border:1px solid var(--brd); color:var(--dim); border-radius:18px; padding:6px 14px; cursor:pointer; font-size:.85rem; }
+  .chip.on{ background:var(--gold); color:#1a1300; border-color:var(--gold); font-weight:700; }
+  input[type=search]{ flex:1; min-width:160px; background:#0d0f1a; border:1px solid var(--brd); color:var(--txt); border-radius:10px; padding:8px 12px; font-size:.9rem; }
+  .muted{ color:var(--dim); font-size:.8rem; }
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; padding:16px; }
+  .card{ position:relative; background:var(--panel); border:2px solid var(--brd); border-radius:14px; padding:10px 8px 8px; text-align:center; cursor:pointer; transition:.12s; overflow:hidden; }
+  .card:hover{ border-color:#4a5680; transform:translateY(-2px); }
+  .card.sel{ border-color:var(--gold); box-shadow:0 0 0 2px var(--gold) inset, 0 0 16px rgba(199,154,58,.35); }
+  .card.sel::after{ content:"✓"; position:absolute; top:6px; right:8px; width:22px; height:22px; line-height:22px; border-radius:50%; background:var(--gold); color:#1a1300; font-weight:900; font-size:.85rem; }
+  .stage{ height:130px; display:flex; align-items:flex-end; justify-content:center; margin-bottom:6px; }
+  .stage .esprite{ filter:drop-shadow(0 4px 6px rgba(0,0,0,.55)); }
+  .nm{ font-size:.82rem; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .meta{ font-size:.66rem; color:var(--dim); margin-top:2px; }
+  .tg{ display:inline-block; padding:1px 6px; border-radius:6px; font-size:.6rem; font-weight:700; }
+  .tg.boss{ background:#4a2330; color:#ff9db0; } .tg.normal{ background:#23344a; color:#9dc0ff; }
+  .tg.walk{ background:#234a32; color:#9dffb6; margin-left:3px; }
+  footer{ position:fixed; left:0; right:0; bottom:0; z-index:20; background:#0d0f1a; border-top:2px solid var(--gold); padding:10px 16px; }
+  footer .row{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+  button{ background:var(--gold); color:#1a1300; border:none; border-radius:10px; padding:9px 16px; font-weight:800; cursor:pointer; font-size:.88rem; }
+  button.ghost{ background:var(--panel); color:var(--txt); border:1px solid var(--brd); }
+  textarea{ width:100%; height:60px; margin-top:8px; background:#0d0f1a; color:#9dffb6; border:1px solid var(--brd); border-radius:8px; font-family:monospace; font-size:.75rem; padding:8px; display:none; }
+  textarea.show{ display:block; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🎭 아바타 후보 선택 <span class="muted">— 원하는 몬스터를 클릭해 선택하세요</span></h1>
+  <div class="controls">
+    <span class="chip on" data-f="all">전체</span>
+    <span class="chip" data-f="normal">일반</span>
+    <span class="chip" data-f="boss">보스</span>
+    <span class="chip" data-f="walk">걷기보유</span>
+    <input type="search" id="q" placeholder="이름·키 검색 (예: 드래곤, kobold)">
+    <span class="muted" id="shown"></span>
+  </div>
+</header>
+
+<div class="grid" id="grid"></div>
+
+<footer>
+  <div class="row">
+    <b id="cnt">선택 0종</b>
+    <button id="exportBtn">📋 선택 목록 내보내기</button>
+    <button class="ghost" id="copyBtn">복사</button>
+    <button class="ghost" id="allBtn">현재 필터 전체선택</button>
+    <button class="ghost" id="clrBtn">선택 초기화</button>
+    <span class="muted">선택은 자동 저장됩니다(localStorage)</span>
+  </div>
+  <textarea id="out" readonly></textarea>
+</footer>
+
+<script>
+var SKEY="avatar_pick_v1";
+var sel=new Set(JSON.parse(localStorage.getItem(SKEY)||"[]"));
+var MONS=[], filter="all", q="";
+
+function fhOf(m){ var a=(m.anims||[]).find(function(x){return x.type==="idle";}); return a?a.fh:0; }
+function hasWalk(m){ return (m.anims||[]).some(function(x){return x.type==="walk";}); }
+
+fetch("../assets/enemies/slice_config.json").then(function(r){return r.json();}).then(function(d){
+  MONS=d.monsters.map(function(m){ return {key:m.key, name:m.name, tier:m.tier||"normal", fh:fhOf(m), walk:hasWalk(m)}; });
+  MONS.sort(function(a,b){ if(a.tier!==b.tier) return a.tier==="boss"?1:-1; return a.name.localeCompare(b.name,"ko"); });
+  render();
+});
+
+function pass(m){
+  if(filter==="normal"&&m.tier!=="normal") return false;
+  if(filter==="boss"&&m.tier!=="boss") return false;
+  if(filter==="walk"&&!m.walk) return false;
+  if(q){ var s=(m.name+" "+m.key).toLowerCase(); if(s.indexOf(q)<0) return false; }
+  return true;
+}
+
+function render(){
+  var g=document.getElementById("grid"), html="", n=0;
+  MONS.forEach(function(m){
+    if(!pass(m)) return; n++;
+    html+='<div class="card'+(sel.has(m.key)?" sel":"")+'" data-k="'+m.key+'">'+
+      '<div class="stage"><div class="esprite es-'+m.key+'"></div></div>'+
+      '<div class="nm">'+m.name+'</div>'+
+      '<div class="meta">'+m.key+'</div>'+
+      '<div class="meta"><span class="tg '+m.tier+'">'+(m.tier==="boss"?"보스":"일반")+'</span>'+
+        '<span class="tg" style="background:#2a2f44;color:#bcd">'+m.fh+'px</span>'+
+        (m.walk?'<span class="tg walk">걷기</span>':'')+'</div>'+
+    '</div>';
+  });
+  g.innerHTML=html;
+  document.getElementById("shown").textContent="("+n+"종 표시 / 총 "+MONS.length+")";
+  updateCnt();
+}
+function updateCnt(){ document.getElementById("cnt").textContent="선택 "+sel.size+"종"; persist(); }
+function persist(){ localStorage.setItem(SKEY, JSON.stringify(Array.from(sel))); }
+
+document.getElementById("grid").addEventListener("click", function(e){
+  var c=e.target.closest(".card"); if(!c) return;
+  var k=c.dataset.k;
+  if(sel.has(k)){ sel.delete(k); c.classList.remove("sel"); } else { sel.add(k); c.classList.add("sel"); }
+  updateCnt();
+});
+document.querySelectorAll(".chip").forEach(function(ch){
+  ch.addEventListener("click", function(){
+    document.querySelectorAll(".chip").forEach(function(x){x.classList.remove("on");});
+    ch.classList.add("on"); filter=ch.dataset.f; render();
+  });
+});
+document.getElementById("q").addEventListener("input", function(e){ q=e.target.value.trim().toLowerCase(); render(); });
+
+document.getElementById("exportBtn").addEventListener("click", function(){
+  var picked=MONS.filter(function(m){return sel.has(m.key);}).map(function(m){return {key:m.key,name:m.name,tier:m.tier};});
+  var t=document.getElementById("out");
+  t.value=JSON.stringify(picked,null,0);
+  t.classList.add("show"); t.focus(); t.select();
+});
+document.getElementById("copyBtn").addEventListener("click", function(){
+  var t=document.getElementById("out"); if(!t.value){ document.getElementById("exportBtn").click(); }
+  t.select(); document.execCommand&&document.execCommand("copy");
+  navigator.clipboard&&navigator.clipboard.writeText(t.value);
+});
+document.getElementById("allBtn").addEventListener("click", function(){
+  MONS.forEach(function(m){ if(pass(m)) sel.add(m.key); }); render();
+});
+document.getElementById("clrBtn").addEventListener("click", function(){
+  if(!confirm("선택을 모두 해제할까요?")) return; sel.clear(); render();
+});
+</script>
+</body>
+</html>
