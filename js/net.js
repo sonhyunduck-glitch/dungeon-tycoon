@@ -55,6 +55,7 @@
       if(pr.data && pr.data.nickname){ G.net.nickname=pr.data.nickname; }
       G.net.ready=true;
       console.info("[net] 온라인. uid=",G.net.uid,"nick=",G.net.nickname);
+      G.net.joinPresence();   // 실시간 접속자 집계 시작
       return true;
     }catch(e){
       console.warn("[net] 초기화 실패 → 오프라인:",e.message||e);
@@ -273,5 +274,24 @@
   };
   G.net.chatUnsubscribe = function(){
     if(G.net._chatChan){ try{ G.net.sb.removeChannel(G.net._chatChan); }catch(e){} G.net._chatChan=null; }
+  };
+
+  /* ---------- 실시간 접속자(Presence) ---------- */
+  G.net._presCount = 0;          // 현재 온라인 인원(고유 uid 수)
+  G.net._onPresence = null;      // 변동 시 콜백(UI 갱신용)
+  G.net.onlineCount = function(){ return G.net._presCount||0; };
+  G.net.joinPresence = function(){
+    if(!G.net.online() || G.net._presChan) return;
+    try{
+      var ch=G.net.sb.channel("presence:lobby", { config:{ presence:{ key:G.net.uid } } });
+      ch.on("presence", { event:"sync" }, function(){
+        var st=ch.presenceState();              // { uid: [meta,...], ... } → 키 수 = 고유 접속자
+        G.net._presCount=Object.keys(st).length;
+        if(typeof G.net._onPresence==="function") G.net._onPresence(G.net._presCount);
+      }).subscribe(function(status){
+        if(status==="SUBSCRIBED"){ try{ ch.track({ uid:G.net.uid, at:Date.now() }); }catch(e){} }
+      });
+      G.net._presChan=ch;
+    }catch(e){ console.warn("[net] presence 실패",e); }
   };
 })();

@@ -60,10 +60,14 @@
     G.chat._msgs = msgs;
   };
 
+  // 실제 온라인 접속자 수(Presence). 오프라인이면 0.
   G.chat.online = function(){
-    // 접속자 수 느낌(랜덤이지만 큰 폭 변화 없게)
-    if(!G.chat._on){ G.chat._on = 120 + rint(180); }
-    return G.chat._on;
+    return (G.net && G.net.online()) ? G.net.onlineCount() : 0;
+  };
+  G.chat.onlineLabel = function(){
+    if(!(G.net && G.net.online())) return "⚪ 오프라인";
+    var n=G.net.onlineCount();
+    return "🟢 "+(n>0?n:1)+"명 접속";   // 최소 1(=나)
   };
 
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
@@ -128,7 +132,7 @@
       '<div class="modal chat-modal">'+
         '<div class="chat-head">'+
           '<span class="chat-title">💬 모험가 채팅</span>'+
-          '<span class="chat-online">🟢 '+G.chat.online()+'명 접속</span>'+
+          '<span class="chat-online" id="chat-online">'+G.chat.onlineLabel()+'</span>'+
           '<button class="chat-x" data-modal-close aria-label="닫기">✕</button>'+
         '</div>'+
         '<div class="chat-body" id="chat-body"></div>'+
@@ -140,11 +144,15 @@
     document.body.appendChild(ov);
     G.chat.renderBody();
 
+    // 접속자수 실시간 갱신(presence sync 시 콜백)
+    if(on && G.net){ G.net._onPresence=function(){ var e=document.getElementById("chat-online"); if(e) e.textContent=G.chat.onlineLabel(); }; }
+
     // 닫기 (X 버튼 또는 바깥 영역)
     ov.addEventListener("click", function(e){
       if(e.target.closest("[data-modal-close]") || e.target===ov){
         if(G.chat._timer){ clearInterval(G.chat._timer); G.chat._timer=null; }
         if(G.net && G.net.chatUnsubscribe) G.net.chatUnsubscribe();
+        if(G.net) G.net._onPresence=null;   // 콜백 해제(채널은 유지)
         ov.remove();
       }
     });
