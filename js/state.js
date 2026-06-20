@@ -116,9 +116,12 @@ G.totalStats = function(){
   // 공격 속성(100층+ 디아블로식): 무기 우선, 없으면 장착 룬에서
   s.atkElem = (eq.weapon && eq.weapon.attackElem) || null;
   if(!s.atkElem){ for(var rk in eq){ var rit=eq[rk]; if(rit && rit.slot==="rune" && rit.attackElem){ s.atkElem=rit.attackElem; break; } } }
-  // 🧥 망토 공격력%/체력% (캡 없는 atk와 최종 maxHp에 곱연산)
-  if(_cb && _cb.atkPct) s.atk = Math.round(s.atk * (1 + _cb.atkPct/100));
-  s.maxHp = Math.round((p.maxHp + s.hpBonus) * (1 + ((_cb&&_cb.hpPct)||0)/100));
+  // 🧥 망토 + 🎭 장착 아바타 공격력%/체력% (캡 없는 atk와 최종 maxHp에 곱연산)
+  var _av = (G.avatar && G.avatar.statBonus) ? G.avatar.statBonus() : null;
+  var _atkPct = ((_cb&&_cb.atkPct)||0) + ((_av&&_av.atkPct)||0);
+  var _hpPct  = ((_cb&&_cb.hpPct)||0)  + ((_av&&_av.hpPct)||0);
+  if(_atkPct) s.atk = Math.round(s.atk * (1 + _atkPct/100));
+  s.maxHp = Math.round((p.maxHp + s.hpBonus) * (1 + _hpPct/100));
   return s;
 };
 

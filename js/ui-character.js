@@ -96,15 +96,19 @@ G.ui._avatarPanel = function(){
   var cards=G.DATA.AVATARS.map(function(a){
     var sel=a.id===cur, owned=G.avatar.owned(a);
     var lockLabel=(a.unlock!=null && a.unlock<9999) ? ("🔒 "+a.unlock+"층") : "🎰 뽑기";
+    var b=G.avatar.statBonus(a.id), g=G.avatar.gradeOf(a);
+    var statTxt='<div class="avatar-stat r-'+(["common","common","rare","epic","legend"][g]||"common")+'">⚔'+b.atkPct+'% ❤'+b.hpPct+'%</div>';
     return '<div class="avatar-card'+(sel?" sel":"")+(owned?"":" locked")+'" data-act="avatar-pick" data-id="'+a.id+'">'+
       '<div class="avatar-prev">'+G.avatar.previewHTML(a)+'</div>'+
       '<div class="avatar-name">'+esc(a.name)+'</div>'+
+      statTxt+
       (owned ? (sel?'<div class="avatar-badge">선택됨</div>':'')
              : '<div class="avatar-lock">'+lockLabel+'</div>')+
     '</div>';
   }).join("");
+  var cb=G.avatar.statBonus(cur);
   return '<div class="panel"><h2>🎭 아바타</h2>'+
-    '<div class="muted" style="margin-bottom:10px">전투 화면에 표시되는 내 캐릭터 외형을 선택하세요. <span class="r-uncommon">최고 도달 층</span>으로 해금됩니다.</div>'+
+    '<div class="muted" style="margin-bottom:10px">전투 화면 외형 + <b class="r-uncommon">장착 스탯</b>(공격%·체력%). 희귀/고층일수록 강함. 현재 <b class="gold">⚔'+cb.atkPct+'% ❤'+cb.hpPct+'%</b></div>'+
     '<div class="avatar-grid">'+cards+'</div>'+
   '</div>';
 };

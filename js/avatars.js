@@ -102,6 +102,18 @@
   ];
 
   G.avatar = {};
+  // 장착 아바타 스탯 보너스 — 등급(가챠 희귀도 ∥ 층해금 깊이)이 높을수록 강함. 공격%·체력% 부여.
+  G.avatar.GRADE_BONUS = { 0:{atkPct:2,hpPct:2}, 1:{atkPct:4,hpPct:4}, 2:{atkPct:7,hpPct:7}, 3:{atkPct:10,hpPct:10}, 4:{atkPct:15,hpPct:15} };
+  G.avatar.GRADE_LABEL = { 0:"기본", 1:"일반", 2:"희귀", 3:"영웅", 4:"전설" };
+  G.avatar.gradeOf = function(a){
+    if(!a || a.id==="adventurer") return 0;
+    var r = (G.gacha&&G.gacha.rarityOf) ? G.gacha.rarityOf(a) : (a.rarity||null);
+    if(r) return ({common:1,rare:2,epic:3,legend:4})[r] || 1;   // 가챠 희귀도 우선
+    var f=a.unlock||0;                                            // 층해금: 깊을수록↑
+    return f>=500?4 : f>=200?3 : f>=50?2 : f>0?1 : 0;
+  };
+  G.avatar.statBonus = function(id){ return G.avatar.GRADE_BONUS[G.avatar.gradeOf(G.avatar.get(id||G.avatar.currentId()))] || {atkPct:0,hpPct:0}; };
+
   G.avatar.get = function(id){ return G.DATA.AVATARS.filter(function(a){return a.id===id;})[0] || G.DATA.AVATARS[0]; };
   G.avatar.randomId = function(rnd){ var r=(typeof rnd==="function")?rnd():Math.random(); return G.DATA.AVATARS[Math.floor(r*G.DATA.AVATARS.length)].id; };
 
