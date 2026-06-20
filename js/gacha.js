@@ -9,17 +9,17 @@
   G.gacha = {};
 
   G.gacha.RARITY = [
-    { key:"common", label:"일반", cls:"r-common",   weight:60, shard:5,   color:"#9aa0ad" },
-    { key:"rare",   label:"희귀", cls:"r-rare",     weight:28, shard:15,  color:"#5aa0ff" },
-    { key:"epic",   label:"영웅", cls:"r-epic",     weight:9,  shard:40,  color:"#c08bff" },
-    { key:"legend", label:"전설", cls:"r-legend",   weight:3,  shard:100, color:"#ff7a3c" }
+    { key:"common", label:"일반", cls:"r-common",   weight:65.3, shard:5,   color:"#9aa0ad" },
+    { key:"rare",   label:"희귀", cls:"r-rare",     weight:30,   shard:15,  color:"#5aa0ff" },
+    { key:"epic",   label:"영웅", cls:"r-epic",     weight:4,    shard:40,  color:"#c08bff" },
+    { key:"legend", label:"전설", cls:"r-legend",   weight:0.7,  shard:100, color:"#ff7a3c" }
   ];
   G.gacha.rdef = function(key){ return G.gacha.RARITY.filter(function(r){return r.key===key;})[0] || G.gacha.RARITY[0]; };
 
   G.gacha.COST = 80;          // 단일 뽑기(🏅)
   G.gacha.COST10 = 720;       // 10연차(10% 할인)
-  G.gacha.LEGEND_PITY = 90;   // 누적 천장: N연차 시 전설 확정
-  G.gacha.SOFT = 80;          // 소프트 피티 시작
+  G.gacha.LEGEND_PITY = 120;  // 누적 천장: N연차 시 전설 확정(극한 확률 → 천장 상향)
+  G.gacha.SOFT = 100;         // 소프트 피티 시작
   G.gacha.EXCHANGE = { common:20, rare:60, epic:120, legend:200 };   // 조각 교환 비용
 
   G.gacha.ensure = function(){
