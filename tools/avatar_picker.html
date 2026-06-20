@@ -22,7 +22,12 @@
   .card.sel{ border-color:var(--gold); box-shadow:0 0 0 2px var(--gold) inset, 0 0 16px rgba(199,154,58,.35); }
   .card.sel::after{ content:"✓"; position:absolute; top:6px; right:8px; width:22px; height:22px; line-height:22px; border-radius:50%; background:var(--gold); color:#1a1300; font-weight:900; font-size:.85rem; }
   .stage{ height:130px; display:flex; align-items:flex-end; justify-content:center; margin-bottom:6px; }
-  .stage .esprite{ filter:drop-shadow(0 4px 6px rgba(0,0,0,.55)); }
+  .stage .esprite{ filter:drop-shadow(0 4px 6px rgba(0,0,0,.55)) var(--gl,); }
+  .gchip{ background:var(--panel); border:1px solid var(--brd); color:var(--dim); border-radius:18px; padding:5px 12px; cursor:pointer; font-size:.8rem; }
+  .gchip.on{ color:#1a1300; font-weight:800; border-color:transparent; }
+  .gchip[data-g="1"].on{ background:#e9eef7; } .gchip[data-g="2"].on{ background:#5ab6ff; }
+  .gchip[data-g="3"].on{ background:#b78bff; } .gchip[data-g="4"].on{ background:#ffc24a; }
+  .gchip[data-g="5"].on{ background:linear-gradient(90deg,#7afcff,#ff7ad0,#ffe08a); }
   .nm{ font-size:.82rem; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .meta{ font-size:.66rem; color:var(--dim); margin-top:2px; }
   .tg{ display:inline-block; padding:1px 6px; border-radius:6px; font-size:.6rem; font-weight:700; }
@@ -46,6 +51,15 @@
     <span class="chip" data-f="walk">걷기보유</span>
     <input type="search" id="q" placeholder="이름·키 검색 (예: 드래곤, kobold)">
     <span class="muted" id="shown"></span>
+  </div>
+  <div class="controls" style="margin-top:6px">
+    <span class="muted" style="font-size:.8rem">✨ 컬렉션 글로우 미리보기:</span>
+    <span class="gchip on" data-g="0">없음</span>
+    <span class="gchip" data-g="1">1 여명</span>
+    <span class="gchip" data-g="2">2 비취</span>
+    <span class="gchip" data-g="3">3 심령</span>
+    <span class="gchip" data-g="4">4 황금</span>
+    <span class="gchip" data-g="5">5 프리즘</span>
   </div>
 </header>
 
@@ -118,6 +132,23 @@ document.querySelectorAll(".chip").forEach(function(ch){
   });
 });
 document.getElementById("q").addEventListener("input", function(e){ q=e.target.value.trim().toLowerCase(); render(); });
+
+// 컬렉션 글로우 미리보기 — 게임 G.glow.DEF 와 동일한 레이어
+var GLOW={
+  1:[["#ffffff",2],["#ffffff",5]],
+  2:[["#6ad0ff",2],["#3aa0ff",6]],
+  3:[["#c08bff",2],["#9a4dff",6]],
+  4:[["#ffe08a",2],["#ffb43c",5],["#ff9a2c",9]],
+  5:[["#7afcff",2],["#ff7ad0",6],["#ffe08a",10]]
+};
+function glowCss(t){ var d=GLOW[t]; return d? d.map(function(l){return "drop-shadow(0 0 "+l[1]+"px "+l[0]+")";}).join(" ") : ""; }
+document.querySelectorAll(".gchip").forEach(function(ch){
+  ch.addEventListener("click", function(){
+    document.querySelectorAll(".gchip").forEach(function(x){x.classList.remove("on");});
+    ch.classList.add("on");
+    document.documentElement.style.setProperty("--gl", glowCss(+ch.dataset.g));
+  });
+});
 
 document.getElementById("exportBtn").addEventListener("click", function(){
   var picked=MONS.filter(function(m){return sel.has(m.key);}).map(function(m){return {key:m.key,name:m.name,tier:m.tier};});
