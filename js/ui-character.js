@@ -36,7 +36,8 @@ G.ui.renderCharacter = function(){
         '<button class="btn sm" style="margin-top:4px" data-act="unequip" data-slot="'+k+'">해제</button>'+
       '</div>';
     }
-    return '<div class="eqslot"><div class="slotlbl">룬 '+(i+1)+'</div><div class="muted">비어있음</div></div>';
+    return '<div class="eqslot"><div class="slotlbl">룬 '+(i+1)+'</div><div class="muted" style="font-size:.66rem">비어있음</div>'+
+      '<button class="btn sm primary" style="margin-top:4px" data-act="rune-pick">+ 착용</button></div>';
   }).join("");
   // 🔗 룬워드 — 발동 시 룬창에 이름·능력 표시(조합법은 숨김=발견형)
   var rwA=G.runeword.active();

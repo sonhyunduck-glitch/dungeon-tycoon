@@ -298,6 +298,33 @@ G.ui.bagStatPickModal = function(){
   ov.addEventListener("click", function(e){ if(e.target.closest("[data-modal-close]")||e.target===ov) ov.remove(); });
 };
 
+/* 🔮 룬 착용 모달 — 가방의 룬을 빈 슬롯에 착용(룬워드는 순서 무관이라 슬롯 자동) */
+G.ui.runePickModal = function(){
+  var runes=(G.state.inventory||[]).filter(function(it){ return it.slot==="rune" && it.identified!==false; });
+  // 가치 높은 순 정렬
+  runes.sort(function(a,b){ return G.inventory.statValue(b.stats||{})-G.inventory.statValue(a.stats||{}); });
+  var rows = runes.length
+    ? runes.map(function(it){
+        return '<button class="btn full r-runepick" style="text-align:left;margin-top:6px;display:flex;align-items:center;gap:8px" data-runeeq="'+it.id+'">'+
+          G.ui.icoHTML(it)+'<span style="flex:1"><b class="'+it.rarityCls+'">'+esc(it.name)+'</b><br><span class="idesc">'+G.item.statText(it)+'</span></span>'+
+          '<span class="muted" style="font-size:.7rem">착용 ▸</span></button>';
+      }).join("")
+    : '<div class="empty">가방에 룬이 없습니다.<br><span class="muted">대장간에서 제작하거나 사냥으로 획득하세요.</span></div>';
+  var ov=document.createElement("div"); ov.className="modal-overlay show";
+  ov.innerHTML='<div class="modal" style="width:min(440px,94vw)">'+
+    '<h2>🔮 룬 착용 <span class="muted" style="font-size:.7rem">'+runes.length+'개</span></h2>'+
+    '<div class="muted" style="margin-bottom:8px;font-size:.74rem">가방의 룬을 빈 슬롯에 착용합니다. (슬롯이 꽉 차면 가장 약한 룬과 교체)</div>'+
+    '<div style="max-height:52vh;overflow:auto">'+rows+'</div>'+
+    '<button class="btn full" style="margin-top:12px" data-modal-close>닫기</button>'+
+  '</div>';
+  document.body.appendChild(ov);
+  ov.addEventListener("click", function(e){
+    if(e.target.closest("[data-modal-close]")||e.target===ov){ ov.remove(); return; }
+    var b=e.target.closest("[data-runeeq]");
+    if(b){ G.inventory.equip(b.getAttribute("data-runeeq")); if(G.save) G.save.save(true); ov.remove(); G.ui.render(); }
+  });
+};
+
 /* 🎰 외형 뽑기 결과 모달 */
 G.ui.gachaResultModal = function(results){
   var cards=(results||[]).map(function(r){
