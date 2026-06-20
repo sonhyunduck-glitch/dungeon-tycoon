@@ -21,7 +21,7 @@ G.ui._bagPanel = function(){
   var pot=G.state.consumables.potion_s||0;
   var full=G.inventory.isFull();
   var sort=G.state.ui.bagSort||"price";
-  var sortLabel={price:"가격↓", recent:"획득순", power:"가치↓"}[sort];
+  var sortLabel={price:"가격↓", recent:"획득순", power:"가치↓", upgrade:"업그레이드↑"}[sort];
   // 필터(부위별 / 옵션별)
   var fslot=G.state.ui.bagFilterSlot||"all", fstat=G.state.ui.bagFilterStat||"all";
   // 부위 필터 — 장비 아이콘 칩(이모지 대신 실제 아이콘 이미지)
@@ -62,6 +62,10 @@ G.ui._bagPanel = function(){
   var sorted=inv.slice();
   if(sort==="price") sorted.sort(function(a,b){ return (b.basePrice||0)-(a.basePrice||0); });
   else if(sort==="power") sorted.sort(function(a,b){ return G.inventory.statValue(b.stats||{})-G.inventory.statValue(a.stats||{}); });
+  else if(sort==="upgrade"){   // 착용 장비 대비 가치 차이↓ (업그레이드가 위로, 미감정은 맨 아래)
+    var up=function(it){ return it.identified===false ? -1e12 : (G.inventory.compare(it)||0); };
+    sorted.sort(function(a,b){ return up(b)-up(a); });
+  }
   // 필터: 부위(slot) + 옵션(stat). 옵션 필터는 감정된 아이템만(미감정은 옵션 미공개)
   sorted=sorted.filter(function(it){
     if(fslot!=="all" && it.slot!==fslot) return false;

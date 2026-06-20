@@ -96,7 +96,7 @@
 
     /* 인벤토리 / 창고 */
     "inv-sub": function(d){ G.state.ui.invSub=d.sub; G.ui.render(); },
-    "bag-sort": function(){ var o={price:"power",power:"recent",recent:"price"}; G.state.ui.bagSort=o[G.state.ui.bagSort||"price"]; G.ui.render(); },
+    "bag-sort": function(){ var o={price:"power",power:"recent",recent:"upgrade",upgrade:"price"}; G.state.ui.bagSort=o[G.state.ui.bagSort||"price"]; G.ui.render(); },
     "bag-filter-slot": function(d){ G.state.ui.bagFilterSlot=d.slot||d.value; G.ui.renderInventory(); },
     "bag-stat-pick": function(){ G.ui.bagStatPickModal(); },
     "bag-filter-stat": function(d){ G.state.ui.bagFilterStat=d.key||d.value; var ov=document.querySelector(".modal-overlay.show"); if(ov) ov.remove(); G.ui.renderInventory(); },
