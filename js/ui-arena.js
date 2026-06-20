@@ -41,6 +41,7 @@ G.ui.renderArena = function(){
       '<div><span class="k">오늘 도전</span><b'+(left<=0?' class="r-legend"':'')+'>'+left+' / '+G.arena.MAX_DAILY+'</b></div>'+
     '</div>'+
     '<button class="btn sm gold full" style="margin-top:8px" data-act="arena-shop">🛒 아레나 상점 열기 (보유 🏅'+G.ui.fmt(G.arena.coins())+')</button>'+
+    (G.ads && G.ads.available() ? '<button class="btn sm full" style="margin-top:6px" data-act="ad-coin">🎬 광고 보고 🏅'+G.ads.COIN_REWARD+' (오늘 '+G.ads.left("coin")+'회)</button>' : '')+
   '</div>';
 
   // 일일 미션

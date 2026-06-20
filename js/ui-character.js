@@ -173,6 +173,7 @@ G.ui._gachaPanel = function(){
       '<button class="btn primary" style="flex:1" data-act="gacha-pull" data-n="1" '+(coins<G.gacha.COST?"disabled":"")+'>단일 🏅'+G.gacha.COST+'</button>'+
       '<button class="btn gold" style="flex:1" data-act="gacha-pull" data-n="10" '+(coins<G.gacha.COST10?"disabled":"")+'>10연차 🏅'+G.gacha.COST10+'</button>'+
     '</div>'+
+    (G.ads && G.ads.available() ? '<button class="btn full" style="margin-top:6px" data-act="ad-gacha">🎬 광고 보고 무료 뽑기 (오늘 '+G.ads.left("gacha")+'회)</button>' : '')+
     '<div class="muted" style="font-size:.64rem; margin-top:6px">10연차=영웅↑ 보장 · '+G.gacha.LEGEND_PITY+'연차 전설 천장 · 중복→조각</div>'+
   '</div>';
   if(!pool.length) return head+'<div class="empty">뽑기 풀이 비어 있습니다.</div>';
