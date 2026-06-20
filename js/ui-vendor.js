@@ -29,10 +29,25 @@ G.ui._potionShop = function(){
   var maxQty=Math.max(0, Math.min(max-pot, Math.floor(gold/Math.max(1,price))));
   var canMax=!full && maxQty>0;
   var potCls = full?"r-legend":"muted";
+  // 전체 회복 — 즉시 풀회복(회복 HP당 1골드). 부활 후 10%→100% 복구를 한 번에.
+  var st=G.totalStats(), hp=G.state.player.hp, missing=Math.max(0, st.maxHp-hp);
+  var healCost=missing, canHeal=missing>0 && gold>=healCost;
+  var hpPct=Math.round(hp/Math.max(1,st.maxHp)*100);
   return '<div class="panel theme-shop"><h2>🧪 물약 상점</h2>'+
       '<div class="muted">소모품을 구매하는 곳입니다. 보유 골드 🪙'+G.ui.fmt(gold)+'</div>'+
     '</div>'+
     '<div class="panel">'+
+      '<div class="item"><div class="ico">❤️</div>'+
+        '<div class="info">'+
+          '<div class="iname">전체 회복 <span class="'+(missing>0?"r-uncommon":"r-legend")+'">'+G.ui.fmt(hp)+' / '+G.ui.fmt(st.maxHp)+' ('+hpPct+'%)</span></div>'+
+          '<div class="idesc">'+(missing>0
+              ? '즉시 체력을 가득 채웁니다 · 🪙'+G.ui.fmt(healCost)+' <span class="muted">(회복 HP당 1골드)</span>'
+              : '<span class="r-legend">체력이 가득 찼습니다</span>')+'</div>'+
+        '</div>'+
+        '<div class="iacts">'+
+          '<button class="btn sm primary" data-act="heal-full" '+(canHeal?"":"disabled")+'>❤️ 전체 회복</button>'+
+        '</div>'+
+      '</div>'+
       '<div class="item"><div class="ico">🧪</div>'+
         '<div class="info">'+
           '<div class="iname">체력 물약 <span class="'+potCls+'">'+pot+' / '+max+'</span></div>'+
@@ -43,7 +58,7 @@ G.ui._potionShop = function(){
           '<button class="btn sm gold" data-act="buy-potion" data-qty="max" '+(canMax?"":"disabled")+'>MAX ×'+maxQty+' 🪙'+G.ui.fmt(price*maxQty)+'</button>'+
         '</div>'+
       '</div>'+
-      '<div class="muted" style="margin-top:8px">💡 가격은 회복량과 동일(회복 HP당 1골드). 최대 '+max+'개 소지. (특성 「자동 물약」 추천)</div>'+
+      '<div class="muted" style="margin-top:8px">💡 전체 회복은 즉시 풀회복(부활·소모전 후 편리), 물약은 전투 중 사용분 비축용. 둘 다 회복 HP당 1골드.</div>'+
     '</div>';
 };
 

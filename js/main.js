@@ -240,6 +240,17 @@
       G.log("🧪 체력 물약 ×"+qty+" 구매 (개당 회복 "+G.ui.fmt(H)+" · 🪙"+G.ui.fmt(cost)+")","r-uncommon");
       G.ui.render();
     },
+    "heal-full": function(){                            // 즉시 풀회복 (회복 HP당 1골드)
+      var s=G.totalStats(), p=G.state.player;
+      var missing=Math.max(0, s.maxHp - p.hp);
+      if(missing<=0){ G.ui.toast("이미 체력이 가득합니다"); return; }
+      var cost=missing;
+      if((p.gold||0)<cost){ G.ui.toast("골드가 부족합니다 (🪙"+G.ui.fmt(cost)+")"); return; }
+      p.gold-=cost; p.hp=s.maxHp;
+      G.log("❤️ 전체 회복 (체력 +"+G.ui.fmt(missing)+" · 🪙"+G.ui.fmt(cost)+")","log-heal");
+      if(G.save) G.save.save(true);
+      G.ui.render();
+    },
 
     /* 대장간 / 주문 / 워프 */
     "craft": function(d){ G.forge.craft(d.boss, d.part); G.ui.render(); },
