@@ -7,8 +7,11 @@
   var G = window.G;
   G.ads = {};
 
-  // ⚠️ 테스트 ID(Android 보상형). 출시 전 실제 광고단위 ID로 교체 + AndroidManifest 앱ID도 교체.
-  G.ads.REWARD_ID = "ca-app-pub-3940256099942544/5224354917";
+  // 보상형 광고단위 ID — TEST_MODE로 안전하게 전환(본인 기기에서 실광고 클릭=정지 위험 방지)
+  G.ads.REWARD_ID_TEST = "ca-app-pub-3940256099942544/5224354917";   // Google 공식 테스트
+  G.ads.REWARD_ID_REAL = "ca-app-pub-5609592289457564/9426627553";   // 실제 보상형(탑아이들)
+  G.ads.TEST_MODE = true;   // ⚠️ true=테스트광고(개발/검증용). 출시 AAB 빌드 전 반드시 false 로!
+  G.ads.rewardId = function(){ return this.TEST_MODE ? this.REWARD_ID_TEST : this.REWARD_ID_REAL; };
   G.ads.CAP = { coin:5, gacha:2 };       // 일일 시청 한도(보상 종류별)
   G.ads.COIN_REWARD = 30;                 // 코인 보상량
   G.ads._busy = false;
@@ -52,7 +55,7 @@
     on("onRewardedVideoAdFailedToLoad", function(){ fail("광고 불러오기 실패"); });
     on("onRewardedVideoAdFailedToShow", function(){ fail("광고 표시 실패"); });
     try{
-      AdMob.prepareRewardVideoAd({ adId: G.ads.REWARD_ID })
+      AdMob.prepareRewardVideoAd({ adId: G.ads.rewardId() })
         .then(function(){ return AdMob.showRewardVideoAd(); })
         .catch(function(){ fail(); });
     }catch(e){ fail(); }

@@ -26,6 +26,9 @@ keyPassword=********
 - `versionName` 표기용(예 "1.0", "1.1")
 
 ## 3. 빌드 (※ 실제 빌드는 사용자가 직접/요청 시)
+> ⚠️ **AAB(출시) 빌드 전 필수**: `js/ads.js`의 `G.ads.TEST_MODE = false` 로 변경(실제 광고 송출).
+>   테스트/디버그 중에는 `true`(테스트 광고 — 본인 클릭해도 안전). AdMob 앱ID·보상형ID는 이미 실제값.
+
 - 디버그 APK(자체배포·테스트): `npm run apk:debug` → `android/app/build/outputs/apk/debug/app-debug.apk`
 - 릴리스 APK: `npm run apk:release`
 - **플레이스토어용 AAB**: `npm run aab` → `android/app/build/outputs/bundle/release/app-release.aab`
