@@ -2,11 +2,9 @@
   "appId": "com.toweridle.game",
   "appName": "탑아이들",
   "webDir": "www",
-  "server": {
-    "url": "https://sonhyunduck-glitch.github.io/dungeon-tycoon/",
-    "cleartext": false
-  },
   "android": {
     "allowMixedContent": false
-  }
+  },
+  "_mode": "번들 모드 — server.url 제거로 앱이 내장 www를 로드(오프라인/캐시/심사 안전). 라이브URL로 되돌리려면 아래 _liveUrlBackup을 server.url로 복원.",
+  "_liveUrlBackup": "https://sonhyunduck-glitch.github.io/dungeon-tycoon/"
 }

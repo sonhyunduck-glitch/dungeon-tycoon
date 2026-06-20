@@ -6,7 +6,9 @@
   "scripts": {
     "build:www": "node scripts/build-www.js",
     "sync": "npm run build:www && npx cap sync android",
-    "apk:debug": "npm run sync && cd android && gradlew.bat assembleDebug"
+    "apk:debug": "npm run sync && cd android && gradlew.bat assembleDebug",
+    "apk:release": "npm run sync && cd android && gradlew.bat assembleRelease",
+    "aab": "npm run sync && cd android && gradlew.bat bundleRelease"
   },
   "devDependencies": {
     "@capacitor/cli": "^6.2.0"

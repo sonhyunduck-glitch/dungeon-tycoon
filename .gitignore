@@ -18,3 +18,8 @@ www/
 *.aab
 # android/ 는 버전관리에 포함(네이티브 설정 보존). 빌드 산출물은 android/.gitignore가 제외.
 *.zip
+
+# 릴리스 서명(절대 커밋 금지)
+keystore.properties
+*.keystore
+*.jks
