@@ -283,6 +283,9 @@
   };
 
   /* ---------- 클릭 위임 ---------- */
+  // 자원을 즉시 차감하는 액션(더블클릭 이중 차감 방지 대상)
+  var SPEND_ACTIONS={ "arena-fight":1, "gacha-pull":1, "gacha-exchange":1, "cape-enhance":1, "cape-buy":1, "arena-buy":1, "heal-full":1 };
+  var _spendGuard={};
   document.addEventListener("click", function(e){
     // 탭
     var nav=e.target.closest(".nav-btn");
@@ -291,7 +294,16 @@
     var btn=e.target.closest("[data-act]");
     if(!btn || btn.tagName==="INPUT" || btn.tagName==="SELECT") return;   // select은 change로 처리
     var act=btn.dataset.act;
-    if(actions[act]){ e.preventDefault(); actions[act](btn.dataset); }
+    if(actions[act]){
+      e.preventDefault();
+      // 자원 소비 액션 더블클릭 가드(같은 액션 500ms 내 재발화 차단 → 이중 차감 방지)
+      if(SPEND_ACTIONS[act]){
+        var now=Date.now();
+        if(_spendGuard[act] && now-_spendGuard[act]<500) return;
+        _spendGuard[act]=now;
+      }
+      actions[act](btn.dataset);
+    }
   });
 
   /* ---------- 볼륨 슬라이더 (BGM / 효과음 개별) ---------- */

@@ -60,11 +60,11 @@ G.inventory.unequip = function(key){
   G.log("➖ 해제: "+it.name,"");
 };
 
-/* 즉시 판매(상점 거치지 않고 빠른 매각, 기준가의 50%) */
+/* 즉시 판매(상점 거치지 않고 빠른 매각, 기준가의 10%) */
 G.inventory.quickSell = function(id){
   var it=G.inventory.remove(id);
   if(!it) return;
-  var price=Math.round(it.basePrice*0.1);   // 매각가 = 기준가치의 10%
+  var price=Math.round((it.basePrice||0)*0.1);   // 매각가 = 기준가치의 10%
   G.state.player.gold+=price;
   G.log("💰 즉시판매: "+it.name+" → 🪙"+G.ui.fmt(price),"");
 };

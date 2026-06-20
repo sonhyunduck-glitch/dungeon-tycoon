@@ -106,9 +106,6 @@ G.ui._avatarPanel = function(){
   return '<div class="panel"><h2>🎭 아바타</h2>'+
     '<div class="muted" style="margin-bottom:10px">전투 화면에 표시되는 내 캐릭터 외형을 선택하세요. <span class="r-uncommon">최고 도달 층</span>으로 해금됩니다.</div>'+
     '<div class="avatar-grid">'+cards+'</div>'+
-    (G.DATA.AVATARS.length<=1
-      ? '<div class="muted" style="margin-top:12px;font-size:.8rem;line-height:1.6">💡 더 많은 아바타는 <b>스프라이트 슬라이서</b>로 캐릭터 시트를 추가하면 늘어납니다.</div>'
-      : '')+
   '</div>';
 };
 

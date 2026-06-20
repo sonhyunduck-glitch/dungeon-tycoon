@@ -34,7 +34,7 @@ G.ui._potionShop = function(){
   var healCost=missing, canHeal=missing>0 && gold>=healCost;
   var hpPct=Math.round(hp/Math.max(1,st.maxHp)*100);
   return '<div class="panel theme-shop"><h2>🧪 물약 상점</h2>'+
-      '<div class="muted">소모품을 구매하는 곳입니다. 보유 골드 🪙'+G.ui.fmt(gold)+'</div>'+
+      '<div class="muted">보유 골드 🪙'+G.ui.fmt(gold)+'</div>'+
     '</div>'+
     '<div class="panel">'+
       '<div class="item"><div class="ico">❤️</div>'+

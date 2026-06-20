@@ -74,7 +74,10 @@
     var poolR=G.gacha.poolByRarity(rk);
     if(!poolR.length) poolR=G.gacha.pool();          // 해당 희귀도 풀 없으면 전체에서
     if(!poolR.length) return null;
-    var skin=poolR[Math.floor(Math.random()*poolR.length)];
+    // 미보유 우선: 같은 희귀도에 안 가진 스킨이 있으면 그 중에서만 추첨(천장/확정의 'NEW' 체감 보장)
+    var unowned=poolR.filter(function(s){ return !G.gacha.isOwned(s); });
+    var pickFrom = unowned.length ? unowned : poolR;
+    var skin=pickFrom[Math.floor(Math.random()*pickFrom.length)];
     var sr=G.gacha.rarityOf(skin), rd=G.gacha.rdef(sr);
     if(G.gacha.isOwned(skin)){ c.shards+=rd.shard; return { skin:skin, rarity:sr, dupe:true, shards:rd.shard }; }
     c.owned[skin.id]=true; return { skin:skin, rarity:sr, dupe:false };

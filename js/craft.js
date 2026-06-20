@@ -58,14 +58,22 @@ G.forge.craftRune = function(baseName){
 /* ---------- NPC 맞춤 주문 ---------- */
 G.orders = {};
 G.orders.MAX = 3;
+// 타입(part)별로 실제 굴릴 수 있는 pct 옵션 합집합(SLOT_AFFIXES 기반 → 룬전용·flat 자동 제외 → 이행 불가 주문 방지)
+G.orders._slotsOf = { weapon:["weapon"], acc:["ring","necklace"], armor:["helmet","armor","gloves","boots"] };
+G.orders.statPoolFor = function(part){
+  var set={}, slots=G.orders._slotsOf[part]||[];
+  slots.forEach(function(sl){ (G.DATA.SLOT_AFFIXES[sl]||[]).forEach(function(st){
+    var m=G.DATA.STAT_META[st]; if(m && m.pct) set[st]=1;
+  }); });
+  return Object.keys(set);
+};
 G.orders.refresh = function(){
   var lvl=G.state.dungeon.maxFloor||1;
   var parts=["weapon","armor","acc"];
-  var statPool=G.DATA.STAT_KEYS.filter(function(k){return G.DATA.STAT_META[k].pct;});
   var arr=[];
   for(var i=0;i<G.orders.MAX;i++){
     var part=G.util.pick(parts);
-    var stat=G.util.pick(statPool);
+    var stat=G.util.pick(G.orders.statPoolFor(part));
     var af=G.DATA.AFFIXES.find(function(a){return a.stat===stat;});
     var minVal=G.util.rand(af.min, Math.round((af.min+af.max)/2));
     var npc=G.util.pick(G.DATA.NPCS);
@@ -96,8 +104,8 @@ G.orders.fulfill = function(orderId){
   // 빈 자리 보충
   while(G.state.orders.length < G.orders.MAX){
     var lvl=G.state.dungeon.maxFloor||1;
-    var parts=["weapon","armor","acc"], statPool=G.DATA.STAT_KEYS.filter(function(k){return G.DATA.STAT_META[k].pct;});
-    var part=G.util.pick(parts), stat=G.util.pick(statPool);
+    var parts=["weapon","armor","acc"];
+    var part=G.util.pick(parts), stat=G.util.pick(G.orders.statPoolFor(part));
     var af=G.DATA.AFFIXES.find(function(a){return a.stat===stat;});
     var npc=G.util.pick(G.DATA.NPCS);
     G.state.orders.push({ id:G.util.uid(), npc:npc.name, emoji:npc.emoji, part:part, stat:stat,
