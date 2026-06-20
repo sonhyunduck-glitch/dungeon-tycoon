@@ -362,6 +362,7 @@
     if(G.audio && G.audio.ctx){
       try{ if(document.hidden) G.audio.ctx.suspend(); else if(!(G.state && G.state.muted)) G.audio.ctx.resume(); }catch(e){}
     }
+    if(document.hidden){ try{ G.save.save(true); if(G.net&&G.net.flushSave) G.net.flushSave(); }catch(e){} }  // 백그라운드 전환 시 즉시 저장+클라우드 flush(모바일 종료 대비)
     if(!document.hidden) checkVersion();   // 앱 복귀 시 새 버전 확인
   });
 
@@ -402,7 +403,7 @@
 
   /* ---------- 자동 저장 (30초) + 종료 시 ---------- */
   setInterval(function(){ G.save.save(true); }, 30000);
-  window.addEventListener("beforeunload", function(){ G.save.save(true); });
+  window.addEventListener("beforeunload", function(){ G.save.save(true); if(G.net&&G.net.flushSave) G.net.flushSave(); });
 
   /* ---------- 회전 시 재렌더(레이아웃은 CSS, 내용 갱신만) ---------- */
   window.matchMedia("(orientation:landscape)").addEventListener("change", function(){ G.ui.render(); });
@@ -422,12 +423,18 @@
         if(G.net.online()){
           if(G.net.nickname && !G.state.nickname) G.state.nickname=G.net.nickname;
           var cloud=await G.net.pullSave();
-          if(cloud && cloud.data){
-            localStorage.setItem(G.save.KEY, JSON.stringify(cloud.data));   // 클라우드 권위(다른 기기 이어하기)
-            G.save.load();
-            if(G.net.nickname) G.state.nickname=G.net.nickname;
-            G.checkUnlocks(); usedCloud=true;
+          if(cloud.status==="found"){
+            var localAt=(G.state&&G.state._savedAt)||0;
+            if(cloud.at > localAt){            // 클라우드가 더 최신 → 채택(다른 기기 이어하기)
+              localStorage.setItem(G.save.KEY, JSON.stringify(cloud.data));
+              G.save.load();
+              if(G.net.nickname) G.state.nickname=G.net.nickname;
+              G.checkUnlocks(); usedCloud=true;
+            } else {                            // 로컬이 더 최신(또는 동일) → 로컬 보존 + 클라우드에 올림(소실 방지)
+              G.net.pushSave(G.state);
+            }
           }
+          // status==="error"면 아무것도 안 함(오프라인/일시오류로 멀쩡한 진행 덮어쓰기 방지)
         }
       }catch(e){ console.warn("[boot] 멀티 동기화 실패",e); }
     })();
@@ -438,8 +445,10 @@
     // ---------- 시작 후 동기화(닉네임 확정 / 첫 업로드) ----------
     if(G.net.online()){
       try{
-        var c2=await G.net.pullSave();
-        if(!(c2 && c2.data)) await G.net.pushSave(G.state);   // 첫 로그인: 로컬→클라우드
+        if(!usedCloud){
+          var c2=await G.net.pullSave();
+          if(c2.status==="empty") await G.net.pushSave(G.state);   // 진짜 데이터 없을 때만 첫 업로드(오류 시엔 절대 push 안 함)
+        }
         await G.net.syncProfile();
       }catch(e){}
     }

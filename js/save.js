@@ -8,6 +8,7 @@ G.save.KEY = "dungeon_tycoon_save_v1";
 G.save.save = function(silent){
   try{
     G.state.shop.lastVisit = Date.now();
+    G.state._savedAt = Date.now();   // 세이브 시각(클라우드 권위 비교용 — 더 최신 쪽 채택)
     localStorage.setItem(G.save.KEY, JSON.stringify(G.state));
     if(G.net && G.net.queueSave) G.net.queueSave();   // 온라인이면 클라우드에도 동기화(디바운스)
     if(!silent) G.ui.toast("저장 완료 💾");
@@ -114,7 +115,9 @@ G.save.importCode = function(code){
   try{
     var data=JSON.parse(decodeURIComponent(escape(atob(code.trim()))));
     if(data.dungeon) data.dungeon.run=null;
-    G.state=data;
+    // localStorage에 넣고 load() 경유 → 구버전 코드도 마이그레이션 전부 적용(신규 필드 누락/크래시 방지)
+    localStorage.setItem(G.save.KEY, JSON.stringify(data));
+    if(!G.save.load()) throw new Error("load fail");
     G.ui.switchTab("dungeon");
     G.ui.toast("불러오기 완료 📥");
     return true;

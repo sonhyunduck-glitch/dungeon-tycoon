@@ -83,12 +83,16 @@
   };
 
   /* ---------- 클라우드 세이브 ---------- */
+  // 반환: {status:"found",data,at} | {status:"empty"} | {status:"error"} | {status:"offline"}
+  // ※ 오류와 '데이터 없음'을 반드시 구분해야 함(오류를 빈 데이터로 오인하면 멀쩡한 클라우드를 덮어쓸 위험)
   G.net.pullSave = async function(){
-    if(!G.net.online()) return null;
+    if(!G.net.online()) return { status:"offline" };
     try{
       var r=await G.net.sb.from("saves").select("data,updated_at").eq("user_id",G.net.uid).maybeSingle();
-      return r.data || null;   // {data, updated_at} 또는 null
-    }catch(e){ console.warn("[net] 세이브 불러오기 실패",e); return null; }
+      if(r.error) return { status:"error" };
+      if(r.data && r.data.data) return { status:"found", data:r.data.data, at:(Date.parse(r.data.updated_at)||0) };
+      return { status:"empty" };
+    }catch(e){ console.warn("[net] 세이브 불러오기 실패",e); return { status:"error" }; }
   };
   G.net.pushSave = async function(state){
     if(!G.net.online()) return false;
@@ -106,6 +110,12 @@
     if(!G.net.online()) return;
     if(G.net._saveTimer) clearTimeout(G.net._saveTimer);
     G.net._saveTimer=setTimeout(function(){ G.net.pushSave(G.state); }, 4000);
+  };
+  // 대기 중인 디바운스 저장을 즉시 발화(앱 종료/백그라운드 전환 시 마지막 진행분 유실 방지)
+  G.net.flushSave = function(){
+    if(!G.net.online()) return;
+    if(G.net._saveTimer){ clearTimeout(G.net._saveTimer); G.net._saveTimer=null; }
+    try{ G.net.pushSave(G.state); }catch(e){}
   };
 
   /* ---------- 계정 (게스트 / 이메일) ---------- */

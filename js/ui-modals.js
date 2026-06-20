@@ -528,6 +528,7 @@ G.ui.authModal = function(mode, opts){
         G.ui.render();
       } else {
         if(opts.onSuccess){ ov.remove(); opts.onSuccess(); return; }
+        try{ localStorage.removeItem(G.save.KEY); }catch(e){}   // 로그인=해당 계정 클라우드 권위(로컬 게스트 잔재 제거 → 부팅이 클라우드 채택)
         G.ui.toast("로그인 완료, 진행도 불러오는 중...");
         setTimeout(function(){ location.reload(); }, 500);
       }
