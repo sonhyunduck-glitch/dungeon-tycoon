@@ -127,11 +127,14 @@
   };
 
   // 작은 정적 아바타(idle 0프레임) — 랭킹/아레나 등 목록에서 남들 아바타 표시용
+  // 소형 아바타(프레임 최대변 ≤32px) 표시 보정 — 전투/미리보기/랭킹/아레나 공통 1.5배
+  G.avatar.dispBoost = function(s){ return (s && Math.max(s.fw||0, s.fh||0)<=32) ? 1.5 : 1; };
+
   G.avatar.miniHTML = function(id, size){
     size = size||26;
     var c=G.avatar.get(id||"adventurer");
     var s=G.avatar._src(c,"idle"); if(!s) return "";
-    var z=size/Math.max(s.fw,s.fh);
+    var z=size/Math.max(s.fw,s.fh)*G.avatar.dispBoost(s);
     var y=-(s.row*s.fh);
     var inner='width:'+s.fw+'px;height:'+s.fh+'px;background:url(\''+s.url+'\') 0px '+y+'px no-repeat;background-size:auto;'+
       'image-rendering:pixelated;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale('+z+');';
@@ -198,9 +201,10 @@
   // 선택 아바타용 스타일을 #pc-avatar-style 에 주입(시트/크기/애니메이션/키프레임). 양 모드(sheet/mon) 공통.
   G.avatar.apply = function(){
     var c=G.avatar.current(); if(!c) return;
-    var sc=(c.scale||1.5), S=G.avatar._src;
+    var S=G.avatar._src;
     var idle=S(c,"idle"), atk=S(c,"attack"), hurt=S(c,"hurt"), death=S(c,"death"), walk=S(c,"walk");
     if(!idle) return;
+    var sc=Math.round((c.scale||1.5)*G.avatar.dispBoost(idle)*100)/100;   // ≤32px 소형 아바타 1.5배 확대(전투/미리보기/랭킹 공통)
     function kf2(name, s, loop){ var end=loop?s.frames:Math.max(1,s.frames-1); var y=-(s.row*s.fh);
       return "@keyframes "+name+"{from{background-position:0 "+y+"px}to{background-position:"+(-(end*s.fw))+"px "+y+"px}}"; }
     function stp(s, loop){ return Math.max(1, loop?s.frames:s.frames-1); }
@@ -252,7 +256,7 @@
 
   // 선택 UI용 프리뷰(컨테이너 fw*zoom × fh*zoom, 안쪽 원본크기 요소를 scale 확대).
   // 애니메이션(idle→attack 순차)은 animatePreview가 background-position을 갱신.
-  G.avatar.zoomFor = function(c){ var s=G.avatar._src(c,"idle")||{fw:c.fw,fh:c.fh}; return Math.min(2.4, Math.max(1, 64/Math.max(s.fw,s.fh))); };
+  G.avatar.zoomFor = function(c){ var s=G.avatar._src(c,"idle")||{fw:c.fw,fh:c.fh}; return Math.min(2.4, Math.max(1, 64/Math.max(s.fw,s.fh)))*G.avatar.dispBoost(s); };
   G.avatar.previewHTML = function(c){
     var s=G.avatar._src(c,"idle"); if(!s) return "";
     var zoom=G.avatar.zoomFor(c);
@@ -270,7 +274,7 @@
   G.avatar.makeFighter = function(holder, id, flip, dispScale, glowTier){
     var c=G.avatar.get(id), S=G.avatar._src;
     var idle=S(c,"idle"); if(!idle) return null;
-    var z=(dispScale||2.2)*(c.scale||1.5);
+    var z=(dispScale||2.2)*(c.scale||1.5)*G.avatar.dispBoost(idle);
     var gl=(glowTier && G.glow)? " "+G.glow.layers(glowTier) : "";
     var sp=document.createElement("div");
     sp.style.cssText="position:absolute;left:50%;bottom:0;width:"+idle.fw+"px;height:"+idle.fh+"px;"+
