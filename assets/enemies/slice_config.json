@@ -2563,6 +2563,7554 @@
           "fh": 96
         }
       ]
+    },
+    {
+      "key": "abyssal_chicken",
+      "name": "심연의 닭",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/abyssal_chicken/Abbysal Chicken Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/abyssal_chicken/Abbysal Chicken Sprite Sheet.png",
+          "row": 2,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/abyssal_chicken/Abbysal Chicken Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/abyssal_chicken/Abbysal Chicken Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/abyssal_chicken/Abbysal Chicken Sprite Sheet.png",
+          "row": 1,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "akaname",
+      "name": "아카나메",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/akaname/Akaname Sprite Sheet.png",
+          "row": 0,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/akaname/Akaname Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/akaname/Akaname Sprite Sheet.png",
+          "row": 3,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/akaname/Akaname Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "alien_horror",
+      "name": "외계 공포체",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/alien_horror/Alien Horror Sprite Sheet.png",
+          "row": 0,
+          "frames": 6,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/alien_horror/Alien Horror Sprite Sheet.png",
+          "row": 3,
+          "frames": 7,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/alien_horror/Alien Horror Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/alien_horror/Alien Horror Sprite Sheet.png",
+          "row": 6,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/alien_horror/Alien Horror Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "ancient_crustacean",
+      "name": "고대 갑각류",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/ancient_crustacean/Ancient Crutacean Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/ancient_crustacean/Ancient Crutacean Sprite Sheet.png",
+          "row": 3,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/ancient_crustacean/Ancient Crutacean Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/ancient_crustacean/Ancient Crutacean Sprite Sheet.png",
+          "row": 6,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/ancient_crustacean/Ancient Crutacean Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "angel",
+      "name": "천사",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/angel/Angel Sprite Sheet.png",
+          "row": 0,
+          "frames": 5,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/angel/Angel Sprite Sheet.png",
+          "row": 1,
+          "frames": 6,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/angel/Angel Sprite Sheet.png",
+          "row": 2,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/angel/Angel Sprite Sheet.png",
+          "row": 3,
+          "frames": 6,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "anubis_warrior",
+      "name": "아누비스 전사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/anubis_warrior/Anubis Warrior Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/anubis_warrior/Anubis Warrior Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/anubis_warrior/Anubis Warrior Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/anubis_warrior/Anubis Warrior Sprite Sheet.png",
+          "row": 5,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/anubis_warrior/Anubis Warrior Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "arcane_golem",
+      "name": "비전 골렘",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/arcane_golem/Arcane Golem - Damaged Tileset.png",
+          "row": 0,
+          "frames": 6,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "attack",
+          "file": "sheets/arcane_golem/Arcane Golem - Damaged Tileset.png",
+          "row": 2,
+          "frames": 12,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/arcane_golem/Arcane Golem - Damaged Tileset.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "death",
+          "file": "sheets/arcane_golem/Arcane Golem - Damaged Tileset.png",
+          "row": 5,
+          "frames": 14,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "walk",
+          "file": "sheets/arcane_golem/Arcane Golem - Damaged Tileset.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 96,
+          "fh": 96
+        }
+      ]
+    },
+    {
+      "key": "archangel",
+      "name": "대천사장",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/archangel/Archangel Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "attack",
+          "file": "sheets/archangel/Archangel Sprite Sheet.png",
+          "row": 3,
+          "frames": 8,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/archangel/Archangel Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "death",
+          "file": "sheets/archangel/Archangel Sprite Sheet.png",
+          "row": 6,
+          "frames": 7,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "walk",
+          "file": "sheets/archangel/Archangel Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 96,
+          "fh": 96
+        }
+      ]
+    },
+    {
+      "key": "archer",
+      "name": "궁수",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/archer/Archer Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/archer/Archer Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/archer/Archer Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/archer/Archer Sprite Sheet.png",
+          "row": 6,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/archer/Archer Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "armadillo",
+      "name": "아르마딜로",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/armadillo/Armadillo Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/armadillo/Armadillo Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/armadillo/Armadillo Sprite Sheet.png",
+          "row": 3,
+          "frames": 3,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/armadillo/Armadillo Sprite Sheet.png",
+          "row": 4,
+          "frames": 3,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/armadillo/Armadillo Sprite Sheet.png",
+          "row": 1,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "attic_whisperer",
+      "name": "다락의 속삭임",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/attic_whisperer/Attic Whisperer Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/attic_whisperer/Attic Whisperer Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/attic_whisperer/Attic Whisperer Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/attic_whisperer/Attic Whisperer Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/attic_whisperer/Attic Whisperer Sprite Sheet.png",
+          "row": 1,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "bandit",
+      "name": "산적",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/bandit/Bandit Archer Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/bandit/Bandit Archer Sprite Sheet.png",
+          "row": 2,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/bandit/Bandit Archer Sprite Sheet.png",
+          "row": 3,
+          "frames": 3,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/bandit/Bandit Archer Sprite Sheet.png",
+          "row": 4,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/bandit/Bandit Archer Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "bandit_mage",
+      "name": "산적 마법사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/bandit_mage/Bandit Mage Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/bandit_mage/Bandit Mage Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/bandit_mage/Bandit Mage Sprite Sheet.png",
+          "row": 3,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/bandit_mage/Bandit Mage Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/bandit_mage/Bandit Mage Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "bandit_slingshot",
+      "name": "산적 투석꾼",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/bandit_slingshot/Bandit Slingshot Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/bandit_slingshot/Bandit Slingshot Sprite Sheet.png",
+          "row": 2,
+          "frames": 9,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/bandit_slingshot/Bandit Slingshot Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/bandit_slingshot/Bandit Slingshot Sprite Sheet.png",
+          "row": 4,
+          "frames": 6,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/bandit_slingshot/Bandit Slingshot Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "barbarian",
+      "name": "바바리안",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/barbarian/Barbarian Sprite Sheet-Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "attack",
+          "file": "sheets/barbarian/Barbarian Sprite Sheet-Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/barbarian/Barbarian Sprite Sheet-Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "death",
+          "file": "sheets/barbarian/Barbarian Sprite Sheet-Sheet.png",
+          "row": 5,
+          "frames": 5,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "walk",
+          "file": "sheets/barbarian/Barbarian Sprite Sheet-Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 96,
+          "fh": 96
+        }
+      ]
+    },
+    {
+      "key": "basilisk",
+      "name": "바실리스크",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/basilisk/Basilisk Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/basilisk/Basilisk Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/basilisk/Basilisk Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/basilisk/Basilisk Sprite Sheet.png",
+          "row": 5,
+          "frames": 6,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/basilisk/Basilisk Sprite Sheet.png",
+          "row": 4,
+          "frames": 8,
+          "fw": 96,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "beast",
+      "name": "마수",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/beast/Beast Sprite Sheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 128,
+          "fh": 128
+        },
+        {
+          "type": "attack",
+          "file": "sheets/beast/Beast Sprite Sheet.png",
+          "row": 4,
+          "frames": 8,
+          "fw": 128,
+          "fh": 128
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/beast/Beast Sprite Sheet.png",
+          "row": 7,
+          "frames": 5,
+          "fw": 128,
+          "fh": 128
+        },
+        {
+          "type": "death",
+          "file": "sheets/beast/Beast Sprite Sheet.png",
+          "row": 8,
+          "frames": 11,
+          "fw": 128,
+          "fh": 128
+        },
+        {
+          "type": "walk",
+          "file": "sheets/beast/Beast Sprite Sheet.png",
+          "row": 5,
+          "frames": 8,
+          "fw": 128,
+          "fh": 128
+        }
+      ]
+    },
+    {
+      "key": "black_pudding_small",
+      "name": "작은 검은 푸딩",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/black_pudding_small/Black Pudding Sprite Sheet.png",
+          "row": 0,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/black_pudding_small/Black Pudding Sprite Sheet.png",
+          "row": 2,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/black_pudding_small/Black Pudding Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/black_pudding_small/Black Pudding Sprite Sheet.png",
+          "row": 4,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/black_pudding_small/Black Pudding Sprite Sheet.png",
+          "row": 1,
+          "frames": 10,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "bloodsilk_spider",
+      "name": "핏실 거미",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/bloodsilk_spider/Bloodsilk Spider Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/bloodsilk_spider/Bloodsilk Spider Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/bloodsilk_spider/Bloodsilk Spider Sprite Sheet.png",
+          "row": 3,
+          "frames": 3,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/bloodsilk_spider/Bloodsilk Spider Sprite Sheet.png",
+          "row": 4,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/bloodsilk_spider/Bloodsilk Spider Sprite Sheet.png",
+          "row": 1,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "brain_mole_monarch",
+      "name": "뇌두더지 군주",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/brain_mole_monarch/Brain Mole Monarch Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/brain_mole_monarch/Brain Mole Monarch Sprite Sheet.png",
+          "row": 1,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/brain_mole_monarch/Brain Mole Monarch Sprite Sheet.png",
+          "row": 2,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/brain_mole_monarch/Brain Mole Monarch Sprite Sheet.png",
+          "row": 3,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "brownie",
+      "name": "브라우니",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/brownie/Brownie Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/brownie/Brownie Sprite Sheet.png",
+          "row": 4,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/brownie/Brownie Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/brownie/Brownie Sprite Sheet.png",
+          "row": 2,
+          "frames": 9,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/brownie/Brownie Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "bugbear",
+      "name": "버그베어",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/bugbear/Bugbear Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/bugbear/Bugbear Sprite Sheet.png",
+          "row": 5,
+          "frames": 6,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/bugbear/Bugbear Sprite Sheet.png",
+          "row": 6,
+          "frames": 4,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/bugbear/Bugbear Sprite Sheet.png",
+          "row": 7,
+          "frames": 6,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/bugbear/Bugbear Sprite Sheet.png",
+          "row": 1,
+          "frames": 6,
+          "fw": 96,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "bull",
+      "name": "황소",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/bull/Bull Sheet.png",
+          "row": 0,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/bull/Bull Sheet.png",
+          "row": 3,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/bull/Bull Sheet.png",
+          "row": 4,
+          "frames": 3,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/bull/Bull Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "bullywug_warrior",
+      "name": "불리웍 전사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/bullywug_warrior/Bullywug Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/bullywug_warrior/Bullywug Sprite Sheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/bullywug_warrior/Bullywug Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/bullywug_warrior/Bullywug Sprite Sheet.png",
+          "row": 4,
+          "frames": 6,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/bullywug_warrior/Bullywug Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "cacodaemon",
+      "name": "카코데몬",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/cacodaemon/Cacodaemon Sprite Sheet.png",
+          "row": 0,
+          "frames": 6,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/cacodaemon/Cacodaemon Sprite Sheet.png",
+          "row": 1,
+          "frames": 6,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/cacodaemon/Cacodaemon Sprite Sheet.png",
+          "row": 2,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/cacodaemon/Cacodaemon Sprite Sheet.png",
+          "row": 3,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "centaur",
+      "name": "켄타우로스",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/centaur/Centaur Sprite Sheet.png",
+          "row": 0,
+          "frames": 5,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/centaur/Centaur Sprite Sheet.png",
+          "row": 4,
+          "frames": 8,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/centaur/Centaur Sprite Sheet.png",
+          "row": 5,
+          "frames": 8,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/centaur/Centaur Sprite Sheet.png",
+          "row": 6,
+          "frames": 10,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/centaur/Centaur Sprite Sheet.png",
+          "row": 1,
+          "frames": 7,
+          "fw": 96,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "cloaker",
+      "name": "클로커",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/cloaker/Cloaker Sprite Sheet.png",
+          "row": 0,
+          "frames": 5,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/cloaker/Cloaker Sprite Sheet.png",
+          "row": 3,
+          "frames": 10,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/cloaker/Cloaker Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/cloaker/Cloaker Sprite Sheet.png",
+          "row": 5,
+          "frames": 11,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/cloaker/Cloaker Sprite Sheet.png",
+          "row": 1,
+          "frames": 5,
+          "fw": 96,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "compsognathus",
+      "name": "콤프소그나투스",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/compsognathus/Compsognathus Sprite Sheet.png",
+          "row": 0,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/compsognathus/Compsognathus Sprite Sheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/compsognathus/Compsognathus Sprite Sheet.png",
+          "row": 4,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/compsognathus/Compsognathus Sprite Sheet.png",
+          "row": 5,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/compsognathus/Compsognathus Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "cultist_horror",
+      "name": "광신 괴물",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/cultist_horror/Cultist Horror Sprite Sheet.png",
+          "row": 1,
+          "frames": 16,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "attack",
+          "file": "sheets/cultist_horror/Cultist Horror Sprite Sheet.png",
+          "row": 5,
+          "frames": 11,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/cultist_horror/Cultist Horror Sprite Sheet.png",
+          "row": 3,
+          "frames": 5,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "death",
+          "file": "sheets/cultist_horror/Cultist Horror Sprite Sheet.png",
+          "row": 4,
+          "frames": 10,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "walk",
+          "file": "sheets/cultist_horror/Cultist Horror Sprite Sheet.png",
+          "row": 2,
+          "frames": 4,
+          "fw": 96,
+          "fh": 96
+        }
+      ]
+    },
+    {
+      "key": "cultists",
+      "name": "광신도",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/cultists/Cultist Brute Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/cultists/Cultist Brute Sprite Sheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/cultists/Cultist Brute Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/cultists/Cultist Brute Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/cultists/Cultist Brute Sprite Sheet.png",
+          "row": 1,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "death",
+      "name": "죽음",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/death/Death Sprite Sheet.png",
+          "row": 0,
+          "frames": 6,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "attack",
+          "file": "sheets/death/Death Sprite Sheet.png",
+          "row": 2,
+          "frames": 7,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/death/Death Sprite Sheet.png",
+          "row": 5,
+          "frames": 5,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "death",
+          "file": "sheets/death/Death Sprite Sheet.png",
+          "row": 4,
+          "frames": 9,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "walk",
+          "file": "sheets/death/Death Sprite Sheet.png",
+          "row": 1,
+          "frames": 4,
+          "fw": 96,
+          "fh": 96
+        }
+      ]
+    },
+    {
+      "key": "demon",
+      "name": "악령",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/demon/Demon Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/demon/Demon Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/demon/Demon Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/demon/Demon Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/demon/Demon Sprite Sheet.png",
+          "row": 5,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "dopperganger",
+      "name": "도플갱어",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/dopperganger/Doppelganger Sprite Sheet.png",
+          "row": 4,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/dopperganger/Doppelganger Sprite Sheet.png",
+          "row": 6,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/dopperganger/Doppelganger Sprite Sheet.png",
+          "row": 7,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/dopperganger/Doppelganger Sprite Sheet.png",
+          "row": 8,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/dopperganger/Doppelganger Sprite Sheet.png",
+          "row": 5,
+          "frames": 6,
+          "fw": 64,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "dragon",
+      "name": "레드 드래곤",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/dragon/Dragon Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 128,
+          "fh": 128
+        },
+        {
+          "type": "attack",
+          "file": "sheets/dragon/Dragon Sprite Sheet.png",
+          "row": 4,
+          "frames": 8,
+          "fw": 128,
+          "fh": 128
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/dragon/Dragon Sprite Sheet.png",
+          "row": 10,
+          "frames": 8,
+          "fw": 128,
+          "fh": 128
+        },
+        {
+          "type": "death",
+          "file": "sheets/dragon/Dragon Sprite Sheet.png",
+          "row": 11,
+          "frames": 10,
+          "fw": 128,
+          "fh": 128
+        },
+        {
+          "type": "walk",
+          "file": "sheets/dragon/Dragon Sprite Sheet.png",
+          "row": 3,
+          "frames": 5,
+          "fw": 128,
+          "fh": 128
+        }
+      ]
+    },
+    {
+      "key": "dragon_hatchling",
+      "name": "새끼 용",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/dragon_hatchling/Dragon Hatchling Sprite Sheet.png",
+          "row": 0,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/dragon_hatchling/Dragon Hatchling Sprite Sheet.png",
+          "row": 3,
+          "frames": 10,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/dragon_hatchling/Dragon Hatchling Sprite Sheet.png",
+          "row": 2,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/dragon_hatchling/Dragon Hatchling Sprite Sheet.png",
+          "row": 4,
+          "frames": 10,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/dragon_hatchling/Dragon Hatchling Sprite Sheet.png",
+          "row": 1,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "dragonfly",
+      "name": "잠자리",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/dragonfly/Dragonfly Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/dragonfly/Dragonfly Sprite Sheet.png",
+          "row": 2,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/dragonfly/Dragonfly Sprite Sheet.png",
+          "row": 3,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/dragonfly/Dragonfly Sprite Sheet.png",
+          "row": 1,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "dwarven_guardian_construct",
+      "name": "드워프 수호 기관",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/dwarven_guardian_construct/Dwarven Guardian Construct Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/dwarven_guardian_construct/Dwarven Guardian Construct Sprite Sheet.png",
+          "row": 3,
+          "frames": 12,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/dwarven_guardian_construct/Dwarven Guardian Construct Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/dwarven_guardian_construct/Dwarven Guardian Construct Sprite Sheet.png",
+          "row": 6,
+          "frames": 12,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/dwarven_guardian_construct/Dwarven Guardian Construct Sprite Sheet.png",
+          "row": 1,
+          "frames": 5,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "faerie_dragon",
+      "name": "요정룡",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/faerie_dragon/Faerie Dragon Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/faerie_dragon/Faerie Dragon Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/faerie_dragon/Faerie Dragon Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/faerie_dragon/Faerie Dragon Sprite Sheet.png",
+          "row": 5,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "fire_elemental_small",
+      "name": "작은 화염 정령",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/fire_elemental_small/Fire Elemental Sprite Sheet.png",
+          "row": 1,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/fire_elemental_small/Fire Elemental Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/fire_elemental_small/Fire Elemental Sprite Sheet.png",
+          "row": 3,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/fire_elemental_small/Fire Elemental Sprite Sheet.png",
+          "row": 4,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/fire_elemental_small/Fire Elemental Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "fishfolk_inkbender",
+      "name": "어인 먹물술사",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/fishfolk_inkbender/Fishfolk Inkbender Spritesheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/fishfolk_inkbender/Fishfolk Inkbender Spritesheet.png",
+          "row": 4,
+          "frames": 16,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/fishfolk_inkbender/Fishfolk Inkbender Spritesheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/fishfolk_inkbender/Fishfolk Inkbender Spritesheet.png",
+          "row": 3,
+          "frames": 8,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/fishfolk_inkbender/Fishfolk Inkbender Spritesheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 96,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "flameskull",
+      "name": "불꽃 해골",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/flameskull/Skullflame Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/flameskull/Skullflame Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/flameskull/Skullflame Sprite Sheet.png",
+          "row": 5,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/flameskull/Skullflame Sprite Sheet.png",
+          "row": 6,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/flameskull/Skullflame Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "flesh_horror",
+      "name": "육신 괴물",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/flesh_horror/Flesh Horror Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/flesh_horror/Flesh Horror Sprite Sheet.png",
+          "row": 1,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/flesh_horror/Flesh Horror Sprite Sheet.png",
+          "row": 2,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/flesh_horror/Flesh Horror Sprite Sheet.png",
+          "row": 3,
+          "frames": 1,
+          "fw": 64,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "flying_brain_monster",
+      "name": "비행 뇌수",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/flying_brain_monster/Flying Brain Monster Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/flying_brain_monster/Flying Brain Monster Sprite Sheet.png",
+          "row": 3,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/flying_brain_monster/Flying Brain Monster Sprite Sheet.png",
+          "row": 1,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/flying_brain_monster/Flying Brain Monster Sprite Sheet.png",
+          "row": 2,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "flying_eye_monster",
+      "name": "비행 안구",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/flying_eye_monster/Eye Monster Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/flying_eye_monster/Eye Monster Sprite Sheet.png",
+          "row": 1,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/flying_eye_monster/Eye Monster Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "flytrap_leshy",
+      "name": "파리지옥 레쉬",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/flytrap_leshy/Leshy Flytrap Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/flytrap_leshy/Leshy Flytrap Sprite Sheet.png",
+          "row": 2,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/flytrap_leshy/Leshy Flytrap Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/flytrap_leshy/Leshy Flytrap Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/flytrap_leshy/Leshy Flytrap Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "froghemoth",
+      "name": "개구리수",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/froghemoth/Froghemoth Sprite Sheet.png",
+          "row": 0,
+          "frames": 6,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/froghemoth/Froghemoth Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/froghemoth/Froghemoth Sprite Sheet.png",
+          "row": 6,
+          "frames": 6,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/froghemoth/Froghemoth Sprite Sheet.png",
+          "row": 7,
+          "frames": 9,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/froghemoth/Froghemoth Sprite Sheet.png",
+          "row": 1,
+          "frames": 12,
+          "fw": 96,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "frost_giant",
+      "name": "서리 대거인",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/frost_giant/Frost Giant Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/frost_giant/Frost Giant Sprite Sheet.png",
+          "row": 3,
+          "frames": 6,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/frost_giant/Frost Giant Sprite Sheet.png",
+          "row": 7,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/frost_giant/Frost Giant Sprite Sheet.png",
+          "row": 9,
+          "frames": 7,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/frost_giant/Frost Giant Sprite Sheet.png",
+          "row": 1,
+          "frames": 6,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "fungal_monster_medium",
+      "name": "버섯 괴물(중)",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/fungal_monster_medium/Fungal Monster Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/fungal_monster_medium/Fungal Monster Sprite Sheet.png",
+          "row": 2,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/fungal_monster_medium/Fungal Monster Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/fungal_monster_medium/Fungal Monster Sprite Sheet.png",
+          "row": 5,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/fungal_monster_medium/Fungal Monster Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "fungal_monster_small",
+      "name": "버섯 괴물(소)",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/fungal_monster_small/Mushroom Monster Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/fungal_monster_small/Mushroom Monster Sprite Sheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/fungal_monster_small/Mushroom Monster Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/fungal_monster_small/Mushroom Monster Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/fungal_monster_small/Mushroom Monster Sprite Sheet.png",
+          "row": 1,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "geonid",
+      "name": "지오니드",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/geonid/Geonid Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/geonid/Geonid Sprite Sheet.png",
+          "row": 5,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/geonid/Geonid Sprite Sheet.png",
+          "row": 6,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/geonid/Geonid Sprite Sheet.png",
+          "row": 7,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/geonid/Geonid Sprite Sheet.png",
+          "row": 4,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "giant_golem",
+      "name": "거대 골렘",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/giant_golem/Giant Golem Sprite Sheet.png",
+          "row": 0,
+          "frames": 5,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/giant_golem/Giant Golem Sprite Sheet.png",
+          "row": 3,
+          "frames": 5,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/giant_golem/Giant Golem Sprite Sheet.png",
+          "row": 2,
+          "frames": 10,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/giant_golem/Giant Golem Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 96,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "giant_mushroom_monster",
+      "name": "거대 버섯 괴물",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/giant_mushroom_monster/Fungal Monster Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/giant_mushroom_monster/Fungal Monster Sprite Sheet.png",
+          "row": 2,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/giant_mushroom_monster/Fungal Monster Sprite Sheet.png",
+          "row": 3,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/giant_mushroom_monster/Fungal Monster Sprite Sheet.png",
+          "row": 5,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/giant_mushroom_monster/Fungal Monster Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "gladiator",
+      "name": "검투사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/gladiator/Gladiator Sprite Sheet.png",
+          "row": 0,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/gladiator/Gladiator Sprite Sheet.png",
+          "row": 2,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/gladiator/Gladiator Sprite Sheet.png",
+          "row": 3,
+          "frames": 3,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/gladiator/Gladiator Sprite Sheet.png",
+          "row": 4,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/gladiator/Gladiator Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "glutmon",
+      "name": "글럿몬",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/glutmon/Glutmon Form One Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/glutmon/Glutmon Form One Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/glutmon/Glutmon Form One Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/glutmon/Glutmon Form One Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/glutmon/Glutmon Form One Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "guardian_scroll",
+      "name": "수호 두루마리",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/guardian_scroll/Guardian Scroll Sprite Sheet.png",
+          "row": 0,
+          "frames": 9,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/guardian_scroll/Guardian Scroll Sprite Sheet.png",
+          "row": 2,
+          "frames": 12,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/guardian_scroll/Guardian Scroll Sprite Sheet.png",
+          "row": 3,
+          "frames": 10,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/guardian_scroll/Guardian Scroll Sprite Sheet.png",
+          "row": 1,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "hedgehog",
+      "name": "고슴도치",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/hedgehog/Hedgehog Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/hedgehog/Hedgehog Sprite Sheet.png",
+          "row": 2,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/hedgehog/Hedgehog Sprite Sheet.png",
+          "row": 3,
+          "frames": 3,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/hedgehog/Hedgehog Sprite Sheet.png",
+          "row": 1,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "hell_critter",
+      "name": "지옥 짐승",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/hell_critter/Hell Critter Sprite Sheet.png",
+          "row": 0,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/hell_critter/Hell Critter Sprite Sheet.png",
+          "row": 2,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/hell_critter/Hell Critter Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/hell_critter/Hell Critter Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/hell_critter/Hell Critter Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "hermit_crab",
+      "name": "소라게",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/hermit_crab/Hermit Crab Sprite Sheet.png",
+          "row": 0,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/hermit_crab/Hermit Crab Sprite Sheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/hermit_crab/Hermit Crab Sprite Sheet.png",
+          "row": 4,
+          "frames": 3,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/hermit_crab/Hermit Crab Sprite Sheet.png",
+          "row": 3,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/hermit_crab/Hermit Crab Sprite Sheet.png",
+          "row": 1,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "homunculus",
+      "name": "호문쿨루스",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/homunculus/Homunculus Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/homunculus/Homunculus Sprite Sheet.png",
+          "row": 3,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/homunculus/Homunculus Sprite Sheet.png",
+          "row": 4,
+          "frames": 3,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/homunculus/Homunculus Sprite Sheet.png",
+          "row": 5,
+          "frames": 10,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/homunculus/Homunculus Sprite Sheet.png",
+          "row": 1,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "hopkins_gremlin",
+      "name": "홉킨스 그렘린",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/hopkins_gremlin/Hopkins Gremlin Sprite Sheet.png",
+          "row": 0,
+          "frames": 16,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/hopkins_gremlin/Hopkins Gremlin Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/hopkins_gremlin/Hopkins Gremlin Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/hopkins_gremlin/Hopkins Gremlin Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/hopkins_gremlin/Hopkins Gremlin Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "ice_elemental_small",
+      "name": "작은 냉기 정령",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/ice_elemental_small/Ice Elemental Sprite Sheet.png",
+          "row": 0,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/ice_elemental_small/Ice Elemental Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/ice_elemental_small/Ice Elemental Sprite Sheet.png",
+          "row": 5,
+          "frames": 3,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/ice_elemental_small/Ice Elemental Sprite Sheet.png",
+          "row": 6,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/ice_elemental_small/Ice Elemental Sprite Sheet.png",
+          "row": 1,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "ifrit",
+      "name": "이프리트",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/ifrit/Ifrit Sprite Sheet.png",
+          "row": 0,
+          "frames": 5,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/ifrit/Ifrit Sprite Sheet.png",
+          "row": 5,
+          "frames": 13,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/ifrit/Ifrit Sprite Sheet.png",
+          "row": 6,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/ifrit/Ifrit Sprite Sheet.png",
+          "row": 7,
+          "frames": 18,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/ifrit/Ifrit Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "imp",
+      "name": "꼬마 임프",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/imp/Imp Sprite Sheet.png",
+          "row": 0,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/imp/Imp Sprite Sheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/imp/Imp Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/imp/Imp Sprite Sheet.png",
+          "row": 4,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/imp/Imp Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "intellect_devourer",
+      "name": "지능 포식자",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/intellect_devourer/Intellect Devourer Sprites.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/intellect_devourer/Intellect Devourer Sprites.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/intellect_devourer/Intellect Devourer Sprites.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/intellect_devourer/Intellect Devourer Sprites.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/intellect_devourer/Intellect Devourer Sprites.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "jester_sprite",
+      "name": "광대 정령",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/jester_sprite/Jester Sprite Sheet.png",
+          "row": 0,
+          "frames": 17,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/jester_sprite/Jester Sprite Sheet.png",
+          "row": 2,
+          "frames": 9,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/jester_sprite/Jester Sprite Sheet.png",
+          "row": 3,
+          "frames": 5,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/jester_sprite/Jester Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/jester_sprite/Jester Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "knight",
+      "name": "기사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/knight/Knight Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/knight/Knight Sprite Sheet.png",
+          "row": 2,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/knight/Knight Sprite Sheet.png",
+          "row": 6,
+          "frames": 3,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/knight/Knight Sprite Sheet.png",
+          "row": 7,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/knight/Knight Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "korred",
+      "name": "코레드",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/korred/Korred Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/korred/Korred Sprite Sheet.png",
+          "row": 2,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/korred/Korred Sprite Sheet.png",
+          "row": 4,
+          "frames": 3,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/korred/Korred Sprite Sheet.png",
+          "row": 5,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/korred/Korred Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "ladybug",
+      "name": "무당벌레",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/ladybug/Ladybug Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/ladybug/Ladybug Sprite Sheet.png",
+          "row": 3,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/ladybug/Ladybug Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/ladybug/Ladybug Sprite Sheet.png",
+          "row": 5,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/ladybug/Ladybug Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "lightning_elemental_small",
+      "name": "작은 번개 정령",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/lightning_elemental_small/Lightning Elemental Sprite Sheet.png",
+          "row": 0,
+          "frames": 22,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/lightning_elemental_small/Lightning Elemental Sprite Sheet.png",
+          "row": 2,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/lightning_elemental_small/Lightning Elemental Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/lightning_elemental_small/Lightning Elemental Sprite Sheet.png",
+          "row": 5,
+          "frames": 13,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/lightning_elemental_small/Lightning Elemental Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "lizardfolk_archer",
+      "name": "도마뱀 궁수",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/lizardfolk_archer/Lizardfolk Archer Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/lizardfolk_archer/Lizardfolk Archer Sprite Sheet.png",
+          "row": 2,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/lizardfolk_archer/Lizardfolk Archer Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/lizardfolk_archer/Lizardfolk Archer Sprite Sheet.png",
+          "row": 5,
+          "frames": 6,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/lizardfolk_archer/Lizardfolk Archer Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "lizardfolk_monk",
+      "name": "도마뱀 수도사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/lizardfolk_monk/Lizardfolk Monk Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/lizardfolk_monk/Lizardfolk Monk Sprite Sheet.png",
+          "row": 3,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/lizardfolk_monk/Lizardfolk Monk Sprite Sheet.png",
+          "row": 4,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/lizardfolk_monk/Lizardfolk Monk Sprite Sheet.png",
+          "row": 5,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/lizardfolk_monk/Lizardfolk Monk Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "mage",
+      "name": "마법사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/mage/Mage Sprite Sheet Blue.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/mage/Mage Sprite Sheet Blue.png",
+          "row": 2,
+          "frames": 5,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/mage/Mage Sprite Sheet Blue.png",
+          "row": 3,
+          "frames": 9,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/mage/Mage Sprite Sheet Blue.png",
+          "row": 4,
+          "frames": 9,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/mage/Mage Sprite Sheet Blue.png",
+          "row": 1,
+          "frames": 11,
+          "fw": 64,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "mageripper",
+      "name": "마법사냥꾼",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/mageripper/Mageripper Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/mageripper/Mageripper Sprite Sheet.png",
+          "row": 2,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/mageripper/Mageripper Sprite Sheet.png",
+          "row": 3,
+          "frames": 3,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/mageripper/Mageripper Sprite Sheet.png",
+          "row": 4,
+          "frames": 3,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/mageripper/Mageripper Sprite Sheet.png",
+          "row": 1,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "maw_demon",
+      "name": "아귀 마귀",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/maw_demon/Maw Demon Sprite Sheet Green.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/maw_demon/Maw Demon Sprite Sheet Green.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/maw_demon/Maw Demon Sprite Sheet Green.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/maw_demon/Maw Demon Sprite Sheet Green.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/maw_demon/Maw Demon Sprite Sheet Green.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "mimic",
+      "name": "미믹",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/mimic/Mimic Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/mimic/Mimic Sprite Sheet.png",
+          "row": 2,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/mimic/Mimic Sprite Sheet.png",
+          "row": 3,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/mimic/Mimic Sprite Sheet.png",
+          "row": 1,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "monster_snail",
+      "name": "괴물 달팽이",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/monster_snail/Snail Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/monster_snail/Snail Sprite Sheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/monster_snail/Snail Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/monster_snail/Snail Sprite Sheet.png",
+          "row": 4,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/monster_snail/Snail Sprite Sheet.png",
+          "row": 1,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "naga",
+      "name": "나가",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/naga/Naga Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/naga/Naga Sprite Sheet.png",
+          "row": 2,
+          "frames": 7,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/naga/Naga Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/naga/Naga Sprite Sheet.png",
+          "row": 4,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/naga/Naga Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "naked_molerat",
+      "name": "벌거숭이두더지쥐",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/naked_molerat/Naked Mole Rat Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/naked_molerat/Naked Mole Rat Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/naked_molerat/Naked Mole Rat Sprite Sheet.png",
+          "row": 6,
+          "frames": 3,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/naked_molerat/Naked Mole Rat Sprite Sheet.png",
+          "row": 3,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/naked_molerat/Naked Mole Rat Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "necromancer",
+      "name": "강령술사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/necromancer/Necromancer Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/necromancer/Necromancer Sprite Sheet.png",
+          "row": 5,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/necromancer/Necromancer Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/necromancer/Necromancer Sprite Sheet.png",
+          "row": 4,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/necromancer/Necromancer Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "ninja",
+      "name": "닌자",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/ninja/Novice Ninja Sprites.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/ninja/Novice Ninja Sprites.png",
+          "row": 2,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/ninja/Novice Ninja Sprites.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/ninja/Novice Ninja Sprites.png",
+          "row": 4,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/ninja/Novice Ninja Sprites.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "nothic",
+      "name": "노식",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/nothic/Nothic Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/nothic/Nothic Sprite Sheet.png",
+          "row": 2,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/nothic/Nothic Sprite Sheet.png",
+          "row": 4,
+          "frames": 3,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/nothic/Nothic Sprite Sheet.png",
+          "row": 5,
+          "frames": 3,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/nothic/Nothic Sprite Sheet.png",
+          "row": 1,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "octopus_king",
+      "name": "문어 왕",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/octopus_king/Octopus King Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 128,
+          "fh": 96
+        },
+        {
+          "type": "attack",
+          "file": "sheets/octopus_king/Octopus King Sprite Sheet.png",
+          "row": 5,
+          "frames": 8,
+          "fw": 128,
+          "fh": 96
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/octopus_king/Octopus King Sprite Sheet.png",
+          "row": 6,
+          "frames": 5,
+          "fw": 128,
+          "fh": 96
+        },
+        {
+          "type": "death",
+          "file": "sheets/octopus_king/Octopus King Sprite Sheet.png",
+          "row": 7,
+          "frames": 8,
+          "fw": 128,
+          "fh": 96
+        },
+        {
+          "type": "walk",
+          "file": "sheets/octopus_king/Octopus King Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 128,
+          "fh": 96
+        }
+      ]
+    },
+    {
+      "key": "octopus_small",
+      "name": "새끼 문어",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/octopus_small/Octopus Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/octopus_small/Octopus Sprite Sheet.png",
+          "row": 3,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/octopus_small/Octopus Sprite Sheet.png",
+          "row": 2,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/octopus_small/Octopus Sprite Sheet.png",
+          "row": 6,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/octopus_small/Octopus Sprite Sheet.png",
+          "row": 1,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "orc_hunter",
+      "name": "오크 사냥꾼",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/orc_hunter/Orc Hunter Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/orc_hunter/Orc Hunter Sprite Sheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/orc_hunter/Orc Hunter Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/orc_hunter/Orc Hunter Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/orc_hunter/Orc Hunter Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "orc_kamikaze",
+      "name": "오크 결사대",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/orc_kamikaze/Orc Kamikaze Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "attack",
+          "file": "sheets/orc_kamikaze/Orc Kamikaze Sprite Sheet.png",
+          "row": 2,
+          "frames": 15,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/orc_kamikaze/Orc Kamikaze Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "death",
+          "file": "sheets/orc_kamikaze/Orc Kamikaze Sprite Sheet.png",
+          "row": 4,
+          "frames": 10,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "walk",
+          "file": "sheets/orc_kamikaze/Orc Kamikaze Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 96,
+          "fh": 96
+        }
+      ]
+    },
+    {
+      "key": "orc_shaman",
+      "name": "오크 주술사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/orc_shaman/Orc Shaman Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/orc_shaman/Orc Shaman Sprite Sheet.png",
+          "row": 3,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/orc_shaman/Orc Shaman Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/orc_shaman/Orc Shaman Sprite Sheet.png",
+          "row": 5,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/orc_shaman/Orc Shaman Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "orc_taskmaster",
+      "name": "오크 작업반장",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/orc_taskmaster/Orc Taskmaster Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/orc_taskmaster/Orc Taskmaster Sprite Sheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/orc_taskmaster/Orc Taskmaster Sprite Sheet.png",
+          "row": 4,
+          "frames": 3,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/orc_taskmaster/Orc Taskmaster Sprite Sheet.png",
+          "row": 5,
+          "frames": 6,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/orc_taskmaster/Orc Taskmaster Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "orc_warlock",
+      "name": "오크 흑마법사",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/orc_warlock/Orc Warlock Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/orc_warlock/Orc Warlock Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/orc_warlock/Orc Warlock Sprite Sheet.png",
+          "row": 4,
+          "frames": 3,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/orc_warlock/Orc Warlock Sprite Sheet.png",
+          "row": 5,
+          "frames": 6,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/orc_warlock/Orc Warlock Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "orc_warrior",
+      "name": "오크 무사",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/orc_warrior/Orc Warrior Sprite Sheet.png",
+          "row": 0,
+          "frames": 5,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/orc_warrior/Orc Warrior Sprite Sheet.png",
+          "row": 2,
+          "frames": 7,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/orc_warrior/Orc Warrior Sprite Sheet.png",
+          "row": 7,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/orc_warrior/Orc Warrior Sprite Sheet.png",
+          "row": 8,
+          "frames": 6,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/orc_warrior/Orc Warrior Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "owl",
+      "name": "올빼미",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/owl/Owl Sprite Sheet.png",
+          "row": 0,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/owl/Owl Sprite Sheet.png",
+          "row": 1,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/owl/Owl Sprite Sheet.png",
+          "row": 2,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/owl/Owl Sprite Sheet.png",
+          "row": 3,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "owlbear",
+      "name": "아울베어",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/owlbear/Owlbear Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/owlbear/Owlbear Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/owlbear/Owlbear Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/owlbear/Owlbear Sprite Sheet.png",
+          "row": 6,
+          "frames": 5,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/owlbear/Owlbear Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "paladin",
+      "name": "팔라딘",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/paladin/Paladin Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/paladin/Paladin Sprite Sheet.png",
+          "row": 4,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/paladin/Paladin Sprite Sheet.png",
+          "row": 6,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/paladin/Paladin Sprite Sheet.png",
+          "row": 7,
+          "frames": 7,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/paladin/Paladin Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "parrot",
+      "name": "앵무새",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/parrot/Parrot Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/parrot/Parrot Sprite Sheet.png",
+          "row": 6,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/parrot/Parrot Sprite Sheet.png",
+          "row": 7,
+          "frames": 2,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/parrot/Parrot Sprite Sheet.png",
+          "row": 8,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/parrot/Parrot Sprite Sheet.png",
+          "row": 5,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "penguin",
+      "name": "펭귄",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/penguin/Penguin Sprite Sheet.png",
+          "row": 1,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/penguin/Penguin Sprite Sheet.png",
+          "row": 4,
+          "frames": 3,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/penguin/Penguin Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/penguin/Penguin Sprite Sheet.png",
+          "row": 6,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/penguin/Penguin Sprite Sheet.png",
+          "row": 3,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "plague_doctor",
+      "name": "역병 의사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/plague_doctor/Plague Doctor Sprite Sheet.png",
+          "row": 0,
+          "frames": 12,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/plague_doctor/Plague Doctor Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/plague_doctor/Plague Doctor Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/plague_doctor/Plague Doctor Sprite Sheet.png",
+          "row": 5,
+          "frames": 15,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/plague_doctor/Plague Doctor Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "priestess",
+      "name": "여사제",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/priestess/Priestess Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/priestess/Priestess Sprite Sheet.png",
+          "row": 3,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/priestess/Priestess Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/priestess/Priestess Sprite Sheet.png",
+          "row": 5,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/priestess/Priestess Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "pyromancer",
+      "name": "화염술사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/pyromancer/Pyromancer Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/pyromancer/Pyromancer Sprite Sheet.png",
+          "row": 3,
+          "frames": 15,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/pyromancer/Pyromancer Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/pyromancer/Pyromancer Sprite Sheet.png",
+          "row": 6,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/pyromancer/Pyromancer Sprite Sheet.png",
+          "row": 4,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "quickling",
+      "name": "쾌속요정",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/quickling/Quickling Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/quickling/Quickling Sprite Sheet.png",
+          "row": 3,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/quickling/Quickling Sprite Sheet.png",
+          "row": 4,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/quickling/Quickling Sprite Sheet.png",
+          "row": 5,
+          "frames": 9,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/quickling/Quickling Sprite Sheet.png",
+          "row": 1,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "ratfolk_berserker_sprite",
+      "name": "쥐족 광전사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/ratfolk_berserker_sprite/Ratfolk Berserker Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/ratfolk_berserker_sprite/Ratfolk Berserker Sprite Sheet.png",
+          "row": 3,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/ratfolk_berserker_sprite/Ratfolk Berserker Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/ratfolk_berserker_sprite/Ratfolk Berserker Sprite Sheet.png",
+          "row": 5,
+          "frames": 6,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/ratfolk_berserker_sprite/Ratfolk Berserker Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "ratfolk_tamer",
+      "name": "쥐족 조련사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/ratfolk_tamer/Ratfolk Tamer Spritesheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/ratfolk_tamer/Ratfolk Tamer Spritesheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/ratfolk_tamer/Ratfolk Tamer Spritesheet.png",
+          "row": 3,
+          "frames": 5,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/ratfolk_tamer/Ratfolk Tamer Spritesheet.png",
+          "row": 4,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/ratfolk_tamer/Ratfolk Tamer Spritesheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "rogue",
+      "name": "도적",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/rogue/Rogue Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/rogue/Rogue Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/rogue/Rogue Sprite Sheet.png",
+          "row": 6,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/rogue/Rogue Sprite Sheet.png",
+          "row": 7,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/rogue/Rogue Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "scarab",
+      "name": "스카라베",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/scarab/Scarab Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/scarab/Scarab Sprite Sheet.png",
+          "row": 2,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/scarab/Scarab Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/scarab/Scarab Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/scarab/Scarab Sprite Sheet.png",
+          "row": 1,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "shadow_entity",
+      "name": "그림자 존재",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/shadow_entity/Shadow Entity Sprite Sheet 1.1.png",
+          "row": 1,
+          "frames": 16,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/shadow_entity/Shadow Entity Sprite Sheet 1.1.png",
+          "row": 4,
+          "frames": 16,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/shadow_entity/Shadow Entity Sprite Sheet 1.1.png",
+          "row": 7,
+          "frames": 16,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/shadow_entity/Shadow Entity Sprite Sheet 1.1.png",
+          "row": 8,
+          "frames": 12,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/shadow_entity/Shadow Entity Sprite Sheet 1.1.png",
+          "row": 0,
+          "frames": 11,
+          "fw": 96,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "shardsoul_slayer",
+      "name": "파편혼 학살자",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/shardsoul_slayer/Shardsoul Slayer Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/shardsoul_slayer/Shardsoul Slayer Sprite Sheet.png",
+          "row": 2,
+          "frames": 5,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/shardsoul_slayer/Shardsoul Slayer Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/shardsoul_slayer/Shardsoul Slayer Sprite Sheet.png",
+          "row": 4,
+          "frames": 6,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/shardsoul_slayer/Shardsoul Slayer Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "shield_guardian",
+      "name": "방패 수호자",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/shield_guardian/Shield Guardian Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/shield_guardian/Shield Guardian Sprite Sheet.png",
+          "row": 2,
+          "frames": 7,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/shield_guardian/Shield Guardian Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/shield_guardian/Shield Guardian Sprite Sheet.png",
+          "row": 5,
+          "frames": 8,
+          "fw": 96,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/shield_guardian/Shield Guardian Sprite Sheet.png",
+          "row": 1,
+          "frames": 6,
+          "fw": 96,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "skeletal_archer",
+      "name": "해골 궁수",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/skeletal_archer/Skeletal Archer Sprite Sheet.png",
+          "row": 0,
+          "frames": 10,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/skeletal_archer/Skeletal Archer Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/skeletal_archer/Skeletal Archer Sprite Sheet.png",
+          "row": 3,
+          "frames": 3,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/skeletal_archer/Skeletal Archer Sprite Sheet.png",
+          "row": 4,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/skeletal_archer/Skeletal Archer Sprite Sheet.png",
+          "row": 1,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "skeletal_mage",
+      "name": "해골 마법사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/skeletal_mage/Skeletal Mage Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/skeletal_mage/Skeletal Mage Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/skeletal_mage/Skeletal Mage Sprite Sheet.png",
+          "row": 3,
+          "frames": 3,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/skeletal_mage/Skeletal Mage Sprite Sheet.png",
+          "row": 4,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/skeletal_mage/Skeletal Mage Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "skeletal_warrior",
+      "name": "해골 전사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/skeletal_warrior/Skeletal Warrior Sprite Sheet.png",
+          "row": 0,
+          "frames": 10,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/skeletal_warrior/Skeletal Warrior Sprite Sheet.png",
+          "row": 2,
+          "frames": 10,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/skeletal_warrior/Skeletal Warrior Sprite Sheet.png",
+          "row": 3,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/skeletal_warrior/Skeletal Warrior Sprite Sheet.png",
+          "row": 4,
+          "frames": 10,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/skeletal_warrior/Skeletal Warrior Sprite Sheet.png",
+          "row": 1,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "slime_medium",
+      "name": "중형 슬라임",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/slime_medium/Slime Medium Sprite Sheet.png",
+          "row": 0,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/slime_medium/Slime Medium Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/slime_medium/Slime Medium Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/slime_medium/Slime Medium Sprite Sheet.png",
+          "row": 5,
+          "frames": 11,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/slime_medium/Slime Medium Sprite Sheet.png",
+          "row": 1,
+          "frames": 11,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "slime_small",
+      "name": "소형 슬라임",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/slime_small/Slime Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/slime_small/Slime Sprite Sheet.png",
+          "row": 2,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/slime_small/Slime Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/slime_small/Slime Sprite Sheet.png",
+          "row": 4,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/slime_small/Slime Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "squire",
+      "name": "종자",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/squire/Squire Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/squire/Squire Sprite Sheet.png",
+          "row": 2,
+          "frames": 7,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/squire/Squire Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/squire/Squire Sprite Sheet.png",
+          "row": 5,
+          "frames": 5,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/squire/Squire Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "succubus",
+      "name": "서큐버스",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/succubus/Succubus Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/succubus/Succubus Sprite Sheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/succubus/Succubus Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/succubus/Succubus Sprite Sheet.png",
+          "row": 5,
+          "frames": 5,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/succubus/Succubus Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "thief_medieval",
+      "name": "도둑",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/thief_medieval/Medieval Thief Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/thief_medieval/Medieval Thief Sprite Sheet.png",
+          "row": 4,
+          "frames": 10,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/thief_medieval/Medieval Thief Sprite Sheet.png",
+          "row": 5,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/thief_medieval/Medieval Thief Sprite Sheet.png",
+          "row": 7,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/thief_medieval/Medieval Thief Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "thunder_beast",
+      "name": "천둥 야수",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/thunder_beast/TB Sprite Sheet.png",
+          "row": 0,
+          "frames": 5,
+          "fw": 96,
+          "fh": 128
+        },
+        {
+          "type": "attack",
+          "file": "sheets/thunder_beast/TB Sprite Sheet.png",
+          "row": 3,
+          "frames": 8,
+          "fw": 96,
+          "fh": 128
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/thunder_beast/TB Sprite Sheet.png",
+          "row": 6,
+          "frames": 4,
+          "fw": 96,
+          "fh": 128
+        },
+        {
+          "type": "death",
+          "file": "sheets/thunder_beast/TB Sprite Sheet.png",
+          "row": 7,
+          "frames": 6,
+          "fw": 96,
+          "fh": 128
+        },
+        {
+          "type": "walk",
+          "file": "sheets/thunder_beast/TB Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 96,
+          "fh": 128
+        }
+      ]
+    },
+    {
+      "key": "umber_hulk",
+      "name": "엄버 헐크",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/umber_hulk/Umber Hulk Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/umber_hulk/Umber Hulk Sprite Sheet.png",
+          "row": 3,
+          "frames": 6,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/umber_hulk/Umber Hulk Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/umber_hulk/Umber Hulk Sprite Sheet.png",
+          "row": 6,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/umber_hulk/Umber Hulk Sprite Sheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "vargouille",
+      "name": "바르구일",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/vargouille/Vargouille Sprite Sheet.png",
+          "row": 0,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/vargouille/Vargouille Sprite Sheet.png",
+          "row": 2,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/vargouille/Vargouille Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/vargouille/Vargouille Sprite Sheet.png",
+          "row": 5,
+          "frames": 9,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "vengeful_spirit",
+      "name": "원혼",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/vengeful_spirit/Vengeful Spirit Sprite Sheet.png",
+          "row": 0,
+          "frames": 6,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/vengeful_spirit/Vengeful Spirit Sprite Sheet.png",
+          "row": 1,
+          "frames": 12,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/vengeful_spirit/Vengeful Spirit Sprite Sheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/vengeful_spirit/Vengeful Spirit Sprite Sheet.png",
+          "row": 3,
+          "frames": 10,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "warlock",
+      "name": "흑마법사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/warlock/Warlock Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/warlock/Warlock Sprite Sheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/warlock/Warlock Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/warlock/Warlock Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/warlock/Warlock Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "wendigo",
+      "name": "웬디고",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/wendigo/Wendigo Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/wendigo/Wendigo Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/wendigo/Wendigo Sprite Sheet.png",
+          "row": 3,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/wendigo/Wendigo Sprite Sheet.png",
+          "row": 5,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/wendigo/Wendigo Sprite Sheet.png",
+          "row": 1,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "yeti",
+      "name": "예티",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/yeti/Yeti Sprite Sheet.png",
+          "row": 0,
+          "frames": 7,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/yeti/Yeti Sprite Sheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/yeti/Yeti Sprite Sheet.png",
+          "row": 3,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/yeti/Yeti Sprite Sheet.png",
+          "row": 5,
+          "frames": 6,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/yeti/Yeti Sprite Sheet.png",
+          "row": 1,
+          "frames": 6,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "zombie_townsfolk",
+      "name": "좀비 주민",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/zombie_townsfolk/Zombie Townsfolk 1 Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/zombie_townsfolk/Zombie Townsfolk 1 Sprite Sheet.png",
+          "row": 2,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/zombie_townsfolk/Zombie Townsfolk 1 Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/zombie_townsfolk/Zombie Townsfolk 1 Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/zombie_townsfolk/Zombie Townsfolk 1 Sprite Sheet.png",
+          "row": 1,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "goblin_assassin",
+      "name": "고블린 암살자",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/goblin_assassin/Goblin Assassin Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/goblin_assassin/Goblin Assassin Sprite Sheet.png",
+          "row": 3,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/goblin_assassin/Goblin Assassin Sprite Sheet.png",
+          "row": 6,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/goblin_assassin/Goblin Assassin Sprite Sheet.png",
+          "row": 7,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/goblin_assassin/Goblin Assassin Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "goblin_boar_rider",
+      "name": "고블린 멧돼지 기수",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/goblin_boar_rider/Goblin Boar Rider Sprite Sheet.png",
+          "row": 0,
+          "frames": 5,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/goblin_boar_rider/Goblin Boar Rider Sprite Sheet.png",
+          "row": 2,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/goblin_boar_rider/Goblin Boar Rider Sprite Sheet.png",
+          "row": 4,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/goblin_boar_rider/Goblin Boar Rider Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "goblin_bomber",
+      "name": "고블린 폭탄병",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/goblin_bomber/Goblin Bomber Sprite Sheet.png",
+          "row": 0,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/goblin_bomber/Goblin Bomber Sprite Sheet.png",
+          "row": 3,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/goblin_bomber/Goblin Bomber Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/goblin_bomber/Goblin Bomber Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/goblin_bomber/Goblin Bomber Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "goblin_king",
+      "name": "고블린 왕",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/goblin_king/Goblin King Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/goblin_king/Goblin King Sprite Sheet.png",
+          "row": 4,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/goblin_king/Goblin King Sprite Sheet.png",
+          "row": 6,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/goblin_king/Goblin King Sprite Sheet.png",
+          "row": 7,
+          "frames": 11,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/goblin_king/Goblin King Sprite Sheet.png",
+          "row": 1,
+          "frames": 6,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "goblin_shaman",
+      "name": "고블린 주술사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/goblin_shaman/Goblin Shaman Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/goblin_shaman/Goblin Shaman Sprite Sheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/goblin_shaman/Goblin Shaman Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/goblin_shaman/Goblin Shaman Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "dwarf",
+      "name": "드워프",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/dwarf/Dwarf Sprite Sheet 1.3v.png",
+          "row": 0,
+          "frames": 5,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/dwarf/Dwarf Sprite Sheet 1.3v.png",
+          "row": 4,
+          "frames": 2,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/dwarf/Dwarf Sprite Sheet 1.3v.png",
+          "row": 6,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/dwarf/Dwarf Sprite Sheet 1.3v.png",
+          "row": 7,
+          "frames": 7,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/dwarf/Dwarf Sprite Sheet 1.3v.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "dwarf_arbelest",
+      "name": "드워프 석궁병",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/dwarf_arbelest/Dwarf Arbelest Sprite Sheet.png",
+          "row": 0,
+          "frames": 6,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/dwarf_arbelest/Dwarf Arbelest Sprite Sheet.png",
+          "row": 3,
+          "frames": 6,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/dwarf_arbelest/Dwarf Arbelest Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/dwarf_arbelest/Dwarf Arbelest Sprite Sheet.png",
+          "row": 6,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/dwarf_arbelest/Dwarf Arbelest Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "dwarf_undead",
+      "name": "언데드 드워프",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/dwarf_undead/Dwarf Undead Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/dwarf_undead/Dwarf Undead Sprite Sheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/dwarf_undead/Dwarf Undead Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/dwarf_undead/Dwarf Undead Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/dwarf_undead/Dwarf Undead Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "king_dwarf",
+      "name": "드워프 왕",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/king_dwarf/King Dwarf Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "attack",
+          "file": "sheets/king_dwarf/King Dwarf Sprite Sheet.png",
+          "row": 3,
+          "frames": 5,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/king_dwarf/King Dwarf Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "death",
+          "file": "sheets/king_dwarf/King Dwarf Sprite Sheet.png",
+          "row": 5,
+          "frames": 5,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "walk",
+          "file": "sheets/king_dwarf/King Dwarf Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 96,
+          "fh": 96
+        }
+      ]
+    },
+    {
+      "key": "lizardfolk_mage",
+      "name": "도마뱀 마법사",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/lizardfolk_mage/Lizardfolk Mage Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/lizardfolk_mage/Lizardfolk Mage Sprite Sheet.png",
+          "row": 3,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/lizardfolk_mage/Lizardfolk Mage Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/lizardfolk_mage/Lizardfolk Mage Sprite Sheet.png",
+          "row": 5,
+          "frames": 5,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/lizardfolk_mage/Lizardfolk Mage Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "lizardfolk_spearman",
+      "name": "도마뱀 창병",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/lizardfolk_spearman/Lizardfolk Spearman Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/lizardfolk_spearman/Lizardfolk Spearman Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/lizardfolk_spearman/Lizardfolk Spearman Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/lizardfolk_spearman/Lizardfolk Spearman Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/lizardfolk_spearman/Lizardfolk Spearman Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "lizardfolk_warrior",
+      "name": "도마뱀 전사",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/lizardfolk_warrior/Lizardfolk Warrior Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/lizardfolk_warrior/Lizardfolk Warrior Sprite Sheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/lizardfolk_warrior/Lizardfolk Warrior Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/lizardfolk_warrior/Lizardfolk Warrior Sprite Sheet.png",
+          "row": 5,
+          "frames": 5,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/lizardfolk_warrior/Lizardfolk Warrior Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "fishfolk_archpriest",
+      "name": "어인 대사제",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/fishfolk_archpriest/Fishfolk Archpriest Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/fishfolk_archpriest/Fishfolk Archpriest Sprite Sheet.png",
+          "row": 3,
+          "frames": 9,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/fishfolk_archpriest/Fishfolk Archpriest Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/fishfolk_archpriest/Fishfolk Archpriest Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/fishfolk_archpriest/Fishfolk Archpriest Sprite Sheet.png",
+          "row": 1,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "fishfolk_berserker",
+      "name": "어인 광전사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/fishfolk_berserker/Fishfolk Berserker Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 96,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/fishfolk_berserker/Fishfolk Berserker Sprite Sheet.png",
+          "row": 4,
+          "frames": 6,
+          "fw": 96,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/fishfolk_berserker/Fishfolk Berserker Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 96,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/fishfolk_berserker/Fishfolk Berserker Sprite Sheet.png",
+          "row": 6,
+          "frames": 5,
+          "fw": 96,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/fishfolk_berserker/Fishfolk Berserker Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 96,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "fishfolk_brute",
+      "name": "어인 야수",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/fishfolk_brute/Fishfolk Brute Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/fishfolk_brute/Fishfolk Brute Sprite Sheet.png",
+          "row": 3,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/fishfolk_brute/Fishfolk Brute Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/fishfolk_brute/Fishfolk Brute Sprite Sheet.png",
+          "row": 5,
+          "frames": 6,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/fishfolk_brute/Fishfolk Brute Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "fishfolk_bubblemancer",
+      "name": "어인 거품술사",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/fishfolk_bubblemancer/Fishfolk Bubblemancer Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/fishfolk_bubblemancer/Fishfolk Bubblemancer Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/fishfolk_bubblemancer/Fishfolk Bubblemancer Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/fishfolk_bubblemancer/Fishfolk Bubblemancer Sprite Sheet.png",
+          "row": 5,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/fishfolk_bubblemancer/Fishfolk Bubblemancer Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "fishfolk_hypnotist",
+      "name": "어인 최면술사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/fishfolk_hypnotist/Fishfolk Hypnotist Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/fishfolk_hypnotist/Fishfolk Hypnotist Sprite Sheet.png",
+          "row": 3,
+          "frames": 6,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/fishfolk_hypnotist/Fishfolk Hypnotist Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/fishfolk_hypnotist/Fishfolk Hypnotist Sprite Sheet.png",
+          "row": 5,
+          "frames": 5,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/fishfolk_hypnotist/Fishfolk Hypnotist Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "fishfolk_jelly",
+      "name": "어인 해파리",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/fishfolk_jelly/Fishfolk Jelly Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/fishfolk_jelly/Fishfolk Jelly Sprite Sheet.png",
+          "row": 2,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/fishfolk_jelly/Fishfolk Jelly Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/fishfolk_jelly/Fishfolk Jelly Sprite Sheet.png",
+          "row": 6,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/fishfolk_jelly/Fishfolk Jelly Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "fishfolk_knight",
+      "name": "어인 기사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/fishfolk_knight/Fishfolk Knight Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/fishfolk_knight/Fishfolk Knight Sprite Sheet.png",
+          "row": 2,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/fishfolk_knight/Fishfolk Knight Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/fishfolk_knight/Fishfolk Knight Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/fishfolk_knight/Fishfolk Knight Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "fishfolk_net",
+      "name": "어인 그물잡이",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/fishfolk_net/Fishfolk Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/fishfolk_net/Fishfolk Sprite Sheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/fishfolk_net/Fishfolk Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/fishfolk_net/Fishfolk Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/fishfolk_net/Fishfolk Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "fishfolk_shaman",
+      "name": "어인 주술사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/fishfolk_shaman/Fishfolk Shaman Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/fishfolk_shaman/Fishfolk Shaman Sprite Sheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/fishfolk_shaman/Fishfolk Shaman Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/fishfolk_shaman/Fishfolk Shaman Sprite Sheet.png",
+          "row": 4,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/fishfolk_shaman/Fishfolk Shaman Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "fishfolk_whip",
+      "name": "어인 채찍병",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/fishfolk_whip/Fishfolk Whip Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/fishfolk_whip/Fishfolk Whip Sprite Sheet.png",
+          "row": 2,
+          "frames": 7,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/fishfolk_whip/Fishfolk Whip Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/fishfolk_whip/Fishfolk Whip Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/fishfolk_whip/Fishfolk Whip Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "cactus_monster_s",
+      "name": "선인장 괴물",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/cactus_monster_s/Cactus Monster S Sprite Sheet.png",
+          "row": 0,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/cactus_monster_s/Cactus Monster S Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/cactus_monster_s/Cactus Monster S Sprite Sheet.png",
+          "row": 3,
+          "frames": 3,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/cactus_monster_s/Cactus Monster S Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/cactus_monster_s/Cactus Monster S Sprite Sheet.png",
+          "row": 1,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "evil_tree",
+      "name": "사악한 나무",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/evil_tree/Evil Tree Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "attack",
+          "file": "sheets/evil_tree/Evil Tree Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/evil_tree/Evil Tree Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "death",
+          "file": "sheets/evil_tree/Evil Tree Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "walk",
+          "file": "sheets/evil_tree/Evil Tree Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 96,
+          "fh": 96
+        }
+      ]
+    },
+    {
+      "key": "giant_pumpkin_monster",
+      "name": "거대 호박 괴물",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/giant_pumpkin_monster/Giant Pumpkin Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "attack",
+          "file": "sheets/giant_pumpkin_monster/Giant Pumpkin Sprite Sheet.png",
+          "row": 4,
+          "frames": 6,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/giant_pumpkin_monster/Giant Pumpkin Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "death",
+          "file": "sheets/giant_pumpkin_monster/Giant Pumpkin Sprite Sheet.png",
+          "row": 6,
+          "frames": 15,
+          "fw": 96,
+          "fh": 96
+        },
+        {
+          "type": "walk",
+          "file": "sheets/giant_pumpkin_monster/Giant Pumpkin Sprite Sheet.png",
+          "row": 1,
+          "frames": 6,
+          "fw": 96,
+          "fh": 96
+        }
+      ]
+    },
+    {
+      "key": "leaf_elemental_big",
+      "name": "큰 나뭇잎 정령",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/leaf_elemental_big/Leaf Elemental Sprite Sheet.png",
+          "row": 1,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/leaf_elemental_big/Leaf Elemental Sprite Sheet.png",
+          "row": 3,
+          "frames": 6,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/leaf_elemental_big/Leaf Elemental Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/leaf_elemental_big/Leaf Elemental Sprite Sheet.png",
+          "row": 6,
+          "frames": 7,
+          "fw": 64,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/leaf_elemental_big/Leaf Elemental Sprite Sheet.png",
+          "row": 2,
+          "frames": 7,
+          "fw": 64,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "leaf_elemental_small",
+      "name": "작은 나뭇잎 정령",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/leaf_elemental_small/Leaf Elemental S Sprite Sheet.png",
+          "row": 0,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/leaf_elemental_small/Leaf Elemental S Sprite Sheet.png",
+          "row": 5,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/leaf_elemental_small/Leaf Elemental S Sprite Sheet.png",
+          "row": 3,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/leaf_elemental_small/Leaf Elemental S Sprite Sheet.png",
+          "row": 4,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/leaf_elemental_small/Leaf Elemental S Sprite Sheet.png",
+          "row": 1,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "leafy_leshy",
+      "name": "잎사귀 레쉬",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/leafy_leshy/Leshy Leaf Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/leafy_leshy/Leshy Leaf Sprite Sheet.png",
+          "row": 2,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/leafy_leshy/Leshy Leaf Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/leafy_leshy/Leshy Leaf Sprite Sheet.png",
+          "row": 5,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/leafy_leshy/Leshy Leaf Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "leshy_gourd",
+      "name": "호리병 레쉬",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/leshy_gourd/Leshy Gourd Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/leshy_gourd/Leshy Gourd Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/leshy_gourd/Leshy Gourd Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/leshy_gourd/Leshy Gourd Sprite Sheet.png",
+          "row": 4,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/leshy_gourd/Leshy Gourd Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "monster_flower",
+      "name": "괴물 꽃",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/monster_flower/Flower Monster Sprite Sheet.png",
+          "row": 2,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/monster_flower/Flower Monster Sprite Sheet.png",
+          "row": 4,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/monster_flower/Flower Monster Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/monster_flower/Flower Monster Sprite Sheet.png",
+          "row": 6,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/monster_flower/Flower Monster Sprite Sheet.png",
+          "row": 3,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "twig_blight",
+      "name": "가지 마름병",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/twig_blight/Twig Blight Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/twig_blight/Twig Blight Sprite Sheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/twig_blight/Twig Blight Sprite Sheet.png",
+          "row": 3,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/twig_blight/Twig Blight Sprite Sheet.png",
+          "row": 4,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/twig_blight/Twig Blight Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "vegetable_monsters_1",
+      "name": "채소 괴물",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/vegetable_monsters_1/Vegetable Monster Sprite Sheet.png",
+          "row": 8,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/vegetable_monsters_1/Vegetable Monster Sprite Sheet.png",
+          "row": 11,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/vegetable_monsters_1/Vegetable Monster Sprite Sheet.png",
+          "row": 12,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/vegetable_monsters_1/Vegetable Monster Sprite Sheet.png",
+          "row": 13,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/vegetable_monsters_1/Vegetable Monster Sprite Sheet.png",
+          "row": 9,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "elven_archer",
+      "name": "엘프 궁수",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/elven_archer/Elven Archer Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/elven_archer/Elven Archer Sprite Sheet.png",
+          "row": 2,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/elven_archer/Elven Archer Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/elven_archer/Elven Archer Sprite Sheet.png",
+          "row": 4,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/elven_archer/Elven Archer Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "elven_warrior",
+      "name": "엘프 전사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/elven_warrior/Elven Warrior Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/elven_warrior/Elven Warrior Sprite Sheet.png",
+          "row": 2,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/elven_warrior/Elven Warrior Sprite Sheet.png",
+          "row": 3,
+          "frames": 3,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/elven_warrior/Elven Warrior Sprite Sheet.png",
+          "row": 4,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/elven_warrior/Elven Warrior Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "elven_wizard",
+      "name": "엘프 마법사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/elven_wizard/Elven Wizard Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/elven_wizard/Elven Wizard Sprite Sheet.png",
+          "row": 2,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/elven_wizard/Elven Wizard Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/elven_wizard/Elven Wizard Sprite Sheet.png",
+          "row": 6,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/elven_wizard/Elven Wizard Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "kobold",
+      "name": "코볼트",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/kobold/Kobold Sprite Sheet.png",
+          "row": 0,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/kobold/Kobold Sprite Sheet.png",
+          "row": 2,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/kobold/Kobold Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/kobold/Kobold Sprite Sheet.png",
+          "row": 5,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/kobold/Kobold Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "kobold_dragonshield",
+      "name": "코볼트 용방패병",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/kobold_dragonshield/Kobold Dragonshield Sprite Sheet.png",
+          "row": 0,
+          "frames": 5,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/kobold_dragonshield/Kobold Dragonshield Sprite Sheet.png",
+          "row": 3,
+          "frames": 6,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/kobold_dragonshield/Kobold Dragonshield Sprite Sheet.png",
+          "row": 5,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/kobold_dragonshield/Kobold Dragonshield Sprite Sheet.png",
+          "row": 6,
+          "frames": 7,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/kobold_dragonshield/Kobold Dragonshield Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "kobold_priest",
+      "name": "코볼트 사제",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/kobold_priest/Kobold Priest Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/kobold_priest/Kobold Priest Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/kobold_priest/Kobold Priest Sprite Sheet.png",
+          "row": 3,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/kobold_priest/Kobold Priest Sprite Sheet.png",
+          "row": 4,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/kobold_priest/Kobold Priest Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "kobold_pyromancer",
+      "name": "코볼트 화염술사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/kobold_pyromancer/Kobold Pyromancer Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/kobold_pyromancer/Kobold Pyromancer Sprite Sheet.png",
+          "row": 5,
+          "frames": 2,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/kobold_pyromancer/Kobold Pyromancer Sprite Sheet.png",
+          "row": 6,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/kobold_pyromancer/Kobold Pyromancer Sprite Sheet.png",
+          "row": 7,
+          "frames": 7,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/kobold_pyromancer/Kobold Pyromancer Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "kobold_shaman",
+      "name": "코볼트 주술사",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/kobold_shaman/Kobold Shaman Sprite Sheet.png",
+          "row": 0,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/kobold_shaman/Kobold Shaman Sprite Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/kobold_shaman/Kobold Shaman Sprite Sheet.png",
+          "row": 3,
+          "frames": 5,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/kobold_shaman/Kobold Shaman Sprite Sheet.png",
+          "row": 4,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/kobold_shaman/Kobold Shaman Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "kobold_slinger",
+      "name": "코볼트 투석병",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/kobold_slinger/Kobold Slinger Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/kobold_slinger/Kobold Slinger Sprite Sheet.png",
+          "row": 3,
+          "frames": 7,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/kobold_slinger/Kobold Slinger Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/kobold_slinger/Kobold Slinger Sprite Sheet.png",
+          "row": 5,
+          "frames": 7,
+          "fw": 64,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/kobold_slinger/Kobold Slinger Sprite Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 64,
+          "fh": 32
+        }
+      ]
+    },
+    {
+      "key": "kobold_trapmaster",
+      "name": "코볼트 함정장인",
+      "tier": "boss",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/kobold_trapmaster/Kobold Trapmaster Sprite Sheet -Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 64
+        },
+        {
+          "type": "attack",
+          "file": "sheets/kobold_trapmaster/Kobold Trapmaster Sprite Sheet -Sheet.png",
+          "row": 2,
+          "frames": 8,
+          "fw": 32,
+          "fh": 64
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/kobold_trapmaster/Kobold Trapmaster Sprite Sheet -Sheet.png",
+          "row": 5,
+          "frames": 5,
+          "fw": 32,
+          "fh": 64
+        },
+        {
+          "type": "death",
+          "file": "sheets/kobold_trapmaster/Kobold Trapmaster Sprite Sheet -Sheet.png",
+          "row": 6,
+          "frames": 7,
+          "fw": 32,
+          "fh": 64
+        },
+        {
+          "type": "walk",
+          "file": "sheets/kobold_trapmaster/Kobold Trapmaster Sprite Sheet -Sheet.png",
+          "row": 1,
+          "frames": 8,
+          "fw": 32,
+          "fh": 64
+        }
+      ]
+    },
+    {
+      "key": "winged_kobold",
+      "name": "날개 코볼트",
+      "tier": "normal",
+      "anims": [
+        {
+          "type": "idle",
+          "file": "sheets/winged_kobold/Winged Kobold Sprite Sheet.png",
+          "row": 0,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "attack",
+          "file": "sheets/winged_kobold/Winged Kobold Sprite Sheet.png",
+          "row": 2,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "hurt",
+          "file": "sheets/winged_kobold/Winged Kobold Sprite Sheet.png",
+          "row": 3,
+          "frames": 2,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "death",
+          "file": "sheets/winged_kobold/Winged Kobold Sprite Sheet.png",
+          "row": 4,
+          "frames": 4,
+          "fw": 32,
+          "fh": 32
+        },
+        {
+          "type": "walk",
+          "file": "sheets/winged_kobold/Winged Kobold Sprite Sheet.png",
+          "row": 1,
+          "frames": 6,
+          "fw": 32,
+          "fh": 32
+        }
+      ]
     }
   ]
 }
