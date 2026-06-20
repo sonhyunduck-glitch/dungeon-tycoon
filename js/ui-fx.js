@@ -59,6 +59,11 @@ G.ui.pcAnim = function(state){
 function _once(fn){ var d=false; return function(){ if(d) return; d=true; fn(); }; }
 function _sp(){ return Math.max(1, (G.state&&G.state.battleSpeed)||1); }
 function _reduced(){ try{ return window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){ return false; } }
+// 비행/부유 몹 — walk 프레임이 없어도 날아 들어오게(idle 날갯짓째 등속 이동). 지상몹은 제자리 페이드(미끄럼=순간이동처럼 보임 방지)
+var FLY_KEYS={ bat:1,wasp:1,giant_fly:1,dragonfly:1,wisp:1,harpy:1,eye:1,flying_eye_monster:1,flying_brain_monster:1,
+  drake:1,wyvern:1,ghost:1,banshee:1,beholder:1,vargouille:1,fairy:1,faerie_dragon:1,owl:1,parrot:1,raven:1,vulture:1,
+  pidgeon_sprite:1,winged_kobold:1,angel:1,archangel:1,fallen_angel:1,succubus:1,gargoyle:1,quasit:1,imp:1,cacodaemon:1,
+  intellect_devourer:1,vengeful_spirit:1,attic_whisperer:1 };
 
 /* 플레이어 걷기 토글 — 진짜 walk 프레임 보유 시 #pc-sprite.walk, 없으면 idle 유지(별도 처리 없음) */
 G.ui.pcWalk = function(on){
@@ -103,6 +108,7 @@ G.ui.foeWalkIn = function(cb){
   foes.forEach(function(f,i){
     var es=f.querySelector(".esprite");
     var hasW=!!(es && foeAnims(es) && foeAnims(es).walk);
+    var fly=!hasW && !!(es && es.dataset && FLY_KEYS[es.dataset.key]);   // 비행 몹: walk 없어도 날아 들어옴
     f.style.willChange="transform,opacity";
     var done=_once(function(){
       if(hasW&&es) es.classList.remove("walk");
@@ -115,6 +121,16 @@ G.ui.foeWalkIn = function(cb){
       void f.offsetWidth;
       setTimeout(function(){
         f.style.transition="transform "+(walkMs/1000)+"s linear";   // 등속 = 걷는 속도감
+        f.style.transform="translateX(0)";
+        var t=setTimeout(done, walkMs+160);
+        f.addEventListener("transitionend", function te(){ f.removeEventListener("transitionend",te); clearTimeout(t); done(); }, {once:true});
+      }, Math.round(i*130/sp));
+    } else if(fly){
+      // 비행: idle(날갯짓)째 우측→좌측 등속 이동 = 날아 들어옴
+      f.style.transition="none"; f.style.opacity="1"; f.style.transform="translateX("+startX+"px)";
+      void f.offsetWidth;
+      setTimeout(function(){
+        f.style.transition="transform "+(walkMs/1000)+"s linear";
         f.style.transform="translateX(0)";
         var t=setTimeout(done, walkMs+160);
         f.addEventListener("transitionend", function te(){ f.removeEventListener("transitionend",te); clearTimeout(t); done(); }, {once:true});
