@@ -127,8 +127,8 @@
   };
 
   // 작은 정적 아바타(idle 0프레임) — 랭킹/아레나 등 목록에서 남들 아바타 표시용
-  // 소형 아바타(프레임 최대변 ≤32px) 표시 보정 — 전투/미리보기/랭킹/아레나 공통 1.5배
-  G.avatar.dispBoost = function(s){ return (s && Math.max(s.fw||0, s.fh||0)<=32) ? 1.5 : 1; };
+  // 소형 아바타(프레임 높이 ≤32px) 표시 보정 — 전투/미리보기/랭킹/아레나 공통 1.5배
+  G.avatar.dispBoost = function(s){ return (s && (s.fh||0)<=32) ? 1.5 : 1; };
 
   G.avatar.miniHTML = function(id, size){
     size = size||26;
