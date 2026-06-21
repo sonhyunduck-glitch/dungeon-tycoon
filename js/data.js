@@ -36,8 +36,8 @@ G.DATA.RUNE_SLOTS = ["rune1","rune2","rune3"];   // 룬워드 3룬 조합 기준
 
 // 전리품 무게 — 정산(나가기/사망) 화면의 휴대 예산 계산용. 부위별 고정.
 G.DATA.SLOT_WEIGHT = { weapon:4, armor:4, helmet:3, gloves:3, boots:3, ring:2, necklace:2, rune:1 };
-G.DATA.CARRY_CAP   = 30;   // 정산 시 챙길 수 있는 총 무게(사망 시 ×0.5)
-G.DATA.RUN_LOOT_CAP= 60;   // 런 전리품 누적 상한(무게) — 초과분은 최저가치부터 자동매각
+G.DATA.CARRY_CAP   = 50;   // 정산 시 챙길 수 있는 총 무게(사망 시 ×0.5)
+G.DATA.RUN_LOOT_CAP= 100;  // 런 전리품 누적 상한(무게) — 초과분은 최저가치부터 폐기
 
 /* 🔗 룬워드 — 룬 3칸을 특정 룬 조합으로 채우면 발동(순서 무관). 조합법은 숨김(발견형).
    발동 시 룬창에 이름·능력 표시. 효과는 % 보조 수준. */
