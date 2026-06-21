@@ -871,6 +871,8 @@ img.twemoji{
 .settle-list{ max-height:50vh; overflow:auto; display:flex; flex-direction:column; gap:5px; }
 .settle-row{ display:flex; align-items:center; gap:8px; padding:6px; border-radius:8px; background:rgba(255,255,255,.04); }
 .settle-row.keep{ background:rgba(91,160,90,.14); box-shadow:inset 0 0 0 1px rgba(120,200,120,.3); }
+.settle-row.drop{ opacity:.5; }
+.settle-row.drop .settle-pick{ opacity:1; }
 .settle-ico{ flex:0 0 auto; font-size:1.4rem; width:34px; text-align:center; }
 .settle-info{ flex:1; min-width:0; font-size:.78rem; line-height:1.35; }
 .settle-badge{ font-size:.68rem; font-weight:800; padding:1px 6px; border-radius:8px; background:rgba(0,0,0,.25); }
