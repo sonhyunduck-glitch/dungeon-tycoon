@@ -124,6 +124,7 @@ G.ui.render = function(){
   else if(tab==="ranking") G.ui.renderRanking();
   else if(tab==="settings") G.ui.renderSettings();
   G.ui.renderLog();
+  if(G.ui.updateSettleFab) G.ui.updateSettleFab();   // 미정산 전리품 플로팅 버튼
   if(G.audio && G.audio.syncBgm) G.audio.syncBgm();   // 던전 진행=battle, 그 외=main BGM 자동 전환
 };
 

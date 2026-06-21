@@ -146,7 +146,14 @@ G.dungeon.clearFloor = function(){
   G.checkUnlocks();   // 자동화·스킬·배속 통합 해금 + 모달 알림
 };
 
-/* 던전 나가기 (run 종료) */
+/* 던전 나가기 (run 종료) — runLoot는 건드리지 않음(층 이동/auto-next용) */
 G.dungeon.leave = function(){
   G.state.dungeon.run=null;
+};
+
+/* 마을 귀환 요청 — 미정산 전리품 있으면 정산 화면, 없으면 바로 나가기 */
+G.dungeon.requestLeave = function(){
+  if(G.loot && G.loot.pending() && G.ui && G.ui.settleModal){ G.ui.settleModal(); return; }
+  G.dungeon.leave(); G.ui.render(); if(G.save) G.save.save(true);
+  if(G.ui && G.ui.updateSettleFab) G.ui.updateSettleFab();
 };

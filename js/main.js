@@ -87,7 +87,8 @@
     "floor-jump": function(){ G.state.dungeon.floor=G.state.dungeon.maxFloor||1; G.ui.render(); },
     "enter": function(d){ G.dungeon.enter(d.floor); G.ui.render(); animBusy=true; G.ui.sceneEnter(G.state.dungeon.run, function(){ animBusy=false; }); },
     "node-next": doAdvance,
-    "dungeon-leave": function(){ G.dungeon.leave(); G.ui.render(); G.save.save(true); },
+    "dungeon-leave": function(){ G.dungeon.requestLeave(); },
+    "settle-open": function(){ if(G.ui.settleModal) G.ui.settleModal(); },
     "speed-cycle": function(){ var m=G.maxSpeed(); var s=(G.state.battleSpeed||1)+1; if(s>m)s=1; G.state.battleSpeed=s; G.ui.render(); },
 
     "atk": doAttack,

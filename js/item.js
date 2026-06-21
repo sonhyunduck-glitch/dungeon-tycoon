@@ -202,6 +202,12 @@ G.runeword.recordActive = function(){
   G.state.collection.runewords[w.id]=true; return w;
 };
 
+/* 전리품 무게 (정산 휴대 예산용) — 부위별 고정, 소모품은 0 */
+G.item.weightOf = function(it){
+  if(!it || it.type==="consumable") return 0;
+  return (G.DATA.SLOT_WEIGHT && G.DATA.SLOT_WEIGHT[it.slot]) || 2;
+};
+
 /* 감정 */
 G.item.identifyCost = function(it){
   var c=Math.max(80, Math.round((it.basePrice||50)*0.35));

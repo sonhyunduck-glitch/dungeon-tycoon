@@ -574,5 +574,78 @@ G.ui.authModal = function(mode, opts){
 };
 
 /* ============================================================
+   📦 전리품 정산 화면 (나가기/사망 시)
+   ============================================================ */
+G.ui.settleModal = function(){
+  if(!(G.loot && G.loot.pending())){ G.dungeon.leave(); G.ui.render(); if(G.save)G.save.save(true); return; }
+  var dead=G.loot.isDead(), cap=G.loot.carryCap(dead);
+  var disp=G.loot.autoDisp(cap);   // 시작값 = 추천 자동 선별
+  function byId(id){ return G.loot.list().find(function(x){return x.id===id;}); }
+  function keptWeight(){ var w=0; G.loot.list().forEach(function(it){ if(disp[it.id]==="keep") w+=G.loot.weightOf(it); }); return w; }
+  function rank(it){ var d=disp[it.id]||G.loot.suggest(it); var base=({keep:3,sell:1,salvage:0})[d]||0; var v=G.loot.verdict(it); return base*1000 + (v.pct||0) + (it.basePrice||0)/100000; }
+  function body(){
+    var list=G.loot.list().slice().sort(function(a,b){ return rank(b)-rank(a); });
+    var kw=keptWeight(), over=kw>cap;
+    var rows=list.map(function(it){
+      var v=G.loot.verdict(it), wt=G.loot.weightOf(it), d=disp[it.id]||G.loot.suggest(it);
+      function bt(key,lbl){ return '<button class="btn xs settle-pick'+(d===key?' on':'')+'" data-pick="'+it.id+'" data-d="'+key+'">'+lbl+'</button>'; }
+      return '<div class="settle-row'+(d==="keep"?" keep":"")+'">'+
+        '<span class="settle-ico">'+G.ui.icoHTML(it)+'</span>'+
+        '<span class="settle-info"><b class="'+it.rarityCls+'">'+esc(it.name)+'</b> '+
+          '<span class="settle-badge '+v.cls+'">'+v.label+'</span>'+
+          '<br><span class="idesc">'+(it.identified===false?'<span class="muted">감정 필요</span>':G.item.statText(it))+'</span></span>'+
+        '<span class="settle-wt" title="무게">⚖️'+wt+'</span>'+
+        '<span class="settle-acts">'+bt("keep","챙김")+bt("sell","판매")+bt("salvage","분해")+'</span>'+
+      '</div>';
+    }).join("");
+    return '<div class="settle-cap'+(over?" over":"")+'">🎒 휴대 <b>'+kw+'</b> / '+cap+(dead?' <span class="r-common">(사망 ½)</span>':'')+
+        '<div class="settle-capbar"><i style="width:'+Math.min(100,Math.round(kw/cap*100))+'%"></i></div></div>'+
+      '<div class="settle-list">'+rows+'</div>';
+  }
+  function paint(){ var b=ov.querySelector(".settle-paint"); if(b) b.innerHTML=body(); }
+  var ov=document.createElement("div"); ov.className="modal-overlay show"; ov.style.zIndex="320";
+  ov.innerHTML='<div class="modal" style="width:min(540px,96vw)">'+
+    '<h2 style="justify-content:center">📦 전리품 정산'+(dead?' <span class="r-common" style="font-size:.7rem">쓰러짐</span>':'')+'</h2>'+
+    '<div class="muted" style="font-size:.72rem;text-align:center;margin-bottom:6px">챙김=가방(휴대 예산 내) · 판매=골드 · 분해=재료</div>'+
+    '<div class="settle-paint">'+body()+'</div>'+
+    '<div class="settle-foot">'+
+      '<button class="btn sm" data-settle-auto>✨ 추천 자동</button>'+
+      '<button class="btn sm" data-settle-allsell>전부 판매</button>'+
+      '<button class="btn primary" data-settle-confirm>정산 완료 ▸</button>'+
+    '</div>'+
+    '<button class="btn full" style="margin-top:8px" data-modal-close>나중에 (런 유지)</button>'+
+  '</div>';
+  document.body.appendChild(ov);
+  ov.addEventListener("click", function(e){
+    if(e.target===ov || e.target.closest("[data-modal-close]")){ ov.remove(); return; }
+    var p=e.target.closest("[data-pick]");
+    if(p){
+      var id=p.getAttribute("data-pick"), nd=p.getAttribute("data-d");
+      if(nd==="keep" && disp[id]!=="keep"){
+        if(keptWeight()+G.loot.weightOf(byId(id)) > cap){ G.ui.toast("휴대 용량 초과 — 다른 항목을 줄이세요"); return; }
+      }
+      disp[id]=nd; paint(); return;
+    }
+    if(e.target.closest("[data-settle-auto]")){ disp=G.loot.autoDisp(cap); paint(); return; }
+    if(e.target.closest("[data-settle-allsell]")){ disp={}; G.loot.list().forEach(function(it){ disp[it.id]="sell"; }); paint(); return; }
+    if(e.target.closest("[data-settle-confirm]")){
+      G.loot.applySettle(disp);
+      ov.remove();
+      G.dungeon.leave(); G.ui.render(); if(G.save)G.save.save(true);
+      if(G.ui.updateSettleFab) G.ui.updateSettleFab();
+      return;
+    }
+  });
+};
+
+/* 미정산 전리품 플로팅 버튼 갱신 */
+G.ui.updateSettleFab = function(){
+  var fab=document.getElementById("settle-fab"); if(!fab) return;
+  var n=(G.loot && G.loot.count) ? G.loot.count() : 0;
+  if(n>0){ var s=document.getElementById("settle-fab-n"); if(s) s.textContent=n; fab.style.display=""; }
+  else fab.style.display="none";
+};
+
+/* ============================================================
    설정 뷰
    ============================================================ */

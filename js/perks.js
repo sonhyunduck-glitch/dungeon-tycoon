@@ -50,15 +50,16 @@ G.perks.toggle = function(id){
 G.perks.routeLoot = function(it){
   // 등급별 획득 필터: 꺼진 등급은 줍지 않음(폐기)
   if(G.state.pickup && G.state.pickup[it.rarity]===false){ return; }
-  // 자동 진열 — 착용 장비보다 못한(같거나 낮은) 감정템만 진열, 빈 진열대 있을 때
-  if(G.perks.isOn("auto_list") && it.identified!==false && it.type!=="consumable"){
-    var diff=G.inventory.compare(it);   // >0 = 착용보다 좋음(업그레이드) → 가방에 남김
-    if(diff!==null && diff<=0 && G.shop.placeItem(it)){
-      G.log("🛒 자동 진열: "+it.name+" (🪙"+G.ui.fmt(it.basePrice)+")", it.rarityCls);
-      return;
-    }
+  // 던전 진행 중: 미정산 전리품(runLoot)에 누적 → 나가기/사망 시 정산
+  if(G.state.dungeon){
+    if(!G.state.dungeon.runLoot) G.state.dungeon.runLoot=[];
+    G.state.dungeon.runLoot.push(it);
+    G.log("🎒 전리품: ["+it.rarityLabel+"] "+it.name, it.rarityCls);
+    if(G.loot && G.loot.enforceCap) G.loot.enforceCap();   // 누적 상한 초과분 자동매각
+    if(G.ui && G.ui.updateSettleFab) G.ui.updateSettleFab();
+    return;
   }
-  // 기본: 가방
+  // 예외(런 밖): 기존 가방 경로
   if(G.inventory.add(it)){
     G.log("🎁 획득: ["+it.rarityLabel+"] "+it.name, it.rarityCls);
   }

@@ -59,6 +59,9 @@ try{ if(window.Capacitor && Capacitor.isNativePlatform && Capacitor.isNativePlat
 <!-- 채팅 플로팅 버튼 (하단 nav 바로 위, 우측 끝) -->
 <button id="chat-fab" class="chat-fab" data-act="open-chat" title="모험가 채팅">💬</button>
 
+<!-- 미정산 전리품 플로팅 버튼 (있을 때만 표시) -->
+<button id="settle-fab" class="settle-fab" data-act="settle-open" title="미정산 전리품 정산" style="display:none">🎒 <span id="settle-fab-n">0</span></button>
+
 <div id="hurt-vignette"></div>
 <div id="win-flash"></div>
 <div id="toast" class="toast"></div>
@@ -76,6 +79,7 @@ try{ if(window.Capacitor && Capacitor.isNativePlatform && Capacitor.isNativePlat
 <script src="js/combat.js"></script>
 <script src="js/dungeon.js"></script>
 <script src="js/inventory.js"></script>
+<script src="js/loot.js"></script>
 <script src="js/shop.js"></script>
 <script src="js/craft.js"></script>
 <script src="js/perks.js"></script>

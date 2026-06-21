@@ -849,6 +849,38 @@ img.twemoji{
 }
 .chat-fab:active{ transform:scale(.9); }
 .chat-fab:hover{ filter:brightness(1.1); }
+
+/* 미정산 전리품 FAB (채팅 버튼 위) */
+.settle-fab{
+  position:fixed; right:14px; bottom:calc(var(--nav-h) + 78px); z-index:150;
+  height:40px; padding:0 14px; border-radius:20px; font-size:.92rem; font-weight:800; color:#fff;
+  background:linear-gradient(160deg,#e0a23a,#c47a18);
+  box-shadow:0 6px 18px rgba(0,0,0,.45), 0 0 14px rgba(224,162,58,.5), inset 0 0 0 1px rgba(255,255,255,.25);
+  display:flex; align-items:center; gap:5px; transition:.18s; animation:chatPulse 2.6s ease-in-out infinite;
+}
+.settle-fab:active{ transform:scale(.92); }
+.settle-fab:hover{ filter:brightness(1.08); }
+
+/* 정산 화면 */
+.settle-cap{ font-size:.82rem; margin-bottom:8px; }
+.settle-cap.over{ color:#ff7a6b; }
+.settle-cap.over b{ color:#ff7a6b; }
+.settle-capbar{ height:7px; border-radius:4px; background:rgba(255,255,255,.12); overflow:hidden; margin-top:4px; }
+.settle-capbar > i{ display:block; height:100%; background:linear-gradient(90deg,#5b9cff,#3a6ed6); transition:width .15s; }
+.settle-cap.over .settle-capbar > i{ background:linear-gradient(90deg,#ff7a6b,#d6453a); }
+.settle-list{ max-height:50vh; overflow:auto; display:flex; flex-direction:column; gap:5px; }
+.settle-row{ display:flex; align-items:center; gap:8px; padding:6px; border-radius:8px; background:rgba(255,255,255,.04); }
+.settle-row.keep{ background:rgba(91,160,90,.14); box-shadow:inset 0 0 0 1px rgba(120,200,120,.3); }
+.settle-ico{ flex:0 0 auto; font-size:1.4rem; width:34px; text-align:center; }
+.settle-info{ flex:1; min-width:0; font-size:.78rem; line-height:1.35; }
+.settle-badge{ font-size:.68rem; font-weight:800; padding:1px 6px; border-radius:8px; background:rgba(0,0,0,.25); }
+.settle-wt{ flex:0 0 auto; font-size:.72rem; color:#cdd; }
+.settle-acts{ flex:0 0 auto; display:flex; gap:3px; }
+.btn.xs{ padding:3px 7px; font-size:.7rem; border-radius:7px; }
+.settle-pick{ opacity:.62; }
+.settle-pick.on{ opacity:1; box-shadow:inset 0 0 0 1px rgba(255,255,255,.5); background:rgba(91,124,255,.35); }
+.settle-foot{ display:flex; gap:6px; margin-top:10px; }
+.settle-foot .btn.primary{ flex:1; }
 /* transform 펄스(compositor 친화적 — box-shadow 애니는 매 프레임 리페인트라 제거) */
 @keyframes chatPulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.07); } }
 
