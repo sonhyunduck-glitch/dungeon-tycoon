@@ -30,7 +30,7 @@ G.newState = function(){
     collection:{ uniques:{}, runewords:{} },   // 🌟 고유 장비 + 🔗 룬워드 연대기(발견 기록)
     inventory:[],
     invMax:20,
-    warehouse:{ items:[], max:50 },
+    warehouse:{ items:[], max:50, tabMax:{ gear:40, rune:20, unique:20 } },   // tabMax: 종류별 칸 한계(장비/룬/고유)
     consumables:{ potion_s:10, potionHeal:40 },  // potionHeal=보유 물약 1개당 고정 회복량(구매 시점 고정)
     potionMax:10,
     potionLevel:1,       // 물약 강화 레벨 (회복률 상승)

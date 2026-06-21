@@ -8,8 +8,8 @@ G.inventory.isFull = function(){ return G.state.inventory.length >= G.state.invM
 
 G.inventory.add = function(it){
   if(G.inventory.isFull()){
-    // 가방이 가득 차면 창고로 자동 보관 (창고에 여유가 있을 때)
-    if(G.state.warehouse && !G.warehouse.isFull()){
+    // 가방이 가득 차면 창고로 자동 보관 (해당 종류 칸에 여유가 있을 때)
+    if(G.state.warehouse && !G.warehouse.isFullFor(it)){
       G.state.warehouse.items.push(it);
       G.log("📦 가방이 가득 차 "+it.name+"을(를) 창고에 보관","");
       return true;
@@ -136,12 +136,41 @@ G.inventory.upgradeBag = function(){
    창고 — 보관 / 꺼내기 / 매각 / 확장
    ============================================================ */
 G.warehouse = {};
-G.warehouse.isFull = function(){ return G.state.warehouse.items.length >= G.state.warehouse.max; };
 
-/* 가방 → 창고 */
+/* 종류 탭 — 장비 / 룬 / 고유. 탭별 용량 한계(확장 가능) */
+G.warehouse.CATS = [
+  { key:"gear",   label:"⚔️ 장비", def:40 },
+  { key:"rune",   label:"🔮 룬",   def:20 },
+  { key:"unique", label:"🌟 고유", def:20 },
+];
+G.warehouse.catOf = function(it){
+  if(!it) return "gear";
+  if(it.slot==="rune" || it.type==="rune") return "rune";
+  if(it.rarity==="unique") return "unique";
+  return "gear";
+};
+G.warehouse.catLabel = function(cat){ var c=G.warehouse.CATS.find(function(x){return x.key===cat;}); return c?c.label:cat; };
+function whTabMax(){
+  var w=G.state.warehouse;
+  if(!w.tabMax){ w.tabMax={}; G.warehouse.CATS.forEach(function(c){ w.tabMax[c.key]=c.def; }); }   // 구버전 세이브 마이그레이션
+  return w.tabMax;
+}
+G.warehouse.cap     = function(cat){ return whTabMax()[cat] || 0; };
+G.warehouse.countOf = function(cat){ return G.state.warehouse.items.filter(function(it){ return G.warehouse.catOf(it)===cat; }).length; };
+G.warehouse.totalCap= function(){ return G.warehouse.CATS.reduce(function(s,c){ return s+G.warehouse.cap(c.key); },0); };
+/* 인자 있으면 해당 종류, 없으면 모든 종류가 가득일 때 true */
+G.warehouse.isFull = function(cat){
+  if(cat) return G.warehouse.countOf(cat) >= G.warehouse.cap(cat);
+  return G.warehouse.CATS.every(function(c){ return G.warehouse.countOf(c.key) >= G.warehouse.cap(c.key); });
+};
+G.warehouse.isFullFor = function(it){ return G.warehouse.isFull(G.warehouse.catOf(it)); };
+
+/* 가방 → 창고 (종류별 칸) */
 G.warehouse.store = function(id){
-  if(G.warehouse.isFull()){ G.ui.toast("창고가 가득 찼습니다"); return; }
-  var it=G.inventory.remove(id); if(!it) return;
+  var it=G.state.inventory.find(function(x){return x.id===id;}); if(!it) return;
+  var cat=G.warehouse.catOf(it);
+  if(G.warehouse.isFull(cat)){ G.ui.toast(G.warehouse.catLabel(cat)+" 창고가 가득 찼습니다"); return; }
+  G.inventory.remove(id);
   G.state.warehouse.items.push(it);
   G.log("📦 창고 보관: "+it.name, it.rarityCls);
 };
@@ -166,11 +195,12 @@ G.warehouse.sell = function(id){
   G.log("💰 창고 매각: "+it.name+" → 🪙"+G.ui.fmt(price),"");
 };
 
-/* 창고 확장 (+10칸) */
-G.warehouse.upgradeCost = function(){ return G.state.warehouse.max * 15; };
-G.warehouse.upgrade = function(){
-  var cost=G.warehouse.upgradeCost();
+/* 창고 종류별 확장 (+10칸) */
+G.warehouse.upgradeCost = function(cat){ return G.warehouse.cap(cat||"gear") * 15; };
+G.warehouse.upgrade = function(cat){
+  cat=cat||"gear";
+  var cost=G.warehouse.upgradeCost(cat);
   if(G.state.player.gold<cost){ G.ui.toast("골드가 부족합니다 (🪙"+G.ui.fmt(cost)+")"); return; }
-  G.state.player.gold-=cost; G.state.warehouse.max+=10;
-  G.log("📦 창고 확장! 최대 "+G.state.warehouse.max+"칸","r-uncommon");
+  G.state.player.gold-=cost; whTabMax()[cat]+=10;
+  G.log("📦 "+G.warehouse.catLabel(cat)+" 창고 확장! 최대 "+whTabMax()[cat]+"칸","r-uncommon");
 };

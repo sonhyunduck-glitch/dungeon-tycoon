@@ -10,7 +10,7 @@ G.ui.renderInventory = function(){
 
   var tabs='<div class="row" style="margin-bottom:10px">'+
     '<button class="btn sm '+(sub==="bag"?"primary":"")+'" data-act="inv-sub" data-sub="bag" style="flex:1">🎒 가방 <span class="'+bagFullCls+'">'+inv.length+'/'+G.state.invMax+'</span></button>'+
-    '<button class="btn sm '+(sub==="warehouse"?"primary":"")+'" data-act="inv-sub" data-sub="warehouse" style="flex:1">📦 창고 <span class="'+whFullCls+'">'+wh.items.length+'/'+wh.max+'</span></button>'+
+    '<button class="btn sm '+(sub==="warehouse"?"primary":"")+'" data-act="inv-sub" data-sub="warehouse" style="flex:1">📦 창고 <span class="'+whFullCls+'">'+wh.items.length+'/'+G.warehouse.totalCap()+'</span></button>'+
   '</div>';
 
   v.innerHTML = tabs + (sub==="bag" ? G.ui._bagPanel() : G.ui._warehousePanel());
@@ -93,7 +93,7 @@ G.ui._bagPanel = function(){
     var acts=
       '<button class="btn sm primary" data-act="equip" data-id="'+it.id+'">착용 '+diffTxt+'</button>'+
       '<button class="btn sm gold" data-act="list" data-id="'+it.id+'" title="가판대 진열">진열</button>'+
-      '<button class="btn sm" data-act="store" data-id="'+it.id+'" '+(whFull?"disabled":"")+' title="창고 보관">보관</button>'+
+      '<button class="btn sm" data-act="store" data-id="'+it.id+'" '+(G.warehouse.isFullFor(it)?"disabled":"")+' title="창고 보관">보관</button>'+
       '<button class="btn sm" data-act="reroll" data-id="'+it.id+'" title="재련: 옵션 한 줄 무작위 변경 (🔩'+rc.mat+' 🪙'+G.ui.fmt(rc.gold)+')">재련</button>'+
       '<button class="btn sm" data-act="salvage" data-id="'+it.id+'" title="분해 → 재료">분해</button>'+
       '<button class="btn sm" data-act="quicksell" data-id="'+it.id+'" title="즉시 매각">매각 🪙'+G.ui.fmt(Math.round(it.basePrice*0.1))+'</button>';
@@ -104,21 +104,31 @@ G.ui._bagPanel = function(){
 
 G.ui._warehousePanel = function(){
   var wh=G.state.warehouse;
-  var full=G.warehouse.isFull();
-  var head='<div class="panel"><h2>📦 창고 <span class="muted '+(full?"r-legend":"")+'">('+wh.items.length+' / '+wh.max+')</span></h2>'+
-    '<div class="muted">던전 전리품을 보관하는 공간입니다. 가방이 차면 이곳에 자동 보관됩니다.</div>'+
-    '<div class="row" style="margin-top:8px"><button class="btn sm gold" data-act="wh-upgrade">창고 확장 +10칸 🪙'+G.warehouse.upgradeCost()+'</button></div></div>';
+  var cat=G.state.ui.whCat||"gear";
+  if(!G.warehouse.CATS.some(function(c){return c.key===cat;})) cat="gear";
+  // 종류 칩(장비/룬/고유) — 각 칸 사용량 표시
+  var chips=G.warehouse.CATS.map(function(c){
+    var n=G.warehouse.countOf(c.key), cap=G.warehouse.cap(c.key);
+    return '<button class="btn sm '+(cat===c.key?"primary":"")+'" data-act="wh-cat" data-cat="'+c.key+'" style="flex:1">'+c.label+
+      ' <span class="'+(n>=cap?"r-legend":"muted")+'">'+n+'/'+cap+'</span></button>';
+  }).join("");
+  var head='<div class="panel"><h2>📦 창고</h2>'+
+    '<div class="muted" style="font-size:.74rem">종류별로 칸이 나뉩니다. 가방이 차면 해당 종류 칸에 자동 보관됩니다.</div>'+
+    '<div class="row" style="margin-top:8px;gap:5px">'+chips+'</div>'+
+    '<div class="row" style="margin-top:8px"><button class="btn sm gold" data-act="wh-upgrade" data-cat="'+cat+'">'+
+      G.warehouse.catLabel(cat)+' 칸 +10 🪙'+G.ui.fmt(G.warehouse.upgradeCost(cat))+'</button></div></div>';
 
-  if(wh.items.length===0) return head+'<div class="empty">창고가 비어 있습니다.</div>';
+  var items=wh.items.filter(function(it){ return G.warehouse.catOf(it)===cat; });
+  if(items.length===0) return head+'<div class="empty">이 종류의 창고가 비어 있습니다.</div>';
 
   var bagFull=G.inventory.isFull();
-  var items=wh.items.map(function(it){
+  var rows=items.map(function(it){
     var acts=
       '<button class="btn sm primary" data-act="retrieve" data-id="'+it.id+'" '+(bagFull?"disabled":"")+'>🎒 꺼내기</button>'+
       '<button class="btn sm" data-act="wh-sell" data-id="'+it.id+'">매각 🪙'+G.ui.fmt(Math.round(it.basePrice*0.1))+'</button>';
     return itemCard(it, acts);
   }).join("");
-  return head+'<div class="panel">'+items+'</div>';
+  return head+'<div class="panel">'+rows+'</div>';
 };
 
 /* ============================================================

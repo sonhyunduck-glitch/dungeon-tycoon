@@ -124,7 +124,8 @@
     "store": function(d){ G.warehouse.store(d.id); G.ui.render(); },
     "retrieve": function(d){ G.warehouse.retrieve(d.id); G.ui.render(); },
     "wh-sell": function(d){ G.warehouse.sell(d.id); G.ui.render(); },
-    "wh-upgrade": function(){ G.warehouse.upgrade(); G.ui.render(); },
+    "wh-cat": function(d){ G.state.ui.whCat=d.cat; G.ui.renderInventory(); },
+    "wh-upgrade": function(d){ G.warehouse.upgrade(d&&d.cat); G.ui.render(); },
 
     /* 캐릭터 */
     "char-sub": function(d){ G.state.ui.charSub=d.sub; G.ui.render(); },
