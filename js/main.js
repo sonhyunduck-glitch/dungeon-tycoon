@@ -116,7 +116,6 @@
       G.ui.render();
     },
     "quicksell": function(d){ G.inventory.quickSell(d.id); G.ui.render(); },
-    "list": function(d){ G.shop.list(d.id); G.ui.render(); },
     "cap-upgrade": function(d){ G.inventory.upgradeCap(d&&d.cat); G.ui.render(); },
     "identify": function(d){ G.item.identify(d.id); G.ui.render(); },
     "salvage": function(d){ G.inventory.salvage(d.id); G.ui.render(); },
@@ -215,9 +214,7 @@
     /* 스킬 (해금은 층 도달 시 자동) */
     "skill-toggle": function(d){ G.combat.skillToggle(d.id); G.ui.render(); },
 
-    /* 상점 */
-    "unlist": function(d){ G.shop.unlist(parseInt(d.idx,10)); G.ui.render(); },
-    "price-edit": function(d){ G.ui.priceModal(parseInt(d.idx,10)); },
+    /* 상점(물약 등 NPC 판매) */
     "buy-potion": function(d){
       var max=G.state.potionMax||20;
       var have=G.state.consumables.potion_s||0;
@@ -267,7 +264,6 @@
     "pickup-toggle": function(d){ G.state.pickup[d.rar]=!(G.state.pickup[d.rar]!==false); G.ui.render(); },
 
     /* 설정 */
-    "promote": function(){ if(G.shop.promote()) G.ui.render(); },
     "toggle-mute": function(){ G.audio.toggleMute(); G.ui.render(); },
     "save": function(){ G.save.save(); },
     "reset": function(){ if(confirm("정말 모든 진행을 초기화할까요?")) G.save.reset(); },
@@ -320,32 +316,9 @@
     if(G.audio) G.audio.play("sword");   // 효과음 볼륨 조절 후 미리듣기
   });
 
-  /* ---------- 상점 손님 실시간 틱 (15초마다) ---------- */
-  setInterval(function(){
-    var sold=false;
-    // 손님 방문 시도(손님 방문율 옵션 + 홍보 배수만큼 더 자주)
-    var attempts=Math.round(G.state.shop.level * (1 + Math.floor((G.totalStats().mercFind||0)/20)) * G.shop.promoMult());
-    for(var i=0;i<attempts;i++){ if(G.shop.visitTick()) sold=true; }
-    G.state.shop.lastVisit=Date.now();
-    var stocked=G.shop.autoStock();   // 팔려서 빈 자리를 가방템으로 보충
-    if(sold||stocked){ G.ui.renderHud(); if(G.state.ui.tab==="shop") G.ui.renderShop(); }
-  }, 15000);
-
-  /* ---------- 홍보 카운트다운(가판대 탭에서 1초마다) ---------- */
-  setInterval(function(){
-    if(G.state.ui.tab!=="shop") return;
-    var t=document.getElementById("promo-timer");
-    if(G.shop.promoActive()){
-      if(t){ var ms=G.shop.promoLeftMs(), m=Math.floor(ms/60000), s=Math.floor(ms/1000)%60;
-        t.textContent=m+":"+("0"+s).slice(-2); }
-      else G.ui.renderShop();   // 비활성 배너 → 활성으로 전환
-    } else if(t){ G.ui.renderShop(); }   // 만료 → 비활성 배너로 갱신
-  }, 1000);
-
   /* ---------- 자동화 루프 (특성) — 배속에 따라 간격 단축 ---------- */
   function autoStep(){
     if(G.paused || document.hidden) return;   // 일시정지/백그라운드(화면 꺼짐·앱 전환) 시 진행·연산 멈춤(배터리 절감)
-    G.shop.autoStock();   // 사냥 중에도 빈 가판대를 가방템으로 계속 채움
     var run=G.state.dungeon.run;
     if(run){
       if(run.cleared){
@@ -467,11 +440,8 @@
     }
     G.ui.switchTab(G.state.ui.tab || "dungeon");
 
-    // ---------- 방치 정산(최종 상태 기준) ----------
     if(loaded||usedCloud){
-      var idle=G.shop.settleIdle();
       G.log("🌙 돌아오신 걸 환영합니다.","");
-      if(idle.gold>0){ setTimeout(function(){ G.ui.idlePopup(idle.gold, idle.sold); }, 450); }
     } else {
       G.log("⚔️ 모험을 시작합니다! 던전으로 향하세요.","r-uncommon");
     }

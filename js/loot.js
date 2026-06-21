@@ -20,7 +20,7 @@ G.loot.verdict = function(it){
   if(it.identified===false) return { key:"id",   label:"❓ 미감정",        cls:"r-epic" };
   var u = G.inventory.upgradeInfo ? G.inventory.upgradeInfo(it) : null;
   if(u && u.pct>=0.5)          return { key:"up",   label:(u.pct>=200?"▲ 대폭 착용↑":"▲ "+u.pct.toFixed(0)+"% 착용↑"), cls:"r-uncommon", pct:u.pct };
-  var sellGold = Math.round((it.basePrice||0)*0.1);
+  var sellGold = G.item.sellPrice(it);
   if((it.basePrice||0)>=80)    return { key:"sell", label:"💰 "+G.ui.fmt(sellGold), cls:"gold" };
   return { key:"salv", label:"🔧 분해", cls:"muted" };
 };
@@ -45,8 +45,8 @@ G.loot.enforceCap = function(){
     var wi=0, ws=Infinity;
     for(var i=0;i<loot.length;i++){ var s=score(loot[i]); if(s<ws){ ws=s; wi=i; } }
     var it=loot.splice(wi,1)[0];
-    var g=Math.round((it.basePrice||0)*0.1); G.state.player.gold+=g;
-    G.log("📤 가방이 넘쳐 "+it.name+" 자동 판매 🪙+"+G.ui.fmt(g),"");
+    var g=G.item.sellPrice(it); G.state.player.gold+=g;
+    G.log("📤 창고가 넘쳐 "+it.name+" 자동 판매 🪙+"+G.ui.fmt(g),"");
   }
 };
 
@@ -83,11 +83,11 @@ G.loot.applySettle = function(disp){
     var d = disp[it.id] || G.loot.suggest(it);
     if(d==="keep"){
       if(G.inventory.add(it)){ kept++; }
-      else { var g=Math.round((it.basePrice||0)*0.1); G.state.player.gold+=g; soldGold+=g; sold++; } // 가방·창고 가득 → 매각
+      else { var g=G.item.sellPrice(it); G.state.player.gold+=g; soldGold+=g; sold++; } // 창고 가득 → 매각
     } else if(d==="salvage"){
       var m=G.item.salvageYield(it); G.state.materials=(G.state.materials||0)+m; mats+=m;
     } else { // sell
-      var gg=Math.round((it.basePrice||0)*0.1); G.state.player.gold+=gg; soldGold+=gg; sold++;
+      var gg=G.item.sellPrice(it); G.state.player.gold+=gg; soldGold+=gg; sold++;
     }
   });
   G.state.dungeon.runLoot=[];

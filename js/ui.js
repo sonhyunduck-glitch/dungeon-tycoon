@@ -118,7 +118,6 @@ G.ui.render = function(){
   else if(tab==="inventory") G.ui.renderInventory();
   else if(tab==="character") G.ui.renderCharacter();
   else if(tab==="perks") G.ui.renderPerks();
-  else if(tab==="shop") G.ui.renderShop();
   else if(tab==="vendor") G.ui.renderVendor();
   else if(tab==="arena") G.ui.renderArena();
   else if(tab==="ranking") G.ui.renderRanking();
@@ -145,7 +144,6 @@ G.ui.switchTab = function(tab){
   document.querySelectorAll(".nav-btn").forEach(function(b){ b.classList.toggle("active", b.dataset.tab===tab); });
   document.querySelectorAll(".view").forEach(function(s){ s.classList.remove("active"); });
   el("view-"+tab).classList.add("active");
-  if(tab==="shop") G.shop.settleIdle(); // 상점 진입 시 방치 정산
   G.ui.render();
 };
 

@@ -45,9 +45,8 @@ G.newState = function(){
     sfxVol:0.55,         // 효과음 볼륨 0~1
     monMats:{},          // 보스 고유 재료 {보스명:개수}
     orders:[], lastOrders:0,
-    promo:{ tickets:1, until:0, f100:false },   // 가판대 홍보: tickets=이용권(생성 시 1장), until=만료시각, f100=100층보상 수령여부
+    promo:{ tickets:1, until:0, f100:false },   // 100층 보상: f100=수령여부 (가판대 홍보 잔여 필드)
     dungeon:{ floor:1, maxFloor:1, clearedFloors:{}, stars:{}, run:null, runLoot:[], speedTier:1 }, // runLoot: 미정산 전리품(층 이동 무관 누적, 정산에서만 비움)
-    shop:{ slots:[null,null,null,null,null], level:1, lastVisit:Date.now(), earnings:0, guestbook:[] },
     market:{ listings:[], lastRefresh:0, watch:[] },
     perks:{ unlocked:{}, enabled:{} },
     skills:{ unlocked:{}, enabled:{} },

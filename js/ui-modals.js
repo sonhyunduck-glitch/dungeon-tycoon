@@ -79,59 +79,6 @@ G.ui.compareModal = function(id){
   document.body.appendChild(ov);
 };
 
-/* 가판대 가격 설정 — 계산기 모달 (숫자 + K/M/B) */
-G.ui.priceModal = function(idx){
-  var slot=G.state.shop.slots[idx]; if(!slot) return;
-  var base=slot.item.basePrice;
-  var val=slot.price||base, fresh=true;
-
-  var ov=document.createElement("div"); ov.className="modal-overlay show";
-  var keys=[['7','7'],['8','8'],['9','9'],['del','←'],
-            ['4','4'],['5','5'],['6','6'],['k','+K'],
-            ['1','1'],['2','2'],['3','3'],['m','+M'],
-            ['0','0'],['00','00'],['c','C'],['b','+B']];
-  ov.innerHTML='<div class="modal calc-modal" style="width:min(340px,92vw)">'+
-    '<h2 style="justify-content:center; font-size:1rem">'+G.ui.icoHTML(slot.item)+' '+esc(slot.item.name)+' 가격</h2>'+
-    '<div class="muted" style="text-align:center; margin-bottom:6px">기준가 🪙'+G.ui.fmt(base)+' · 쌀수록 잘 팔림</div>'+
-    '<div class="calc-display" id="calc-disp"></div>'+
-    '<div class="row" style="gap:4px; margin:8px 0">'+
-      '<button class="btn sm" data-preset="0.8">기준×0.8</button>'+
-      '<button class="btn sm" data-preset="1">기준가</button>'+
-      '<button class="btn sm" data-preset="1.5">기준×1.5</button>'+
-    '</div>'+
-    '<div class="calc-grid">'+keys.map(function(k){
-      var cls=/^[a-z]/.test(k[0])?" op":"";
-      return '<button class="calc-btn'+cls+'" data-calc="'+k[0]+'">'+k[1]+'</button>';
-    }).join("")+'</div>'+
-    '<div class="row" style="margin-top:10px">'+
-      '<button class="btn primary" style="flex:1" data-calc="ok">확정</button>'+
-      '<button class="btn" style="flex:1" data-modal-close>취소</button>'+
-    '</div>'+
-  '</div>';
-
-  function draw(){
-    el("calc-disp").innerHTML='🪙 <b>'+G.ui.fmt(val)+'</b> <span class="muted" style="font-size:.72rem">('+val.toLocaleString()+')</span>';
-  }
-  ov.addEventListener("click", function(e){
-    if(e.target.closest("[data-modal-close]")){ ov.remove(); return; }   // 버튼으로만 닫힘
-    var pre=e.target.closest("[data-preset]");
-    if(pre){ val=Math.max(1, Math.round(base*parseFloat(pre.dataset.preset))); fresh=false; draw(); return; }
-    var c=e.target.closest("[data-calc]"); if(!c) return;
-    var k=c.dataset.calc;
-    if(k==="ok"){ G.shop.setPrice(idx, Math.max(1,val)); ov.remove(); G.ui.render(); return; }
-    if(/^[0-9]$/.test(k)){ val = fresh ? parseInt(k,10) : Math.min(val*10+parseInt(k,10), 1e15); fresh=false; }
-    else if(k==="00"){ val = fresh ? 0 : Math.min(val*100, 1e15); fresh=false; }
-    else if(k==="del"){ val=Math.floor(val/10); fresh=false; }
-    else if(k==="c"){ val=0; fresh=false; }
-    else if(k==="k"){ val=Math.min(val*1000, 1e15); fresh=false; }
-    else if(k==="m"){ val=Math.min(val*1e6, 1e15); fresh=false; }
-    else if(k==="b"){ val=Math.min(val*1e9, 1e15); fresh=false; }
-    draw();
-  });
-  document.body.appendChild(ov);
-  draw();
-};
-
 /* 회피 → 캐릭터쪽에 'MISS' 텍스트 */
 G.ui.pushAlert = function(msg){
   var wrap=el("push-wrap");

@@ -7,7 +7,6 @@ G.save.KEY = "dungeon_tycoon_save_v1";
 
 G.save.save = function(silent){
   try{
-    G.state.shop.lastVisit = Date.now();
     G.state._savedAt = Date.now();   // 세이브 시각(클라우드 권위 비교용 — 더 최신 쪽 채택)
     localStorage.setItem(G.save.KEY, JSON.stringify(G.state));
     if(G.net && G.net.queueSave) G.net.queueSave();   // 온라인이면 클라우드에도 동기화(디바운스)
@@ -56,8 +55,7 @@ G.save.load = function(){
       delete data.equipment[k];
     }); }
     if(data.dungeon && !data.dungeon.stars) data.dungeon.stars={};
-    if(data.shop && !data.shop.guestbook) data.shop.guestbook=[];
-    if(data.shop && data.shop.slots){ while(data.shop.slots.length<5) data.shop.slots.push(null); }
+    if(data.shop) delete data.shop;   // 가판대 폐지 — 구버전 잔여 제거
     if(!data.market) data.market={ listings:[], lastRefresh:0, watch:[] };
     if(data.ui && !data.ui.market) data.ui.market={ slot:"all", rarity:"all", opt1:"", opt2:"", pmin:0, pmax:0 };
     if(data.dungeon && !data.dungeon.maxFloor) data.dungeon.maxFloor=data.dungeon.floor||1;
@@ -77,8 +75,6 @@ G.save.load = function(){
       }
     }
     (data.inventory||[]).forEach(fixAcc);
-    if(data.warehouse) (data.warehouse.items||[]).forEach(fixAcc);
-    if(data.shop) (data.shop.slots||[]).forEach(function(s){ if(s) fixAcc(s.item); });
     // 구버전(스테이지형) → 층형 변환: "f-3" 클리어 = f층 클리어
     if(data.dungeon && !data.dungeon.clearedFloors){
       data.dungeon.clearedFloors={};

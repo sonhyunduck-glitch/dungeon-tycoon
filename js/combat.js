@@ -288,8 +288,7 @@ G.checkUnlocks = function(){
     .concat(G.combat.syncSkills()||[])
     .concat(G.combat.syncSpeed()||[])
     .concat((G.avatar&&G.avatar.syncUnlocks&&G.avatar.syncUnlocks())||[])
-    .concat((G.arena&&G.arena.syncUnlock&&G.arena.syncUnlock())||[])
-    .concat((G.shop.grantMilestones&&G.shop.grantMilestones())||[]);
+    .concat((G.arena&&G.arena.syncUnlock&&G.arena.syncUnlock())||[]);
   if(items.length && G.ui && G.ui.unlockModal) G.ui.unlockModal(items);
   return items;
 };

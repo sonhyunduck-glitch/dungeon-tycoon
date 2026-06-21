@@ -83,7 +83,7 @@ G.inventory.unequip = function(key){
 G.inventory.quickSell = function(id){
   var it=G.inventory.remove(id);
   if(!it) return;
-  var price=Math.round((it.basePrice||0)*0.1);   // 매각가 = 기준가치의 10%
+  var price=G.item.sellPrice(it);   // 매각가
   G.state.player.gold+=price;
   G.log("💰 즉시판매: "+it.name+" → 🪙"+G.ui.fmt(price),"");
 };

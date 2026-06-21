@@ -202,6 +202,10 @@ G.runeword.recordActive = function(){
   G.state.collection.runewords[w.id]=true; return w;
 };
 
+/* 매각가 — 기준가의 일정 비율(가판대 폐지로 직접 처분이 주 수입원이 되어 상향) */
+G.item.SELL_RATE = 0.4;
+G.item.sellPrice = function(it){ return Math.round(((it&&it.basePrice)||0) * G.item.SELL_RATE); };
+
 /* 전리품 무게 (정산 휴대 예산용) — 부위별 고정, 소모품은 0 */
 G.item.weightOf = function(it){
   if(!it || it.type==="consumable") return 0;

@@ -99,8 +99,6 @@ G.DATA.AFFIXES = [
   { stat:"resLight",  min:4,  max:16, pct:true },   // 번개 저항
   { stat:"resPoison", min:4,  max:16, pct:true },   // 맹독 저항
   { stat:"allRes",    min:2,  max:8,  pct:true },   // 모든 저항(올레지) — 4속성에 모두 합산
-  { stat:"shopSlot",  min:1,  max:2,  runeOnly:true },   // 가판대 칸 (룬 전용)
-  { stat:"mercFind",  min:5,  max:15, runeOnly:true },   // 손님 방문율 % (룬 전용)
   { stat:"potionBoost",min:1, max:5, dec:true, runeOnly:true },  // 물약 회복% (룬 전용, 소수점, 최대 5%)
 ];
 
@@ -208,7 +206,6 @@ G.DATA.PERKS = [
   { id:"auto_potion",   name:"자동 물약",     ico:"🧪", freeFloor:1,  desc:"체력 35% 이하가 되면 물약을 자동 사용합니다." },
   { id:"auto_battle",   name:"자동 전투",     ico:"🤖", freeFloor:5,  desc:"전투 중 자동으로 공격합니다." },
   { id:"auto_advance",  name:"자동 전진",     ico:"🦶", freeFloor:10, desc:"전투·이벤트 후 다음 노드로 자동 전진합니다." },
-  { id:"auto_list",     name:"자동 진열",     ico:"🛒", freeFloor:15, desc:"착용보다 못한 아이템을 가판대에 자동 진열합니다." },
   { id:"auto_next",     name:"자동 다음 진행", ico:"⏭️", freeFloor:20, desc:"층 클리어 시 다음 층으로 자동 입장합니다." },
 ];
 

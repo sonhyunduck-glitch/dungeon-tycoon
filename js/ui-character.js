@@ -19,7 +19,7 @@ G.ui.renderCharacter = function(){
   }).join("");
 
   // 고급(디아블로식) 옵션 — 값이 있을 때만 표시
-  var adv=["critDmg","lifesteal","dodge","penet","multihit","goldFind","thorns","stunResist","elemAtk","allRes","resFire","resCold","resLight","resPoison","shopSlot","mercFind","potionBoost"]
+  var adv=["critDmg","lifesteal","dodge","penet","multihit","goldFind","thorns","stunResist","elemAtk","allRes","resFire","resCold","resLight","resPoison","potionBoost"]
    .filter(function(k){ return s[k]>0; })
    .map(function(k){ var m=G.DATA.STAT_META[k]; var u=(m.unit!==undefined)?m.unit:(m.pct?"%":"");
      return '<div><span class="k">'+m.label+'</span><b>'+s[k]+u+'</b></div>'; }).join("");
@@ -236,8 +236,6 @@ G.ui._statSheet = function(){
 
   rows.push('<div class="sheet-head">유틸 (룬 전용)</div>');
   row('골드획득', s.goldFind+'%', '처치 골드 증가');
-  row('가판대칸', '+'+s.shopSlot, '현재 '+G.shop.capacity()+'칸');
-  row('손님 방문율', s.mercFind+'%', '상점 손님 방문 빈도 증가');
   row('물약회복', s.potionBoost+'%', '1회 '+G.ui.fmt(G.potionHealAmount())+' ('+G.potionHealPct()+'%)');
 
   return '<div class="panel"><h2>📋 상세 능력치</h2><div class="sheet">'+rows.join("")+'</div></div>';
@@ -263,7 +261,3 @@ G.ui._skills = function(){
   return '<div class="panel"><h2>⚔️ 스킬 <span class="muted">전투 중 위 순서(#)대로 자동 시전</span></h2>'+rows+
     '<div class="muted" style="margin-top:6px">💡 ON으로 켠 스킬이 쿨타임마다 우선순위 순으로 자동 발동됩니다. 휩쓸기는 무리(2마리+)에서만 시전.</div></div>';
 };
-
-/* ============================================================
-   가판대 뷰 (유저가 운영하는 판매대)
-   ============================================================ */
