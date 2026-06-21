@@ -101,6 +101,25 @@ G.combat.elemMult = function(s, tgt, floor){
   return 1;                                                                     // 무난
 };
 
+/* 전투효과 점수 — 공격종합 × 생존종합(곱연산 → 균형 자동 반영). 아이템 추천/정산 판정용.
+   s=G.totalStats() 결과(캡·룬워드·망토·아바타 모두 반영). 적 비의존 근사치. */
+G.combat.effPower = function(s){
+  if(!s) return 1;
+  var critMult = 1.5 + (s.critDmg||0)/100;
+  var off = (s.atk||1)
+    * (1 + (s.crit||0)/100*(critMult-1))     // 치명 기대값
+    * (1 + (s.multihit||0)/100)              // 추가타
+    * (1 + (s.penet||0)/200)                 // 관통(근사)
+    * (1 + (s.elemAtk||0)/300);              // 속성(상황적 → 약하게)
+  var avgRes = ((s.resFire||0)+(s.resCold||0)+(s.resLight||0)+(s.resPoison||0))/4;
+  var surv = (s.maxHp||1)
+    * (1 + (s.def||0)/60)                     // 방어 경감(근사)
+    * (100/Math.max(40, 100-(s.dodge||0)))   // 회피
+    * (1 + avgRes/150)                        // 저항
+    * (1 + (s.lifesteal||0)/100*0.5);         // 흡혈 지속
+  return Math.sqrt(Math.max(1, off*surv));    // 기하평균 성격 → 한 축만 키우면 효율 체감
+};
+
 /* 스킬 사용 가능 여부(해금+ON) — 쿨다운은 run(층) 단위 */
 function skillReady(c, sk){
   var run=G.state.dungeon.run;

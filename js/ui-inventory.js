@@ -86,9 +86,9 @@ G.ui._bagPanel = function(){
           '<button class="btn sm" data-act="salvage" data-id="'+it.id+'" title="분해">분해</button>'+
         '</div></div>';
     }
-    // 감정된 장비
-    var diff=G.inventory.compare(it);
-    var diffTxt = diff===null ? '' : (diff>0?'<span class="r-uncommon">▲'+G.ui.fmt(Math.round(diff))+'</span>':(diff<0?'<span class="r-common">▼'+G.ui.fmt(Math.round(Math.abs(diff)))+'</span>':'<span class="muted">=</span>'));
+    // 감정된 장비 — 전투효과(공격×생존) 변화율로 추천
+    var up=G.inventory.upgradeInfo(it);
+    var diffTxt = !up ? '' : (up.pct>=0.5?'<span class="r-uncommon" title="전투효과">▲'+up.pct.toFixed(0)+'%</span>':(up.pct<=-0.5?'<span class="r-common" title="전투효과">▼'+Math.abs(up.pct).toFixed(0)+'%</span>':'<span class="muted">=</span>'));
     var rc=G.item.rerollCost(it);
     var acts=
       '<button class="btn sm primary" data-act="equip" data-id="'+it.id+'">착용 '+diffTxt+'</button>'+

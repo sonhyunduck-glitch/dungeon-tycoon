@@ -93,18 +93,34 @@ G.inventory.statValue = function(s){
     + (s.shopSlot||0)*15 + (s.mercFind||0)*0.5 + (s.potionBoost||0)*0.5;
 };
 
-/* 비교: 착용 대비 가치 차이 (룬은 빈슬롯이면 순증, 꽉차면 가장 약한 룬 대비) */
+/* 장착 슬롯 결정 (룬은 빈칸 우선, 꽉차면 가장 약한 룬칸) */
+function targetSlot(it){
+  if(it.slot!=="rune") return it.slot;
+  var slots=G.DATA.RUNE_SLOTS, V=G.inventory.statValue;
+  for(var i=0;i<slots.length;i++){ if(!G.state.equipment[slots[i]]) return slots[i]; }
+  var minV=Infinity, ms=slots[0];
+  slots.forEach(function(k){ var v=V(G.state.equipment[k].stats); if(v<minV){minV=v; ms=k;} });
+  return ms;
+}
+/* 전투효과 변화량 — 아이템을 실제 장착했다고 가정하고 totalStats 재계산(캡·룬워드·균형 반영).
+   반환 {delta, pct, cur}. 미감정은 null. */
+G.inventory.upgradeInfo = function(it){
+  if(!it || it.identified===false || !G.combat || !G.combat.effPower) return null;
+  var eq=G.state.equipment, key=targetSlot(it);
+  var cur=G.combat.effPower(G.totalStats());
+  var prev=eq[key]; eq[key]=it;                       // 임시 장착
+  var after=G.combat.effPower(G.totalStats());
+  eq[key]=prev;                                       // 복원
+  var delta=after-cur;
+  return { delta:delta, pct:(cur>0?(after/cur-1)*100:0), cur:cur };
+};
+/* 비교: 착용 대비 전투효과 차이(정렬·▲▼용). 단순합 폴백 유지. */
 G.inventory.compare = function(it){
-  var V=G.inventory.statValue;
-  if(it.type==="rune"){
-    var slots=G.DATA.RUNE_SLOTS;
-    var hasEmpty=slots.some(function(k){return !G.state.equipment[k];});
-    if(hasEmpty) return V(it.stats);                // 빈 칸 → 순수 증가
-    var weakest=Math.min.apply(null, slots.map(function(k){return V(G.state.equipment[k].stats);}));
-    return V(it.stats) - weakest;                   // 가장 약한 룬과 비교
-  }
-  var cur = G.state.equipment[it.slot];
-  return V(it.stats) - (cur?V(cur.stats):0);
+  var u=G.inventory.upgradeInfo(it);
+  if(u) return Math.round(u.delta);
+  // 폴백(전투모듈 없을 때): 단순 가치합
+  var V=G.inventory.statValue, cur=G.state.equipment[it.slot];
+  return V(it.stats||{}) - (cur?V(cur.stats):0);
 };
 
 /* 가방 확장 (업그레이드 1회당 +1칸, 확장할수록 비용 급증) */
