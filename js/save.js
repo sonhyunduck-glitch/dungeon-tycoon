@@ -28,7 +28,6 @@ G.save.load = function(){
     if(!data.promo) data.promo={ tickets:0, until:0, f100:(data.dungeon&&(data.dungeon.maxFloor||1)>=100) };  // 구버전: 이미 100층+면 보상 수령처리(소급지급 없음)
     if(data.promo.f100===undefined) data.promo.f100=((data.dungeon&&data.dungeon.maxFloor)||1)>=100;
     if(!data.pickup) data.pickup={ common:true, uncommon:true, rare:true, epic:true, legend:true };
-    if(!data.warehouse) data.warehouse={ items:[], max:50 };
     if(!data.potionMax || data.potionMax>10) data.potionMax=10;
     if(data.consumables && data.consumables.potionHeal===undefined) data.consumables.potionHeal=40;
     if(data.potionLevel===undefined) data.potionLevel=1;
@@ -91,13 +90,6 @@ G.save.load = function(){
     }
     if(!data.ui) data.ui={ tab:"dungeon" };
     if(!data.ui.charSub) data.ui.charSub="stats";
-    // 가방+창고 통합 → 단일 창고(inventory). 기존 warehouse.items 흡수, 캡 이관 후 제거.
-    if(!data.invCaps) data.invCaps = (data.warehouse && data.warehouse.tabMax) || { gear:40, rune:20, unique:20 };
-    if(data.warehouse && data.warehouse.items && data.warehouse.items.length){
-      data.inventory = (data.inventory||[]).concat(data.warehouse.items);
-    }
-    if(data.warehouse) delete data.warehouse;
-    if(data.invMax) delete data.invMax;
     if(data.ui.tab==="market") data.ui.tab="dungeon";   // 삭제된 시장 탭
     if(!data.ui.bagSort) data.ui.bagSort="price";
     G.state=data;
