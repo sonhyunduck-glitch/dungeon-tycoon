@@ -9,10 +9,10 @@
   G.gacha = {};
 
   G.gacha.RARITY = [
-    { key:"common", label:"일반", cls:"r-common",   weight:65.3, shard:5,   color:"#9aa0ad" },
-    { key:"rare",   label:"희귀", cls:"r-rare",     weight:30,   shard:15,  color:"#5aa0ff" },
-    { key:"epic",   label:"영웅", cls:"r-epic",     weight:4,    shard:40,  color:"#c08bff" },
-    { key:"legend", label:"전설", cls:"r-legend",   weight:0.7,  shard:100, color:"#ff7a3c" }
+    { key:"common", label:"일반", cls:"r-common",   weight:65.3, shard:1,   color:"#9aa0ad" },
+    { key:"rare",   label:"희귀", cls:"r-rare",     weight:30,   shard:3,   color:"#5aa0ff" },
+    { key:"epic",   label:"영웅", cls:"r-epic",     weight:4,    shard:8,   color:"#c08bff" },
+    { key:"legend", label:"전설", cls:"r-legend",   weight:0.7,  shard:20,  color:"#ff7a3c" }
   ];
   G.gacha.rdef = function(key){ return G.gacha.RARITY.filter(function(r){return r.key===key;})[0] || G.gacha.RARITY[0]; };
 
