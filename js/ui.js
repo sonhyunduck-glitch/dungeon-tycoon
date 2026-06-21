@@ -74,7 +74,7 @@ G.ui.renderHud = function(){
   var invBtn=document.querySelector('.nav-btn[data-tab="inventory"] b');
   if(invBtn){
     var full=G.inventory.isFull();
-    invBtn.innerHTML='가방<br><span class="'+(full?"r-legend":"")+'" style="font-size:.82em; opacity:.8; font-weight:400">'+G.state.inventory.length+'/'+G.state.invMax+'</span>';
+    invBtn.innerHTML='창고<br><span class="'+(full?"r-legend":"")+'" style="font-size:.82em; opacity:.8; font-weight:400">'+G.state.inventory.length+'/'+G.inventory.totalCap()+'</span>';
   }
 };
 

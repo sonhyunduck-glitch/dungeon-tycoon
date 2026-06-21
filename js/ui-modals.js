@@ -27,7 +27,7 @@ G.ui.unlockModal = function(items){
 
 /* 장착 비교 모달 — 교체 시 스탯 증감 + 전투력 변화 */
 G.ui.compareModal = function(id){
-  var it=(G.state.inventory.concat(G.state.warehouse.items)).find(function(x){return x.id===id;});
+  var it=G.state.inventory.find(function(x){return x.id===id;});
   if(!it || it.identified===false || it.type==="consumable" || !it.slot) return;
 
   // 교체될 슬롯 + 현재 장비

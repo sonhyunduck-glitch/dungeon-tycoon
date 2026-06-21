@@ -28,9 +28,8 @@ G.newState = function(){
     cape:{ owned:false, level:0, fails:0 },   // 🧥 망토(아레나 전용): 코인 구매 + 코인 강화(공격력%/체력%)
     cosmetics:{ owned:{}, shards:0, pity:{ legend:0 } },   // 🎰 외형 뽑기: 보유 스킨/외형 조각/천장
     collection:{ uniques:{}, runewords:{} },   // 🌟 고유 장비 + 🔗 룬워드 연대기(발견 기록)
-    inventory:[],
-    invMax:20,
-    warehouse:{ items:[], max:50, tabMax:{ gear:40, rune:20, unique:20 } },   // tabMax: 종류별 칸 한계(장비/룬/고유)
+    inventory:[],   // 통합 창고(가방+창고 일원화) — 종류별 칸 한계
+    invCaps:{ gear:40, rune:20, unique:20 },   // 창고 종류별 용량(장비/룬/고유)
     consumables:{ potion_s:10, potionHeal:40 },  // potionHeal=보유 물약 1개당 고정 회복량(구매 시점 고정)
     potionMax:10,
     potionLevel:1,       // 물약 강화 레벨 (회복률 상승)
@@ -54,7 +53,7 @@ G.newState = function(){
     skills:{ unlocked:{}, enabled:{} },
     pickup:{ common:true, uncommon:true, rare:true, epic:true, legend:true }, // 등급별 획득 여부
     log:[],
-    ui:{ tab:"dungeon", stageView:null, invSub:"bag", charSub:"stats", bagSort:"price",
+    ui:{ tab:"dungeon", stageView:null, whCat:"all", charSub:"stats", bagSort:"price",
          market:{ slot:"all", rarity:"all", opt1:"", opt2:"", pmin:0, pmax:0 } },
   };
 };

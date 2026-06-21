@@ -43,7 +43,7 @@ G.ui.renderShop = function(){
           )+'</div>';
       })()+
       '<div class="stall-counter">'+slots+'</div>'+
-      '<div class="stall-foot">가격표를 눌러 값을 정하세요. 손님은 <b>쌀수록 잘 삽니다</b>. 진열은 가방 탭의 [진열] 버튼으로.</div>'+
+      '<div class="stall-foot">가격표를 눌러 값을 정하세요. 손님은 <b>쌀수록 잘 삽니다</b>. 진열은 창고 탭의 [진열] 버튼으로.</div>'+
     '</div>';
 };
 
@@ -79,7 +79,7 @@ G.ui._orders = function(){
     '</div>';
   }).join("");
   return '<div class="panel"><h3>📋 NPC 맞춤 주문</h3>'+rows+
-    '<div class="muted" style="margin-top:6px">조건을 충족하는 가방 속 아이템이 자동 납품됩니다. (#옵션 클릭 → 사냥터 워프, 대장간으로 맞춤 제작)</div></div>';
+    '<div class="muted" style="margin-top:6px">조건을 충족하는 창고 속 아이템이 자동 납품됩니다. (#옵션 클릭 → 사냥터 워프, 대장간으로 맞춤 제작)</div></div>';
 };
 
 /* ============================================================

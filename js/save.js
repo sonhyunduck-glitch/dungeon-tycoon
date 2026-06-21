@@ -89,9 +89,15 @@ G.save.load = function(){
       });
       delete data.dungeon.clearedStages;
     }
-    if(!data.ui) data.ui={ tab:"dungeon", invSub:"bag" };
-    if(!data.ui.invSub) data.ui.invSub="bag";
+    if(!data.ui) data.ui={ tab:"dungeon" };
     if(!data.ui.charSub) data.ui.charSub="stats";
+    // 가방+창고 통합 → 단일 창고(inventory). 기존 warehouse.items 흡수, 캡 이관 후 제거.
+    if(!data.invCaps) data.invCaps = (data.warehouse && data.warehouse.tabMax) || { gear:40, rune:20, unique:20 };
+    if(data.warehouse && data.warehouse.items && data.warehouse.items.length){
+      data.inventory = (data.inventory||[]).concat(data.warehouse.items);
+    }
+    if(data.warehouse) delete data.warehouse;
+    if(data.invMax) delete data.invMax;
     if(data.ui.tab==="market") data.ui.tab="dungeon";   // 삭제된 시장 탭
     if(!data.ui.bagSort) data.ui.bagSort="price";
     G.state=data;

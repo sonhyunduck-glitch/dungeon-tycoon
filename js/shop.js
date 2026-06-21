@@ -82,7 +82,7 @@ function addGuest(npc, item, price){
 G.shop.unlist = function(slotIdx){
   var slot=G.state.shop.slots[slotIdx];
   if(!slot) return;
-  if(G.inventory.isFull()){ G.ui.toast("가방이 가득 찼습니다"); return; }
+  if(G.inventory.isFullFor(slot.item)){ G.ui.toast(G.inventory.catLabel(G.inventory.catOf(slot.item))+" 창고가 가득 찼습니다"); return; }
   G.state.inventory.push(slot.item);
   G.state.shop.slots[slotIdx]=null;
   G.log("↩️ 진열 회수: "+slot.item.name,"");

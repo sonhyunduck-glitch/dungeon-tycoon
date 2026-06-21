@@ -4,17 +4,36 @@
 var G = window.G;
 G.inventory = {};
 
-G.inventory.isFull = function(){ return G.state.inventory.length >= G.state.invMax; };
+/* ── 창고(통합 저장소) 용량 — 종류별 칸(장비/룬/고유) ── */
+G.inventory.CATS = [
+  { key:"gear",   label:"⚔️ 장비", def:40 },
+  { key:"rune",   label:"🔮 룬",   def:20 },
+  { key:"unique", label:"🌟 고유", def:20 },
+];
+G.inventory.catOf = function(it){
+  if(!it) return "gear";
+  if(it.slot==="rune" || it.type==="rune") return "rune";
+  if(it.rarity==="unique") return "unique";
+  return "gear";
+};
+G.inventory.catLabel = function(cat){ var c=G.inventory.CATS.find(function(x){return x.key===cat;}); return c?c.label:cat; };
+function invCapsOf(){
+  if(!G.state.invCaps){ G.state.invCaps={}; G.inventory.CATS.forEach(function(c){ G.state.invCaps[c.key]=c.def; }); }   // 구버전 마이그레이션
+  return G.state.invCaps;
+}
+G.inventory.cap     = function(cat){ return invCapsOf()[cat] || 0; };
+G.inventory.countOf = function(cat){ return G.state.inventory.filter(function(it){ return G.inventory.catOf(it)===cat; }).length; };
+G.inventory.totalCap= function(){ return G.inventory.CATS.reduce(function(s,c){ return s+G.inventory.cap(c.key); },0); };
+/* 인자 있으면 해당 종류, 없으면 모든 종류가 가득일 때 true */
+G.inventory.isFull = function(cat){
+  if(cat) return G.inventory.countOf(cat) >= G.inventory.cap(cat);
+  return G.inventory.CATS.every(function(c){ return G.inventory.countOf(c.key) >= G.inventory.cap(c.key); });
+};
+G.inventory.isFullFor = function(it){ return G.inventory.isFull(G.inventory.catOf(it)); };
 
 G.inventory.add = function(it){
-  if(G.inventory.isFull()){
-    // 가방이 가득 차면 창고로 자동 보관 (해당 종류 칸에 여유가 있을 때)
-    if(G.state.warehouse && !G.warehouse.isFullFor(it)){
-      G.state.warehouse.items.push(it);
-      G.log("📦 가방이 가득 차 "+it.name+"을(를) 창고에 보관","");
-      return true;
-    }
-    G.log("⚠️ 가방·창고가 가득 차 "+it.name+"을(를) 놓쳤다!","");
+  if(G.inventory.isFullFor(it)){
+    G.log("⚠️ "+G.inventory.catLabel(G.inventory.catOf(it))+" 창고가 가득 차 "+it.name+"을(를) 놓쳤다!","");
     return false;
   }
   G.state.inventory.push(it);
@@ -54,7 +73,7 @@ G.inventory.equip = function(id){
 G.inventory.unequip = function(key){
   var it=G.state.equipment[key];
   if(!it) return;
-  if(G.inventory.isFull()){ G.ui.toast("가방이 가득 찼습니다"); return; }
+  if(G.inventory.isFullFor(it)){ G.ui.toast(G.inventory.catLabel(G.inventory.catOf(it))+" 창고가 가득 찼습니다"); return; }
   G.state.equipment[key]=null;
   G.state.inventory.push(it);
   G.log("➖ 해제: "+it.name,"");
@@ -123,84 +142,15 @@ G.inventory.compare = function(it){
   return V(it.stats||{}) - (cur?V(cur.stats):0);
 };
 
-/* 가방 확장 (업그레이드 1회당 +1칸, 확장할수록 비용 급증) */
-G.inventory.bagUpgradeCost = function(){ return Math.round(500 * Math.pow(1.4, Math.max(0, G.state.invMax-20))); };
-G.inventory.upgradeBag = function(){
-  var cost=G.inventory.bagUpgradeCost();
-  if(G.state.player.gold<cost){ G.ui.toast("골드가 부족합니다 (🪙"+G.ui.fmt(cost)+")"); return; }
-  G.state.player.gold-=cost; G.state.invMax+=1;
-  G.log("🎒 가방 확장! 최대 "+G.state.invMax+"칸","r-uncommon");
-};
-
-/* ============================================================
-   창고 — 보관 / 꺼내기 / 매각 / 확장
-   ============================================================ */
-G.warehouse = {};
-
-/* 종류 탭 — 장비 / 룬 / 고유. 탭별 용량 한계(확장 가능) */
-G.warehouse.CATS = [
-  { key:"gear",   label:"⚔️ 장비", def:40 },
-  { key:"rune",   label:"🔮 룬",   def:20 },
-  { key:"unique", label:"🌟 고유", def:20 },
-];
-G.warehouse.catOf = function(it){
-  if(!it) return "gear";
-  if(it.slot==="rune" || it.type==="rune") return "rune";
-  if(it.rarity==="unique") return "unique";
-  return "gear";
-};
-G.warehouse.catLabel = function(cat){ var c=G.warehouse.CATS.find(function(x){return x.key===cat;}); return c?c.label:cat; };
-function whTabMax(){
-  var w=G.state.warehouse;
-  if(!w.tabMax){ w.tabMax={}; G.warehouse.CATS.forEach(function(c){ w.tabMax[c.key]=c.def; }); }   // 구버전 세이브 마이그레이션
-  return w.tabMax;
-}
-G.warehouse.cap     = function(cat){ return whTabMax()[cat] || 0; };
-G.warehouse.countOf = function(cat){ return G.state.warehouse.items.filter(function(it){ return G.warehouse.catOf(it)===cat; }).length; };
-G.warehouse.totalCap= function(){ return G.warehouse.CATS.reduce(function(s,c){ return s+G.warehouse.cap(c.key); },0); };
-/* 인자 있으면 해당 종류, 없으면 모든 종류가 가득일 때 true */
-G.warehouse.isFull = function(cat){
-  if(cat) return G.warehouse.countOf(cat) >= G.warehouse.cap(cat);
-  return G.warehouse.CATS.every(function(c){ return G.warehouse.countOf(c.key) >= G.warehouse.cap(c.key); });
-};
-G.warehouse.isFullFor = function(it){ return G.warehouse.isFull(G.warehouse.catOf(it)); };
-
-/* 가방 → 창고 (종류별 칸) */
-G.warehouse.store = function(id){
-  var it=G.state.inventory.find(function(x){return x.id===id;}); if(!it) return;
-  var cat=G.warehouse.catOf(it);
-  if(G.warehouse.isFull(cat)){ G.ui.toast(G.warehouse.catLabel(cat)+" 창고가 가득 찼습니다"); return; }
-  G.inventory.remove(id);
-  G.state.warehouse.items.push(it);
-  G.log("📦 창고 보관: "+it.name, it.rarityCls);
-};
-
-/* 창고 → 가방 */
-G.warehouse.retrieve = function(id){
-  if(G.inventory.isFull()){ G.ui.toast("가방이 가득 찼습니다"); return; }
-  var i=G.state.warehouse.items.findIndex(function(x){return x.id===id;});
-  if(i<0) return;
-  var it=G.state.warehouse.items.splice(i,1)[0];
-  G.state.inventory.push(it);
-  G.log("🎒 창고에서 꺼냄: "+it.name, it.rarityCls);
-};
-
-/* 창고에서 즉시 매각 (기준가 50%) */
-G.warehouse.sell = function(id){
-  var i=G.state.warehouse.items.findIndex(function(x){return x.id===id;});
-  if(i<0) return;
-  var it=G.state.warehouse.items.splice(i,1)[0];
-  var price=Math.round(it.basePrice*0.1);   // 매각가 = 기준가치의 10%
-  G.state.player.gold+=price;
-  G.log("💰 창고 매각: "+it.name+" → 🪙"+G.ui.fmt(price),"");
-};
-
-/* 창고 종류별 확장 (+10칸) */
-G.warehouse.upgradeCost = function(cat){ return G.warehouse.cap(cat||"gear") * 15; };
-G.warehouse.upgrade = function(cat){
+/* 창고 종류별 칸 확장 (+10칸, 확장할수록 비용 증가) */
+G.inventory.capUpgradeCost = function(cat){ return G.inventory.cap(cat||"gear") * 15; };
+G.inventory.upgradeCap = function(cat){
   cat=cat||"gear";
-  var cost=G.warehouse.upgradeCost(cat);
+  var cost=G.inventory.capUpgradeCost(cat);
   if(G.state.player.gold<cost){ G.ui.toast("골드가 부족합니다 (🪙"+G.ui.fmt(cost)+")"); return; }
-  G.state.player.gold-=cost; whTabMax()[cat]+=10;
-  G.log("📦 "+G.warehouse.catLabel(cat)+" 창고 확장! 최대 "+whTabMax()[cat]+"칸","r-uncommon");
+  G.state.player.gold-=cost; invCapsOf()[cat]+=10;
+  G.log("📦 "+G.inventory.catLabel(cat)+" 칸 확장! 최대 "+invCapsOf()[cat]+"칸","r-uncommon");
 };
+
+/* 창고 즉시 매각(기준가의 10%) — quickSell 별칭 */
+G.warehouse = { sell:function(id){ G.inventory.quickSell(id); } };

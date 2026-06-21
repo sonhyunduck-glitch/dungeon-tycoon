@@ -52,7 +52,7 @@ G.market.buy = function(id){
   if(i<0) return;
   var l=st.listings[i];
   if(G.state.player.gold < l.price){ G.ui.toast("골드가 부족합니다 (🪙"+G.ui.fmt(l.price)+")"); return; }
-  if(G.inventory.isFull() && G.warehouse.isFull()){ G.ui.toast("가방·창고가 가득 찼습니다"); return; }
+  if(G.inventory.isFull()){ G.ui.toast("창고가 가득 찼습니다"); return; }
   G.state.player.gold -= l.price;
   G.inventory.add(l.item);
   st.listings.splice(i,1);

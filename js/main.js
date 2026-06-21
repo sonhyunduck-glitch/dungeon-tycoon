@@ -95,8 +95,8 @@
     "potion": function(){ if(animBusy) return; if(G.combat.usePotion()) G.ui.render(); },
     "use-potion": function(){ if(animBusy) return; if(G.combat.usePotion()) G.ui.render(); },
 
-    /* 인벤토리 / 창고 */
-    "inv-sub": function(d){ G.state.ui.invSub=d.sub; G.ui.render(); },
+    /* 창고(통합) */
+    "wh-cat": function(d){ G.state.ui.whCat=d.cat; G.ui.renderInventory(); },
     "bag-sort": function(){ var o={price:"power",power:"recent",recent:"upgrade",upgrade:"price"}; G.state.ui.bagSort=o[G.state.ui.bagSort||"price"]; G.ui.render(); },
     "bag-filter-slot": function(d){ G.state.ui.bagFilterSlot=d.slot||d.value; G.ui.renderInventory(); },
     "bag-stat-pick": function(){ G.ui.bagStatPickModal(); },
@@ -105,7 +105,7 @@
     "bag-filter-clear": function(){ G.state.ui.bagFilterSlot="all"; G.state.ui.bagFilterStat="all"; G.ui.renderInventory(); },
     "compare": function(d){ G.ui.compareModal(d.id); },
     "lock": function(d){
-      var it=G.state.inventory.concat(G.state.warehouse.items).find(function(x){return x.id===d.id;});
+      var it=G.state.inventory.find(function(x){return x.id===d.id;});
       if(it){ it.locked=!it.locked; G.ui.render(); }
     },
     "equip": function(d){
@@ -117,15 +117,10 @@
     },
     "quicksell": function(d){ G.inventory.quickSell(d.id); G.ui.render(); },
     "list": function(d){ G.shop.list(d.id); G.ui.render(); },
-    "bag-upgrade": function(){ G.inventory.upgradeBag(); G.ui.render(); },
+    "cap-upgrade": function(d){ G.inventory.upgradeCap(d&&d.cat); G.ui.render(); },
     "identify": function(d){ G.item.identify(d.id); G.ui.render(); },
     "salvage": function(d){ G.inventory.salvage(d.id); G.ui.render(); },
     "reroll": function(d){ G.item.reroll(d.id); G.ui.render(); },
-    "store": function(d){ G.warehouse.store(d.id); G.ui.render(); },
-    "retrieve": function(d){ G.warehouse.retrieve(d.id); G.ui.render(); },
-    "wh-sell": function(d){ G.warehouse.sell(d.id); G.ui.render(); },
-    "wh-cat": function(d){ G.state.ui.whCat=d.cat; G.ui.renderInventory(); },
-    "wh-upgrade": function(d){ G.warehouse.upgrade(d&&d.cat); G.ui.render(); },
 
     /* 캐릭터 */
     "char-sub": function(d){ G.state.ui.charSub=d.sub; G.ui.render(); },

@@ -17,7 +17,7 @@ G.forge.craft = function(bossName, part){
   if(have < G.forge.MAT_COST){ G.ui.toast(boss.mat+"이(가) 부족합니다 ("+have+"/"+G.forge.MAT_COST+")"); return; }
   var gold=G.forge.goldCost();
   if(G.state.player.gold < gold){ G.ui.toast("골드가 부족합니다 (🪙"+G.ui.fmt(gold)+")"); return; }
-  if(G.inventory.isFull() && G.warehouse.isFull()){ G.ui.toast("가방·창고가 가득 찼습니다"); return; }
+  if(G.inventory.isFull()){ G.ui.toast("창고가 가득 찼습니다"); return; }
 
   G.state.monMats[bossName]-=G.forge.MAT_COST;
   G.state.player.gold-=gold;
@@ -46,7 +46,7 @@ G.forge.craftRune = function(baseName){
   var matCost=G.forge.runeMatCost(), gold=G.forge.runeGoldCost();
   if((G.state.materials||0) < matCost){ G.ui.toast("🔩 재료가 부족합니다 ("+(G.state.materials||0)+"/"+matCost+")"); return; }
   if(G.state.player.gold < gold){ G.ui.toast("골드가 부족합니다 (🪙"+G.ui.fmt(gold)+")"); return; }
-  if(G.inventory.isFull() && G.warehouse.isFull()){ G.ui.toast("가방·창고가 가득 찼습니다"); return; }
+  if(G.inventory.isFull()){ G.ui.toast("창고가 가득 찼습니다"); return; }
   G.state.materials -= matCost;
   G.state.player.gold -= gold;
   var it=G.item.generateRune(3, G.state.dungeon.maxFloor||1, baseName);
