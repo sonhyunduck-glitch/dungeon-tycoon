@@ -107,9 +107,10 @@ G.ui._storePanel = function(){
     if(it.socketBase){
       var upS=G.inventory.upgradeInfo(it);
       var dS = !upS ? '' : (upS.pct>=0.5?'<span class="r-uncommon">▲'+(upS.pct>=200?'대폭':upS.pct.toFixed(0)+'%')+'</span>':'');
+      var fc=it.sockets.filter(function(s){return s;}).length;
       var actsS=
         '<button class="btn sm primary" data-act="equip" data-id="'+it.id+'">착용 '+dS+'</button>'+
-        '<button class="btn sm gold" data-act="socket-open" data-id="'+it.id+'" title="소켓에 룬 장착">🔩 '+G.ui.socketDots(it)+'</button>'+
+        '<button class="btn sm gold" data-act="socket-open" data-id="'+it.id+'" title="소켓에 룬 장착">🔩 '+fc+'/'+it.sockets.length+'</button>'+
         salvBtn+sellBtn;
       return itemCard(it, actsS);
     }

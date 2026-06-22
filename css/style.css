@@ -532,7 +532,7 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
 .item .info{ flex:1 1 150px; min-width:140px; }
 .item .iname{ font-weight:800; font-size:.86rem; word-break:keep-all; }
 .item .idesc{ font-size:.72rem; color:var(--text-dim); word-break:keep-all; }
-.item .iacts{ display:flex; gap:3px; flex-wrap:wrap; margin-left:auto; justify-content:flex-end; }
+.item .iacts{ display:flex; gap:3px; flex-wrap:wrap; margin-left:auto; justify-content:flex-end; align-items:center; }
 /* 아이템 액션 버튼은 컴팩트하게 (한 줄에 들어가도록) */
 .item .iacts .btn{ padding:4px 6px; min-height:28px; font-size:.66rem; border-radius:7px; }
 .item .iacts .btn::after{ display:none; }   /* 광택 스윕 제거(폭 절약) */
