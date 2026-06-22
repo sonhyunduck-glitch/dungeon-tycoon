@@ -23,8 +23,7 @@ G.newState = function(){
     _seq:0,
     nickname:null,       // 멀티: 닉네임(온라인 프로필/채팅/랭킹 표시명)
     player:{ hp:150, maxHp:150, atk:14, def:4, crit:5, gold:50 },
-    equipment:{ weapon:null, helmet:null, armor:null, gloves:null, boots:null, ring:null, necklace:null,
-                rune1:null, rune2:null, rune3:null },
+    equipment:{ weapon:null, helmet:null, armor:null, gloves:null, boots:null, ring:null, necklace:null },
     cape:{ owned:false, level:0, fails:0 },   // 🧥 망토(아레나 전용): 코인 구매 + 코인 강화(공격력%/체력%)
     cosmetics:{ owned:{}, shards:0, pity:{ legend:0 } },   // 🎰 외형 뽑기: 보유 스킨/외형 조각/천장
     collection:{ uniques:{}, runewords:{} },   // 🌟 고유 장비 + 🔗 룬워드 연대기(발견 기록)
@@ -89,13 +88,20 @@ G.totalStats = function(){
     s.mercFind   += it.stats.mercFind   ||0;
     s.potionBoost+= it.stats.potionBoost||0;
     s.hpBonus    += it.stats.hp         ||0;
+    // 🔩 소켓 룬: 무기면 wpn 효과, 그 외(방어구/장신구)면 arm 효과
+    if(it.sockets){ var _isW=(it.type==="weapon");
+      for(var _si=0;_si<it.sockets.length;_si++){ var _r=it.sockets[_si]; if(!_r) continue;
+        var _eff=_isW?_r.wpn:_r.arm; if(!_eff) continue;
+        for(var _ek in _eff){ if(_ek==="hp") s.hpBonus+=_eff[_ek]; else s[_ek]=(s[_ek]||0)+_eff[_ek]; }
+      }
+    }
   }
   // 🧥 망토 보너스: 속성공격/올레지는 캡 적용 전에 합산(공격력%·체력%는 캡 이후 마지막에 적용)
   var _cb = (G.cape && G.cape.bonus) ? G.cape.bonus() : null;
   if(_cb){ s.elemAtk += _cb.elemAtk||0; s.allRes += _cb.allRes||0; }
-  // 🔗 룬워드 보너스(% 보조) — 캡 적용 전에 합산
-  var _rw = (G.runeword && G.runeword.activeBonus) ? G.runeword.activeBonus() : null;
-  if(_rw){ for(var _rk in _rw){ s[_rk]=(s[_rk]||0)+_rw[_rk]; } }
+  // 🔗 룬워드 보너스(% 보조, 부위별 여러 개 가능) — 캡 적용 전에 합산
+  var _rwl = (G.runeword && G.runeword.activeList) ? G.runeword.activeList() : [];
+  _rwl.forEach(function(w){ var b=w.bonus||{}; for(var _rk in b){ if(_rk==="hp") s.hpBonus+=b[_rk]; else s[_rk]=(s[_rk]||0)+b[_rk]; } });
   // 상한(% 스탯 누적으로 전투가 무력화되는 것 방지 → 예측 가능한 수치)
   s.crit       = Math.min(s.crit, 80);
   s.critDmg    = Math.min(s.critDmg, 150);
@@ -113,7 +119,6 @@ G.totalStats = function(){
   s.resPoison  = Math.min(s.resPoison + s.allRes, 80);
   // 공격 속성(100층+ 디아블로식): 무기 우선, 없으면 장착 룬에서
   s.atkElem = (eq.weapon && eq.weapon.attackElem) || null;
-  if(!s.atkElem){ for(var rk in eq){ var rit=eq[rk]; if(rit && rit.slot==="rune" && rit.attackElem){ s.atkElem=rit.attackElem; break; } } }
   // 🧥 망토 + 🎭 장착 아바타 공격력%/체력% (캡 없는 atk와 최종 maxHp에 곱연산)
   var _av = (G.avatar && G.avatar.statBonus) ? G.avatar.statBonus() : null;
   var _atkPct = ((_cb&&_cb.atkPct)||0) + ((_av&&_av.atkPct)||0);

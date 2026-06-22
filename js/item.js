@@ -62,6 +62,8 @@ function priceOf(it, rarity, tier){
    tier: 등급 가중치/가격 (1~4), level: 층(스탯 스케일) */
 G.item.generate = function(tier, level, partType){
   tier = tier||1; level = level||1;
+  // 디아블로식: 일부 드랍은 접사 없는 "소켓 베이스"(룬워드 캔버스)로
+  if(Math.random() < (G.DATA.SOCKET_BASE_RATE||0)) return G.item.generateSocketBase(level, partType);
   var bases = partType ? G.DATA.ITEM_BASES.filter(function(b){return b.type===partType;}) : G.DATA.ITEM_BASES;
   if(!bases.length) bases=G.DATA.ITEM_BASES;
   var base = G.util.pick(bases);
@@ -110,38 +112,50 @@ G.item.generate = function(tier, level, partType){
 };
 
 /* 룬 생성 (순수 스탯 아이템: 주 스탯 + 옵션) */
-G.item.generateRune = function(tier, level, baseName){
-  tier=tier||1; level=level||1;
-  // baseName 지정 시 해당 룬 / 미지정(드롭)이면 제작전용(craft) 제외
-  var base = baseName ? G.DATA.RUNE_BASES.find(function(b){return b.base===baseName;})
-                      : G.util.pick(G.DATA.RUNE_BASES.filter(function(b){return !b.craft;}));
-  if(!base) base=G.DATA.RUNE_BASES[0];
-  var rarity=G.item.rollRarity(tier);
-  var lvlMult=Math.pow(1.112, level-1);
-  var meta=G.DATA.STAT_META[base.main];
-
-  var fixed={};
-  fixed[base.main] = meta.pct
-    ? Math.max(1, Math.round(base.val * rarity.mult))                         // 퍼센트 주스탯: 레벨 무관
-    : Math.max(1, Math.round(base.val * rarity.mult * lvlMult * (0.85+Math.random()*0.4)));
-
-  var affixCount=rollAffixCount(rarity);
-  var pool=G.DATA.AFFIXES.slice(), affixes=[];
-  for(var i=0;i<affixCount && pool.length>0;i++){
-    var idx=Math.floor(Math.random()*pool.length);
-    var af=pool.splice(idx,1)[0];
-    affixes.push({ stat:af.stat, value:rollAffixValue(af, lvlMult, "rune"), pct:!!af.pct, flat:!!af.flat });
+/* 룬 생성 — 사다리(RUNES)에서 드랍 가중치(w)로 추첨. 하위 흔함·상위 희귀. */
+G.item.runeRarity = function(rank){
+  var rc = rank<=3?"r-common":rank<=6?"r-uncommon":rank<=9?"r-rare":rank<=12?"r-epic":"r-legend";
+  var lbl= rank<=3?"하급":rank<=6?"중급":rank<=9?"상급":rank<=12?"최상급":"전설";
+  return { cls:rc, key:rc.replace("r-",""), label:lbl };
+};
+G.item.makeRune = function(r){
+  var rr=G.item.runeRarity(r.rank);
+  return { id:G.util.uid(), name:r.name, runeName:r.name, rank:r.rank, ico:"🔹", iconImg:r.iconImg||null,
+    type:"rune", slot:"rune", rarity:rr.key, rarityLabel:rr.label, rarityCls:rr.cls,
+    wpn:r.wpn, arm:r.arm, identified:true, basePrice: 20 + r.rank*r.rank*4 };
+};
+G.item.generateRune = function(tier, level, runeName){
+  var R=G.DATA.RUNES;
+  var pick;
+  if(runeName){ pick=R.find(function(x){return x.name===runeName;}); }
+  if(!pick){
+    var tot=R.reduce(function(s,r){return s+r.w;},0), roll=Math.random()*tot; pick=R[0];
+    for(var i=0;i<R.length;i++){ roll-=R[i].w; if(roll<=0){ pick=R[i]; break; } }
   }
+  return G.item.makeRune(pick);
+};
 
-  var rdef=G.DATA.RARITY.find(function(r){return r.key===rarity.key;});
-  var it={
-    id:G.util.uid(), name:base.base, runeBase:base.base, ico:base.ico, iconImg:base.iconImg||null, type:"rune", slot:"rune",
-    rarity:rarity.key, rarityLabel:rarity.label, rarityCls:rdef.cls,
-    level:level, tier:tier, fixed:fixed, affixes:affixes, identified:true,
-    attackElem: (level>=100) ? G.util.pick(G.DATA.ELEMENTS).key : null,   // 100층+ 룬 공격 속성
-  };
+/* 소켓 베이스 — 접사 없음, 부위 기본 주스탯만, 소켓 1~5개(룬워드 캔버스) */
+G.item.generateSocketBase = function(level, partType){
+  level=level||1;
+  var bases = partType ? G.DATA.ITEM_BASES.filter(function(b){return b.type===partType;}) : G.DATA.ITEM_BASES;
+  if(!bases.length) bases=G.DATA.ITEM_BASES;
+  var base=G.util.pick(bases);
+  var lvlMult=Math.pow(1.112, level-1);
+  var fixed={}, mainMeta=G.DATA.STAT_META[base.main];
+  fixed[base.main] = (mainMeta&&mainMeta.pct)
+    ? Math.max(1, Math.round(base.val * (0.9+Math.random()*0.2)))
+    : Math.max(1, Math.round(base.val * lvlMult * (0.9+Math.random()*0.2)));
+  if(base.type==="armor") fixed.hp=(fixed.hp||0)+Math.round(base.val * 4 * lvlMult);
+  var n=G.util.rand(1, G.DATA.SOCKET_MAX), sockets=[]; for(var k=0;k<n;k++) sockets.push(null);
+  var iconImg=null, iconList=base.iconDir && G.DATA.EQUIP_ICONS && G.DATA.EQUIP_ICONS[base.iconDir];
+  if(iconList&&iconList.length) iconImg="assets/icon/equip/"+base.iconDir+"/"+G.util.pick(iconList);
+  var attackElem=(base.type==="weapon" && level>=100)?G.util.pick(G.DATA.ELEMENTS).key:null;
+  var it={ id:G.util.uid(), name:"["+base.base+"]", baseName:base.base, ico:base.ico, iconImg:iconImg,
+    type:base.type, slot:base.slot, rarity:"socket", rarityLabel:"소켓 "+n, rarityCls:"r-socket",
+    level:level, tier:1, fixed:fixed, affixes:[], sockets:sockets, socketBase:true, attackElem:attackElem, identified:true };
   mergeStats(it);
-  it.basePrice=priceOf(it, rdef, tier);
+  it.basePrice=priceOf(it, { price:6 }, 1);
   return it;
 };
 
@@ -173,33 +187,73 @@ G.item.generateUnique = function(u, level){
 };
 
 /* ============================================================
-   🔗 룬워드 — 룬 3칸 조합으로 발동(순서 무관). 개별 룬 + 룬워드 % 보너스
+   🔗 룬워드 — 한 아이템의 소켓을 가득 채우고(소켓수=길이 3/4/5),
+   부위(cat: weapon/armor)와 필요 룬(순서 무관)이 일치하면 발동.
    ============================================================ */
-G.runeword = {};
-G.runeword.equippedBases = function(){
-  var eq=G.state.equipment, out=[];
-  (G.DATA.RUNE_SLOTS||[]).forEach(function(k){ var it=eq[k]; if(it) out.push(it.runeBase||it.name); });
-  return out;
-};
 function _multisetEq(a,b){
   if(a.length!==b.length) return false;
   var m={},i; for(i=0;i<a.length;i++) m[a[i]]=(m[a[i]]||0)+1;
   for(i=0;i<b.length;i++){ if(!m[b[i]]) return false; m[b[i]]--; }
   return true;
 }
-G.runeword.active = function(){
-  var bases=G.runeword.equippedBases();
-  if(bases.length < 3) return null;
-  var ws=G.DATA.RUNEWORDS||[];
-  for(var i=0;i<ws.length;i++){ if(_multisetEq(bases, ws[i].runes)) return ws[i]; }
-  return null;
+G.runeword = {};
+/* 아이템의 소켓 구성이 어떤 룬워드와 일치하면 그 룬워드 반환 */
+G.runeword.ofItem = function(it){
+  if(!it || !it.sockets || !it.sockets.length) return null;
+  for(var i=0;i<it.sockets.length;i++){ if(!it.sockets[i]) return null; }   // 가득 차야
+  var names=it.sockets.map(function(s){ return s.runeName||s.name; });
+  var cat=(it.type==="weapon")?"weapon":"armor";
+  var ws=G.DATA.RUNEWORDS||[], found=null;
+  for(var j=0;j<ws.length;j++){
+    if(ws[j].cat!==cat || ws[j].runes.length!==names.length) continue;
+    if(_multisetEq(ws[j].runes, names)){ found=ws[j]; break; }
+  }
+  return found;
 };
-G.runeword.activeBonus = function(){ var w=G.runeword.active(); return w?w.bonus:null; };
-/* 현재 발동 중인 룬워드를 연대기에 발견 등록(저장은 호출측에서) */
+/* 현재 장착 장비에서 발동 중인 룬워드 전부 */
+G.runeword.activeList = function(){
+  var eq=G.state.equipment, out=[];
+  for(var k in eq){ var w=G.runeword.ofItem(eq[k]); if(w) out.push(w); }
+  return out;
+};
+G.runeword.active = function(){ return G.runeword.activeList()[0] || null; };   // 호환(첫 룬워드)
+/* 발동 중인 룬워드를 연대기에 발견 등록(저장은 호출측에서) */
 G.runeword.recordActive = function(){
-  var w=G.runeword.active(); if(!w) return null;
+  var list=G.runeword.activeList(); if(!list.length) return null;
   G.state.collection=G.state.collection||{}; G.state.collection.runewords=G.state.collection.runewords||{};
-  G.state.collection.runewords[w.id]=true; return w;
+  list.forEach(function(w){ G.state.collection.runewords[w.id]=true; });
+  return list[0];
+};
+
+/* ============================================================
+   🔩 소켓 — 룬 삽입/제거(임시: 회수형, 영구파괴 정책 미정)
+   ============================================================ */
+G.socket = {};
+G.socket.findItem = function(id){
+  var eq=G.state.equipment; for(var k in eq){ if(eq[k] && eq[k].id===id) return eq[k]; }
+  return (G.state.inventory||[]).find(function(x){ return x.id===id; }) || null;
+};
+G.socket.openCount = function(it){ return (it && it.sockets) ? it.sockets.filter(function(s){return !s;}).length : 0; };
+G.socket.insert = function(itemId, runeId){
+  var it=G.socket.findItem(itemId); if(!it || !it.sockets){ return false; }
+  var slot=it.sockets.indexOf(null); if(slot<0){ G.ui.toast("빈 소켓이 없습니다"); return false; }
+  var ri=(G.state.inventory||[]).findIndex(function(x){ return x.id===runeId && x.slot==="rune"; });
+  if(ri<0) return false;
+  var rune=G.state.inventory.splice(ri,1)[0];
+  it.sockets[slot]=rune;
+  var w=G.runeword.ofItem(it);
+  G.log("🔩 소켓 장착: "+it.name+" ◁ "+rune.name + (w?(" → 🔗"+w.name+" 발동!"):""), it.rarityCls);
+  if(w){ G.runeword.recordActive(); }
+  return true;
+};
+/* 소켓 해제 — 현재는 회수(룬 보존). 추후 영구파괴/유료회수로 정책 확정 예정 */
+G.socket.remove = function(itemId, idx){
+  var it=G.socket.findItem(itemId); if(!it || !it.sockets) return false;
+  var rune=it.sockets[idx]; if(!rune) return false;
+  it.sockets[idx]=null;
+  if(G.inventory.add(rune)) G.log("🔧 소켓 해제: "+rune.name+" 회수","");
+  else { it.sockets[idx]=rune; G.ui.toast("룬 칸이 가득 차 해제 불가"); return false; }
+  return true;
 };
 
 /* 매각가 — 기준가의 일정 비율(가판대 폐지로 직접 처분이 주 수입원이 되어 상향) */

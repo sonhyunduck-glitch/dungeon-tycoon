@@ -29,31 +29,7 @@ G.forge.craft = function(bossName, part){
   G.log("🔨 제작 완성: ["+it.rarityLabel+"] "+it.name+" — "+G.DATA.STAT_META[boss.gstat].label+" 보장!", it.rarityCls);
 };
 
-/* ---------- 룬 제작 (🔩 재료 + 골드) — 공격·수호·치명·파멸·흡혈·관통·질풍 ----------
-   🔩 재료는 아이템 분해(salvage)로 획득. 층이 오를수록 룬 베이스가 강해지므로 재료 비용도 증가 */
-G.forge.RUNE_MAT_BASE = 4;
-G.forge.runeMatCost = function(){
-  var lvl=G.state.dungeon.maxFloor||1;
-  return G.forge.RUNE_MAT_BASE + Math.floor((lvl-1)/10)*2;   // 10층 구간마다 +2 (1~10층:4, 100층:22, 1000층:202)
-};
-G.forge.runeGoldCost = function(){
-  var lvl=G.state.dungeon.maxFloor||1;
-  return Math.round(150 * Math.pow(1.07, lvl-1));
-};
-G.forge.craftRune = function(baseName){
-  var base=G.DATA.RUNE_BASES.find(function(b){return b.base===baseName && b.craft;});
-  if(!base) return;
-  var matCost=G.forge.runeMatCost(), gold=G.forge.runeGoldCost();
-  if((G.state.materials||0) < matCost){ G.ui.toast("🔩 재료가 부족합니다 ("+(G.state.materials||0)+"/"+matCost+")"); return; }
-  if(G.state.player.gold < gold){ G.ui.toast("골드가 부족합니다 (🪙"+G.ui.fmt(gold)+")"); return; }
-  if(G.inventory.isFull()){ G.ui.toast("창고가 가득 찼습니다"); return; }
-  G.state.materials -= matCost;
-  G.state.player.gold -= gold;
-  var it=G.item.generateRune(3, G.state.dungeon.maxFloor||1, baseName);
-  it.identified=true;
-  G.inventory.add(it);
-  G.log("🔨 룬 제작 완성: ["+it.rarityLabel+"] "+it.name+" ("+G.DATA.STAT_META[base.main].label+")", it.rarityCls);
-};
+/* 룬 제작은 폐지 — 룬은 사냥 드랍으로만 수급(소켓 시스템). */
 
 /* ---------- NPC 맞춤 주문 ---------- */
 G.orders = {};

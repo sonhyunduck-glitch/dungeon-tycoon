@@ -31,50 +31,66 @@ G.DATA.ITEM_BASES = [
 /* 접두 수식어 */
 G.DATA.PREFIX = ["낡은","녹슨","평범한","단단한","날카로운","빛나는","고대의","용맹한","파괴적인","불멸의"];
 
-/* 룬: 장비 룬 슬롯에 장착하는 순수 스탯 아이템 (main = 주 스탯) */
-G.DATA.RUNE_SLOTS = ["rune1","rune2","rune3"];   // 룬워드 3룬 조합 기준(5→3 축소)
+/* 소켓 시스템(디아블로식): 장비에 소켓 → 룬 삽입. 룬은 무기/방어구에 따라 다른 효과(정통). */
+G.DATA.SOCKET_MAX = 5;          // 소켓 최대 개수
+G.DATA.SOCKET_BASE_RATE = 0.10; // 장비 드랍 중 소켓 베이스(접사X·소켓O) 비율
 
 // 전리품 무게 — 정산(나가기/사망) 화면의 휴대 예산 계산용. 부위별 고정.
 G.DATA.SLOT_WEIGHT = { weapon:4, armor:4, helmet:3, gloves:3, boots:3, ring:2, necklace:2, rune:1 };
 G.DATA.CARRY_CAP   = 50;   // 정산 시 챙길 수 있는 총 무게(사망 시 ×0.5)
 G.DATA.RUN_LOOT_CAP= 100;  // 런 전리품 누적 상한(무게) — 초과분은 최저가치부터 폐기
 
-/* 🔗 룬워드 — 룬 3칸을 특정 룬 조합으로 채우면 발동(순서 무관). 조합법은 숨김(발견형).
-   발동 시 룬창에 이름·능력 표시. 효과는 % 보조 수준. */
-G.DATA.RUNEWORDS = [
-  { id:"berserk",   name:"광전사",   ico:"🔥", runes:["공격의 룬","치명의 룬","파멸의 룬"], bonus:{ crit:8, critDmg:25, multihit:6 } },
-  { id:"fortress",  name:"철벽",     ico:"🛡️", runes:["수호의 룬","활력의 룬","가시의 룬"], bonus:{ thorns:25, stunResist:20, allRes:8 } },
-  { id:"vampire",   name:"흡왕",     ico:"🩸", runes:["흡혈의 룬","공격의 룬","질풍의 룬"], bonus:{ lifesteal:8, multihit:8, crit:5 } },
-  { id:"greed",     name:"황금광",   ico:"💰", runes:["황금의 룬","활력의 룬","수호의 룬"], bonus:{ goldFind:60, allRes:6 } },
-  { id:"storm",     name:"폭풍",     ico:"⚡", runes:["질풍의 룬","치명의 룬","관통의 룬"], bonus:{ multihit:10, crit:6, penet:10 } },
-  { id:"piercer",   name:"파괴자",   ico:"💢", runes:["관통의 룬","파멸의 룬","공격의 룬"], bonus:{ penet:14, critDmg:20, crit:4 } },
-  { id:"executioner",name:"처형자",  ico:"🗡️", runes:["공격의 룬","치명의 룬","흡혈의 룬"], bonus:{ crit:7, lifesteal:6, critDmg:12 } },
-  { id:"onslaught", name:"연격",     ico:"🌀", runes:["공격의 룬","질풍의 룬","관통의 룬"], bonus:{ multihit:10, penet:8, crit:5 } },
-  { id:"gladiator", name:"검투사",   ico:"⚔️", runes:["공격의 룬","활력의 룬","치명의 룬"], bonus:{ crit:6, lifesteal:5, stunResist:8 } },
-  { id:"slayer",    name:"광살",     ico:"💥", runes:["공격의 룬","파멸의 룬","질풍의 룬"], bonus:{ critDmg:22, multihit:8, crit:4 } },
-  { id:"thornknight",name:"가시기사", ico:"🌵", runes:["공격의 룬","수호의 룬","가시의 룬"], bonus:{ thorns:22, stunResist:12, crit:3 } },
-  { id:"march",     name:"강행군",   ico:"🥾", runes:["수호의 룬","활력의 룬","질풍의 룬"], bonus:{ multihit:6, allRes:6, thorns:10 } },
-  { id:"regrowth",  name:"재생가시", ico:"♻️", runes:["활력의 룬","흡혈의 룬","가시의 룬"], bonus:{ lifesteal:6, thorns:18, stunResist:8 } },
-  { id:"assassin",  name:"암살",     ico:"🥷", runes:["치명의 룬","파멸의 룬","흡혈의 룬"], bonus:{ crit:8, critDmg:28, lifesteal:5 } },
-  { id:"plunder",   name:"도굴꾼",   ico:"🪙", runes:["관통의 룬","황금의 룬","공격의 룬"], bonus:{ penet:10, goldFind:40, crit:4 } },
-  { id:"treasure",  name:"보물추적", ico:"🗺️", runes:["활력의 룬","질풍의 룬","황금의 룬"], bonus:{ goldFind:50, multihit:6, dodge:6 } },
-  { id:"riposte",   name:"반격태세", ico:"🪖", runes:["수호의 룬","관통의 룬","가시의 룬"], bonus:{ thorns:20, penet:8, stunResist:10 } },
-  { id:"bloodrush", name:"핏빛질주", ico:"🩸", runes:["치명의 룬","흡혈의 룬","질풍의 룬"], bonus:{ lifesteal:7, multihit:8, crit:6 } },
-  { id:"richblow",  name:"부유한일격",ico:"💎", runes:["활력의 룬","파멸의 룬","황금의 룬"], bonus:{ critDmg:20, goldFind:35, allRes:5 } },
-  { id:"warden",    name:"광전수호", ico:"🛡️", runes:["공격의 룬","활력의 룬","가시의 룬"], bonus:{ thorns:14, crit:5, stunResist:10 } }
+/* 룬 사다리(15) — 하위→상위. 소켓에 박으며, 무기/방어구에 따라 효과가 다름(정통 디아블로).
+   w=드랍 가중치(하위 흔함·상위 희귀). wpn=무기 효과, arm=방어구 효과. */
+G.DATA.RUNES = [
+  { rank:1,  name:"티끌", iconImg:"assets/icon/runs/1.PNG",  w:60, wpn:{atk:3},          arm:{hp:12} },
+  { rank:2,  name:"불씨", iconImg:"assets/icon/runs/2.PNG",  w:50, wpn:{crit:2},         arm:{stunResist:6} },
+  { rank:3,  name:"잔영", iconImg:"assets/icon/runs/3.png",  w:42, wpn:{atk:5},          arm:{goldFind:8} },
+  { rank:4,  name:"미명", iconImg:"assets/icon/runs/4.PNG",  w:36, wpn:{penet:3},        arm:{dodge:3} },
+  { rank:5,  name:"여명", iconImg:"assets/icon/runs/5.PNG",  w:30, wpn:{penet:5},        arm:{hp:25} },
+  { rank:6,  name:"서슬", iconImg:"assets/icon/runs/6.PNG",  w:25, wpn:{atk:9},          arm:{def:6} },
+  { rank:7,  name:"노을", iconImg:"assets/icon/runs/7.PNG",  w:20, wpn:{elemAtk:8},      arm:{resPoison:12} },
+  { rank:8,  name:"섬광", iconImg:"assets/icon/runs/8.png",  w:16, wpn:{elemAtk:8},      arm:{resFire:12} },
+  { rank:9,  name:"뇌명", iconImg:"assets/icon/runs/9.png",  w:13, wpn:{elemAtk:8},      arm:{resLight:12} },
+  { rank:10, name:"한설", iconImg:"assets/icon/runs/10.png", w:10, wpn:{elemAtk:8},      arm:{resCold:12} },
+  { rank:11, name:"업화", iconImg:"assets/icon/runs/1.PNG",  w:7,  wpn:{lifesteal:5},    arm:{thorns:12} },
+  { rank:12, name:"멸각", iconImg:"assets/icon/runs/2.PNG",  w:5,  wpn:{atk:14},         arm:{def:10} },
+  { rank:13, name:"천뢰", iconImg:"assets/icon/runs/3.png",  w:3,  wpn:{multihit:5},     arm:{stunResist:15} },
+  { rank:14, name:"성휘", iconImg:"assets/icon/runs/4.PNG",  w:2,  wpn:{critDmg:18},     arm:{hp:45} },
+  { rank:15, name:"종언", iconImg:"assets/icon/runs/5.PNG",  w:1,  wpn:{crit:5,penet:5}, arm:{allRes:8} },
 ];
-/* craft:true = 대장간 제작 전용(드롭 안 됨) / 나머지(활력·황금·가시) = 사냥 드롭 */
-G.DATA.RUNE_BASES = [
-  { base:"공격의 룬", ico:"🔴", iconImg:"assets/icon/runs/1.PNG",  main:"atk",       val:12, craft:true },
-  { base:"수호의 룬", ico:"🔵", iconImg:"assets/icon/runs/2.PNG",  main:"def",       val:8,  craft:true },
-  { base:"활력의 룬", ico:"🟢", iconImg:"assets/icon/runs/3.png",  main:"hp",        val:40 },
-  { base:"치명의 룬", ico:"🟡", iconImg:"assets/icon/runs/4.PNG",  main:"crit",      val:4,  craft:true },
-  { base:"파멸의 룬", ico:"🟣", iconImg:"assets/icon/runs/5.PNG",  main:"critDmg",   val:14, craft:true },
-  { base:"흡혈의 룬", ico:"🟠", iconImg:"assets/icon/runs/6.PNG",  main:"lifesteal", val:3,  craft:true },
-  { base:"관통의 룬", ico:"⚪", iconImg:"assets/icon/runs/7.PNG",  main:"penet",     val:6,  craft:true },
-  { base:"질풍의 룬", ico:"🟤", iconImg:"assets/icon/runs/8.png",  main:"multihit",  val:3,  craft:true },
-  { base:"황금의 룬", ico:"🟡", iconImg:"assets/icon/runs/9.png",  main:"goldFind",  val:10 },
-  { base:"가시의 룬", ico:"🔶", iconImg:"assets/icon/runs/10.png", main:"thorns",    val:6  },
+
+/* 🔗 룬워드 — 소켓 수 = 길이(3/4/5)가 정확히 일치하고, 부위(cat: weapon/armor)와
+   필요 룬(순서 무관) 전부 들어있을 때 발동. bonus는 % 보조. (발견형) */
+G.DATA.RUNEWORDS = [
+  // 3룬 — 무기
+  { id:"rage",     name:"분노",   ico:"🔥", cat:"weapon", runes:["불씨","서슬","멸각"], bonus:{ crit:6, critDmg:15 } },
+  { id:"pierce",   name:"관통격", ico:"💢", cat:"weapon", runes:["미명","여명","종언"], bonus:{ penet:12, crit:4 } },
+  { id:"bloodaxe", name:"흡혈도", ico:"🩸", cat:"weapon", runes:["업화","불씨","서슬"], bonus:{ lifesteal:6, crit:5 } },
+  { id:"swift",    name:"속공",   ico:"🌀", cat:"weapon", runes:["잔영","천뢰","섬광"], bonus:{ multihit:8, crit:4 } },
+  { id:"elemental",name:"원소",   ico:"⚡", cat:"weapon", runes:["노을","섬광","뇌명"], bonus:{ elemAtk:20 } },
+  { id:"doom",     name:"파멸",   ico:"💥", cat:"weapon", runes:["멸각","성휘","종언"], bonus:{ critDmg:25, penet:6 } },
+  { id:"combo",    name:"연격",   ico:"🌀", cat:"weapon", runes:["천뢰","미명","잔영"], bonus:{ multihit:10, penet:6 } },
+  // 3룬 — 방어구
+  { id:"rampart",  name:"성벽",   ico:"🛡️", cat:"armor",  runes:["서슬","멸각","업화"], bonus:{ thorns:18, allRes:6 } },
+  { id:"guardian", name:"수호",   ico:"🪖", cat:"armor",  runes:["여명","한설","종언"], bonus:{ allRes:10, stunResist:8 } },
+  { id:"greed",    name:"황금",   ico:"💰", cat:"armor",  runes:["잔영","미명","티끌"], bonus:{ goldFind:40, dodge:5 } },
+  { id:"thornmail",name:"가시갑",  ico:"🌵", cat:"armor",  runes:["업화","서슬","한설"], bonus:{ thorns:25 } },
+  { id:"steadfast",name:"불굴",   ico:"🪨", cat:"armor",  runes:["서슬","여명","한설"], bonus:{ allRes:8, stunResist:10 } },
+  // 4룬 — 무기
+  { id:"frenzy",   name:"광폭",   ico:"😡", cat:"weapon", runes:["불씨","서슬","멸각","성휘"], bonus:{ crit:8, critDmg:22, multihit:5 } },
+  { id:"massacre", name:"학살",   ico:"🗡️", cat:"weapon", runes:["미명","여명","종언","멸각"], bonus:{ penet:16, critDmg:18 } },
+  { id:"tempest",  name:"폭풍우", ico:"🌩️", cat:"weapon", runes:["노을","섬광","뇌명","한설"], bonus:{ elemAtk:35, multihit:6 } },
+  { id:"vamplord", name:"흡왕",   ico:"🧛", cat:"weapon", runes:["업화","불씨","멸각","천뢰"], bonus:{ lifesteal:8, multihit:8, crit:5 } },
+  // 4룬 — 방어구
+  { id:"bastion",  name:"철옹성", ico:"🏰", cat:"armor",  runes:["서슬","멸각","업화","종언"], bonus:{ thorns:25, allRes:10, stunResist:10 } },
+  { id:"immortal", name:"불멸",   ico:"♾️", cat:"armor",  runes:["여명","한설","종언","성휘"], bonus:{ allRes:14, thorns:12 } },
+  // 5룬 — 무기(빌드 정의급)
+  { id:"monarch",  name:"군주",   ico:"👑", cat:"weapon", runes:["멸각","성휘","종언","불씨","업화"], bonus:{ crit:10, critDmg:30, lifesteal:6, multihit:6 } },
+  { id:"endgame",  name:"종말",   ico:"☄️", cat:"weapon", runes:["종언","성휘","멸각","천뢰","미명"], bonus:{ penet:18, critDmg:28, multihit:8 } },
+  // 5룬 — 방어구
+  { id:"aegis",    name:"신성방벽",ico:"✨", cat:"armor",  runes:["종언","한설","여명","서슬","업화"], bonus:{ allRes:18, thorns:30, stunResist:15 } },
+  { id:"undying",  name:"불사",   ico:"💖", cat:"armor",  runes:["성휘","여명","업화","한설","종언"], bonus:{ allRes:16, lifesteal:6, thorns:20 } },
 ];
 
 /* 옵션(접사) 풀 — 디아블로식

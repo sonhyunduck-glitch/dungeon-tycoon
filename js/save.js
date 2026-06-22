@@ -30,7 +30,6 @@ G.save.load = function(){
     if(!data.potionMax || data.potionMax>10) data.potionMax=10;
     if(data.consumables && data.consumables.potionHeal===undefined) data.consumables.potionHeal=40;
     if(data.potionLevel===undefined) data.potionLevel=1;
-    if(data.equipment){ ["rune1","rune2","rune3","rune4","rune5"].forEach(function(k){ if(!(k in data.equipment)) data.equipment[k]=null; }); }
     if(data.materials===undefined) data.materials=0;
     if(!data.battleSpeed) data.battleSpeed=1;
     if(data.shake===undefined) data.shake=true;
@@ -42,18 +41,6 @@ G.save.load = function(){
     if(!data.cosmetics) data.cosmetics={ owned:{}, shards:0, pity:{ legend:0 } };   // 외형 뽑기
     if(!data.collection) data.collection={ uniques:{}, runewords:{} };   // 고유 장비 + 룬워드 연대기
     if(data.collection && !data.collection.runewords) data.collection.runewords={};
-    // 룬 아이콘 백필(이모지→이미지): 기존 보유/장착 룬에 iconImg 채움
-    (function(){ var map={}; (G.DATA.RUNE_BASES||[]).forEach(function(b){ map[b.base]=b.iconImg; });
-      function fix(it){ if(it && it.slot==="rune" && !it.iconImg){ var im=map[it.runeBase||it.name]; if(im) it.iconImg=im; } }
-      (data.inventory||[]).forEach(fix);
-      if(data.warehouse&&data.warehouse.items) data.warehouse.items.forEach(fix);
-      if(data.equipment) Object.keys(data.equipment).forEach(function(k){ fix(data.equipment[k]); });
-    })();
-    // 룬칸 5→3 축소: rune4/rune5에 끼워둔 룬은 가방으로 되돌려 손실 방지
-    if(data.equipment){ ["rune4","rune5"].forEach(function(k){
-      if(data.equipment[k]){ data.inventory=data.inventory||[]; data.inventory.push(data.equipment[k]); }
-      delete data.equipment[k];
-    }); }
     if(data.dungeon && !data.dungeon.stars) data.dungeon.stars={};
     if(data.shop) delete data.shop;   // 가판대 폐지 — 구버전 잔여 제거
     if(!data.market) data.market={ listings:[], lastRefresh:0, watch:[] };

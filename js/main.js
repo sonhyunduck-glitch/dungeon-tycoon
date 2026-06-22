@@ -100,7 +100,7 @@
     "bag-sort": function(){ var o={price:"power",power:"recent",recent:"upgrade",upgrade:"price"}; G.state.ui.bagSort=o[G.state.ui.bagSort||"price"]; G.ui.render(); },
     "bag-filter-slot": function(d){ G.state.ui.bagFilterSlot=d.slot||d.value; G.ui.renderInventory(); },
     "bag-stat-pick": function(){ G.ui.bagStatPickModal(); },
-    "rune-pick": function(){ G.ui.runePickModal(); },
+    "socket-open": function(d){ G.ui.socketModal(d.id); },
     "bag-filter-stat": function(d){ G.state.ui.bagFilterStat=d.key||d.value; var ov=document.querySelector(".modal-overlay.show"); if(ov) ov.remove(); G.ui.renderInventory(); },
     "bag-filter-clear": function(){ G.state.ui.bagFilterSlot="all"; G.state.ui.bagFilterStat="all"; G.ui.renderInventory(); },
     "compare": function(d){ G.ui.compareModal(d.id); },
@@ -252,7 +252,6 @@
 
     /* 대장간 / 주문 / 워프 */
     "craft": function(d){ G.forge.craft(d.boss, d.part); G.ui.render(); },
-    "craft-rune": function(d){ G.forge.craftRune(d.rune); G.ui.render(); },
     "order-fulfill": function(d){ G.orders.fulfill(d.id); G.ui.render(); },
     "warp": function(d){
       var f=parseInt(d.floor,10)||1;

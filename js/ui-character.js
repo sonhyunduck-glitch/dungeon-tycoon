@@ -25,27 +25,7 @@ G.ui.renderCharacter = function(){
      return '<div><span class="k">'+m.label+'</span><b>'+s[k]+u+'</b></div>'; }).join("");
   var advPanel = adv ? '<div class="panel"><h2>✨ 옵션 스탯</h2><div class="stats">'+adv+'</div></div>' : '';
 
-  // 룬 슬롯 5개
-  var runeSlots=G.DATA.RUNE_SLOTS.map(function(k,i){
-    var it=G.state.equipment[k];
-    if(it){
-      return '<div class="eqslot '+it.rarityCls+'" style="border-style:solid;border-left-width:4px">'+
-        '<div class="slotlbl">룬 '+(i+1)+'</div>'+
-        '<div class="iname '+it.rarityCls+'" style="font-size:.8rem">'+G.ui.icoHTML(it)+' '+esc(it.name)+'</div>'+
-        '<div class="idesc">'+G.item.statText(it)+'</div>'+
-        '<button class="btn sm" style="margin-top:4px" data-act="unequip" data-slot="'+k+'">해제</button>'+
-      '</div>';
-    }
-    return '<div class="eqslot"><div class="slotlbl">룬 '+(i+1)+'</div><div class="muted" style="font-size:.66rem">비어있음</div>'+
-      '<button class="btn sm primary" style="margin-top:4px" data-act="rune-pick">+ 착용</button></div>';
-  }).join("");
-  // 🔗 룬워드 — 발동 시 룬창에 이름·능력 표시(조합법은 숨김=발견형)
-  var rwA=G.runeword.active();
-  var rwBonus=function(w){ return Object.keys(w.bonus).map(function(k){ var m=G.DATA.STAT_META[k]; return m?(m.label+" +"+w.bonus[k]+(m.pct?"%":"")):""; }).filter(Boolean).join(" · "); };
-  var rwBanner = rwA
-    ? '<div class="rw-active">🔗 룬워드 <b class="r-legend">'+rwA.ico+' '+esc(rwA.name)+'</b> 발동!<div class="idesc" style="color:var(--gold)">'+rwBonus(rwA)+'</div></div>'
-    : '<div class="muted" style="font-size:.66rem; margin-top:6px">💡 특정 룬 3개를 조합하면 숨겨진 <b>룬워드</b>가 발동합니다.</div>';
-  var runePanel='<div class="panel"><h2>🔮 룬 슬롯 <span class="muted">'+G.DATA.RUNE_SLOTS.filter(function(k){return G.state.equipment[k];}).length+'/'+G.DATA.RUNE_SLOTS.length+'</span></h2><div class="eqgrid">'+runeSlots+'</div>'+rwBanner+'</div>';
+  var runePanel=G.ui._socketPanel();
 
   var statsPanel=
     '<div class="panel"><h2>👤 스탯</h2>'+
@@ -75,7 +55,7 @@ G.ui.renderCharacter = function(){
 
   // 서브 탭
   var sub=G.state.ui.charSub||"stats";
-  var subTabs=[["stats","스탯"],["detail","상세"],["equip","장비"],["rune","룬"],["skill","스킬"],["avatar","아바타"],["collection","컬렉션"],["unlock","해금"]];
+  var subTabs=[["stats","스탯"],["detail","상세"],["equip","장비"],["rune","소켓"],["skill","스킬"],["avatar","아바타"],["collection","컬렉션"],["unlock","해금"]];
   var tabBar='<div class="subtabs">'+subTabs.map(function(t){
     return '<button class="subtab'+(sub===t[0]?" active":"")+'" data-act="char-sub" data-sub="'+t[0]+'">'+t[1]+'</button>';
   }).join("")+'</div>';
@@ -89,6 +69,41 @@ G.ui.renderCharacter = function(){
       G.avatar.animatePreview(el);
     });
   }
+};
+
+/* 룬워드 보너스 텍스트 */
+G.ui.rwBonusTxt = function(w){
+  return Object.keys(w.bonus||{}).map(function(k){ var m=G.DATA.STAT_META[k]; return m?(m.label+" +"+w.bonus[k]+(m.pct?"%":"")):""; }).filter(Boolean).join(" · ");
+};
+/* 아이템 소켓 표시 (◇ 빈칸 / 룬 아이콘) */
+G.ui.socketDots = function(it){
+  if(!it || !it.sockets || !it.sockets.length) return '';
+  return '<span class="sockets">'+it.sockets.map(function(r){
+    return r ? '<span class="sock filled" title="'+esc(r.name)+'">'+(r.iconImg?'<img src="'+r.iconImg+'">':'🔹')+'</span>'
+             : '<span class="sock empty">◇</span>';
+  }).join("")+'</span>';
+};
+
+/* 🔩 소켓 패널 — 소켓 장비 + 룬워드 상태 + 룬 장착 진입 */
+G.ui._socketPanel = function(){
+  var eq=G.state.equipment, cards=[];
+  for(var k in eq){ var it=eq[k]; if(!it||!it.sockets) continue;
+    var w=G.runeword.ofItem(it);
+    cards.push('<div class="eqslot '+(w?"r-legend":"")+'" style="border-style:solid;border-left-width:4px">'+
+      '<div class="slotlbl">'+(SLOT_LABELS[it.slot]||it.slot)+(it.type==="weapon"?' ⚔️':' 🛡️')+'</div>'+
+      '<div class="iname" style="font-size:.82rem">'+G.ui.icoHTML(it)+' '+esc(it.name)+'</div>'+
+      '<div style="margin:4px 0">'+G.ui.socketDots(it)+'</div>'+
+      (w?'<div class="rw-active">🔗 <b class="r-legend">'+w.ico+' '+esc(w.name)+'</b><div class="idesc" style="color:var(--gold)">'+G.ui.rwBonusTxt(w)+'</div></div>':'')+
+      '<button class="btn sm primary" style="margin-top:4px" data-act="socket-open" data-id="'+it.id+'">🔩 룬 장착</button>'+
+    '</div>');
+  }
+  var runeN=(G.state.inventory||[]).filter(function(x){return x.slot==="rune";}).length;
+  var body = cards.length
+    ? '<div class="eqgrid">'+cards.join("")+'</div>'
+    : '<div class="empty">소켓 있는 장비를 착용하세요.<br><span class="muted">소켓 베이스(접사 없는 장비)는 사냥에서 드랍됩니다.</span></div>';
+  return '<div class="panel"><h2>🔩 소켓 <span class="muted" style="font-size:.66rem">보유 룬 '+runeN+'</span></h2>'+
+    '<div class="muted" style="font-size:.7rem; margin-bottom:8px">룬을 장비 소켓에 박습니다. 무기=공격효과·방어구=방어효과. 소켓 수(3/4/5)에 맞는 룬 조합 = <b>룬워드</b> 발동.</div>'+
+    body+'</div>';
 };
 
 /* 아바타 선택 패널 */

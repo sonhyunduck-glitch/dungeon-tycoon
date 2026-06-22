@@ -51,17 +51,8 @@ G.inventory.equip = function(id){
   var it=G.state.inventory.find(function(x){return x.id===id;});
   if(!it || it.type==="consumable") return;
   if(it.identified===false){ G.ui.toast("감정이 필요합니다"); return; }
+  if(it.slot==="rune"){ G.ui.toast("룬은 장비 소켓에 장착하세요"); return; }   // 룬=소켓 전용
   var key=it.slot;                       // slot이 곧 장비 칸 (weapon/.../ring/necklace)
-  if(key==="rune"){                      // 룬: 빈 룬 슬롯 우선, 없으면 가장 약한 룬 교체
-    var slots=G.DATA.RUNE_SLOTS, found=null;
-    for(var r=0;r<slots.length;r++){ if(!G.state.equipment[slots[r]]){ found=slots[r]; break; } }
-    if(found){ key=found; }
-    else {
-      var minV=Infinity, minSlot=slots[0];
-      slots.forEach(function(k){ var v=G.inventory.statValue(G.state.equipment[k].stats); if(v<minV){ minV=v; minSlot=k; } });
-      key=minSlot;
-    }
-  }
   var prev=G.state.equipment[key];
   G.inventory.remove(id);
   G.state.equipment[key]=it;
@@ -112,20 +103,11 @@ G.inventory.statValue = function(s){
     + (s.shopSlot||0)*15 + (s.mercFind||0)*0.5 + (s.potionBoost||0)*0.5;
 };
 
-/* 장착 슬롯 결정 (룬은 빈칸 우선, 꽉차면 가장 약한 룬칸) */
-function targetSlot(it){
-  if(it.slot!=="rune") return it.slot;
-  var slots=G.DATA.RUNE_SLOTS, V=G.inventory.statValue;
-  for(var i=0;i<slots.length;i++){ if(!G.state.equipment[slots[i]]) return slots[i]; }
-  var minV=Infinity, ms=slots[0];
-  slots.forEach(function(k){ var v=V(G.state.equipment[k].stats); if(v<minV){minV=v; ms=k;} });
-  return ms;
-}
 /* 전투효과 변화량 — 아이템을 실제 장착했다고 가정하고 totalStats 재계산(캡·룬워드·균형 반영).
-   반환 {delta, pct, cur}. 미감정은 null. */
+   반환 {delta, pct, cur}. 미감정·룬(소켓 전용)은 null. */
 G.inventory.upgradeInfo = function(it){
-  if(!it || it.identified===false || !G.combat || !G.combat.effPower) return null;
-  var eq=G.state.equipment, key=targetSlot(it);
+  if(!it || it.identified===false || it.slot==="rune" || !G.combat || !G.combat.effPower) return null;
+  var eq=G.state.equipment, key=it.slot;
   var cur=G.combat.effPower(G.totalStats());
   var prev=eq[key]; eq[key]=it;                       // 임시 장착
   var after=G.combat.effPower(G.totalStats());

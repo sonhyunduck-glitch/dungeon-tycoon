@@ -28,18 +28,11 @@ G.ui.unlockModal = function(items){
 /* 장착 비교 모달 — 교체 시 스탯 증감 + 전투력 변화 */
 G.ui.compareModal = function(id){
   var it=G.state.inventory.find(function(x){return x.id===id;});
-  if(!it || it.identified===false || it.type==="consumable" || !it.slot) return;
+  if(!it || it.identified===false || it.type==="consumable" || !it.slot || it.slot==="rune") return;
 
   // 교체될 슬롯 + 현재 장비
-  var slot=it.slot, cur=null, slotName="";
-  if(slot==="rune"){
-    var empty=G.DATA.RUNE_SLOTS.filter(function(k){return !G.state.equipment[k];})[0];
-    if(empty){ slot=empty; cur=null; slotName="빈 룬 슬롯"; }
-    else {
-      var minV=Infinity; G.DATA.RUNE_SLOTS.forEach(function(k){ var v=G.inventory.statValue(G.state.equipment[k].stats); if(v<minV){minV=v; slot=k;} });
-      cur=G.state.equipment[slot]; slotName="룬(최약 교체)";
-    }
-  } else { cur=G.state.equipment[slot]; slotName=({weapon:"무기",helmet:"투구",armor:"갑옷",gloves:"장갑",boots:"신발",ring:"반지",necklace:"목걸이"})[slot]||slot; }
+  var slot=it.slot, cur=G.state.equipment[slot];
+  var slotName=({weapon:"무기",helmet:"투구",armor:"갑옷",gloves:"장갑",boots:"신발",ring:"반지",necklace:"목걸이"})[slot]||slot;
 
   // 스탯별 증감
   var rows=G.DATA.STAT_KEYS.map(function(k){
@@ -245,30 +238,44 @@ G.ui.bagStatPickModal = function(){
   ov.addEventListener("click", function(e){ if(e.target.closest("[data-modal-close]")||e.target===ov) ov.remove(); });
 };
 
-/* 🔮 룬 착용 모달 — 가방의 룬을 빈 슬롯에 착용(룬워드는 순서 무관이라 슬롯 자동) */
-G.ui.runePickModal = function(){
-  var runes=(G.state.inventory||[]).filter(function(it){ return it.slot==="rune" && it.identified!==false; });
-  // 가치 높은 순 정렬
-  runes.sort(function(a,b){ return G.inventory.statValue(b.stats||{})-G.inventory.statValue(a.stats||{}); });
-  var rows = runes.length
-    ? runes.map(function(it){
-        return '<button class="btn full r-runepick" style="text-align:left;margin-top:6px;display:flex;align-items:center;gap:8px" data-runeeq="'+it.id+'">'+
-          G.ui.icoHTML(it)+'<span style="flex:1"><b class="'+it.rarityCls+'">'+esc(it.name)+'</b><br><span class="idesc">'+G.item.statText(it)+'</span></span>'+
-          '<span class="muted" style="font-size:.7rem">착용 ▸</span></button>';
-      }).join("")
-    : '<div class="empty">가방에 룬이 없습니다.<br><span class="muted">대장간에서 제작하거나 사냥으로 획득하세요.</span></div>';
-  var ov=document.createElement("div"); ov.className="modal-overlay show";
-  ov.innerHTML='<div class="modal" style="width:min(440px,94vw)">'+
-    '<h2>🔮 룬 착용 <span class="muted" style="font-size:.7rem">'+runes.length+'개</span></h2>'+
-    '<div class="muted" style="margin-bottom:8px;font-size:.74rem">가방의 룬을 빈 슬롯에 착용합니다. (슬롯이 꽉 차면 가장 약한 룬과 교체)</div>'+
-    '<div style="max-height:52vh;overflow:auto">'+rows+'</div>'+
-    '<button class="btn full" style="margin-top:12px" data-modal-close>닫기</button>'+
-  '</div>';
+/* 🔩 소켓 장착 모달 — 특정 장비의 소켓에 보유 룬을 삽입/해제 */
+G.ui.socketModal = function(itemId){
+  if(!G.socket.findItem(itemId) || !G.socket.findItem(itemId).sockets) return;
+  function effTxt(r, isW){ var e=isW?r.wpn:r.arm; return Object.keys(e||{}).map(function(k){ var m=G.DATA.STAT_META[k]; return m?(m.label+" +"+e[k]+(m.pct?"%":"")):""; }).filter(Boolean).join(", "); }
+  function body(){
+    var item=G.socket.findItem(itemId); if(!item) return '';
+    var isW=(item.type==="weapon"), w=G.runeword.ofItem(item);
+    var socks=item.sockets.map(function(r,i){
+      if(r) return '<div class="srow filled"><span class="sock filled">'+(r.iconImg?'<img src="'+r.iconImg+'">':'🔹')+'</span>'+
+        '<span style="flex:1"><b class="'+r.rarityCls+'">'+esc(r.name)+'</b> <span class="idesc">'+effTxt(r,isW)+'</span></span>'+
+        '<button class="btn xs" data-rem="'+i+'">빼기</button></div>';
+      return '<div class="srow empty"><span class="sock empty">◇</span><span class="idesc muted" style="flex:1">빈 소켓</span></div>';
+    }).join("");
+    var open=G.socket.openCount(item);
+    var runes=(G.state.inventory||[]).filter(function(x){return x.slot==="rune";}).sort(function(a,b){return (b.rank||0)-(a.rank||0);});
+    var runeList = !open ? '<div class="muted" style="font-size:.72rem">빈 소켓이 없습니다.</div>'
+      : (runes.length ? runes.map(function(r){
+          return '<button class="btn full" style="text-align:left;margin-top:5px;display:flex;align-items:center;gap:8px" data-ins="'+r.id+'">'+
+            (r.iconImg?'<img class="fico" src="'+r.iconImg+'">':'🔹')+'<span style="flex:1"><b class="'+r.rarityCls+'">'+esc(r.name)+'</b><br><span class="idesc">'+effTxt(r,isW)+'</span></span><span class="muted" style="font-size:.7rem">넣기 ▸</span></button>';
+        }).join("") : '<div class="empty">보유한 룬이 없습니다.<br><span class="muted">사냥에서 룬을 획득하세요.</span></div>');
+    return '<h2 style="justify-content:center;font-size:1.05rem">'+G.ui.icoHTML(item)+' '+esc(item.name)+'</h2>'+
+      '<div class="muted" style="text-align:center;font-size:.72rem;margin-bottom:6px">'+(isW?'무기 — 룬의 ⚔️ 공격 효과 적용':'방어구 — 룬의 🛡️ 방어 효과 적용')+'</div>'+
+      (w?'<div class="rw-active" style="text-align:center">🔗 <b class="r-legend">'+w.ico+' '+esc(w.name)+'</b> 발동! <span class="idesc" style="color:var(--gold)">'+G.ui.rwBonusTxt(w)+'</span></div>':'')+
+      '<div class="socklist">'+socks+'</div>'+
+      '<div class="muted" style="font-size:.74rem;margin:8px 0 2px">보유 룬'+(open?' — 탭하면 빈 소켓에 장착':'')+'</div>'+
+      '<div style="max-height:34vh;overflow:auto">'+runeList+'</div>';
+  }
+  function paint(){ var b=ov.querySelector(".socket-paint"); if(b) b.innerHTML=body(); }
+  var ov=document.createElement("div"); ov.className="modal-overlay show"; ov.style.zIndex="320";
+  ov.innerHTML='<div class="modal" style="width:min(460px,95vw)"><div class="socket-paint">'+body()+'</div>'+
+    '<button class="btn full" style="margin-top:10px" data-modal-close>닫기</button></div>';
   document.body.appendChild(ov);
   ov.addEventListener("click", function(e){
-    if(e.target.closest("[data-modal-close]")||e.target===ov){ ov.remove(); return; }
-    var b=e.target.closest("[data-runeeq]");
-    if(b){ G.inventory.equip(b.getAttribute("data-runeeq")); if(G.save) G.save.save(true); ov.remove(); G.ui.render(); }
+    if(e.target===ov || e.target.closest("[data-modal-close]")){ ov.remove(); G.ui.render(); return; }
+    var ins=e.target.closest("[data-ins]");
+    if(ins){ if(G.socket.insert(itemId, ins.getAttribute("data-ins"))){ if(G.save)G.save.save(true); paint(); } return; }
+    var rem=e.target.closest("[data-rem]");
+    if(rem){ if(G.socket.remove(itemId, parseInt(rem.getAttribute("data-rem"),10))){ if(G.save)G.save.save(true); paint(); } return; }
   });
 };
 

@@ -88,19 +88,8 @@ G.ui._forge = function(){
       '</div>';
     }).join("");
   }
-  // 룬 제작 섹션
-  var mats=G.state.materials||0, rgold=G.forge.runeGoldCost(), rcost=G.forge.runeMatCost();
-  var runeBtns=G.DATA.RUNE_BASES.filter(function(b){return b.craft;}).map(function(b){
-    var ok = mats>=rcost && G.state.player.gold>=rgold;
-    return '<button class="btn sm '+(ok?"primary":"")+'" data-act="craft-rune" data-rune="'+esc(b.base)+'" '+(ok?"":"disabled")+
-      ' title="'+esc(b.base)+' ('+G.DATA.STAT_META[b.main].label+')">'+b.ico+' '+esc(b.base.replace("의 룬",""))+'</button>';
-  }).join("");
-  var runePanel='<div class="panel"><h3>🔮 룬 제작</h3>'+
-    '<div class="muted" style="margin-bottom:7px">🔩 재료 <b>'+mats+'</b> · 룬 1개 = 🔩'+rcost+' + 🪙'+G.ui.fmt(rgold)+'</div>'+
-    '<div class="row">'+runeBtns+'</div>'+
-    '<div class="muted" style="margin-top:7px">🔩 재료는 <b>아이템 분해</b>로 얻습니다. 층이 오를수록 룬 베이스가 강해져 재료 비용도 늘어납니다. (활력·황금·가시 룬은 사냥 드롭)</div></div>';
-
-  return '<div class="panel"><h3>🔨 대장간 — 확정 제작</h3>'+rows+'</div>'+runePanel;
+  return '<div class="panel"><h3>🔨 대장간 — 확정 제작</h3>'+rows+'</div>'+
+    '<div class="panel"><div class="muted" style="font-size:.78rem">🔮 룬은 사냥 드랍으로 획득해 <b>장비 소켓</b>에 장착합니다. (창고 🔮 탭 → 소켓 장착)</div></div>';
 };
 
 /* ============================================================

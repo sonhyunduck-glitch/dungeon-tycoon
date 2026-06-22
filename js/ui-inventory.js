@@ -94,6 +94,25 @@ G.ui._storePanel = function(){
           '<button class="btn sm" data-act="salvage" data-id="'+it.id+'" title="분해">분해</button>'+
         '</div></div>';
     }
+    var sellBtn='<button class="btn sm" data-act="quicksell" data-id="'+it.id+'" title="즉시 매각">매각 🪙'+G.ui.fmt(G.item.sellPrice(it))+'</button>';
+    var salvBtn='<button class="btn sm" data-act="salvage" data-id="'+it.id+'" title="분해 → 재료">분해</button>';
+    // 룬 — 소켓 전용(착용/재련 없음)
+    if(it.slot==="rune"){
+      var eff=it.wpn?('⚔️'+Object.keys(it.wpn).map(function(k){var m=G.DATA.STAT_META[k];return m?(m.label+"+"+it.wpn[k]+(m.pct?"%":"")):"";}).join(" ")+' · 🛡️'+Object.keys(it.arm||{}).map(function(k){var m=G.DATA.STAT_META[k];return m?(m.label+"+"+it.arm[k]+(m.pct?"%":"")):"";}).join(" ")):'';
+      return '<div class="item '+it.rarityCls+'"><div class="ico">'+G.ui.icoHTML(it)+'</div>'+
+        '<div class="info"><div class="iname '+it.rarityCls+'">'+esc(it.name)+' <span class="tag">룬</span></div><div class="idesc">'+eff+'</div></div>'+
+        '<div class="iacts">'+salvBtn+sellBtn+'</div></div>';
+    }
+    // 소켓 베이스 — 착용 + 🔩소켓
+    if(it.socketBase){
+      var upS=G.inventory.upgradeInfo(it);
+      var dS = !upS ? '' : (upS.pct>=0.5?'<span class="r-uncommon">▲'+(upS.pct>=200?'대폭':upS.pct.toFixed(0)+'%')+'</span>':'');
+      var actsS=
+        '<button class="btn sm primary" data-act="equip" data-id="'+it.id+'">착용 '+dS+'</button>'+
+        '<button class="btn sm gold" data-act="socket-open" data-id="'+it.id+'" title="소켓에 룬 장착">🔩 '+G.ui.socketDots(it)+'</button>'+
+        salvBtn+sellBtn;
+      return itemCard(it, actsS);
+    }
     // 감정된 장비 — 전투효과(공격×생존) 변화율로 추천
     var up=G.inventory.upgradeInfo(it);
     var diffTxt = !up ? '' : (up.pct>=0.5?'<span class="r-uncommon" title="전투효과">▲'+(up.pct>=200?'대폭':up.pct.toFixed(0)+'%')+'</span>':(up.pct<=-0.5?'<span class="r-common" title="전투효과">▼'+Math.abs(up.pct).toFixed(0)+'%</span>':'<span class="muted">=</span>'));
@@ -101,8 +120,7 @@ G.ui._storePanel = function(){
     var acts=
       '<button class="btn sm primary" data-act="equip" data-id="'+it.id+'">착용 '+diffTxt+'</button>'+
       '<button class="btn sm" data-act="reroll" data-id="'+it.id+'" title="재련: 옵션 한 줄 무작위 변경 (🔩'+rc.mat+' 🪙'+G.ui.fmt(rc.gold)+')">재련</button>'+
-      '<button class="btn sm" data-act="salvage" data-id="'+it.id+'" title="분해 → 재료">분해</button>'+
-      '<button class="btn sm" data-act="quicksell" data-id="'+it.id+'" title="즉시 매각">매각 🪙'+G.ui.fmt(G.item.sellPrice(it))+'</button>';
+      salvBtn+sellBtn;
     return itemCard(it, acts);
   }).join("");
   return head+'<div class="panel">'+items+'</div>';
