@@ -246,13 +246,25 @@ G.socket.insert = function(itemId, runeId){
   if(w){ G.runeword.recordActive(); }
   return true;
 };
-/* 소켓 해제 — 현재는 회수(룬 보존). 추후 영구파괴/유료회수로 정책 확정 예정 */
-G.socket.remove = function(itemId, idx){
-  var it=G.socket.findItem(itemId); if(!it || !it.sockets) return false;
-  var rune=it.sockets[idx]; if(!rune) return false;
-  it.sockets[idx]=null;
-  if(G.inventory.add(rune)) G.log("🔧 소켓 해제: "+rune.name+" 회수","");
-  else { it.sockets[idx]=rune; G.ui.toast("룬 칸이 가득 차 해제 불가"); return false; }
+/* 소켓 해제 불가 — 한번 박은 룬은 뺄 수 없음(영구) */
+G.socket.remove = function(){ G.ui.toast("한번 박은 룬은 뺄 수 없습니다"); return false; };
+
+/* ============================================================
+   🧊 호라드릭 큐브 — 룬 승급(하위 3개 → 상위 1개, 룬만 소모)
+   ============================================================ */
+G.cube = {};
+G.cube.RATIO = 3;   // 승급 비율(3:1)
+G.cube.count = function(rank){ return (G.state.inventory||[]).filter(function(x){ return x.slot==="rune" && x.rank===rank; }).length; };
+G.cube.canUpgrade = function(rank){ return rank < G.DATA.RUNES.length && G.cube.count(rank) >= G.cube.RATIO; };
+G.cube.upgrade = function(rank){
+  if(!G.cube.canUpgrade(rank)){ G.ui.toast("재료 룬이 부족합니다 ("+G.cube.count(rank)+"/"+G.cube.RATIO+")"); return false; }
+  var inv=G.state.inventory, removed=0;
+  for(var i=inv.length-1;i>=0 && removed<G.cube.RATIO;i--){ if(inv[i].slot==="rune" && inv[i].rank===rank){ inv.splice(i,1); removed++; } }
+  var next=G.DATA.RUNES.find(function(r){ return r.rank===rank+1; });
+  var nr=G.item.makeRune(next);
+  G.inventory.add(nr);   // 3개 소모 후 1개 추가 → 항상 칸 여유
+  var from=G.DATA.RUNES.find(function(r){ return r.rank===rank; });
+  G.log("🧊 룬 승급: "+from.name+" ×"+G.cube.RATIO+" → "+next.name, nr.rarityCls);
   return true;
 };
 

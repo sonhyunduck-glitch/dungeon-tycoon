@@ -247,8 +247,7 @@ G.ui.socketModal = function(itemId){
     var isW=(item.type==="weapon"), w=G.runeword.ofItem(item);
     var socks=item.sockets.map(function(r,i){
       if(r) return '<div class="srow filled"><span class="sock filled">'+(r.iconImg?'<img src="'+r.iconImg+'">':'🔹')+'</span>'+
-        '<span style="flex:1"><b class="'+r.rarityCls+'">'+esc(r.name)+'</b> <span class="idesc">'+effTxt(r,isW)+'</span></span>'+
-        '<button class="btn xs" data-rem="'+i+'">빼기</button></div>';
+        '<span style="flex:1"><b class="'+r.rarityCls+'">'+esc(r.name)+'</b> <span class="idesc">'+effTxt(r,isW)+'</span></span></div>';
       return '<div class="srow empty"><span class="sock empty">◇</span><span class="idesc muted" style="flex:1">빈 소켓</span></div>';
     }).join("");
     var open=G.socket.openCount(item);
@@ -262,7 +261,7 @@ G.ui.socketModal = function(itemId){
       '<div class="muted" style="text-align:center;font-size:.72rem;margin-bottom:6px">'+(isW?'무기 — 룬의 ⚔️ 공격 효과 적용':'방어구 — 룬의 🛡️ 방어 효과 적용')+'</div>'+
       (w?'<div class="rw-active" style="text-align:center">🔗 <b class="r-legend">'+w.ico+' '+esc(w.name)+'</b> 발동! <span class="idesc" style="color:var(--gold)">'+G.ui.rwBonusTxt(w)+'</span></div>':'')+
       '<div class="socklist">'+socks+'</div>'+
-      '<div class="muted" style="font-size:.74rem;margin:8px 0 2px">보유 룬'+(open?' — 탭하면 빈 소켓에 장착':'')+'</div>'+
+      '<div class="muted" style="font-size:.74rem;margin:8px 0 2px">보유 룬'+(open?' — 탭하면 빈 소켓에 장착 <b class="r-common">(영구)</b>':'')+'</div>'+
       '<div style="max-height:34vh;overflow:auto">'+runeList+'</div>';
   }
   function paint(){ var b=ov.querySelector(".socket-paint"); if(b) b.innerHTML=body(); }
@@ -274,8 +273,6 @@ G.ui.socketModal = function(itemId){
     if(e.target===ov || e.target.closest("[data-modal-close]")){ ov.remove(); G.ui.render(); return; }
     var ins=e.target.closest("[data-ins]");
     if(ins){ if(G.socket.insert(itemId, ins.getAttribute("data-ins"))){ if(G.save)G.save.save(true); paint(); } return; }
-    var rem=e.target.closest("[data-rem]");
-    if(rem){ if(G.socket.remove(itemId, parseInt(rem.getAttribute("data-rem"),10))){ if(G.save)G.save.save(true); paint(); } return; }
   });
 };
 

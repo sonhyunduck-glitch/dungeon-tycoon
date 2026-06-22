@@ -252,6 +252,7 @@
 
     /* 대장간 / 주문 / 워프 */
     "craft": function(d){ G.forge.craft(d.boss, d.part); G.ui.render(); },
+    "cube-upgrade": function(d){ if(G.cube.upgrade(parseInt(d.rank,10))){ if(G.save)G.save.save(true); } G.ui.render(); },
     "order-fulfill": function(d){ G.orders.fulfill(d.id); G.ui.render(); },
     "warp": function(d){
       var f=parseInt(d.floor,10)||1;

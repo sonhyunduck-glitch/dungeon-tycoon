@@ -4,11 +4,11 @@ var G = window.G;
 G.ui.renderVendor = function(){
   var v=el("view-vendor");
   var sub=G.state.ui.vendorSub||"potion";
-  var subTabs=[["potion","🧪 물약"],["forge","🔨 대장간"],["gacha","🎰 아바타뽑기"]];
+  var subTabs=[["potion","🧪 물약"],["forge","🔨 대장간"],["cube","🧊 큐브"],["gacha","🎰 아바타뽑기"]];
   var tabBar='<div class="subtabs">'+subTabs.map(function(t){
     return '<button class="subtab'+(sub===t[0]?" active":"")+'" data-act="vendor-sub" data-sub="'+t[0]+'">'+t[1]+'</button>';
   }).join("")+'</div>';
-  var body = sub==="potion" ? G.ui._potionShop() : sub==="forge" ? G.ui._forge() : G.ui._gachaPanel();
+  var body = sub==="potion" ? G.ui._potionShop() : sub==="forge" ? G.ui._forge() : sub==="cube" ? G.ui._cubePanel() : G.ui._gachaPanel();
   v.innerHTML = tabBar + body;
   if(sub==="gacha"){   // 도감 미리보기 애니메이션(잠긴 건 정적)
     v.querySelectorAll(".av-prev-inner").forEach(function(el){
@@ -90,6 +90,24 @@ G.ui._forge = function(){
   }
   return '<div class="panel"><h3>🔨 대장간 — 확정 제작</h3>'+rows+'</div>'+
     '<div class="panel"><div class="muted" style="font-size:.78rem">🔮 룬은 사냥 드랍으로 획득해 <b>장비 소켓</b>에 장착합니다. (창고 🔮 탭 → 소켓 장착)</div></div>';
+};
+
+/* 🧊 호라드릭 큐브 — 룬 승급(하위 3개 → 상위 1개) */
+G.ui._cubePanel = function(){
+  var R=G.DATA.RUNES;
+  var rows=R.filter(function(r){return r.rank<R.length;}).map(function(r){
+    var cnt=G.cube.count(r.rank), ok=cnt>=G.cube.RATIO, next=R[r.rank];
+    return '<div class="item'+(ok?" r-uncommon":"")+'" '+(ok?'':'style="opacity:.6"')+'>'+
+      '<div class="ico">'+(r.iconImg?'<img class="icoimg" src="'+r.iconImg+'">':'🔹')+'</div>'+
+      '<div class="info"><div class="iname">'+esc(r.name)+' <span class="muted">×'+cnt+'</span> → <b class="'+G.item.runeRarity(next.rank).cls+'">'+esc(next.name)+'</b></div>'+
+        '<div class="idesc">'+G.cube.RATIO+'개 → 1개 승급</div></div>'+
+      '<div class="iacts"><button class="btn sm '+(ok?"primary":"")+'" data-act="cube-upgrade" data-rank="'+r.rank+'" '+(ok?"":"disabled")+'>승급</button></div>'+
+    '</div>';
+  }).join("");
+  var top=R[R.length-1];
+  return '<div class="panel"><h3>🧊 호라드릭 큐브 <span class="muted" style="font-size:.66rem">룬 승급 '+G.cube.RATIO+':1</span></h3>'+
+    '<div class="muted" style="font-size:.74rem; margin-bottom:8px">같은 룬 '+G.cube.RATIO+'개를 합쳐 상위 룬으로 승급합니다. 최상위 「'+esc(top.name)+'」은 승급 불가. <b class="r-common">소켓에 박은 룬은 뺄 수 없으니</b> 승급 후 장착하세요.</div>'+
+    rows+'</div>';
 };
 
 /* ============================================================
