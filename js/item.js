@@ -359,6 +359,12 @@ G.item.salvageYield = function(it){ return G.DATA.SALVAGE[it.rarity]||1; };
 /* 스탯을 사람이 읽는 문자열로 (미감정은 가림) */
 G.item.statText = function(it){
   if(it.identified===false) return "??? (미감정)";
+  // 룬은 stats가 없고 wpn/arm 효과를 가짐 — 소켓 장착 시 부위에 따라 적용
+  if(it.slot==="rune"){
+    function eff(o){ return Object.keys(o||{}).map(function(k){ var m=G.DATA.STAT_META[k]; return m?(m.label+" +"+o[k]+(m.pct?"%":"")):""; }).filter(Boolean).join(" "); }
+    return "⚔️ "+eff(it.wpn)+" / 🛡️ "+eff(it.arm);
+  }
+  if(!it.stats) return "";
   var parts=[];
   G.DATA.STAT_KEYS.forEach(function(k){
     if(!it.stats[k]) return;
