@@ -138,9 +138,12 @@ G.item.generateRune = function(tier, level, runeName){
 /* 룬 드랍 확률 — 적 종류 기본 × 층 배수(저층 타이트, 고층↑).
    배수 f: 1층≈0.31 · 100층≈0.97 · 255층+ 2.0(상한). 기본을 보수적으로 잡아 전체적으로 타이트. */
 G.item.runeDropChance = function(kind, floor){
+  floor = floor||1;
   var base = ({ full:0.20, mini:0.06, elite:0.04, normal:0.02 })[kind] || 0.02;
-  var f = Math.max(0.3, Math.min(2.0, 0.3 + (floor||1)/150));
-  return base * f;
+  var f = Math.max(0.3, Math.min(2.0, 0.3 + floor/150));
+  var band = 1;   // 특정 층 구간 소폭 보너스(겹치면 최대 1개)
+  (G.DATA.RUNE_DROP_BANDS||[]).forEach(function(b){ if(floor>=b.min && floor<=b.max && b.mult>band) band=b.mult; });
+  return base * f * band;
 };
 
 /* 소켓 베이스 — 접사 없음, 부위 기본 주스탯만, 소켓 1~5개(룬워드 캔버스) */
