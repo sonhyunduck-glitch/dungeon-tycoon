@@ -4,11 +4,11 @@ var G = window.G;
 G.ui.renderVendor = function(){
   var v=el("view-vendor");
   var sub=G.state.ui.vendorSub||"potion";
-  var subTabs=[["potion","🧪 물약"],["forge","🔨 대장간"],["cube","🧊 큐브"],["gacha","🎰 아바타뽑기"]];
+  var subTabs=[["potion","🧪 물약"],["gamble","🎲 겜블"],["cube","🧊 큐브"],["gacha","🎰 아바타뽑기"]];
   var tabBar='<div class="subtabs">'+subTabs.map(function(t){
     return '<button class="subtab'+(sub===t[0]?" active":"")+'" data-act="vendor-sub" data-sub="'+t[0]+'">'+t[1]+'</button>';
   }).join("")+'</div>';
-  var body = sub==="potion" ? G.ui._potionShop() : sub==="forge" ? G.ui._forge() : sub==="cube" ? G.ui._cubePanel() : G.ui._gachaPanel();
+  var body = sub==="potion" ? G.ui._potionShop() : sub==="gamble" ? G.ui._gamble() : sub==="cube" ? G.ui._cubePanel() : G.ui._gachaPanel();
   v.innerHTML = tabBar + body;
   if(sub==="gacha"){   // 도감 미리보기 애니메이션(잠긴 건 정적)
     v.querySelectorAll(".av-prev-inner").forEach(function(el){
@@ -62,33 +62,21 @@ G.ui._potionShop = function(){
     '</div>';
 };
 
-/* 대장간 — 확정 제작 */
-G.ui._forge = function(){
-  var mm=G.state.monMats||{};
-  var owned=G.DATA.BOSS_SPECIES.filter(function(b){return (mm[b.name]||0)>0;});
-  var gold=G.forge.goldCost();
-  var rows;
-  if(!owned.length){
-    rows='<div class="muted">층보스를 처치하면 고유 재료를 얻습니다. 재료로 특정 옵션이 100% 붙은 장비를 제작하세요.</div>';
-  } else {
-    rows=owned.map(function(b){
-      var cnt=mm[b.name]||0, enough=cnt>=G.forge.MAT_COST;
-      var lbl=G.DATA.STAT_META[b.gstat].label, wf=G.dungeon.floorForStat(b.gstat);
-      return '<div class="item" style="border-left-color:var(--torch)">'+
-        '<div class="ico">🧩</div>'+
-        '<div class="info">'+
-          '<div class="iname">'+esc(b.mat)+' <span class="muted">'+cnt+' / '+G.forge.MAT_COST+'</span></div>'+
-          '<div class="idesc">보장 옵션 <span class="warp" data-act="warp" data-floor="'+wf+'">#'+lbl+'</span> · 비용 🪙'+G.ui.fmt(gold)+'</div>'+
-          '<div class="iacts" style="margin-top:5px">'+
-            ['weapon','armor','acc'].map(function(p){
-              return '<button class="btn sm '+(enough?"primary":"")+'" data-act="craft" data-boss="'+esc(b.name)+'" data-part="'+p+'" '+(enough?"":"disabled")+'>'+G.partLabel(p)+'</button>';
-            }).join("")+
-          '</div>'+
-        '</div>'+
-      '</div>';
-    }).join("");
-  }
-  return '<div class="panel"><h3>🔨 대장간 — 확정 제작</h3>'+rows+'</div>'+
+/* 🎲 겜블 — 부위 선택 → 골드로 랜덤 아이템 구매(즉시 감정) */
+G.ui._gamble = function(){
+  var lvl=G.gamble.level(), gold=G.state.player.gold;
+  var rows=G.gamble.PARTS.map(function(p){
+    var cost=G.gamble.cost(p.key), ok=gold>=cost;
+    return '<div class="item">'+
+      '<div class="ico">'+p.ico+'</div>'+
+      '<div class="info"><div class="iname">'+p.label+'</div>'+
+        '<div class="idesc">'+lvl+'층 수준 랜덤 장비 · 즉시 감정</div></div>'+
+      '<div class="iacts"><button class="btn sm '+(ok?"primary":"")+'" data-act="gamble-buy" data-part="'+p.key+'" '+(ok?"":"disabled")+'>🪙'+G.ui.fmt(cost)+'</button></div>'+
+    '</div>';
+  }).join("");
+  return '<div class="panel"><h3>🎲 겜블 <span class="muted" style="font-size:.66rem">현재 '+lvl+'층 기준</span></h3>'+
+    '<div class="muted" style="font-size:.74rem; margin-bottom:8px">골드로 랜덤 장비를 구매합니다. 등급·소켓은 사냥 드랍과 동일 확률, <b class="r-unique">낮은 확률로 고유</b>도! (환불 불가)</div>'+
+    rows+'</div>'+
     '<div class="panel"><div class="muted" style="font-size:.78rem">🔮 룬은 사냥 드랍으로 획득해 <b>장비 소켓</b>에 장착합니다. (창고 🔮 탭 → 소켓 장착)</div></div>';
 };
 

@@ -30,13 +30,13 @@ G.save.load = function(){
     if(!data.potionMax || data.potionMax>10) data.potionMax=10;
     if(data.consumables && data.consumables.potionHeal===undefined) data.consumables.potionHeal=40;
     if(data.potionLevel===undefined) data.potionLevel=1;
-    if(data.materials===undefined) data.materials=0;
     if(!data.battleSpeed) data.battleSpeed=1;
     if(data.shake===undefined) data.shake=true;
     if(!data.arena) data.arena={ score:1000, wins:0, losses:0 };
     if(!data.avatar) data.avatar="adventurer";
-    if(!data.monMats) data.monMats={};
     if(!data.orders) data.orders=[];
+    if(data.materials!==undefined) delete data.materials;   // 분해 시스템 폐지
+    if(data.monMats) delete data.monMats;                   // 보스재료 폐지
     if(data.stamina) delete data.stamina;   // 행동력 시스템 제거 — 구버전 세이브 잔여 필드 정리
     if(!data.cosmetics) data.cosmetics={ owned:{}, shards:0, pity:{ legend:0 } };   // 외형 뽑기
     if(!data.collection) data.collection={ uniques:{}, runewords:{} };   // 고유 장비 + 룬워드 연대기

@@ -118,8 +118,8 @@
     "quicksell": function(d){ G.inventory.quickSell(d.id); G.ui.render(); },
     "cap-upgrade": function(d){ G.inventory.upgradeCap(d&&d.cat); G.ui.render(); },
     "identify": function(d){ G.item.identify(d.id); G.ui.render(); },
-    "salvage": function(d){ G.inventory.salvage(d.id); G.ui.render(); },
     "reroll": function(d){ G.item.reroll(d.id); G.ui.render(); },
+    "gamble-buy": function(d){ if(G.gamble.buy(d.part)){ if(G.save)G.save.save(true); } G.ui.render(); },
 
     /* 캐릭터 */
     "char-sub": function(d){ G.state.ui.charSub=d.sub; G.ui.render(); },
@@ -251,7 +251,6 @@
     },
 
     /* 대장간 / 주문 / 워프 */
-    "craft": function(d){ G.forge.craft(d.boss, d.part); G.ui.render(); },
     "cube-upgrade": function(d){ if(G.cube.upgrade(parseInt(d.rank,10))){ if(G.save)G.save.save(true); } G.ui.render(); },
     "order-fulfill": function(d){ G.orders.fulfill(d.id); G.ui.render(); },
     "warp": function(d){

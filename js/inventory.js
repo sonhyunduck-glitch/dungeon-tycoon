@@ -84,15 +84,6 @@ G.inventory.discard = function(id){
   if(it) G.log("🗑️ 버림: "+it.name,"");
 };
 
-/* 분해 → 재료 (미감정도 가능) */
-G.inventory.salvage = function(id){
-  var it=G.inventory.remove(id);
-  if(!it) return;
-  var mat=G.item.salvageYield(it);
-  G.state.materials=(G.state.materials||0)+mat;
-  G.log("🔨 분해: "+it.name+" → 🔩 재료 +"+mat,"");
-};
-
 /* 스탯 종합 가치 (전투력 가중치와 동일) */
 G.inventory.statValue = function(s){
   s=s||{};

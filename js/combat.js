@@ -53,7 +53,7 @@ G.combat.start = function(species, floor, dropTier, kind){
 function aliveEnemies(c){ return c.enemies.filter(function(e){return e.hp>0;}); }
 G.combat.target = function(){ var c=G.state.dungeon.run.combat; return c? (aliveEnemies(c)[0]||null) : null; };
 
-/* 적 처치 처리: 골드·드롭·룬·재료·킬수 */
+/* 적 처치 처리: 골드·드롭·룬·킬수 */
 function killEnemy(e){
   var run=G.state.dungeon.run;
   e.hp=0; run.kills=(run.kills||0)+1;
@@ -72,10 +72,6 @@ function killEnemy(e){
       G.perks.routeLoot(G.item.generateUnique(uq, e.floor));
       G.log("🌟 고유 장비 발견 — "+uq.name+"!", "r-legend");
     }
-  }
-  if(e.kind==="full" && e.species){
-    var bs=G.DATA.BOSS_SPECIES.find(function(b){return b.name===e.species.name;});
-    if(bs){ var amt=G.util.rand(1,2); G.state.monMats[bs.name]=(G.state.monMats[bs.name]||0)+amt; G.log("🧩 "+bs.mat+" +"+amt+" 획득","r-rare"); }
   }
 }
 function finishWin(){ G.state.dungeon.run.combat=null; return { over:true, win:true }; }

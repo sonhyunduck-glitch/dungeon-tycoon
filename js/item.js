@@ -64,7 +64,7 @@ G.item.generate = function(tier, level, partType){
   tier = tier||1; level = level||1;
   // 디아블로식: 일부 드랍은 접사 없는 "소켓 베이스"(룬워드 캔버스)로
   if(Math.random() < (G.DATA.SOCKET_BASE_RATE||0)) return G.item.generateSocketBase(level, partType);
-  var bases = partType ? G.DATA.ITEM_BASES.filter(function(b){return b.type===partType;}) : G.DATA.ITEM_BASES;
+  var bases = partType ? G.DATA.ITEM_BASES.filter(function(b){return b.type===partType||b.slot===partType;}) : G.DATA.ITEM_BASES;
   if(!bases.length) bases=G.DATA.ITEM_BASES;
   var base = G.util.pick(bases);
   var rarity = G.item.rollRarity(tier);
@@ -149,7 +149,7 @@ G.item.runeDropChance = function(kind, floor){
 /* 소켓 베이스 — 접사 없음, 부위 기본 주스탯만, 소켓 1~5개(룬워드 캔버스) */
 G.item.generateSocketBase = function(level, partType){
   level=level||1;
-  var bases = partType ? G.DATA.ITEM_BASES.filter(function(b){return b.type===partType;}) : G.DATA.ITEM_BASES;
+  var bases = partType ? G.DATA.ITEM_BASES.filter(function(b){return b.type===partType||b.slot===partType;}) : G.DATA.ITEM_BASES;
   if(!bases.length) bases=G.DATA.ITEM_BASES;
   var base=G.util.pick(bases);
   var lvlMult=Math.pow(1.112, level-1);
@@ -305,9 +305,9 @@ G.item.identify = function(id){
   G.log("🔍 감정: ["+it.rarityLabel+"] "+it.name+" — "+G.item.statText(it), it.rarityCls);
 };
 
-/* 재련: 옵션(접사) 한 줄을 무작위로 교체 */
+/* 재련: 옵션(접사) 한 줄을 무작위로 교체 (골드 전용) */
 G.item.rerollCost = function(it){
-  return { mat: Math.max(3, (G.DATA.SALVAGE[it.rarity]||1)), gold: Math.round((it.basePrice||50)*0.2) };
+  return { gold: Math.round((it.basePrice||50)*0.3) };
 };
 G.item.reroll = function(id){
   var it=G.state.inventory.find(function(x){return x.id===id;});
@@ -315,9 +315,8 @@ G.item.reroll = function(id){
   if(!it.identified){ G.ui.toast("감정 후 재련할 수 있습니다"); return; }
   if(!it.affixes || !it.affixes.length){ G.ui.toast("재련할 옵션이 없습니다"); return; }
   var cost=G.item.rerollCost(it);
-  if((G.state.materials||0)<cost.mat){ G.ui.toast("재료 부족 (🔩"+cost.mat+")"); return; }
   if(G.state.player.gold<cost.gold){ G.ui.toast("골드 부족 (🪙"+G.ui.fmt(cost.gold)+")"); return; }
-  G.state.materials-=cost.mat; G.state.player.gold-=cost.gold;
+  G.state.player.gold-=cost.gold;
 
   var lvlMult=Math.pow(1.112, (it.level||1)-1);
   var i=Math.floor(Math.random()*it.affixes.length);
@@ -336,25 +335,46 @@ G.item.reroll = function(id){
   G.log("♻️ 재련: "+om.label+" → "+nm.label+" +"+G.ui.fmt(it.affixes[i].value)+(nm.pct?"%":""), it.rarityCls);
 };
 
-/* 확정 제작: 특정 옵션을 100% 보장(높은 값으로) 장착 */
-G.item.forceAffix = function(it, stat){
-  var af=G.DATA.AFFIXES.find(function(a){return a.stat===stat;});
-  if(!af) return;
-  var lvlMult=Math.pow(1.112, (it.level||1)-1);
-  // 보장 옵션은 최대치 근처로 굴림 (부위 배율 반영)
-  var hi = Math.max(1, Math.round((af.flat ? af.max*lvlMult : af.max) * slotMult(it.slot, stat)));
-  var node={ stat:stat, value:hi, pct:!!af.pct, flat:!!af.flat };
-  var ex=it.affixes.find(function(a){return a.stat===stat;});
-  if(ex){ ex.value=Math.max(ex.value, hi); }
-  else if(it.affixes.length){ it.affixes[0]=node; }
-  else { it.affixes.push(node); }
-  mergeStats(it);
-  var rdef=G.DATA.RARITY.find(function(r){return r.key===it.rarity;});
-  it.basePrice=priceOf(it, rdef, it.tier||1);
+/* ============================================================
+   🎲 겜블(디아블로식 도박) — 부위 선택 → 골드로 랜덤 아이템 구매(즉시 감정)
+   일반 드랍과 동일 확률(소켓 베이스 포함) + 낮은 확률 고유 잭팟
+   ============================================================ */
+G.gamble = {};
+G.gamble.UNIQUE_CHANCE = 0.03;     // 고유 잭팟 확률
+G.gamble.PARTS = [
+  { key:"weapon",   label:"무기",   ico:"🗡️" },
+  { key:"helmet",   label:"투구",   ico:"⛑️" },
+  { key:"armor",    label:"갑옷",   ico:"🛡️" },
+  { key:"gloves",   label:"장갑",   ico:"🧤" },
+  { key:"boots",    label:"신발",   ico:"🥾" },
+  { key:"ring",     label:"반지",   ico:"💍" },
+  { key:"necklace", label:"목걸이", ico:"📿" },
+  { key:"random",   label:"무작위", ico:"🎲" },
+];
+G.gamble.level = function(){ return G.state.dungeon.maxFloor||1; };
+G.gamble.cost = function(part){
+  var lvl=G.gamble.level();
+  var mult = (part==="weapon"||part==="armor") ? 1.25 : 1.0;
+  return Math.round(120 * mult * Math.pow(1.05, lvl-1));
 };
-
-/* 분해 시 재료 산출 */
-G.item.salvageYield = function(it){ return G.DATA.SALVAGE[it.rarity]||1; };
+G.gamble.buy = function(part){
+  var lvl=G.gamble.level(), cost=G.gamble.cost(part);
+  if(G.state.player.gold < cost){ G.ui.toast("골드가 부족합니다 (🪙"+G.ui.fmt(cost)+")"); return null; }
+  // 부위 결정(무작위면 추첨)
+  var slot = part==="random" ? G.util.pick(["weapon","helmet","armor","gloves","boots","ring","necklace"]) : part;
+  // 결과 롤
+  var it=null;
+  if(Math.random() < G.gamble.UNIQUE_CHANCE){
+    var elig=(G.DATA.UNIQUES||[]).filter(function(u){ return u.slot===slot && (u.minFloor||1)<=lvl; });
+    if(elig.length) it=G.item.generateUnique(G.util.pick(elig), lvl);
+  }
+  if(!it) it=G.item.generate(3, lvl, slot);   // 일반 드랍과 동일 확률(소켓 베이스 10% 포함)
+  it.identified=true;   // 즉시 감정
+  if(!G.inventory.add(it)){ G.ui.toast("창고가 가득 찼습니다"); return null; }   // 자리 없으면 미차감
+  G.state.player.gold -= cost;
+  G.log("🎲 겜블: ["+it.rarityLabel+"] "+it.name+" 획득! (🪙-"+G.ui.fmt(cost)+")", it.rarityCls);
+  return it;
+};
 
 /* 스탯을 사람이 읽는 문자열로 (미감정은 가림) */
 G.item.statText = function(it){

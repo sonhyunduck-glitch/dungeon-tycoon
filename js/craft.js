@@ -3,33 +3,7 @@
    ============================================================ */
 var G = window.G;
 
-/* ---------- 대장간 ---------- */
-G.forge = {};
-G.forge.MAT_COST = 8;
-G.forge.goldCost = function(){
-  var lvl=G.state.dungeon.maxFloor||1;
-  return Math.round(200 * Math.pow(1.08, lvl-1));
-};
-G.forge.craft = function(bossName, part){
-  var boss=G.DATA.BOSS_SPECIES.find(function(b){return b.name===bossName;});
-  if(!boss) return;
-  var have=(G.state.monMats||{})[bossName]||0;
-  if(have < G.forge.MAT_COST){ G.ui.toast(boss.mat+"이(가) 부족합니다 ("+have+"/"+G.forge.MAT_COST+")"); return; }
-  var gold=G.forge.goldCost();
-  if(G.state.player.gold < gold){ G.ui.toast("골드가 부족합니다 (🪙"+G.ui.fmt(gold)+")"); return; }
-  if(G.inventory.isFull()){ G.ui.toast("창고가 가득 찼습니다"); return; }
-
-  G.state.monMats[bossName]-=G.forge.MAT_COST;
-  G.state.player.gold-=gold;
-
-  var it=G.item.generate(3, G.state.dungeon.maxFloor||1, part); // 희귀급 기반
-  G.item.forceAffix(it, boss.gstat);   // 보장 옵션 100% 장착
-  it.identified=true;
-  G.inventory.add(it);
-  G.log("🔨 제작 완성: ["+it.rarityLabel+"] "+it.name+" — "+G.DATA.STAT_META[boss.gstat].label+" 보장!", it.rarityCls);
-};
-
-/* 룬 제작은 폐지 — 룬은 사냥 드랍으로만 수급(소켓 시스템). */
+/* 대장간 확정제작·룬제작 폐지 → 🎲 겜블([item.js] G.gamble)로 대체. */
 
 /* ---------- NPC 맞춤 주문 ---------- */
 G.orders = {};
@@ -74,8 +48,7 @@ G.orders.fulfill = function(orderId){
   if(!match){ G.ui.toast("조건에 맞는 아이템이 가방에 없습니다"); return; }
   G.inventory.remove(match.id);
   G.state.player.gold += order.reward;
-  G.state.materials = (G.state.materials||0) + 3;
-  G.log("📋 주문 납품! "+order.npc+"에게 "+match.name+" 전달 → 🪙+"+G.ui.fmt(order.reward)+" · 🔩+3","r-legend");
+  G.log("📋 주문 납품! "+order.npc+"에게 "+match.name+" 전달 → 🪙+"+G.ui.fmt(order.reward),"r-legend");
   G.state.orders.splice(oi,1);
   // 빈 자리 보충
   while(G.state.orders.length < G.orders.MAX){

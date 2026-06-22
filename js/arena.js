@@ -248,8 +248,7 @@
   /* ---------- 코인 상점 ---------- */
   G.arena.SHOP = [
     { key:"pot5",  ico:"🧪", name:"체력 물약 ×5",   cost:30, desc:"즉시 물약 5개(소지 한도 내)" },
-    { key:"mat20", ico:"🔩", name:"분해 재료 ×20",  cost:40, desc:"룬 제작·재련용 재료 20개" },
-    { key:"mat60", ico:"🔩", name:"분해 재료 ×60",  cost:90, desc:"재료 대량(개당 더 저렴)" }
+    { key:"gold",  ico:"🪙", name:"골드 주머니",     cost:40, desc:"겜블·강화용 골드(티어 비례)" }
   ];
   G.arena.buy = function(key){
     var a=G.arena.ensure();
@@ -262,8 +261,7 @@
       var add=Math.min(5, max-have), H=G.potionHealAmount(), oh=G.state.consumables.potionHeal||H;
       G.state.consumables.potionHeal=Math.round((have*oh+add*H)/(have+add));
       G.state.consumables.potion_s=have+add; msg="🧪 물약 ×"+add+" 획득";
-    } else if(key==="mat20"){ G.state.materials=(G.state.materials||0)+20; msg="🔩 분해재료 +20";
-    } else if(key==="mat60"){ G.state.materials=(G.state.materials||0)+60; msg="🔩 분해재료 +60"; }
+    } else if(key==="gold"){ var g=2000*(ti+1); G.state.player.gold+=g; msg="🪙 골드 +"+G.ui.fmt(g); }
     a.coins-=item.cost; G.save.save(true);
     return { ok:true, msg:msg };
   };

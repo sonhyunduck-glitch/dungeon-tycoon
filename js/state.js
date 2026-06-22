@@ -32,7 +32,6 @@ G.newState = function(){
     consumables:{ potion_s:10, potionHeal:40 },  // potionHeal=보유 물약 1개당 고정 회복량(구매 시점 고정)
     potionMax:10,
     potionLevel:1,       // 물약 강화 레벨 (회복률 상승)
-    materials:0,
     battleSpeed:1,       // 자동 전투 배속 (진행도에 따라 해금)
     muted:false,         // 사운드 음소거(마스터)
     shake:true,          // 피격 시 화면 흔들림 효과
@@ -42,7 +41,6 @@ G.newState = function(){
     avatar:"adventurer",  // 플레이어 전투 스프라이트(아바타) id
     bgmVol:0.32,         // 배경음 볼륨 0~1
     sfxVol:0.55,         // 효과음 볼륨 0~1
-    monMats:{},          // 보스 고유 재료 {보스명:개수}
     orders:[], lastOrders:0,
     promo:{ tickets:1, until:0, f100:false },   // 100층 보상: f100=수령여부 (가판대 홍보 잔여 필드)
     dungeon:{ floor:1, maxFloor:1, clearedFloors:{}, stars:{}, run:null, runLoot:[], speedTier:1 }, // runLoot: 미정산 전리품(층 이동 무관 누적, 정산에서만 비움)

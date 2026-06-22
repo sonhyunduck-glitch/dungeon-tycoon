@@ -52,7 +52,6 @@ G.ui._storePanel = function(){
     catTabs+
     '<div class="row" style="margin-bottom:8px; align-items:center">'+ expandBtn +
       '<button class="btn sm" data-act="bag-sort">정렬: '+sortLabel+'</button>'+
-      '<span class="muted" style="margin-left:auto">🔩 재료 <b>'+G.ui.fmt(G.state.materials||0)+'</b></span>'+
     '</div>'+
     '<div class="bagfilter-wrap" style="margin-bottom:8px">'+
       slotChips +
@@ -91,17 +90,15 @@ G.ui._storePanel = function(){
           '<div class="idesc">감정하면 옵션이 공개됩니다</div></div>'+
         '<div class="iacts">'+
           '<button class="btn sm primary" data-act="identify" data-id="'+it.id+'" title="감정">감정 🪙'+G.ui.fmt(cost)+'</button>'+
-          '<button class="btn sm" data-act="salvage" data-id="'+it.id+'" title="분해">분해</button>'+
         '</div></div>';
     }
     var sellBtn='<button class="btn sm" data-act="quicksell" data-id="'+it.id+'" title="즉시 매각">매각 🪙'+G.ui.fmt(G.item.sellPrice(it))+'</button>';
-    var salvBtn='<button class="btn sm" data-act="salvage" data-id="'+it.id+'" title="분해 → 재료">분해</button>';
     // 룬 — 소켓 전용(착용/재련 없음)
     if(it.slot==="rune"){
       var eff=it.wpn?('⚔️'+Object.keys(it.wpn).map(function(k){var m=G.DATA.STAT_META[k];return m?(m.label+"+"+it.wpn[k]+(m.pct?"%":"")):"";}).join(" ")+' · 🛡️'+Object.keys(it.arm||{}).map(function(k){var m=G.DATA.STAT_META[k];return m?(m.label+"+"+it.arm[k]+(m.pct?"%":"")):"";}).join(" ")):'';
       return '<div class="item '+it.rarityCls+'"><div class="ico">'+G.ui.icoHTML(it)+'</div>'+
         '<div class="info"><div class="iname '+it.rarityCls+'">'+esc(it.name)+' <span class="tag">룬</span></div><div class="idesc">'+eff+'</div></div>'+
-        '<div class="iacts">'+salvBtn+sellBtn+'</div></div>';
+        '<div class="iacts">'+sellBtn+'</div></div>';
     }
     // 소켓 베이스 — 착용 + 🔩소켓
     if(it.socketBase){
@@ -111,7 +108,7 @@ G.ui._storePanel = function(){
       var actsS=
         '<button class="btn sm primary" data-act="equip" data-id="'+it.id+'">착용 '+dS+'</button>'+
         '<button class="btn sm gold" data-act="socket-open" data-id="'+it.id+'" title="소켓에 룬 장착">🔩 '+fc+'/'+it.sockets.length+'</button>'+
-        salvBtn+sellBtn;
+        sellBtn;
       return itemCard(it, actsS);
     }
     // 감정된 장비 — 전투효과(공격×생존) 변화율로 추천
@@ -120,8 +117,8 @@ G.ui._storePanel = function(){
     var rc=G.item.rerollCost(it);
     var acts=
       '<button class="btn sm primary" data-act="equip" data-id="'+it.id+'">착용 '+diffTxt+'</button>'+
-      '<button class="btn sm" data-act="reroll" data-id="'+it.id+'" title="재련: 옵션 한 줄 무작위 변경 (🔩'+rc.mat+' 🪙'+G.ui.fmt(rc.gold)+')">재련</button>'+
-      salvBtn+sellBtn;
+      '<button class="btn sm" data-act="reroll" data-id="'+it.id+'" title="재련: 옵션 한 줄 무작위 변경 (🪙'+G.ui.fmt(rc.gold)+')">재련 🪙'+G.ui.fmt(rc.gold)+'</button>'+
+      sellBtn;
     return itemCard(it, acts);
   }).join("");
   return head+'<div class="panel">'+items+'</div>';
