@@ -114,8 +114,8 @@ G.item.generate = function(tier, level, partType){
 /* 룬 생성 (순수 스탯 아이템: 주 스탯 + 옵션) */
 /* 룬 생성 — 사다리(RUNES)에서 드랍 가중치(w)로 추첨. 하위 흔함·상위 희귀. */
 G.item.runeRarity = function(rank){
-  var rc = rank<=3?"r-common":rank<=6?"r-uncommon":rank<=9?"r-rare":rank<=12?"r-epic":"r-legend";
-  var lbl= rank<=3?"하급":rank<=6?"중급":rank<=9?"상급":rank<=12?"최상급":"전설";
+  var rc = rank<=6?"r-common":rank<=12?"r-uncommon":rank<=18?"r-rare":rank<=25?"r-epic":"r-legend";
+  var lbl= rank<=6?"하급":rank<=12?"중급":rank<=18?"상급":rank<=25?"최상급":"전설";
   return { cls:rc, key:rc.replace("r-",""), label:lbl };
 };
 G.item.makeRune = function(r){
