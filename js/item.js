@@ -251,10 +251,16 @@ G.socket.insert = function(itemId, runeId){
   var ri=(G.state.inventory||[]).findIndex(function(x){ return x.id===runeId && x.slot==="rune"; });
   if(ri<0) return false;
   var rune=G.state.inventory.splice(ri,1)[0];
+  var baseDisp = it.runeword ? it.name : (it.baseName?("["+it.baseName+"]"):it.name);
   it.sockets[slot]=rune;
   var w=G.runeword.ofItem(it);
-  G.log("🔩 소켓 장착: "+it.name+" ◁ "+rune.name + (w?(" → 🔗"+w.name+" 발동!"):""), it.rarityCls);
-  if(w){ G.runeword.recordActive(); }
+  if(w){   // 룬워드 완성 → 아이템 이름을 룬워드명으로 변경(디아블로식)
+    it.runeword=w.id; it.runewordIco=w.ico;
+    it.name=w.ico+" "+w.name;
+    it.rarityCls="r-runeword"; it.rarityLabel="룬워드";
+    G.runeword.recordActive();
+  }
+  G.log("🔩 소켓 장착: "+baseDisp+" ◁ "+rune.name + (w?(" → 🔗 "+w.name+" 룬워드 완성!"):""), it.rarityCls);
   return true;
 };
 /* 소켓 해제 불가 — 한번 박은 룬은 뺄 수 없음(영구) */
