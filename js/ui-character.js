@@ -5,18 +5,6 @@ G.ui.renderCharacter = function(){
   var v=el("view-character");
   var s=G.totalStats(), p=G.state.player;
 
-  var slots=Object.keys(SLOT_LABELS).map(function(k){
-    var it=G.state.equipment[k];
-    if(it){
-      return '<div class="eqslot '+it.rarityCls+'" style="border-style:solid;border-left-width:4px">'+
-        '<div class="slotlbl">'+SLOT_LABELS[k]+'</div>'+
-        '<div class="iname '+it.rarityCls+'" style="font-size:.8rem">'+G.ui.icoHTML(it)+' '+esc(it.name)+'</div>'+
-        '<div class="idesc">'+G.item.statText(it)+'</div>'+
-        '<button class="btn sm" style="margin-top:4px" data-act="unequip" data-slot="'+k+'">해제</button>'+
-      '</div>';
-    }
-    return '<div class="eqslot"><div class="slotlbl">'+SLOT_LABELS[k]+'</div><div class="muted">비어있음</div></div>';
-  }).join("");
 
   // 고급(디아블로식) 옵션 — 값이 있을 때만 표시
   var adv=["critDmg","lifesteal","dodge","penet","multihit","goldFind","thorns","stunResist","elemAtk","allRes","resFire","resCold","resLight","resPoison","potionBoost"]
@@ -40,18 +28,27 @@ G.ui.renderCharacter = function(){
       (p.hp<s.maxHp?'<button class="btn full" style="margin-top:10px" data-act="use-potion">🧪 물약으로 회복 ('+(G.state.consumables.potion_s||0)+')</button>':'')+
     '</div>'+advPanel;
 
-  // 🧥 망토 전용 슬롯(아레나 코인 구매/강화)
-  var capeCard=(function(){
+  // 🛡️ 페이퍼돌 — 3×3 격자(둘레 8슬롯 + 중앙 아바타), 레트로 슬롯 배경
+  function pdCell(k){
+    var it=G.state.equipment[k], lbl=SLOT_LABELS[k]||k;
+    if(it){
+      return '<div class="pdcell '+it.rarityCls+'" data-act="unequip" data-slot="'+k+'" title="'+esc(it.name)+' — '+esc(G.item.statText(it))+' (탭하여 해제)">'+
+        '<span class="pdico">'+G.ui.icoHTML(it)+'</span><span class="pdname '+it.rarityCls+'">'+esc(it.name)+'</span></div>';
+    }
+    return '<div class="pdcell empty" title="'+lbl+' — 창고에서 착용"><span class="pdlbl">'+lbl+'</span></div>';
+  }
+  function capeCell(){
     var c=G.cape.get();
-    if(!c.owned) return '<div class="eqslot cape-slot" data-act="cape-open" style="cursor:pointer"><div class="slotlbl">🧥 망토</div><div class="muted">아레나 코인으로 구매</div></div>';
-    var b=G.cape.bonus();
-    return '<div class="eqslot cape-slot r-legend" data-act="cape-open" style="cursor:pointer; border-style:solid; border-left-width:4px">'+
-      '<div class="slotlbl">🧥 망토 <span class="gold">+'+c.level+'</span></div>'+
-      '<div class="idesc">⚔️+'+b.atkPct+'% ❤️+'+b.hpPct+'%'+(b.elemAtk?' 🔥+'+b.elemAtk+'%':'')+(b.allRes?' 🛡️+'+b.allRes+'%':'')+'</div>'+
-      '<button class="btn sm primary" style="margin-top:4px" data-act="cape-open">강화</button>'+
-    '</div>';
-  })();
-  var equipPanel='<div class="panel"><h2>🛡️ 장비</h2><div class="eqgrid">'+slots+capeCard+'</div></div>';
+    if(c.owned){ return '<div class="pdcell r-legend" data-act="cape-open" title="🧥 망토 +'+c.level+' (강화)">'+
+      '<span class="pdico">🧥</span><span class="pdname r-legend">망토 +'+c.level+'</span></div>'; }
+    return '<div class="pdcell empty" data-act="cape-open" title="🧥 망토 — 아레나 코인 구매"><span class="pdlbl">🧥 망토</span></div>';
+  }
+  var avCell='<div class="pdcell pdcenter">'+((G.avatar&&G.avatar.miniHTML)?G.avatar.miniHTML(G.avatar.currentId(),52):'🧍')+'</div>';
+  var equipPanel='<div class="panel"><h2>🛡️ 장비</h2><div class="pdoll">'+
+    pdCell("helmet")+pdCell("necklace")+capeCell()+
+    pdCell("weapon")+avCell+pdCell("armor")+
+    pdCell("gloves")+pdCell("ring")+pdCell("boots")+
+    '</div><div class="muted" style="font-size:.7rem;text-align:center;margin-top:8px">착용은 창고에서 · 칸 탭 = 해제 · 가운데는 아바타</div></div>';
 
   // 서브 탭
   var sub=G.state.ui.charSub||"stats";

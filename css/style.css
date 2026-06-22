@@ -850,6 +850,23 @@ img.twemoji{
 .chat-fab:active{ transform:scale(.9); }
 .chat-fab:hover{ filter:brightness(1.1); }
 
+/* 🛡️ 페이퍼돌 장비 격자 (레트로 슬롯 배경) */
+.pdoll{ display:grid; grid-template-columns:repeat(3,1fr); gap:6px; max-width:340px; margin:0 auto; }
+.pdcell{ position:relative; aspect-ratio:1/1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  background:url("../assets/icon/ui/slot.png") center/100% 100% no-repeat; image-rendering:pixelated; cursor:pointer; padding:4px; overflow:hidden; }
+.pdcell.empty{ cursor:default; opacity:.92; }
+.pdcell .pdico{ font-size:1.7rem; line-height:1; }
+.pdcell .pdico img, .pdcell .pdico .icoimg{ width:38px; height:38px; image-rendering:pixelated; vertical-align:middle; }
+.pdcell .pdname{ font-size:.6rem; line-height:1.1; margin-top:2px; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-shadow:0 1px 2px #000; }
+.pdcell .pdlbl{ font-size:.72rem; color:#9aa0ad; text-shadow:0 1px 2px #000; }
+.pdcell.r-runeword{ box-shadow:inset 0 0 10px rgba(70,224,200,.5); }
+.pdcell.r-legend{ box-shadow:inset 0 0 10px rgba(255,122,60,.45); }
+.pdcell.r-unique{ box-shadow:inset 0 0 10px rgba(214,160,90,.5); }
+.pdcell.r-epic{ box-shadow:inset 0 0 10px rgba(192,139,255,.45); }
+.pdcell.r-rare{ box-shadow:inset 0 0 9px rgba(90,160,255,.4); }
+.pdcell.pdcenter{ cursor:default; }
+.pdcell.pdcenter .av-mini, .pdcell.pdcenter canvas, .pdcell.pdcenter img{ transform:scale(1); }
+
 /* 소켓 / 룬 표시 */
 .r-socket{ color:#cdd6e0; }
 .r-runeword{ color:#46e0c8; }   /* 룬워드 완성 아이템 */
