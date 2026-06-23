@@ -78,7 +78,7 @@ G.ui._speedAdPanel = function(){
   return '<div class="panel"><h2>⏩ 배속 (광고)</h2>'+
     '<div class="item"><div class="ico">⏩</div>'+
       '<div class="info"><div class="iname">자동전투 배속 <span class="muted" style="font-size:.66rem">오늘 '+n+'회</span></div>'+
-        '<div class="idesc">누적 시청: <b>1~3회 2배</b> · <b>4~10회 3배</b> · <b class="r-legend">11회+ 4배</b> (지속 15/30/60분)</div>'+
+        '<div class="idesc">누적 시청: <b>1~3회 2배</b> · <b>4~10회 3배</b> · <b class="r-legend">11회+ 4배</b> (지속 각 15분)</div>'+
         status+
       '</div>'+
       '<div class="iacts">'+btn+'</div>'+

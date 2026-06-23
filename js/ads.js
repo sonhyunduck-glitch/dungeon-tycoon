@@ -14,7 +14,7 @@
   G.ads.rewardId = function(){ return this.TEST_MODE ? this.REWARD_ID_TEST : this.REWARD_ID_REAL; };
   G.ads.CAP = { coin:5, gacha:2, speed:999 };   // 일일 시청 한도. 배속은 사실상 무제한(구글 보상광고 일일 고정한도 없음)
   // 배속: 당일 누적 시청 횟수로 단계 상승 (1~3회 2배 / 4~10회 3배 / 11회+ 4배), 단계별 지속시간 차등
-  G.ads.SPEED_TIERS = [ { upTo:3, tier:2, mins:15 }, { upTo:10, tier:3, mins:30 }, { upTo:20, tier:4, mins:60 } ];
+  G.ads.SPEED_TIERS = [ { upTo:3, tier:2, mins:15 }, { upTo:10, tier:3, mins:15 }, { upTo:20, tier:4, mins:15 } ];
   G.ads.speedFor = function(n){ var T=G.ads.SPEED_TIERS; for(var i=0;i<T.length;i++){ if(n<=T[i].upTo) return T[i]; } return T[T.length-1]; };
   G.ads.COIN_REWARD = 30;                 // 코인 보상량
   G.ads._busy = false;
