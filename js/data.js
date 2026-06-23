@@ -63,7 +63,7 @@ G.DATA.RUNE_DROP_BANDS = [
 // 전리품 무게 — 정산(나가기/사망) 화면의 휴대 예산 계산용. 부위별 고정.
 G.DATA.SLOT_WEIGHT = { weapon:4, armor:4, helmet:3, gloves:3, boots:3, ring:2, necklace:2, rune:1 };
 G.DATA.CARRY_CAP   = 50;   // 정산 시 챙길 수 있는 총 무게(사망 시 ×0.5)
-G.DATA.RUN_LOOT_CAP= 100;  // 런 전리품 누적 상한(무게) — 초과분은 최저가치부터 폐기
+G.DATA.RUN_LOOT_MAX= 400;  // 런 전리품 누적 상한(개수) — 정산 전까지 계속 누적, 초과 시 최저가치부터 폐기(안전장치)
 
 /* 룬 사다리(15) — 하위→상위. 소켓에 박으며, 무기/방어구에 따라 효과가 다름(정통 디아블로).
    w=드랍 가중치(하위 흔함·상위 희귀). wpn=무기 효과, arm=방어구 효과. */

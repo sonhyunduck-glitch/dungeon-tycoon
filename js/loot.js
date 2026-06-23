@@ -32,16 +32,15 @@ G.loot.verdict = function(it){
   return { key:"low", label:"· 잡템", cls:"muted" };
 };
 
-/* 누적 상한 초과분 폐기 — 최저가치부터(업그레이드·미감정 보호). 골드·재료 없이 삭제 */
+/* 누적 상한(개수) 초과분 폐기 — 정산 전까지 계속 누적, 한계 초과 시에만 최저가치부터 삭제(안전장치) */
 G.loot.enforceCap = function(){
-  var loot=G.loot.list(); var cap=(G.DATA.RUN_LOOT_CAP||60);
-  function w(){ return loot.reduce(function(s,it){ return s+G.loot.weightOf(it); },0); }
+  var loot=G.loot.list(); var max=(G.DATA.RUN_LOOT_MAX||400);
   var guard=0;
-  while(w()>cap && loot.length && guard++<500){
+  while(loot.length>max && guard++<2000){
     var wi=0, ws=Infinity;
     for(var i=0;i<loot.length;i++){ var s=keepScore(loot[i]); if(s<ws){ ws=s; wi=i; } }
     var it=loot.splice(wi,1)[0];
-    G.log("🗑️ 창고가 넘쳐 "+it.name+" 버림","");
+    G.log("🗑️ 미정산 전리품이 "+max+"개를 넘어 "+it.name+" 폐기","");
   }
 };
 
