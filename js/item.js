@@ -155,17 +155,28 @@ G.item.generateSocketBase = function(level, partType){
   if(!bases.length) bases=G.DATA.ITEM_BASES.filter(function(b){ return b.type!=="acc"; });
   var base=G.util.pick(bases);
   var lvlMult=Math.pow(1.112, level-1);
+  // 티어(층 구간) + 품질(가중 랜덤) + 개별 굴림(±20%)
+  var tIdx = level>=400 ? 2 : (level>=150 ? 1 : 0);
+  var tierMult = (G.DATA.SOCKET_TIER_MULT||[1,1,1])[tIdx];
+  var tierNames = (G.DATA.SOCKET_TIER_NAMES||{})[base.base];
+  var tierName = (tierNames && tierNames[tIdx]) || base.base;
+  var Q=G.DATA.SOCKET_QUALITY||[{name:"",mult:1,w:1,cls:"r-socket"}];
+  var qt=Q.reduce(function(s,q){return s+q.w;},0), qr=Math.random()*qt, qual=Q[0];
+  for(var qi=0;qi<Q.length;qi++){ qr-=Q[qi].w; if(qr<=0){ qual=Q[qi]; break; } }
+  var roll = 0.85+Math.random()*0.4;                 // 일반템과 동일 변동폭
+  var sm = lvlMult * tierMult * qual.mult * roll;     // 평면 스탯 배율
   var fixed={}, mainMeta=G.DATA.STAT_META[base.main];
   fixed[base.main] = (mainMeta&&mainMeta.pct)
-    ? Math.max(1, Math.round(base.val * (0.9+Math.random()*0.2)))
-    : Math.max(1, Math.round(base.val * lvlMult * (0.9+Math.random()*0.2)));
-  if(base.type==="armor") fixed.hp=(fixed.hp||0)+Math.round(base.val * 4 * lvlMult);
+    ? Math.max(1, Math.round(base.val * tierMult * qual.mult * roll))
+    : Math.max(1, Math.round(base.val * sm));
+  if(base.type==="armor") fixed.hp=(fixed.hp||0)+Math.max(1, Math.round(base.val * 4 * sm));   // 갑옷 체력도 랜덤화
   var n=G.util.rand(1, G.DATA.SOCKET_MAX), sockets=[]; for(var k=0;k<n;k++) sockets.push(null);
   var iconImg=null, iconList=base.iconDir && G.DATA.EQUIP_ICONS && G.DATA.EQUIP_ICONS[base.iconDir];
   if(iconList&&iconList.length) iconImg="assets/icon/equip/"+base.iconDir+"/"+G.util.pick(iconList);
   var attackElem=(base.type==="weapon" && level>=100)?G.util.pick(G.DATA.ELEMENTS).key:null;
-  var it={ id:G.util.uid(), name:"["+base.base+"]", baseName:base.base, ico:base.ico, iconImg:iconImg,
-    type:base.type, slot:base.slot, rarity:"socket", rarityLabel:"소켓 "+n, rarityCls:"r-socket",
+  var dispName = (qual.name?qual.name+" ":"")+tierName;
+  var it={ id:G.util.uid(), name:dispName, baseName:tierName, ico:base.ico, iconImg:iconImg,
+    type:base.type, slot:base.slot, rarity:"socket", rarityLabel:"소켓 "+n, rarityCls:qual.cls||"r-socket",
     level:level, tier:1, fixed:fixed, affixes:[], sockets:sockets, socketBase:true, attackElem:attackElem, identified:true };
   mergeStats(it);
   it.basePrice=priceOf(it, { price:6 }, 1);
