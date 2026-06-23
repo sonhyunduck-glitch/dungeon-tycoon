@@ -851,8 +851,12 @@ img.twemoji{
 .chat-fab:hover{ filter:brightness(1.1); }
 
 /* 🛡️ 페이퍼돌 장비 격자 (레트로 슬롯 배경) */
-.pdoll{ display:grid; grid-template-columns:repeat(3,1fr); gap:5px; max-width:360px; margin:0 auto;
-  border:13px solid transparent; border-image:url("../assets/icon/ui/panel.png") 13 fill stretch; image-rendering:pixelated; }
+.pdoll{ display:grid; grid-template-columns:repeat(3,1fr); gap:7px; max-width:340px; margin:0 auto;
+  background:#2a2630;                       /* 9slices 인테리어 폴백(다크) */
+  padding:8px;
+  border:18px solid transparent;
+  border-image:url("../assets/icon/ui/panel.png") 12 fill stretch;   /* 골드 9-slice 프레임 배경 */
+  image-rendering:pixelated; }
 .pdcell{ position:relative; aspect-ratio:1/1; display:flex; flex-direction:column; align-items:center; justify-content:center;
   background:url("../assets/icon/ui/slot.png") center/100% 100% no-repeat; image-rendering:pixelated; cursor:pointer; padding:4px; overflow:hidden; }
 .pdcell.empty{ cursor:default; opacity:.92; }
