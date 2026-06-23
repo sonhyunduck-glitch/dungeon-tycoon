@@ -62,8 +62,9 @@ function priceOf(it, rarity, tier){
    tier: 등급 가중치/가격 (1~4), level: 층(스탯 스케일) */
 G.item.generate = function(tier, level, partType){
   tier = tier||1; level = level||1;
-  // 디아블로식: 일부 드랍은 접사 없는 "소켓 베이스"(룬워드 캔버스)로
-  if(Math.random() < (G.DATA.SOCKET_BASE_RATE||0)) return G.item.generateSocketBase(level, partType);
+  // 디아블로식: 일부 드랍은 접사 없는 "소켓 베이스"(룬워드 캔버스)로. 단 악세사리(반지·목걸이)는 소켓 없음
+  var _isAcc = (partType==="acc"||partType==="ring"||partType==="necklace");
+  if(!_isAcc && Math.random() < (G.DATA.SOCKET_BASE_RATE||0)) return G.item.generateSocketBase(level, partType);
   var bases = partType ? G.DATA.ITEM_BASES.filter(function(b){return b.type===partType||b.slot===partType;}) : G.DATA.ITEM_BASES;
   if(!bases.length) bases=G.DATA.ITEM_BASES;
   var base = G.util.pick(bases);
@@ -150,7 +151,8 @@ G.item.runeDropChance = function(kind, floor){
 G.item.generateSocketBase = function(level, partType){
   level=level||1;
   var bases = partType ? G.DATA.ITEM_BASES.filter(function(b){return b.type===partType||b.slot===partType;}) : G.DATA.ITEM_BASES;
-  if(!bases.length) bases=G.DATA.ITEM_BASES;
+  bases = bases.filter(function(b){ return b.type!=="acc"; });   // 악세사리(반지·목걸이)는 소켓 없음
+  if(!bases.length) bases=G.DATA.ITEM_BASES.filter(function(b){ return b.type!=="acc"; });
   var base=G.util.pick(bases);
   var lvlMult=Math.pow(1.112, level-1);
   var fixed={}, mainMeta=G.DATA.STAT_META[base.main];
