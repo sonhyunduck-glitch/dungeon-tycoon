@@ -544,10 +544,11 @@ G.ui.settleModal = function(){
   }
   function rowHTML(it){
     var v=G.loot.verdict(it), wt=G.loot.weightOf(it), keep=(disp[it.id]==="keep");
+    var sockBadge = (it.sockets && it.sockets.length) ? ' <span class="settle-badge r-socket">🔩 '+it.sockets.length+'소켓</span>' : '';
     return '<div class="settle-row'+(keep?" keep":" drop")+'" data-row="'+it.id+'">'+
       '<span class="settle-ico">'+G.ui.icoHTML(it)+'</span>'+
       '<span class="settle-info"><b class="'+it.rarityCls+'">'+esc(it.name)+'</b> '+
-        '<span class="settle-badge '+v.cls+'">'+v.label+'</span>'+
+        '<span class="settle-badge '+v.cls+'">'+v.label+'</span>'+sockBadge+
         '<br><span class="idesc">'+(it.identified===false?'<span class="muted">감정 필요</span>':G.item.statText(it))+'</span></span>'+
       '<span class="settle-wt" title="무게">⚖️'+wt+'</span>'+
       '<span class="settle-acts"><button class="btn xs settle-pick'+(keep?' on':'')+'" data-pick="'+it.id+'">'+(keep?'✅ 챙김':'🗑️ 버림')+'</button></span>'+
