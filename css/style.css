@@ -539,7 +539,7 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
 .tag{ font-size:.6rem; padding:1px 6px; border-radius:6px; border:1px solid currentColor; opacity:.85; }
 
 /* 등급 색 + 글로우 */
-.r-common  { color:#cfcfcf; border-left-color:#cfcfcf !important; }
+.r-common  { color:#8b909c; border-left-color:#8b909c !important; }   /* 일반=칙칙한 회색(소켓 흰색과 분리) */
 .r-uncommon{ color:#5fe08a; border-left-color:#5fe08a !important; }
 .r-rare    { color:#6fa0ff; border-left-color:#6fa0ff !important; }
 .r-epic    { color:#c08bff; border-left-color:#c08bff !important; text-shadow:0 0 8px rgba(192,139,255,.5); }
@@ -873,7 +873,8 @@ img.twemoji{
 .pdcell.pdcenter .av-mini, .pdcell.pdcenter canvas, .pdcell.pdcenter img{ transform:scale(1); }
 
 /* 소켓 / 룬 표시 */
-.r-socket{ color:#cdd6e0; }
+.r-socket{ color:#ffffff; font-weight:700; text-shadow:0 0 6px rgba(255,255,255,.35); }   /* 소켓 베이스(뼈대)=밝은 흰색 */
+.item.r-socket{ border-left-color:#ffffff !important; }
 .r-runeword{ color:#46e0c8; }   /* 룬워드 완성 아이템 */
 .item.r-runeword{ border-left-color:#46e0c8; }
 .sockets{ display:inline-flex; gap:3px; vertical-align:middle; }

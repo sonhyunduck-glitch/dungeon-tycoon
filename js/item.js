@@ -176,7 +176,7 @@ G.item.generateSocketBase = function(level, partType){
   var attackElem=(base.type==="weapon" && level>=100)?G.util.pick(G.DATA.ELEMENTS).key:null;
   var dispName = (qual.name?qual.name+" ":"")+tierName;
   var it={ id:G.util.uid(), name:dispName, baseName:tierName, ico:base.ico, iconImg:iconImg,
-    type:base.type, slot:base.slot, rarity:"socket", rarityLabel:"소켓 "+n, rarityCls:qual.cls||"r-socket",
+    type:base.type, slot:base.slot, rarity:"socket", rarityLabel:"소켓 "+n, rarityCls:"r-socket", quality:qual.name,
     level:level, tier:1, fixed:fixed, affixes:[], sockets:sockets, socketBase:true, attackElem:attackElem, identified:true };
   mergeStats(it);
   it.basePrice=priceOf(it, { price:6 }, 1);
