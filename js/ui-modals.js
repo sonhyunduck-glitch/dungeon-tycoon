@@ -584,9 +584,9 @@ G.ui.settleModal = function(){
   refreshFits();
   ov.addEventListener("click", function(e){
     if(e.target===ov || e.target.closest("[data-modal-close]")){ ov.remove(); return; }
-    var p=e.target.closest("[data-pick]");
+    var p=e.target.closest(".settle-row[data-row]");   // 행 어디를 눌러도 토글(모바일 탭 편의)
     if(p){
-      var id=p.getAttribute("data-pick");
+      var id=p.getAttribute("data-row");
       if(disp[id]==="keep"){ disp[id]="discard"; }   // 토글: 챙김 ↔ 버림
       else {
         if(keptWeight()+G.loot.weightOf(byId(id)) > cap){ G.ui.toast("휴대 용량 초과 — 다른 항목을 버리세요"); return; }
