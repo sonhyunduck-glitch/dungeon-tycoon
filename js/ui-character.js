@@ -175,7 +175,15 @@ G.ui._collectionPanel = function(){
       '<div class="avatar-name">'+esc(a.name)+'</div>'+(owned?'<div class="avatar-badge">보유</div>':'')+'</div>';
   }).join("");
   var avDex='<div class="panel"><h2>🎭 아바타 도감 <span class="muted" style="font-size:.66rem">'+avOwned+' / '+av.length+'</span></h2><div class="avatar-grid">'+avList+'</div></div>';
-  return equipDex+rwDex+avDex;
+
+  // 서브탭: 장비연대기 | 룬워드 연대기 | 아바타 도감
+  var sub=G.state.ui.colSub||"equip";
+  var tabs=[["equip","🗡️ 장비 "+dN+"/"+uniques.length],["rune","🔗 룬워드 "+rwN+"/"+rws.length],["avatar","🎭 아바타 "+avOwned+"/"+av.length]];
+  var tabBar='<div class="subtabs">'+tabs.map(function(t){
+    return '<button class="subtab'+(sub===t[0]?" active":"")+'" data-act="col-sub" data-sub="'+t[0]+'">'+t[1]+'</button>';
+  }).join("")+'</div>';
+  var body = sub==="rune"?rwDex : sub==="avatar"?avDex : equipDex;
+  return tabBar+body;
 };
 
 /* 🎰 외형 뽑기 패널 */

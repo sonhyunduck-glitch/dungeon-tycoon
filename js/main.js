@@ -124,6 +124,7 @@
 
     /* 캐릭터 */
     "char-sub": function(d){ G.state.ui.charSub=d.sub; G.ui.render(); },
+    "col-sub": function(d){ G.state.ui.colSub=d.sub; G.ui.renderCharacter(); },
     "unequip": function(d){ G.inventory.unequip(d.slot); G.ui.render(); },
     "avatar-pick": function(d){ G.avatar.set(d.id); G.ui.render(); },
 
