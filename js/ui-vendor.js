@@ -63,23 +63,22 @@ G.ui._potionShop = function(){
     G.ui._speedAdPanel();
 };
 
-/* ⏩ 배속 광고 상품 — 광고 시청 시 임시 배속 버프 */
+/* ⏩ 배속 광고 상품 — 당일 누적 시청 횟수로 배속 단계 상승(무제한) */
 G.ui._speedAdPanel = function(){
-  var avail=G.ads && G.ads.available(), left=avail?G.ads.left("speed"):0, cap=(G.ads&&G.ads.CAP.speed)||0;
-  var S=(G.ads&&G.ads.SPEED)||{tier:2,mins:15,maxTier:3,maxMins:60};
+  var avail=G.ads && G.ads.available();
+  var n=(G.ads && G.ads.ensure().counts.speed)||0;          // 오늘 시청 횟수
+  var next=(G.ads && G.ads.speedFor)?G.ads.speedFor(n+1):{tier:2,mins:15};   // 다음 시청 시
   var leftMs=G.speedBuffLeftMs?G.speedBuffLeftMs():0, tier=G.maxSpeed();
   var status = leftMs>0
     ? '<div class="idesc r-legend">현재 ⏩ '+tier+'배속 적용 중 · 남은 '+Math.ceil(leftMs/60000)+'분</div>'
     : '<div class="idesc">광고를 보면 자동전투 속도가 빨라집니다 (평소 1배속)</div>';
   var btn = !avail
     ? '<button class="btn sm" disabled>앱에서만 가능</button>'
-    : (left>0
-        ? '<button class="btn sm primary" data-act="ad-speed">🎬 광고 보고 ⏩ ('+left+'/'+cap+')</button>'
-        : '<button class="btn sm" disabled>오늘 소진 (내일 리셋)</button>');
+    : '<button class="btn sm primary" data-act="ad-speed">🎬 광고 보고 ⏩ '+next.tier+'배속 '+next.mins+'분</button>';
   return '<div class="panel"><h2>⏩ 배속 (광고)</h2>'+
     '<div class="item"><div class="ico">⏩</div>'+
-      '<div class="info"><div class="iname">자동전투 배속</div>'+
-        '<div class="idesc">시청 시 <b>'+S.tier+'배속 '+S.mins+'분</b> · 오늘 마지막('+cap+'회차)엔 <b class="r-legend">'+S.maxTier+'배속 '+S.maxMins+'분</b></div>'+
+      '<div class="info"><div class="iname">자동전투 배속 <span class="muted" style="font-size:.66rem">오늘 '+n+'회</span></div>'+
+        '<div class="idesc">누적 시청: <b>1~3회 2배</b> · <b>4~10회 3배</b> · <b class="r-legend">11회+ 4배</b> (지속 15/30/60분)</div>'+
         status+
       '</div>'+
       '<div class="iacts">'+btn+'</div>'+
