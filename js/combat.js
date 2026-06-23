@@ -261,28 +261,14 @@ G.combat.syncSkills = function(){
   return fresh;
 };
 
-/* 배속 해금: 100/200/300층 도달 시 2/3/4배. speedTier로 신규 해금만 알림 */
-G.combat.syncSpeed = function(){
-  var cur=G.maxSpeed();
-  var prev=G.state.dungeon.speedTier;
-  if(prev===undefined){ G.state.dungeon.speedTier=cur; return []; }  // 최초/구버전: 조용히 동기화
-  if(cur<=prev) return [];
-  var fresh=[];
-  for(var s=prev+1; s<=cur; s++){
-    var fl = s===2?100 : s===3?200 : s===4?300 : 0;
-    fresh.push({ ico:"⏩", name:s+"배속 해금", desc:"자동 전투 속도 "+s+"배", sub:"배속 · "+fl+"층" });
-    G.log("⏩ "+s+"배속 해금! ("+fl+"층 도달)","r-legend");
-  }
-  G.state.dungeon.speedTier=cur;
-  return fresh;
-};
+/* 배속은 해금 없이 처음부터 1~4배속 사용 가능(해금 로직 제거) */
+G.combat.syncSpeed = function(){ return []; };
 
-/* 스킬+자동화+배속 통합 해금 체크 → 한 모달로 알림 */
+/* 스킬+자동화 통합 해금 체크 → 한 모달로 알림 */
 G.checkUnlocks = function(){
   var items=[]
     .concat(G.perks.syncFree()||[])
     .concat(G.combat.syncSkills()||[])
-    .concat(G.combat.syncSpeed()||[])
     .concat((G.avatar&&G.avatar.syncUnlocks&&G.avatar.syncUnlocks())||[])
     .concat((G.arena&&G.arena.syncUnlock&&G.arena.syncUnlock())||[]);
   if(items.length && G.ui && G.ui.unlockModal) G.ui.unlockModal(items);

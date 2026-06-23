@@ -139,8 +139,8 @@ G.potionHealAmount = function(){
 /* 물약 가격 = 회복 HP당 1골드 (회복량과 동일) */
 G.potionPrice = function(){ return G.potionHealAmount(); };
 
-/* 해금된 최대 배속 (최고층 기준) */
-G.maxSpeed = function(){ var f=G.state.dungeon.maxFloor||1; return f>=300?4 : f>=200?3 : f>=100?2 : 1; };
+/* 최대 배속 — 해금 없이 항상 4배속까지 */
+G.maxSpeed = function(){ return 4; };
 
 G.power = function(){
   var s=G.totalStats();
