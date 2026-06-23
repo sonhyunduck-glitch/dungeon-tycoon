@@ -919,6 +919,7 @@ img.twemoji{
 .btn.xs{ padding:3px 7px; font-size:.7rem; border-radius:7px; }
 .settle-pick{ opacity:.62; }
 .settle-pick.on{ opacity:1; box-shadow:inset 0 0 0 1px rgba(255,255,255,.5); background:rgba(91,124,255,.35); }
+.settle-pick.nofit{ opacity:.32; }   /* 휴대 예산 초과로 챙길 수 없음 */
 .settle-foot{ display:flex; gap:6px; margin-top:10px; }
 .settle-foot .btn.primary{ flex:1; }
 /* transform 펄스(compositor 친화적 — box-shadow 애니는 매 프레임 리페인트라 제거) */

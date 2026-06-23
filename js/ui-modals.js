@@ -555,11 +555,19 @@ G.ui.settleModal = function(){
     '</div>';
   }
   function body(){ return capHTML()+'<div class="settle-list">'+order.map(rowHTML).join("")+'</div>'; }
-  function paint(){ var b=ov.querySelector(".settle-paint"); if(b) b.innerHTML=body(); }   // 일괄(추천/전부버림)용
+  function paint(){ var b=ov.querySelector(".settle-paint"); if(b){ b.innerHTML=body(); refreshFits(); } }   // 일괄(추천/전부버림)용
   function refreshCap(){ var c=ov.querySelector(".settle-cap"); if(c) c.outerHTML=capHTML(); }
   function refreshRow(id){ var r=ov.querySelector('.settle-row[data-row="'+id+'"]'); if(!r) return; var it=byId(id); if(!it) return;
     var keep=(disp[id]==="keep"); r.className="settle-row"+(keep?" keep":" drop");
     var b=r.querySelector(".settle-pick"); if(b){ b.className="btn xs settle-pick"+(keep?" on":""); b.textContent=keep?'✅ 챙김':'🗑️ 버림'; } }
+  /* 예산 초과로 더 못 챙기는 '버림' 항목의 챙김 버튼을 흐리게(nofit) 표시 — 왜 안 되는지 명확화 */
+  function refreshFits(){
+    var rem=cap-keptWeight();
+    ov.querySelectorAll(".settle-row.drop").forEach(function(r){
+      var it=byId(r.getAttribute("data-row")); if(!it) return;
+      var b=r.querySelector(".settle-pick"); if(b) b.classList.toggle("nofit", G.loot.weightOf(it)>rem);
+    });
+  }
   var ov=document.createElement("div"); ov.className="modal-overlay show"; ov.style.zIndex="320";
   ov.innerHTML='<div class="modal" style="width:min(540px,96vw)">'+
     '<h2 style="justify-content:center">📦 전리품 정산'+(dead?' <span class="r-common" style="font-size:.7rem">쓰러짐</span>':'')+'</h2>'+
@@ -573,6 +581,7 @@ G.ui.settleModal = function(){
     '<button class="btn full" style="margin-top:8px" data-modal-close>나중에 (런 유지)</button>'+
   '</div>';
   document.body.appendChild(ov);
+  refreshFits();
   ov.addEventListener("click", function(e){
     if(e.target===ov || e.target.closest("[data-modal-close]")){ ov.remove(); return; }
     var p=e.target.closest("[data-pick]");
@@ -583,7 +592,7 @@ G.ui.settleModal = function(){
         if(keptWeight()+G.loot.weightOf(byId(id)) > cap){ G.ui.toast("휴대 용량 초과 — 다른 항목을 버리세요"); return; }
         disp[id]="keep";
       }
-      refreshRow(id); refreshCap();   // 해당 행+예산만 갱신(위치·스크롤 유지)
+      refreshRow(id); refreshCap(); refreshFits();   // 해당 행+예산+여유 표시 갱신(위치·스크롤 유지)
       return;
     }
     if(e.target.closest("[data-settle-auto]")){ disp=G.loot.autoDisp(cap); paint(); return; }
