@@ -361,7 +361,8 @@ G.gamble.level = function(){ return G.state.dungeon.maxFloor||1; };
 G.gamble.cost = function(part){
   var lvl=G.gamble.level();
   var mult = (part==="weapon"||part==="armor") ? 1.25 : 1.0;
-  return Math.round(120 * mult * Math.pow(1.05, lvl-1));
+  // 아이템 가치 곡선(1.112^층)에 맞춤 + 마크업 → 평균 재판매가보다 비싸 "사서 되팔기" 차익 불가
+  return Math.round(200 * mult * Math.pow(1.112, lvl-1));
 };
 G.gamble.buy = function(part){
   var lvl=G.gamble.level(), cost=G.gamble.cost(part);
