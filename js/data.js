@@ -90,18 +90,18 @@ G.DATA.RUNES = [
 /* 🔗 룬워드 — 소켓 수 = 길이(3/4/5)가 정확히 일치하고, 부위(cat: weapon/armor)와
    필요 룬(순서 무관) 전부 들어있을 때 발동. bonus는 % 보조. (발견형) */
 G.DATA.RUNEWORDS = [
-  // 3룬 — 무기
-  { id:"rage",     name:"분노",   ico:"🔥", cat:"weapon", runes:["불씨","서슬","멸각"], bonus:{ crit:6, critDmg:15 } },
+  // 3룬 — 무기 (open:1 = 처음부터 레시피 공개)
+  { id:"rage",     name:"분노",   ico:"🔥", cat:"weapon", open:1, runes:["불씨","서슬","멸각"], bonus:{ crit:6, critDmg:15 } },
   { id:"pierce",   name:"관통격", ico:"💢", cat:"weapon", runes:["미명","여명","종언"], bonus:{ penet:12, crit:4 } },
   { id:"bloodaxe", name:"흡혈도", ico:"🩸", cat:"weapon", runes:["업화","불씨","서슬"], bonus:{ lifesteal:6, crit:5 } },
   { id:"swift",    name:"속공",   ico:"🌀", cat:"weapon", runes:["잔영","천뢰","섬광"], bonus:{ multihit:8, crit:4 } },
-  { id:"elemental",name:"원소",   ico:"⚡", cat:"weapon", runes:["노을","섬광","뇌명"], bonus:{ elemAtk:20 } },
+  { id:"elemental",name:"원소",   ico:"⚡", cat:"weapon", open:1, runes:["노을","섬광","뇌명"], bonus:{ elemAtk:20 } },
   { id:"doom",     name:"파멸",   ico:"💥", cat:"weapon", runes:["멸각","성휘","종언"], bonus:{ critDmg:25, penet:6 } },
   { id:"combo",    name:"연격",   ico:"🌀", cat:"weapon", runes:["천뢰","미명","잔영"], bonus:{ multihit:10, penet:6 } },
   // 3룬 — 방어구
-  { id:"rampart",  name:"성벽",   ico:"🛡️", cat:"armor",  runes:["서슬","멸각","업화"], bonus:{ thorns:18, allRes:6 } },
-  { id:"guardian", name:"수호",   ico:"🪖", cat:"armor",  runes:["여명","한설","종언"], bonus:{ allRes:10, stunResist:8 } },
-  { id:"greed",    name:"황금",   ico:"💰", cat:"armor",  runes:["잔영","미명","티끌"], bonus:{ goldFind:40, dodge:5 } },
+  { id:"rampart",  name:"성벽",   ico:"🛡️", cat:"armor",  open:1, runes:["서슬","멸각","업화"], bonus:{ thorns:18, allRes:6 } },
+  { id:"guardian", name:"수호",   ico:"🪖", cat:"armor",  open:1, runes:["여명","한설","종언"], bonus:{ allRes:10, stunResist:8 } },
+  { id:"greed",    name:"황금",   ico:"💰", cat:"armor",  open:1, runes:["잔영","미명","티끌"], bonus:{ goldFind:40, dodge:5 } },
   { id:"thornmail",name:"가시갑",  ico:"🌵", cat:"armor",  runes:["업화","서슬","한설"], bonus:{ thorns:25 } },
   { id:"steadfast",name:"불굴",   ico:"🪨", cat:"armor",  runes:["서슬","여명","한설"], bonus:{ allRes:8, stunResist:10 } },
   // 4룬 — 무기
