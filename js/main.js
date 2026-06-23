@@ -58,7 +58,9 @@
     } else if(res.over && res.dead){
       animBusy=true;
       G.ui.pcAnim("death");   // 사망 모션(7프레임 .7s) 재생 후 사망 화면으로
-      setTimeout(function(){ G.ui.render(); G.save.save(true); animBusy=false; }, 820);
+      setTimeout(function(){ G.ui.render(); G.save.save(true); animBusy=false;
+        if(G.loot && G.loot.pending() && G.ui.settleModal) G.ui.settleModal();   // 사망 시 정산화면 자동(휴대 ½)
+      }, 820);
     } else if(targetDied){
       // 타겟 처치(전투 계속): 사망 연출 시간도 배속에 비례해 단축(고배속에서 빠르게)
       animBusy=true;
