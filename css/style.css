@@ -760,7 +760,7 @@ button{ font-family:inherit; color:var(--text); cursor:pointer; border:none; bac
 .start-screen{
   position:fixed; inset:0; z-index:200;
   background:#06040c; display:flex; justify-content:center;
-  animation:fadeIn .35s ease;
+  opacity:1;   /* 항상 보이도록(애니 throttle 시 0% 프레임에 멈춰 안 보이던 버그 수정 → fadeIn 제거) */
 }
 @keyframes fadeIn{ from{ opacity:0 } to{ opacity:1 } }
 .start-frame{
