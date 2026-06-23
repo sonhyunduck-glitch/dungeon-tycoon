@@ -533,27 +533,32 @@ G.ui.settleModal = function(){
   var disp=G.loot.autoDisp(cap);   // 시작값 = 추천 자동 선별(가치순으로 예산까지)
   function byId(id){ return G.loot.list().find(function(x){return x.id===id;}); }
   function keptWeight(){ var w=0; G.loot.list().forEach(function(it){ if(disp[it.id]==="keep") w+=G.loot.weightOf(it); }); return w; }
-  function rank(it){ var keep=(disp[it.id]==="keep"); var v=G.loot.verdict(it); return (keep?1e7:0) + (v.pct||0)*1000 + (it.basePrice||0); }
-  function body(){
-    var list=G.loot.list().slice().sort(function(a,b){ return rank(b)-rank(a); });
+  function rank(it){ var v=G.loot.verdict(it); return (v.pct||0)*1000 + (it.basePrice||0); }   // 가치순(챙김 여부 무관)
+  var order=G.loot.list().slice().sort(function(a,b){ return rank(b)-rank(a); });   // 순서 한 번만 고정 → 토글해도 위치 안 바뀜
+  function capHTML(){
     var kw=keptWeight(), over=kw>cap, kn=0;
-    var rows=list.map(function(it){
-      var v=G.loot.verdict(it), wt=G.loot.weightOf(it), keep=(disp[it.id]==="keep"); if(keep)kn++;
-      return '<div class="settle-row'+(keep?" keep":" drop")+'">'+
-        '<span class="settle-ico">'+G.ui.icoHTML(it)+'</span>'+
-        '<span class="settle-info"><b class="'+it.rarityCls+'">'+esc(it.name)+'</b> '+
-          '<span class="settle-badge '+v.cls+'">'+v.label+'</span>'+
-          '<br><span class="idesc">'+(it.identified===false?'<span class="muted">감정 필요</span>':G.item.statText(it))+'</span></span>'+
-        '<span class="settle-wt" title="무게">⚖️'+wt+'</span>'+
-        '<span class="settle-acts"><button class="btn xs settle-pick'+(keep?' on':'')+'" data-pick="'+it.id+'">'+(keep?'✅ 챙김':'🗑️ 버림')+'</button></span>'+
-      '</div>';
-    }).join("");
+    G.loot.list().forEach(function(it){ if(disp[it.id]==="keep") kn++; });
     return '<div class="settle-cap'+(over?" over":"")+'">🎒 반출 <b>'+kw+'</b> / '+cap+(dead?' <span class="r-common">(사망 ½)</span>':'')+
-        ' <span class="muted" style="font-size:.7rem">· '+kn+'개 챙김</span>'+
-        '<div class="settle-capbar"><i style="width:'+Math.min(100,Math.round(kw/cap*100))+'%"></i></div></div>'+
-      '<div class="settle-list">'+rows+'</div>';
+      ' <span class="muted" style="font-size:.7rem">· '+kn+'개 챙김</span>'+
+      '<div class="settle-capbar"><i style="width:'+Math.min(100,Math.round(kw/cap*100))+'%"></i></div></div>';
   }
-  function paint(){ var b=ov.querySelector(".settle-paint"); if(b) b.innerHTML=body(); }
+  function rowHTML(it){
+    var v=G.loot.verdict(it), wt=G.loot.weightOf(it), keep=(disp[it.id]==="keep");
+    return '<div class="settle-row'+(keep?" keep":" drop")+'" data-row="'+it.id+'">'+
+      '<span class="settle-ico">'+G.ui.icoHTML(it)+'</span>'+
+      '<span class="settle-info"><b class="'+it.rarityCls+'">'+esc(it.name)+'</b> '+
+        '<span class="settle-badge '+v.cls+'">'+v.label+'</span>'+
+        '<br><span class="idesc">'+(it.identified===false?'<span class="muted">감정 필요</span>':G.item.statText(it))+'</span></span>'+
+      '<span class="settle-wt" title="무게">⚖️'+wt+'</span>'+
+      '<span class="settle-acts"><button class="btn xs settle-pick'+(keep?' on':'')+'" data-pick="'+it.id+'">'+(keep?'✅ 챙김':'🗑️ 버림')+'</button></span>'+
+    '</div>';
+  }
+  function body(){ return capHTML()+'<div class="settle-list">'+order.map(rowHTML).join("")+'</div>'; }
+  function paint(){ var b=ov.querySelector(".settle-paint"); if(b) b.innerHTML=body(); }   // 일괄(추천/전부버림)용
+  function refreshCap(){ var c=ov.querySelector(".settle-cap"); if(c) c.outerHTML=capHTML(); }
+  function refreshRow(id){ var r=ov.querySelector('.settle-row[data-row="'+id+'"]'); if(!r) return; var it=byId(id); if(!it) return;
+    var keep=(disp[id]==="keep"); r.className="settle-row"+(keep?" keep":" drop");
+    var b=r.querySelector(".settle-pick"); if(b){ b.className="btn xs settle-pick"+(keep?" on":""); b.textContent=keep?'✅ 챙김':'🗑️ 버림'; } }
   var ov=document.createElement("div"); ov.className="modal-overlay show"; ov.style.zIndex="320";
   ov.innerHTML='<div class="modal" style="width:min(540px,96vw)">'+
     '<h2 style="justify-content:center">📦 전리품 정산'+(dead?' <span class="r-common" style="font-size:.7rem">쓰러짐</span>':'')+'</h2>'+
@@ -577,7 +582,8 @@ G.ui.settleModal = function(){
         if(keptWeight()+G.loot.weightOf(byId(id)) > cap){ G.ui.toast("휴대 용량 초과 — 다른 항목을 버리세요"); return; }
         disp[id]="keep";
       }
-      paint(); return;
+      refreshRow(id); refreshCap();   // 해당 행+예산만 갱신(위치·스크롤 유지)
+      return;
     }
     if(e.target.closest("[data-settle-auto]")){ disp=G.loot.autoDisp(cap); paint(); return; }
     if(e.target.closest("[data-settle-none]")){ disp={}; G.loot.list().forEach(function(it){ disp[it.id]="discard"; }); paint(); return; }
