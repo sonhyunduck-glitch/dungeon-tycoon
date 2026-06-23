@@ -591,18 +591,29 @@ G.ui.settleModal = function(){
   });
 };
 
-/* 🛡️ 장착 장비 상세 — 페이퍼돌 칸 탭 시 */
+/* 🛡️ 장착 장비 상세 — 페이퍼돌 칸 탭 시. 순서: ① 룬워드 ② 아이템 이름 ③ 스탯정보 */
 G.ui.equipDetailModal = function(slotKey){
   var it=G.state.equipment[slotKey]; if(!it) return;
   var w=(it.sockets && G.runeword.ofItem) ? G.runeword.ofItem(it) : null;
-  var sockHtml = it.sockets ? '<div style="margin:6px 0">'+G.ui.socketDots(it)+'</div>'+
-      (w?'<div class="rw-active" style="text-align:center">🔗 <b class="r-legend">'+w.ico+' '+esc(w.name)+'</b> <span class="idesc" style="color:var(--gold)">'+G.ui.rwBonusTxt(w)+'</span></div>':'') : '';
+  var baseName = it.baseName ? ("["+it.baseName+"]") : it.name;   // 룬워드 아이템은 베이스명 표기
+  // ① 룬워드
+  var rwSec = w ? '<div class="rw-active" style="text-align:center;margin-bottom:6px">🔗 룬워드 <b class="r-legend">'+w.ico+' '+esc(w.name)+'</b>'+
+      '<div class="idesc" style="color:var(--gold)">'+G.ui.rwBonusTxt(w)+'</div></div>' : '';
+  // ③ 스탯정보(기본 스탯 + 소켓 룬 합산 효과)
+  var statTxt = G.item.statText(it) || "";
+  if(it.sockets){
+    var isW=(it.type==="weapon"), agg={};
+    it.sockets.forEach(function(r){ if(!r) return; var e=isW?r.wpn:r.arm; for(var k in e) agg[k]=(agg[k]||0)+e[k]; });
+    var sk=Object.keys(agg).map(function(k){ var m=G.DATA.STAT_META[k]; return m?(m.label+" +"+agg[k]+(m.pct?"%":"")):""; }).filter(Boolean).join(" · ");
+    if(sk) statTxt += (statTxt?'<br>':'')+'<span class="r-uncommon">🔩 '+sk+'</span>';
+  }
   var ov=document.createElement("div"); ov.className="modal-overlay show"; ov.style.zIndex="320";
   ov.innerHTML='<div class="modal" style="width:min(420px,94vw)">'+
-    '<h2 style="justify-content:center"><span class="'+it.rarityCls+'">'+G.ui.icoHTML(it)+' '+esc(it.name)+'</span></h2>'+
+    rwSec+
+    '<h2 style="justify-content:center"><span class="'+it.rarityCls+'">'+G.ui.icoHTML(it)+' '+esc(baseName)+'</span></h2>'+
     '<div class="muted" style="text-align:center;font-size:.72rem;margin-bottom:6px">'+(SLOT_LABELS[it.slot]||it.slot)+' · <span class="'+it.rarityCls+'">'+(it.rarityLabel||"")+'</span></div>'+
-    '<div class="idesc" style="text-align:center;line-height:1.6">'+(G.item.statText(it)||"")+'</div>'+
-    sockHtml+
+    (it.sockets?'<div style="text-align:center;margin:4px 0">'+G.ui.socketDots(it)+'</div>':'')+
+    '<div class="idesc" style="text-align:center;line-height:1.7">'+statTxt+'</div>'+
     '<div class="row" style="margin-top:12px;gap:6px">'+
       (it.sockets?'<button class="btn sm gold" data-sock>🔩 소켓</button>':'')+
       '<button class="btn sm" data-uneq style="flex:1">➖ 해제(창고로)</button>'+
