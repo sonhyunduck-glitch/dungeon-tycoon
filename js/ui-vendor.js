@@ -59,7 +59,31 @@ G.ui._potionShop = function(){
         '</div>'+
       '</div>'+
       '<div class="muted" style="margin-top:8px">💡 전체 회복은 즉시 풀회복(부활·소모전 후 편리), 물약은 전투 중 사용분 비축용. 둘 다 회복 HP당 1골드.</div>'+
-    '</div>';
+    '</div>'+
+    G.ui._speedAdPanel();
+};
+
+/* ⏩ 배속 광고 상품 — 광고 시청 시 임시 배속 버프 */
+G.ui._speedAdPanel = function(){
+  var avail=G.ads && G.ads.available(), left=avail?G.ads.left("speed"):0, cap=(G.ads&&G.ads.CAP.speed)||0;
+  var S=(G.ads&&G.ads.SPEED)||{tier:2,mins:15,maxTier:3,maxMins:60};
+  var leftMs=G.speedBuffLeftMs?G.speedBuffLeftMs():0, tier=G.maxSpeed();
+  var status = leftMs>0
+    ? '<div class="idesc r-legend">현재 ⏩ '+tier+'배속 적용 중 · 남은 '+Math.ceil(leftMs/60000)+'분</div>'
+    : '<div class="idesc">광고를 보면 자동전투 속도가 빨라집니다 (평소 1배속)</div>';
+  var btn = !avail
+    ? '<button class="btn sm" disabled>앱에서만 가능</button>'
+    : (left>0
+        ? '<button class="btn sm primary" data-act="ad-speed">🎬 광고 보고 ⏩ ('+left+'/'+cap+')</button>'
+        : '<button class="btn sm" disabled>오늘 소진 (내일 리셋)</button>');
+  return '<div class="panel"><h2>⏩ 배속 (광고)</h2>'+
+    '<div class="item"><div class="ico">⏩</div>'+
+      '<div class="info"><div class="iname">자동전투 배속</div>'+
+        '<div class="idesc">시청 시 <b>'+S.tier+'배속 '+S.mins+'분</b> · 오늘 마지막('+cap+'회차)엔 <b class="r-legend">'+S.maxTier+'배속 '+S.maxMins+'분</b></div>'+
+        status+
+      '</div>'+
+      '<div class="iacts">'+btn+'</div>'+
+    '</div></div>';
 };
 
 /* 🎲 겜블 — 부위 선택 → 골드로 랜덤 아이템 구매(즉시 감정) */

@@ -146,6 +146,7 @@
     "toggle-glow": function(){ G.state.glow = (G.state.glow===false); if(G.glow) G.glow.apply(); G.save.save(true); G.ui.render(); },
     "ad-coin": function(){ if(G.ads) G.ads.rewardCoin(); },
     "ad-gacha": function(){ if(G.ads) G.ads.rewardGacha(); },
+    "ad-speed": function(){ if(G.ads) G.ads.rewardSpeed(); },
 
     /* 아레나(PvP) */
     "arena-refresh": function(){ G.arena._foes=null; G.ui.renderArena(); },
@@ -319,6 +320,7 @@
   /* ---------- 자동화 루프 (특성) — 배속에 따라 간격 단축 ---------- */
   function autoStep(){
     if(G.paused || document.hidden) return;   // 일시정지/백그라운드(화면 꺼짐·앱 전환) 시 진행·연산 멈춤(배터리 절감)
+    if((G.state.battleSpeed||1)>G.maxSpeed()){ G.state.battleSpeed=G.maxSpeed(); }   // 배속 버프 만료 시 1x로 복귀
     var run=G.state.dungeon.run;
     if(run){
       if(run.cleared){

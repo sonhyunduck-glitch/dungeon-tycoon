@@ -32,7 +32,8 @@ G.newState = function(){
     consumables:{ potion_s:10, potionHeal:40 },  // potionHeal=보유 물약 1개당 고정 회복량(구매 시점 고정)
     potionMax:10,
     potionLevel:1,       // 물약 강화 레벨 (회복률 상승)
-    battleSpeed:1,       // 자동 전투 배속 (진행도에 따라 해금)
+    battleSpeed:1,       // 자동 전투 배속 (광고 버프로만 상승)
+    speedBuff:{ tier:1, until:0 },   // ⏩ 배속 버프(광고 보상): tier배속이 until(ms)까지
     muted:false,         // 사운드 음소거(마스터)
     shake:true,          // 피격 시 화면 흔들림 효과
     arenaSkip:false,     // 아레나 전투화면 항상 스킵(바로 결과)
@@ -140,7 +141,8 @@ G.potionHealAmount = function(){
 G.potionPrice = function(){ return G.potionHealAmount(); };
 
 /* 최대 배속 — 해금 없이 항상 4배속까지 */
-G.maxSpeed = function(){ return 4; };
+G.maxSpeed = function(){ var b=G.state.speedBuff; return (b && b.tier>1 && b.until>Date.now()) ? b.tier : 1; };
+G.speedBuffLeftMs = function(){ var b=G.state.speedBuff; return (b && b.until>Date.now()) ? (b.until-Date.now()) : 0; };
 
 G.power = function(){
   var s=G.totalStats();

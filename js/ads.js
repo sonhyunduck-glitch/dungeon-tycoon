@@ -12,7 +12,8 @@
   G.ads.REWARD_ID_REAL = "ca-app-pub-5609592289457564/9426627553";   // 실제 보상형(탑아이들)
   G.ads.TEST_MODE = true;   // ⚠️ true=테스트광고(개발/검증용). 출시 AAB 빌드 전 반드시 false 로!
   G.ads.rewardId = function(){ return this.TEST_MODE ? this.REWARD_ID_TEST : this.REWARD_ID_REAL; };
-  G.ads.CAP = { coin:5, gacha:2 };       // 일일 시청 한도(보상 종류별)
+  G.ads.CAP = { coin:5, gacha:2, speed:3 };   // 일일 시청 한도(보상 종류별). 구글은 보상광고 일일 고정한도 없음 → 앱이 설정
+  G.ads.SPEED = { tier:2, mins:15, maxTier:3, maxMins:60 };   // 일반 시청=2배속 15분, 당일 마지막(최대) 시청=3배속 60분
   G.ads.COIN_REWARD = 30;                 // 코인 보상량
   G.ads._busy = false;
 
@@ -67,6 +68,19 @@
       G.arena.ensure(); G.state.arena.coins=(G.state.arena.coins||0)+G.ads.COIN_REWARD;
       if(G.log) G.log("🎬 광고 보상: 아레나 코인 +"+G.ads.COIN_REWARD,"r-uncommon");
       if(G.ui) G.ui.toast("🏅 아레나 코인 +"+G.ads.COIN_REWARD);
+    });
+  };
+  G.ads.rewardSpeed = function(){
+    G.ads.reward("speed", function(){
+      var maxed = G.ads.left("speed")<=0;   // 방금 tick 후 0 = 당일 마지막(최대) 시청
+      var S=G.ads.SPEED, tier = maxed?S.maxTier:S.tier, mins = maxed?S.maxMins:S.mins;
+      var now=Date.now(), until=now+mins*60000;
+      var b=G.state.speedBuff || { tier:1, until:0 };
+      if(b.until<=now){ b={ tier:tier, until:until }; }            // 만료 → 새 버프
+      else { b.until=Math.max(b.until,until); if(tier>b.tier) b.tier=tier; }   // 진행중 → 시간연장·상위우선
+      G.state.speedBuff=b; G.state.battleSpeed=b.tier;             // 즉시 적용
+      if(G.log) G.log("🎬 광고 보상: ⏩ "+tier+"배속 "+mins+"분!","r-legend");
+      if(G.ui) G.ui.toast("⏩ "+tier+"배속 "+mins+"분 적용!");
     });
   };
   G.ads.rewardGacha = function(){
