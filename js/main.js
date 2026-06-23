@@ -101,6 +101,7 @@
     "bag-filter-slot": function(d){ G.state.ui.bagFilterSlot=d.slot||d.value; G.ui.renderInventory(); },
     "bag-stat-pick": function(){ G.ui.bagStatPickModal(); },
     "socket-open": function(d){ G.ui.socketModal(d.id); },
+    "equip-detail": function(d){ G.ui.equipDetailModal(d.slot); },
     "bag-filter-stat": function(d){ G.state.ui.bagFilterStat=d.key||d.value; var ov=document.querySelector(".modal-overlay.show"); if(ov) ov.remove(); G.ui.renderInventory(); },
     "bag-filter-clear": function(){ G.state.ui.bagFilterSlot="all"; G.state.ui.bagFilterStat="all"; G.ui.renderInventory(); },
     "compare": function(d){ G.ui.compareModal(d.id); },

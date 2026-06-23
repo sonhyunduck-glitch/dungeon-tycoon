@@ -591,6 +591,32 @@ G.ui.settleModal = function(){
   });
 };
 
+/* 🛡️ 장착 장비 상세 — 페이퍼돌 칸 탭 시 */
+G.ui.equipDetailModal = function(slotKey){
+  var it=G.state.equipment[slotKey]; if(!it) return;
+  var w=(it.sockets && G.runeword.ofItem) ? G.runeword.ofItem(it) : null;
+  var sockHtml = it.sockets ? '<div style="margin:6px 0">'+G.ui.socketDots(it)+'</div>'+
+      (w?'<div class="rw-active" style="text-align:center">🔗 <b class="r-legend">'+w.ico+' '+esc(w.name)+'</b> <span class="idesc" style="color:var(--gold)">'+G.ui.rwBonusTxt(w)+'</span></div>':'') : '';
+  var ov=document.createElement("div"); ov.className="modal-overlay show"; ov.style.zIndex="320";
+  ov.innerHTML='<div class="modal" style="width:min(420px,94vw)">'+
+    '<h2 style="justify-content:center"><span class="'+it.rarityCls+'">'+G.ui.icoHTML(it)+' '+esc(it.name)+'</span></h2>'+
+    '<div class="muted" style="text-align:center;font-size:.72rem;margin-bottom:6px">'+(SLOT_LABELS[it.slot]||it.slot)+' · <span class="'+it.rarityCls+'">'+(it.rarityLabel||"")+'</span></div>'+
+    '<div class="idesc" style="text-align:center;line-height:1.6">'+(G.item.statText(it)||"")+'</div>'+
+    sockHtml+
+    '<div class="row" style="margin-top:12px;gap:6px">'+
+      (it.sockets?'<button class="btn sm gold" data-sock>🔩 소켓</button>':'')+
+      '<button class="btn sm" data-uneq style="flex:1">➖ 해제(창고로)</button>'+
+      '<button class="btn primary" data-modal-close style="flex:1">닫기</button>'+
+    '</div>'+
+  '</div>';
+  document.body.appendChild(ov);
+  ov.addEventListener("click", function(e){
+    if(e.target===ov || e.target.closest("[data-modal-close]")){ ov.remove(); return; }
+    if(e.target.closest("[data-sock]")){ ov.remove(); if(G.ui.socketModal) G.ui.socketModal(it.id); return; }
+    if(e.target.closest("[data-uneq]")){ G.inventory.unequip(slotKey); if(G.save)G.save.save(true); ov.remove(); G.ui.render(); return; }
+  });
+};
+
 /* 미정산 전리품 플로팅 버튼 갱신 */
 G.ui.updateSettleFab = function(){
   var fab=document.getElementById("settle-fab"); if(!fab) return;

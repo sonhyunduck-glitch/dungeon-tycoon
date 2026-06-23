@@ -32,7 +32,7 @@ G.ui.renderCharacter = function(){
   function pdCell(k){
     var it=G.state.equipment[k], lbl=SLOT_LABELS[k]||k;
     if(it){
-      return '<div class="pdcell '+it.rarityCls+'" data-act="unequip" data-slot="'+k+'" title="'+esc(it.name)+' — '+esc(G.item.statText(it))+' (탭하여 해제)">'+
+      return '<div class="pdcell '+it.rarityCls+'" data-act="equip-detail" data-slot="'+k+'" title="'+esc(it.name)+' (탭하여 상세)">'+
         '<span class="pdico">'+G.ui.icoHTML(it)+'</span><span class="pdname '+it.rarityCls+'">'+esc(it.name)+'</span></div>';
     }
     return '<div class="pdcell empty" title="'+lbl+' — 창고에서 착용"><span class="pdlbl">'+lbl+'</span></div>';
@@ -48,7 +48,7 @@ G.ui.renderCharacter = function(){
     pdCell("helmet")+pdCell("necklace")+capeCell()+
     pdCell("weapon")+avCell+pdCell("armor")+
     pdCell("gloves")+pdCell("ring")+pdCell("boots")+
-    '</div><div class="muted" style="font-size:.7rem;text-align:center;margin-top:8px">착용은 창고에서 · 칸 탭 = 해제 · 가운데는 아바타</div></div>';
+    '</div><div class="muted" style="font-size:.7rem;text-align:center;margin-top:8px">착용은 창고에서 · 칸 탭 = 상세정보 · 가운데는 아바타</div></div>';
 
   // 서브 탭
   var sub=G.state.ui.charSub||"stats";
