@@ -154,12 +154,13 @@
   };
   G.avatar.currentId = function(){ return (G.state && G.state.avatar) || "adventurer"; };
   G.avatar.current = function(){ return G.avatar.get(G.avatar.currentId()); };
-  // 해금 층 오름차순 정렬(뽑기 전용=unlock 없음/9999 → 맨 뒤). 도감·아바타 목록 공용
+  // 정렬: 보유 아바타 먼저(위쪽) → 해금 층 오름차순(뽑기 전용=unlock 없음/9999 → 맨 뒤). 도감·아바타 목록 공용
   G.avatar.byUnlock = function(){
+    function fl(a){ return (a.unlock!=null && a.unlock<9999)?a.unlock:Infinity; }
     return (G.DATA.AVATARS||[]).slice().sort(function(a,b){
-      var ua=(a.unlock!=null && a.unlock<9999)?a.unlock:Infinity;
-      var ub=(b.unlock!=null && b.unlock<9999)?b.unlock:Infinity;
-      return ua-ub;
+      var oa=G.avatar.owned(a)?0:1, ob=G.avatar.owned(b)?0:1;
+      if(oa!==ob) return oa-ob;            // 보유분 위로
+      return fl(a)-fl(b);                   // 그 안에서 해금 층 순
     });
   };
   G.avatar.hasWalk = function(){ var c=G.avatar.current(); return !!(c && c.walk); };   // 진짜 걷기 프레임 보유 여부
