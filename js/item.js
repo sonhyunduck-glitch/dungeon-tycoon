@@ -256,10 +256,34 @@ G.runeword.ofItem = function(it){
   }
   return found;
 };
-/* 현재 장착 장비에서 발동 중인 룬워드 전부 */
+/* 룬워드 보너스 변동 폭 — 기준값의 LO~HI배 사이에서 굴림(동일 룬워드도 상위 옵션 가능) */
+G.runeword.VAR_LO = 0.85;
+G.runeword.VAR_HI = 1.20;
+/* 룬워드 완성 시 보너스 1회 굴림(스탯별 폭 적용) → 아이템에 저장 */
+G.runeword.rollBonus = function(w){
+  var out={}, b=(w&&w.bonus)||{};
+  for(var k in b){
+    var base=b[k];
+    var lo=Math.max(1, Math.round(base*G.runeword.VAR_LO));
+    var hi=Math.max(lo, Math.round(base*G.runeword.VAR_HI));
+    out[k]=G.util.rand(lo, hi);
+  }
+  return out;
+};
+/* 룬워드 보너스 굴림 품질(평균 대비 %) — 표시용 */
+G.runeword.rollQuality = function(w, rolled){
+  var b=(w&&w.bonus)||{}, sb=0, sr=0;
+  for(var k in b){ sb+=b[k]; sr+=(rolled&&rolled[k]!=null)?rolled[k]:b[k]; }
+  return sb>0 ? Math.round(sr/sb*100) : 100;
+};
+/* 현재 장착 장비에서 발동 중인 룬워드 전부 (아이템 저장된 변동 보너스 반영) */
 G.runeword.activeList = function(){
   var eq=G.state.equipment, out=[];
-  for(var k in eq){ var w=G.runeword.ofItem(eq[k]); if(w) out.push(w); }
+  for(var k in eq){
+    var it=eq[k], w=G.runeword.ofItem(it);
+    if(w){ out.push({ id:w.id, name:w.name, ico:w.ico, cat:w.cat, runes:w.runes, open:w.open,
+      bonus:(it&&it.rwBonus)||w.bonus, baseBonus:w.bonus }); }
+  }
   return out;
 };
 G.runeword.active = function(){ return G.runeword.activeList()[0] || null; };   // 호환(첫 룬워드)
@@ -289,8 +313,10 @@ G.socket.insert = function(itemId, runeId){
   var baseDisp = it.runeword ? it.name : (it.baseName?("["+it.baseName+"]"):it.name);
   it.sockets[slot]=rune;
   var w=G.runeword.ofItem(it);
-  if(w){   // 룬워드 완성 → 아이템 이름을 룬워드명으로 변경(디아블로식)
+  if(w){   // 룬워드 완성 → 이름 변경 + 보너스 변동 1회 굴림(영구 저장)
     it.runeword=w.id; it.runewordIco=w.ico;
+    it.rwBonus=G.runeword.rollBonus(w);                 // 폭 내 굴림 → 동일 룬워드도 상위 옵션 가능
+    it.rwQuality=G.runeword.rollQuality(w, it.rwBonus); // 품질%(표시용)
     it.name=w.ico+" "+w.name;
     it.rarityCls="r-runeword"; it.rarityLabel="룬워드";
     G.runeword.recordActive();
@@ -344,40 +370,6 @@ G.item.identify = function(id){
   G.state.player.gold-=cost;
   it.identified=true;
   G.log("🔍 감정: ["+it.rarityLabel+"] "+it.name+" — "+G.item.statText(it), it.rarityCls);
-};
-
-/* 재련: 옵션(접사) 한 줄을 무작위로 교체 (골드 전용) */
-G.item.rerollCost = function(it){
-  return { gold: Math.round((it.basePrice||50)*0.3) };
-};
-G.item.reroll = function(id){
-  var it=G.state.inventory.find(function(x){return x.id===id;});
-  if(!it) return;
-  if(!it.identified){ G.ui.toast("감정 후 재련할 수 있습니다"); return; }
-  if(!it.affixes || !it.affixes.length){ G.ui.toast("재련할 옵션이 없습니다"); return; }
-  var cost=G.item.rerollCost(it);
-  if(G.state.player.gold<cost.gold){ G.ui.toast("골드 부족 (🪙"+G.ui.fmt(cost.gold)+")"); return; }
-  G.state.player.gold-=cost.gold;
-
-  var lvlMult=Math.pow(1.112, (it.level||1)-1);
-  var i=Math.floor(Math.random()*it.affixes.length);
-  var old=it.affixes[i];
-  // 현재 다른 옵션과 겹치지 않는 새 옵션 선택
-  var used={}; it.affixes.forEach(function(a,j){ if(j!==i) used[a.stat]=1; });
-  for(var k in it.fixed) used[k]=1;                  // 고정스탯과도 안 겹치게
-  var allowStats = (G.DATA.SLOT_AFFIXES[it.slot]||[]).filter(function(s){ return G.DATA.AFFIXES[s]; });
-  var cand=allowStats.filter(function(s){ return !used[s]; });
-  var stat = cand.length? cand[Math.floor(Math.random()*cand.length)] : (allowStats[0]||"atk");
-  var def=G.DATA.AFFIXES[stat];
-  var pt=G.item.pickTier(def, it.level||1), tier=pt.tier;
-  it.affixes[i]={ stat:stat, value:rollAffixValue(def, tier, lvlMult, it.slot),
-    pct:!!def.pct, flat:!!def.flat, side:def.side, tierName:tier.n, tierIdx:pt.idx };
-  it.name=G.item.composeName(it);                    // 옵션 변경 → 접두/접미 이름 갱신
-  mergeStats(it);
-  var rdef=G.DATA.RARITY.find(function(r){return r.key===it.rarity;});
-  it.basePrice=priceOf(it, rdef, it.tier||1);
-  var om=G.DATA.STAT_META[old.stat], nm=G.DATA.STAT_META[stat];
-  G.log("♻️ 재련: "+om.label+" → "+nm.label+" +"+G.ui.fmt(it.affixes[i].value)+(nm.pct?"%":""), it.rarityCls);
 };
 
 /* ============================================================

@@ -121,7 +121,6 @@
     "quicksell": function(d){ G.inventory.quickSell(d.id); G.ui.render(); },
     "cap-upgrade": function(d){ G.inventory.upgradeCap(d&&d.cat); G.ui.render(); },
     "identify": function(d){ G.item.identify(d.id); G.ui.render(); },
-    "reroll": function(d){ G.item.reroll(d.id); G.ui.render(); },
     "gamble-buy": function(d){ if(G.gamble.buy(d.part)){ if(G.save)G.save.save(true); } G.ui.render(); },
 
     /* 캐릭터 */

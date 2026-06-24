@@ -114,10 +114,8 @@ G.ui._storePanel = function(){
     // 감정된 장비 — 전투효과(공격×생존) 변화율로 추천
     var up=G.inventory.upgradeInfo(it);
     var diffTxt = !up ? '' : (up.pct>=0.5?'<span class="r-uncommon" title="전투효과">▲'+(up.pct>=200?'대폭':up.pct.toFixed(0)+'%')+'</span>':(up.pct<=-0.5?'<span class="r-common" title="전투효과">▼'+Math.abs(up.pct).toFixed(0)+'%</span>':'<span class="muted">=</span>'));
-    var rc=G.item.rerollCost(it);
     var acts=
       '<button class="btn sm primary" data-act="equip" data-id="'+it.id+'">착용 '+diffTxt+'</button>'+
-      '<button class="btn sm" data-act="reroll" data-id="'+it.id+'" title="재련: 옵션 한 줄 무작위 변경 (🪙'+G.ui.fmt(rc.gold)+')">재련 🪙'+G.ui.fmt(rc.gold)+'</button>'+
       sellBtn;
     return itemCard(it, acts);
   }).join("");

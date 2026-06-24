@@ -69,8 +69,12 @@ G.ui.renderCharacter = function(){
 };
 
 /* 룬워드 보너스 텍스트 */
-G.ui.rwBonusTxt = function(w){
-  return Object.keys(w.bonus||{}).map(function(k){ var m=G.DATA.STAT_META[k]; return m?(m.label+" +"+w.bonus[k]+(m.pct?"%":"")):""; }).filter(Boolean).join(" · ");
+G.ui.rwBonusTxt = function(w, it){
+  var bonus=(it&&it.rwBonus)||(w&&w.bonus)||{};
+  var txt=Object.keys(bonus).map(function(k){ var m=G.DATA.STAT_META[k]; return m?(m.label+" +"+bonus[k]+(m.pct?"%":"")):""; }).filter(Boolean).join(" · ");
+  if(it&&it.rwQuality!=null){ var q=it.rwQuality, cls=q>=110?"r-legend":(q>=100?"r-uncommon":"muted");
+    txt+=' <span class="'+cls+'" style="font-size:.66rem">(품질 '+q+'%)</span>'; }
+  return txt;
 };
 /* 아이템 소켓 표시 (◇ 빈칸 / 룬 아이콘) */
 G.ui.socketDots = function(it){
@@ -90,7 +94,7 @@ G.ui._socketPanel = function(){
       '<div class="slotlbl">'+(SLOT_LABELS[it.slot]||it.slot)+(it.type==="weapon"?' ⚔️':' 🛡️')+'</div>'+
       '<div class="iname" style="font-size:.82rem">'+G.ui.icoHTML(it)+' '+esc(it.name)+'</div>'+
       '<div style="margin:4px 0">'+G.ui.socketDots(it)+'</div>'+
-      (w?'<div class="rw-active">🔗 <b class="r-legend">'+w.ico+' '+esc(w.name)+'</b><div class="idesc" style="color:var(--gold)">'+G.ui.rwBonusTxt(w)+'</div></div>':'')+
+      (w?'<div class="rw-active">🔗 <b class="r-legend">'+w.ico+' '+esc(w.name)+'</b><div class="idesc" style="color:var(--gold)">'+G.ui.rwBonusTxt(w, it)+'</div></div>':'')+
       '<button class="btn sm primary" style="margin-top:4px" data-act="socket-open" data-id="'+it.id+'">🔩 룬 장착</button>'+
     '</div>');
   }
@@ -152,7 +156,10 @@ G.ui._collectionPanel = function(){
   var rwDisc=(G.state.collection.runewords)||{};
   var rws=G.DATA.RUNEWORDS||[];
   var rwN=rws.filter(function(w){return rwDisc[w.id];}).length;
-  function rwBonusTxt(w){ return Object.keys(w.bonus).map(function(k){ var m=G.DATA.STAT_META[k]; return m?(m.label+" +"+w.bonus[k]+(m.pct?"%":"")):""; }).filter(Boolean).join(" · "); }
+  var _lo=(G.runeword&&G.runeword.VAR_LO)||0.85, _hi=(G.runeword&&G.runeword.VAR_HI)||1.20;
+  function rwBonusTxt(w){ return Object.keys(w.bonus).map(function(k){ var m=G.DATA.STAT_META[k]; if(!m) return "";
+    var lo=Math.max(1,Math.round(w.bonus[k]*_lo)), hi=Math.max(lo,Math.round(w.bonus[k]*_hi));
+    return m.label+" +"+lo+"~"+hi+(m.pct?"%":""); }).filter(Boolean).join(" · "); }
   var rwList=rws.map(function(w){
     var got=!!rwDisc[w.id], show=got||w.open;   // 발견했거나 공개 룬워드면 정보 표시
     var catTxt=(w.cat==="weapon"?"무기":"방어구")+" "+w.runes.length+"소켓";

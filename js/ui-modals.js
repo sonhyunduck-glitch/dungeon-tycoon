@@ -259,7 +259,7 @@ G.ui.socketModal = function(itemId){
         }).join("") : '<div class="empty">보유한 룬이 없습니다.<br><span class="muted">사냥에서 룬을 획득하세요.</span></div>');
     return '<h2 style="justify-content:center;font-size:1.05rem">'+G.ui.icoHTML(item)+' '+esc(item.name)+'</h2>'+
       '<div class="muted" style="text-align:center;font-size:.72rem;margin-bottom:6px">'+(isW?'무기 — 룬의 ⚔️ 공격 효과 적용':'방어구 — 룬의 🛡️ 방어 효과 적용')+'</div>'+
-      (w?'<div class="rw-active" style="text-align:center">🔗 <b class="r-legend">'+w.ico+' '+esc(w.name)+'</b> 발동! <span class="idesc" style="color:var(--gold)">'+G.ui.rwBonusTxt(w)+'</span></div>':'')+
+      (w?'<div class="rw-active" style="text-align:center">🔗 <b class="r-legend">'+w.ico+' '+esc(w.name)+'</b> 발동! <span class="idesc" style="color:var(--gold)">'+G.ui.rwBonusTxt(w, item)+'</span></div>':'')+
       '<div class="socklist">'+socks+'</div>'+
       '<div class="muted" style="font-size:.74rem;margin:8px 0 2px">보유 룬'+(open?' — 탭하면 빈 소켓에 장착 <b class="r-common">(영구)</b>':'')+'</div>'+
       '<div style="max-height:34vh;overflow:auto">'+runeList+'</div>';
@@ -614,7 +614,7 @@ G.ui.equipDetailModal = function(slotKey){
   var baseName = it.baseName ? ("["+it.baseName+"]") : it.name;   // 룬워드 아이템은 베이스명 표기
   // ① 룬워드
   var rwSec = w ? '<div class="rw-active" style="text-align:center;margin-bottom:6px">🔗 룬워드 <b class="r-legend">'+w.ico+' '+esc(w.name)+'</b>'+
-      '<div class="idesc" style="color:var(--gold)">'+G.ui.rwBonusTxt(w)+'</div></div>' : '';
+      '<div class="idesc" style="color:var(--gold)">'+G.ui.rwBonusTxt(w, it)+'</div></div>' : '';
   // ③ 스탯정보(기본 스탯 + 소켓 룬 합산 효과)
   var statTxt = G.item.statText(it) || "";
   if(it.sockets){
