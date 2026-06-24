@@ -145,6 +145,11 @@ G.ui.switchTab = function(tab){
     G.log("🚪 던전에서 나왔습니다. 진행이 종료되었습니다.","");
     G.save.save(true);
   }
+  // 탭(재)진입 시 서브탭을 기본값으로 초기화 — 이전에 보던 하위 화면 복원 방지
+  var u=G.state.ui;
+  if(tab==="vendor"){ u.vendorSub="potion"; u.cubeSub="fuse"; u.rwItem=null; u.rwPick=[]; }
+  else if(tab==="character"){ u.charSub="stats"; u.colSub="equip"; }
+  else if(tab==="inventory"){ u.whCat="all"; }
   G.state.ui.tab=tab;
   document.querySelectorAll(".nav-btn").forEach(function(b){ b.classList.toggle("active", b.dataset.tab===tab); });
   document.querySelectorAll(".view").forEach(function(s){ s.classList.remove("active"); });
