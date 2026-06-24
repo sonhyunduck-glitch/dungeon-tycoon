@@ -103,7 +103,7 @@ G.ui._gamble = function(){
     '<div class="panel"><div class="muted" style="font-size:.78rem">🔮 룬은 사냥 드랍으로 획득해 <b>장비 소켓</b>에 장착합니다. (창고 🔮 탭 → 소켓 장착)</div></div>';
 };
 
-/* 🧊 호라드릭 큐브 — 룬합성 | 룬워드 서브탭 */
+/* 🧊 큐브 — 룬합성 | 룬워드 서브탭 */
 G.ui._cubePanel = function(){
   var sub=G.state.ui.cubeSub||"fuse";
   var tabs=[["fuse","🧊 룬합성"],["word","🔗 룬워드"]];
@@ -199,7 +199,7 @@ G.ui._cubeFusePanel = function(){
     '</div>';
   }).join("");
   var top=R[R.length-1];
-  return '<div class="panel"><h3>🧊 호라드릭 큐브 <span class="muted" style="font-size:.66rem">룬 승급 '+G.cube.RATIO+':1</span></h3>'+
+  return '<div class="panel"><h3>🧊 큐브 <span class="muted" style="font-size:.66rem">룬 승급 '+G.cube.RATIO+':1</span></h3>'+
     '<div class="muted" style="font-size:.74rem; margin-bottom:8px">같은 룬 '+G.cube.RATIO+'개를 합쳐 상위 룬으로 승급합니다. 최상위 「'+esc(top.name)+'」은 승급 불가. <b class="r-common">소켓에 박은 룬은 뺄 수 없으니</b> 승급 후 장착하세요.</div>'+
     rows+'</div>';
 };
