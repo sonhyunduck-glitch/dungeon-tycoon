@@ -103,8 +103,89 @@ G.ui._gamble = function(){
     '<div class="panel"><div class="muted" style="font-size:.78rem">🔮 룬은 사냥 드랍으로 획득해 <b>장비 소켓</b>에 장착합니다. (창고 🔮 탭 → 소켓 장착)</div></div>';
 };
 
-/* 🧊 호라드릭 큐브 — 룬 승급(하위 3개 → 상위 1개) */
+/* 🧊 호라드릭 큐브 — 룬합성 | 룬워드 서브탭 */
 G.ui._cubePanel = function(){
+  var sub=G.state.ui.cubeSub||"fuse";
+  var tabs=[["fuse","🧊 룬합성"],["word","🔗 룬워드"]];
+  var bar='<div class="subtabs" style="margin-bottom:8px">'+tabs.map(function(t){
+    return '<button class="subtab'+(sub===t[0]?" active":"")+'" data-act="cube-sub" data-sub="'+t[0]+'">'+t[1]+'</button>';
+  }).join("")+'</div>';
+  return bar + (sub==="word" ? G.ui._cubeRunewordPanel() : G.ui._cubeFusePanel());
+};
+
+/* 🔗 룬워드 제작 — 소켓템 선택 → 빈 소켓에 룬 담기 → 확정(영구) */
+G.ui._cubeRunewordPanel = function(){
+  var ui=G.state.ui;
+  // 소켓이 있고 빈 소켓이 1개 이상인 아이템(가방+착용)
+  var pool=[];
+  (G.state.inventory||[]).forEach(function(it){ if(it.sockets && G.socket.openCount(it)>0) pool.push({it:it,where:"가방"}); });
+  var eq=G.state.equipment||{};
+  for(var k in eq){ var e=eq[k]; if(e && e.sockets && G.socket.openCount(e)>0) pool.push({it:e,where:"착용"}); }
+
+  var sel=ui.rwItem ? (pool.filter(function(p){return p.it.id===ui.rwItem;})[0]) : null;
+  if(!sel){ if(ui.rwItem){ ui.rwItem=null; ui.rwPick=[]; } }   // 선택템이 사라짐
+
+  // ── 아이템 미선택: 목록 ──
+  if(!sel){
+    if(!pool.length) return '<div class="panel"><h3>🔗 룬워드 제작</h3>'+
+      '<div class="empty">빈 소켓이 있는 장비가 없습니다.<br><span class="muted">사냥/겜블로 <b class="r-socket">소켓 베이스</b>를 구하세요.</span></div></div>';
+    var rows=pool.map(function(p){ var it=p.it;
+      return '<button class="item" style="width:100%;text-align:left;border:0;background:none;cursor:pointer" data-act="rw-pick-item" data-id="'+it.id+'">'+
+        '<div class="ico">'+G.ui.icoHTML(it)+'</div>'+
+        '<div class="info"><div class="iname '+(it.rarityCls||"")+'">'+esc(it.name)+' <span class="muted" style="font-size:.62rem">'+p.where+'</span></div>'+
+          '<div class="idesc">'+G.ui.socketDots(it)+' <span class="muted">'+G.socket.openCount(it)+'칸 비어있음</span></div></div>'+
+        '<div class="iacts"><span class="muted">선택 ▸</span></div></button>';
+    }).join("");
+    return '<div class="panel"><h3>🔗 룬워드 제작 <span class="muted" style="font-size:.66rem">소켓템 선택</span></h3>'+
+      '<div class="muted" style="font-size:.74rem;margin-bottom:8px">소켓에 룬을 담아 <b>확정</b>하면 조합이 맞는 경우 룬워드가 완성됩니다. <b class="r-common">한번 박은 룬은 뺄 수 없습니다.</b></div>'+
+      rows+'</div>';
+  }
+
+  // ── 아이템 선택됨: 룬 담기 ──
+  var it=sel.it, isW=(it.type==="weapon");
+  var open=G.socket.openCount(it);
+  var picks=(ui.rwPick||[]).map(function(rid){ return (G.state.inventory||[]).find(function(x){return x.id===rid;}); }).filter(Boolean);
+  if(picks.length>open) picks=picks.slice(0,open);
+  // 소켓 시각화: 기존 룬 + staged + 빈칸
+  var si=0, staged=picks.slice(), socks=it.sockets.map(function(r){
+    if(r) return '<span class="sock filled" title="'+esc(r.name)+'">'+(r.iconImg?'<img src="'+r.iconImg+'">':'🔹')+'</span>';
+    if(staged.length){ var s=staged.shift(); return '<span class="sock filled" style="outline:2px solid var(--gold)" title="'+esc(s.name)+'(대기)">'+(s.iconImg?'<img src="'+s.iconImg+'">':'🔹')+'</span>'; }
+    return '<span class="sock empty">◇</span>';
+  }).join("");
+  // staged 칩(탭하면 빼기)
+  var chips = picks.length ? '<div style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0">'+picks.map(function(s,i){
+      return '<button class="btn sm" data-act="rw-unpick" data-idx="'+i+'" title="빼기">'+(s.iconImg?'<img class="fico" src="'+s.iconImg+'" style="width:16px;height:16px;vertical-align:middle">':'🔹')+' '+esc(s.name)+' ✕</button>';
+    }).join("")+'</div>' : '<div class="muted" style="font-size:.74rem;margin:8px 0">아래 룬을 탭해 소켓에 담으세요.</div>';
+  // 미리보기
+  var pv=G.runeword.previewWith(it, picks);
+  var preview = picks.length<open
+    ? '<div class="idesc muted">룬을 '+(open-picks.length)+'개 더 담으면 결과를 확인합니다.</div>'
+    : (pv ? '<div class="rw-active" style="color:var(--gold)">🔗 <b class="r-legend">'+pv.ico+' '+esc(pv.name)+'</b> 완성! <span class="idesc">'+G.ui.rwBonusTxt(pv)+'</span></div>'
+          : '<div class="idesc muted">조합 일치 룬워드 없음 — <span class="r-common">개별 룬 효과만</span> 적용됩니다.</div>');
+  // 보유 룬(이미 담은 건 제외)
+  var pickedIds={}; (ui.rwPick||[]).forEach(function(id){ pickedIds[id]=1; });
+  var runes=(G.state.inventory||[]).filter(function(x){ return x.slot==="rune" && !pickedIds[x.id]; }).sort(function(a,b){return (b.rank||0)-(a.rank||0);});
+  var full=picks.length>=open;
+  var runeList = full ? '<div class="muted" style="font-size:.72rem">소켓을 모두 채웠습니다. 확정하세요.</div>'
+    : (runes.length ? runes.map(function(r){
+        return '<button class="btn full" style="text-align:left;margin-top:5px;display:flex;align-items:center;gap:8px" data-act="rw-pick-rune" data-id="'+r.id+'">'+
+          (r.iconImg?'<img class="fico" src="'+r.iconImg+'">':'🔹')+'<span style="flex:1"><b class="'+r.rarityCls+'">'+esc(r.name)+'</b><br><span class="idesc">'+G.item.statText(r)+'</span></span><span class="muted" style="font-size:.7rem">담기 ▸</span></button>';
+      }).join("") : '<div class="empty">보유한 룬이 없습니다.<br><span class="muted">사냥에서 룬을 획득하세요.</span></div>');
+
+  return '<div class="panel">'+
+    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">'+
+      '<button class="btn sm" data-act="rw-pick-item" data-id="">‹ 목록</button>'+
+      '<h3 style="margin:0">'+G.ui.icoHTML(it)+' '+esc(it.name)+'</h3></div>'+
+    '<div class="muted" style="font-size:.72rem">'+(isW?'무기 — 룬의 ⚔️ 공격 효과':'방어구 — 룬의 🛡️ 방어 효과')+' 적용</div>'+
+    '<div style="font-size:1.1rem;margin:6px 0">'+socks+'</div>'+
+    chips + preview +
+    '<button class="btn full '+(picks.length?"primary":"")+'" style="margin-top:8px" data-act="rw-commit" '+(picks.length?"":"disabled")+'>✅ 확정 ('+picks.length+'/'+open+' 영구 장착)</button>'+
+  '</div>'+
+  '<div class="panel"><div class="muted" style="font-size:.74rem;margin-bottom:4px">보유 룬</div>'+runeList+'</div>';
+};
+
+/* 🧊 룬합성 — 룬 승급(하위 3개 → 상위 1개) */
+G.ui._cubeFusePanel = function(){
   var R=G.DATA.RUNES;
   var rows=R.filter(function(r){return r.rank<R.length;}).map(function(r){
     var cnt=G.cube.count(r.rank), ok=cnt>=G.cube.RATIO, next=R[r.rank];

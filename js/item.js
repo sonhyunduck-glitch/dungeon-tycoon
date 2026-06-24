@@ -256,6 +256,27 @@ G.runeword.ofItem = function(it){
   }
   return found;
 };
+/* 소켓템에 staged 룬(객체 배열)을 빈 소켓에 채웠을 때 완성될 룬워드 미리보기(미완성/불일치=null) */
+G.runeword.previewWith = function(it, runes){
+  if(!it || !it.sockets || !it.sockets.length) return null;
+  var staged=(runes||[]).slice(), names=[];
+  for(var i=0;i<it.sockets.length;i++){
+    if(it.sockets[i]) names.push(it.sockets[i].runeName||it.sockets[i].name);
+    else if(staged.length) { var r=staged.shift(); names.push(r.runeName||r.name); }
+    else return null;   // 빈 소켓이 남음 → 룬워드 미완성
+  }
+  var cat=(it.type==="weapon")?"weapon":"armor", ws=G.DATA.RUNEWORDS||[];
+  for(var j=0;j<ws.length;j++){
+    if(ws[j].cat===cat && ws[j].runes.length===names.length && _multisetEq(ws[j].runes, names)) return ws[j];
+  }
+  return null;
+};
+/* 룬워드 확정 — staged 룬 id들을 순서대로 빈 소켓에 영구 삽입(완성 시 자동 룬워드) */
+G.runeword.craftCommit = function(itemId, runeIds){
+  var ok=0; (runeIds||[]).forEach(function(rid){ if(G.socket.insert(itemId, rid)) ok++; });
+  return ok;
+};
+
 /* 룬워드 보너스 변동 폭 — 기준값의 LO~HI배 사이에서 굴림(동일 룬워드도 상위 옵션 가능) */
 G.runeword.VAR_LO = 0.85;
 G.runeword.VAR_HI = 1.20;

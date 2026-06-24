@@ -256,6 +256,24 @@
 
     /* 대장간 / 주문 / 워프 */
     "cube-upgrade": function(d){ if(G.cube.upgrade(parseInt(d.rank,10))){ if(G.save)G.save.save(true); } G.ui.render(); },
+    "cube-sub": function(d){ G.state.ui.cubeSub=d.sub; G.ui.render(); },
+    "rw-pick-item": function(d){ G.state.ui.rwItem=d.id||null; G.state.ui.rwPick=[]; G.ui.render(); },
+    "rw-pick-rune": function(d){
+      var ui=G.state.ui; var it=G.socket.findItem(ui.rwItem); if(!it) return;
+      ui.rwPick=ui.rwPick||[];
+      if(ui.rwPick.length < G.socket.openCount(it) && ui.rwPick.indexOf(d.id)<0) ui.rwPick.push(d.id);
+      G.ui.render();
+    },
+    "rw-unpick": function(d){ var ui=G.state.ui; ui.rwPick=ui.rwPick||[]; ui.rwPick.splice(parseInt(d.idx,10),1); G.ui.render(); },
+    "rw-commit": function(d){
+      var ui=G.state.ui; if(!ui.rwItem || !(ui.rwPick||[]).length) return;
+      G.runeword.craftCommit(ui.rwItem, ui.rwPick.slice());
+      ui.rwPick=[];
+      var it=G.socket.findItem(ui.rwItem);
+      if(!it || G.socket.openCount(it)<=0) ui.rwItem=null;   // 다 채웠으면 목록으로
+      if(G.save) G.save.save(true);
+      G.ui.render();
+    },
     "order-fulfill": function(d){ G.orders.fulfill(d.id); G.ui.render(); },
     "warp": function(d){
       var f=parseInt(d.floor,10)||1;

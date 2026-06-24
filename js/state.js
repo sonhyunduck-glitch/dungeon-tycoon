@@ -51,6 +51,7 @@ G.newState = function(){
     pickup:{ common:true, uncommon:true, rare:true, epic:true, legend:true }, // 등급별 획득 여부
     log:[],
     ui:{ tab:"dungeon", stageView:null, whCat:"all", charSub:"stats", bagSort:"price",
+         vendorSub:"potion", cubeSub:"fuse", rwItem:null, rwPick:[],
          market:{ slot:"all", rarity:"all", opt1:"", opt2:"", pmin:0, pmax:0 } },
   };
 };
