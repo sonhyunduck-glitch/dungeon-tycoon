@@ -460,7 +460,7 @@
         await G.net.syncProfile();
       }catch(e){}
     }
-    G.ui.switchTab(G.state.ui.tab || "dungeon");
+    G.ui.switchTab("dungeon");   // 재접속 시 항상 던전(메인) 씬으로 시작 — 이전 탭 복원 안 함
 
     if(loaded||usedCloud){
       G.log("🌙 돌아오신 걸 환영합니다.","");
