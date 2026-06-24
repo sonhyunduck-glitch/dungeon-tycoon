@@ -10,7 +10,7 @@
   // 보상형 광고단위 ID — TEST_MODE로 안전하게 전환(본인 기기에서 실광고 클릭=정지 위험 방지)
   G.ads.REWARD_ID_TEST = "ca-app-pub-3940256099942544/5224354917";   // Google 공식 테스트
   G.ads.REWARD_ID_REAL = "ca-app-pub-5609592289457564/9426627553";   // 실제 보상형(탑아이들)
-  G.ads.TEST_MODE = true;   // ⚠️ true=테스트광고(개발/검증용). 출시 AAB 빌드 전 반드시 false 로!
+  G.ads.TEST_MODE = false;  // 프로덕션 출시: 실광고 ID 사용. ⚠️ 본인 기기에서 실광고 클릭 금지(계정 정지 위험). 개발 검증 시 임시로 true 로.
   G.ads.rewardId = function(){ return this.TEST_MODE ? this.REWARD_ID_TEST : this.REWARD_ID_REAL; };
   G.ads.CAP = { coin:5, gacha:2, speed:999 };   // 일일 시청 한도. 배속은 사실상 무제한(구글 보상광고 일일 고정한도 없음)
   // 배속: 당일 누적 시청 횟수로 단계 상승 (1~3회 2배 / 4~10회 3배 / 11회+ 4배), 단계별 지속시간 차등
