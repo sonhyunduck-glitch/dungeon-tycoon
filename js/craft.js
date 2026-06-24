@@ -24,8 +24,8 @@ G.orders.refresh = function(){
   for(var i=0;i<G.orders.MAX;i++){
     var part=G.util.pick(parts);
     var stat=G.util.pick(G.orders.statPoolFor(part));
-    var af=G.DATA.AFFIXES.find(function(a){return a.stat===stat;});
-    var minVal=G.util.rand(af.min, Math.round((af.min+af.max)/2));
+    var rg=G.item.affixRange(stat);
+    var minVal=G.util.rand(rg.min, Math.round((rg.min+rg.max)/2));
     var npc=G.util.pick(G.DATA.NPCS);
     var reward=Math.round((300+lvl*120) * Math.pow(1.06, lvl-1) * (1+Math.random()*0.5));
     arr.push({ id:G.util.uid(), npc:npc.name, emoji:npc.emoji, part:part, stat:stat, minVal:minVal, reward:reward });
@@ -55,10 +55,10 @@ G.orders.fulfill = function(orderId){
     var lvl=G.state.dungeon.maxFloor||1;
     var parts=["weapon","armor","acc"];
     var part=G.util.pick(parts), stat=G.util.pick(G.orders.statPoolFor(part));
-    var af=G.DATA.AFFIXES.find(function(a){return a.stat===stat;});
+    var rg=G.item.affixRange(stat);
     var npc=G.util.pick(G.DATA.NPCS);
     G.state.orders.push({ id:G.util.uid(), npc:npc.name, emoji:npc.emoji, part:part, stat:stat,
-      minVal:G.util.rand(af.min, Math.round((af.min+af.max)/2)),
+      minVal:G.util.rand(rg.min, Math.round((rg.min+rg.max)/2)),
       reward:Math.round((300+lvl*120)*Math.pow(1.06,lvl-1)*(1+Math.random()*0.5)) });
   }
 };

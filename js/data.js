@@ -149,27 +149,31 @@ G.DATA.RUNEWORDS = [
 /* 옵션(접사) 풀 — 디아블로식
    flat:true  → 평면 수치(층 레벨에 비례해 성장)
    pct:true   → 퍼센트 수치(레벨 무관, 등급/운으로만 결정) */
-G.DATA.AFFIXES = [
-  { stat:"atk",       min:2,  max:9,  flat:true },
-  { stat:"def",       min:2,  max:7,  flat:true },
-  { stat:"hp",        min:12, max:45, flat:true },
-  { stat:"crit",      min:1,  max:5,  pct:true },
-  { stat:"critDmg",   min:6,  max:22, pct:true },
-  { stat:"lifesteal", min:1,  max:5,  pct:true },
-  { stat:"dodge",     min:1,  max:4,  pct:true },
-  { stat:"penet",     min:2,  max:9,  pct:true },
-  { stat:"multihit",  min:1,  max:6,  pct:true },
-  { stat:"goldFind",  min:4,  max:15, pct:true },
-  { stat:"thorns",    min:2,  max:10, pct:true },
-  { stat:"stunResist",min:3,  max:12, pct:true },
-  { stat:"elemAtk",   min:5,  max:18, pct:true },   // 속성공격 (100층+ 피해 유지)
-  { stat:"resFire",   min:4,  max:16, pct:true },   // 화염 저항
-  { stat:"resCold",   min:4,  max:16, pct:true },   // 냉기 저항
-  { stat:"resLight",  min:4,  max:16, pct:true },   // 번개 저항
-  { stat:"resPoison", min:4,  max:16, pct:true },   // 맹독 저항
-  { stat:"allRes",    min:2,  max:8,  pct:true },   // 모든 저항(올레지) — 4속성에 모두 합산
-  { stat:"potionBoost",min:1, max:5, dec:true, runeOnly:true },  // 물약 회복% (룬 전용, 소수점, 최대 5%)
-];
+/* 디아블로식 접사: 옵션별 티어(층 게이팅) + 접두(prefix)/접미(suffix) 이름.
+   flat=평면(min/max는 기본값 → ×층배율 1.112^층) / pct=퍼센트(min/max가 실제 값, 층 무관)
+   tiers: {n:티어이름, fl:해금 층, min, max}. 층이 높을수록 상위 티어 해금(값·등급↑). */
+G.DATA.AFFIXES = {
+  // ===== 접두(prefix) — 공격 계열 =====
+  atk:       { side:"prefix", flat:true, tiers:[ {n:"무딘",fl:1,min:2,max:5},{n:"튼튼한",fl:40,min:5,max:9},{n:"예리한",fl:120,min:9,max:14},{n:"잔혹한",fl:300,min:14,max:22},{n:"파멸의",fl:600,min:22,max:34} ] },
+  crit:      { side:"prefix", pct:true,  tiers:[ {n:"흐릿한",fl:1,min:1,max:2},{n:"또렷한",fl:40,min:2,max:4},{n:"날카로운",fl:120,min:4,max:6},{n:"치명적인",fl:300,min:6,max:9},{n:"처형의",fl:600,min:9,max:12} ] },
+  critDmg:   { side:"prefix", pct:true,  tiers:[ {n:"묵직한",fl:1,min:5,max:10},{n:"강타의",fl:40,min:10,max:18},{n:"파쇄의",fl:120,min:18,max:28},{n:"분쇄의",fl:300,min:28,max:42},{n:"괴멸의",fl:600,min:42,max:60} ] },
+  penet:     { side:"prefix", pct:true,  tiers:[ {n:"무른",fl:1,min:2,max:4},{n:"꿰뚫는",fl:40,min:4,max:7},{n:"관통의",fl:120,min:7,max:11},{n:"천공의",fl:300,min:11,max:16},{n:"파공의",fl:600,min:16,max:22} ] },
+  multihit:  { side:"prefix", pct:true,  tiers:[ {n:"굼뜬",fl:1,min:1,max:2},{n:"빠른",fl:40,min:2,max:4},{n:"연속의",fl:120,min:4,max:6},{n:"질풍의",fl:300,min:6,max:9},{n:"폭풍의",fl:600,min:9,max:12} ] },
+  elemAtk:   { side:"prefix", pct:true,  tiers:[ {n:"미열의",fl:1,min:4,max:8},{n:"불티의",fl:40,min:8,max:14},{n:"타오르는",fl:120,min:14,max:22},{n:"작열의",fl:300,min:22,max:34},{n:"폭염의",fl:600,min:34,max:50} ] },
+  // ===== 접미(suffix) — 방어·유틸 계열 =====
+  def:       { side:"suffix", flat:true, tiers:[ {n:"견고함",fl:1,min:2,max:4},{n:"방벽",fl:40,min:4,max:7},{n:"성채",fl:120,min:7,max:11},{n:"철벽",fl:300,min:11,max:17},{n:"불괴",fl:600,min:17,max:26} ] },
+  hp:        { side:"suffix", flat:true, tiers:[ {n:"활력",fl:1,min:10,max:22},{n:"생기",fl:40,min:22,max:40},{n:"정력",fl:120,min:40,max:65},{n:"불굴",fl:300,min:65,max:100},{n:"거인",fl:600,min:100,max:150} ] },
+  lifesteal: { side:"suffix", pct:true,  tiers:[ {n:"흡취",fl:1,min:1,max:2},{n:"흡혈",fl:40,min:2,max:3},{n:"갈증",fl:120,min:3,max:5},{n:"포식",fl:300,min:5,max:7},{n:"흡왕",fl:600,min:7,max:9} ] },
+  dodge:     { side:"suffix", pct:true,  tiers:[ {n:"회피",fl:1,min:1,max:3},{n:"민첩",fl:40,min:3,max:6},{n:"잔상",fl:120,min:6,max:9},{n:"환영",fl:300,min:9,max:13},{n:"무영",fl:600,min:13,max:18} ] },
+  goldFind:  { side:"suffix", pct:true,  tiers:[ {n:"행운",fl:1,min:4,max:10},{n:"풍요",fl:40,min:10,max:20},{n:"황금",fl:120,min:20,max:35},{n:"노다지",fl:300,min:35,max:55},{n:"보고",fl:600,min:55,max:80} ] },
+  thorns:    { side:"suffix", pct:true,  tiers:[ {n:"가시",fl:1,min:3,max:8},{n:"송곳",fl:40,min:8,max:16},{n:"형틀",fl:120,min:16,max:28},{n:"보복",fl:300,min:28,max:45},{n:"응보",fl:600,min:45,max:65} ] },
+  stunResist:{ side:"suffix", pct:true,  tiers:[ {n:"인내",fl:1,min:3,max:7},{n:"강인",fl:40,min:7,max:13},{n:"부동",fl:120,min:13,max:22},{n:"태산",fl:300,min:22,max:34},{n:"반석",fl:600,min:34,max:50} ] },
+  resFire:   { side:"suffix", pct:true,  tiers:[ {n:"내염",fl:1,min:4,max:9},{n:"방염",fl:40,min:9,max:16},{n:"화막",fl:120,min:16,max:25},{n:"화신",fl:300,min:25,max:38},{n:"불사조",fl:600,min:38,max:55} ] },
+  resCold:   { side:"suffix", pct:true,  tiers:[ {n:"내한",fl:1,min:4,max:9},{n:"방한",fl:40,min:9,max:16},{n:"빙막",fl:120,min:16,max:25},{n:"동결",fl:300,min:25,max:38},{n:"설인",fl:600,min:38,max:55} ] },
+  resLight:  { side:"suffix", pct:true,  tiers:[ {n:"절연",fl:1,min:4,max:9},{n:"방전",fl:40,min:9,max:16},{n:"뇌막",fl:120,min:16,max:25},{n:"피뢰",fl:300,min:25,max:38},{n:"뇌신",fl:600,min:38,max:55} ] },
+  resPoison: { side:"suffix", pct:true,  tiers:[ {n:"해독",fl:1,min:4,max:9},{n:"면역",fl:40,min:9,max:16},{n:"독막",fl:120,min:16,max:25},{n:"정화",fl:300,min:25,max:38},{n:"불후",fl:600,min:38,max:55} ] },
+  allRes:    { side:"suffix", pct:true,  tiers:[ {n:"보호",fl:1,min:2,max:4},{n:"수호",fl:40,min:4,max:7},{n:"가호",fl:120,min:7,max:11},{n:"결계",fl:300,min:11,max:16},{n:"성역",fl:600,min:16,max:22} ] },
+};
 
 /* 부위별 붙을 수 있는 옵션(접사) 종류 — 디아블로식 슬롯 제한
    (룬은 제한 없이 전체 옵션 가능) */

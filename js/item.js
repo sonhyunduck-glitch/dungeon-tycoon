@@ -36,17 +36,37 @@ G.item.AFFIX_BIAS = 3.0;
 G.item.COUNT_BIAS = 2.2;
 function skewT(bias){ return Math.pow(Math.random(), bias); }   // 0~1, 0(min)쪽으로 쏠림
 
-/* 옵션 값 1개 굴리기 (부위 배율 + 하드코어 편향 반영) */
-function rollAffixValue(af, lvlMult, slot){
+/* 층(level)에서 해금된 티어 중 1개 선택 — 상위 티어로 약간 편향(노리는 재미) */
+G.item.pickTier = function(def, level){
+  var elig=[]; for(var i=0;i<def.tiers.length;i++){ if(def.tiers[i].fl<=level) elig.push(i); }
+  if(!elig.length) elig=[0];
+  var tot=0; elig.forEach(function(i){ tot+=i+1; });   // 가중치=인덱스+1 → 상위 약간 우대
+  var r=Math.random()*tot, pick=elig[elig.length-1];
+  for(var j=0;j<elig.length;j++){ r-=(elig[j]+1); if(r<=0){ pick=elig[j]; break; } }
+  return { idx:pick, tier:def.tiers[pick] };
+};
+/* 옵션 값 1개 굴리기 — 티어 범위 내, 부위배율·층배율 반영 (flat만 층 스케일) */
+function rollAffixValue(def, tier, lvlMult, slot){
   var t = skewT(G.item.AFFIX_BIAS);                 // 고값(=max 근처)일수록 드묾
-  if(af.dec){ // 소수점 % 옵션 (1자리)
-    var fv=(af.min + t*(af.max-af.min)) * slotMult(slot, af.stat);
-    return Math.max(0.1, Math.round(fv*10)/10);
-  }
-  var span = af.min + t*(af.max-af.min);
-  var base = af.flat ? span * lvlMult : span;
-  return Math.max(1, Math.round(base * slotMult(slot, af.stat)));
+  var span = tier.min + t*(tier.max-tier.min);
+  var base = def.flat ? span * lvlMult : span;
+  return Math.max(1, Math.round(base * slotMult(slot, def.stat)));
 }
+/* 옵션 전체 값 범위(주문/표시 호환용) — 최저티어 min ~ 최고티어 max */
+G.item.affixRange = function(stat){
+  var d=G.DATA.AFFIXES[stat]; if(!d||!d.tiers) return {min:1,max:1};
+  var t=d.tiers; return {min:t[0].min, max:t[t.length-1].max};
+};
+/* 접사 배열로 아이템 이름 구성 — 최상위 접두 + 베이스 + ·최상위 접미 */
+G.item.composeName = function(it){
+  var base=it.baseNoun||it.base||"장비", pre=null, suf=null;
+  (it.affixes||[]).forEach(function(a){
+    if(!a.tierName) return;
+    if(a.side==="prefix"){ if(!pre || (a.tierIdx||0)>(pre.tierIdx||0)) pre=a; }
+    else if(a.side==="suffix"){ if(!suf || (a.tierIdx||0)>(suf.tierIdx||0)) suf=a; }
+  });
+  return (pre?pre.tierName+" ":"") + base + (suf?(" ·"+suf.tierName):"");
+};
 /* 등급 옵션 개수 — affMin~affMax, 저개수 쏠림(최대 개수는 드묾) */
 function rollAffixCount(rarity){
   return rarity.affMin + Math.round((rarity.affMax - rarity.affMin) * skewT(G.item.COUNT_BIAS));
@@ -69,7 +89,6 @@ G.item.generate = function(tier, level, partType){
   if(!bases.length) bases=G.DATA.ITEM_BASES;
   var base = G.util.pick(bases);
   var rarity = G.item.rollRarity(tier);
-  var prefix = G.util.pick(G.DATA.PREFIX);
   var lvlMult = Math.pow(1.112, level-1);
 
   // 고정 스탯: 주스탯 (+방어구는 HP). 퍼센트 주스탯(예: 반지 치명타율)은 레벨 스케일 X
@@ -80,15 +99,17 @@ G.item.generate = function(tier, level, partType){
     : Math.max(1, Math.round(base.val * rarity.mult * lvlMult * (0.85+Math.random()*0.4)));
   if(base.type==="armor") fixed.hp = (fixed.hp||0) + Math.round(base.val * 4 * rarity.mult * lvlMult);
 
-  // 옵션(접사): 등급이 개수 범위 결정, 수치 랜덤, 중복 없음 — 부위별 허용 옵션만
+  // 옵션(접사): 등급이 개수 범위 결정, 부위별 허용 옵션만, 층에서 해금된 티어로 굴림
   var affixCount = rollAffixCount(rarity);
-  var allowed = G.DATA.SLOT_AFFIXES[base.slot] || [];
-  var pool = G.DATA.AFFIXES.filter(function(a){ return allowed.indexOf(a.stat)>=0; });
+  var allowed = (G.DATA.SLOT_AFFIXES[base.slot] || []).filter(function(s){ return G.DATA.AFFIXES[s]; });
+  var pool = allowed.slice();
   var affixes=[];
   for(var i=0;i<affixCount && pool.length>0;i++){
     var idx=Math.floor(Math.random()*pool.length);
-    var af=pool.splice(idx,1)[0];
-    affixes.push({ stat:af.stat, value:rollAffixValue(af, lvlMult, base.slot), pct:!!af.pct, flat:!!af.flat });
+    var stat=pool.splice(idx,1)[0], def=G.DATA.AFFIXES[stat];
+    var pt=G.item.pickTier(def, level), tier=pt.tier;
+    affixes.push({ stat:stat, value:rollAffixValue(def, tier, lvlMult, base.slot),
+      pct:!!def.pct, flat:!!def.flat, side:def.side, tierName:tier.n, tierIdx:pt.idx });
   }
 
   var rdef=G.DATA.RARITY.find(function(r){return r.key===rarity.key;});
@@ -100,13 +121,14 @@ G.item.generate = function(tier, level, partType){
   var attackElem = (base.type==="weapon" && level>=100) ? G.util.pick(G.DATA.ELEMENTS).key : null;
   var it = {
     id: G.util.uid(),
-    name: prefix+" "+base.base,
+    name: "", baseNoun: base.base,
     ico: base.ico, iconImg: iconImg, type: base.type, slot: base.slot, attackElem: attackElem,
     rarity: rarity.key, rarityLabel: rarity.label, rarityCls: rdef.cls,
     level: level, tier: tier,
     fixed: fixed, affixes: affixes,
     identified: !(rarity.key==="epic" || rarity.key==="legend"), // 영웅·전설은 미감정 드롭
   };
+  it.name = G.item.composeName(it);
   mergeStats(it);
   it.basePrice = priceOf(it, rdef, tier);
   return it;
@@ -343,14 +365,18 @@ G.item.reroll = function(id){
   // 현재 다른 옵션과 겹치지 않는 새 옵션 선택
   var used={}; it.affixes.forEach(function(a,j){ if(j!==i) used[a.stat]=1; });
   for(var k in it.fixed) used[k]=1;                  // 고정스탯과도 안 겹치게
-  var allow = it.type==="rune" ? G.DATA.AFFIXES : G.DATA.AFFIXES.filter(function(a){ return (G.DATA.SLOT_AFFIXES[it.slot]||[]).indexOf(a.stat)>=0; });
-  var cand=allow.filter(function(a){ return !used[a.stat]; });
-  var af = cand.length? cand[Math.floor(Math.random()*cand.length)] : G.util.pick(G.DATA.AFFIXES);
-  it.affixes[i]={ stat:af.stat, value:rollAffixValue(af, lvlMult, it.slot), pct:!!af.pct, flat:!!af.flat };
+  var allowStats = (G.DATA.SLOT_AFFIXES[it.slot]||[]).filter(function(s){ return G.DATA.AFFIXES[s]; });
+  var cand=allowStats.filter(function(s){ return !used[s]; });
+  var stat = cand.length? cand[Math.floor(Math.random()*cand.length)] : (allowStats[0]||"atk");
+  var def=G.DATA.AFFIXES[stat];
+  var pt=G.item.pickTier(def, it.level||1), tier=pt.tier;
+  it.affixes[i]={ stat:stat, value:rollAffixValue(def, tier, lvlMult, it.slot),
+    pct:!!def.pct, flat:!!def.flat, side:def.side, tierName:tier.n, tierIdx:pt.idx };
+  it.name=G.item.composeName(it);                    // 옵션 변경 → 접두/접미 이름 갱신
   mergeStats(it);
   var rdef=G.DATA.RARITY.find(function(r){return r.key===it.rarity;});
   it.basePrice=priceOf(it, rdef, it.tier||1);
-  var om=G.DATA.STAT_META[old.stat], nm=G.DATA.STAT_META[af.stat];
+  var om=G.DATA.STAT_META[old.stat], nm=G.DATA.STAT_META[stat];
   G.log("♻️ 재련: "+om.label+" → "+nm.label+" +"+G.ui.fmt(it.affixes[i].value)+(nm.pct?"%":""), it.rarityCls);
 };
 
