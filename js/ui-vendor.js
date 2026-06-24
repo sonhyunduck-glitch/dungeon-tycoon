@@ -130,11 +130,13 @@ G.ui._cubeRunewordPanel = function(){
     if(!pool.length) return '<div class="panel"><h3>🔗 룬워드 제작</h3>'+
       '<div class="empty">빈 소켓이 있는 장비가 없습니다.<br><span class="muted">사냥/겜블로 <b class="r-socket">소켓 베이스</b>를 구하세요.</span></div></div>';
     var rows=pool.map(function(p){ var it=p.it;
-      return '<button class="item" style="width:100%;text-align:left;border:0;background:none;cursor:pointer" data-act="rw-pick-item" data-id="'+it.id+'">'+
-        '<div class="ico">'+G.ui.icoHTML(it)+'</div>'+
-        '<div class="info"><div class="iname '+(it.rarityCls||"")+'">'+esc(it.name)+' <span class="muted" style="font-size:.62rem">'+p.where+'</span></div>'+
-          '<div class="idesc">'+G.ui.socketDots(it)+' <span class="muted">'+G.socket.openCount(it)+'칸 비어있음</span></div></div>'+
-        '<div class="iacts"><span class="muted">선택 ▸</span></div></button>';
+      return '<button data-act="rw-pick-item" data-id="'+it.id+'" style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:rgba(255,255,255,.04);border-radius:8px;padding:8px 10px;margin-top:6px;cursor:pointer;color:inherit">'+
+        '<span style="font-size:1.3rem;flex:0 0 auto">'+G.ui.icoHTML(it)+'</span>'+
+        '<span style="flex:1;min-width:0">'+
+          '<span class="iname '+(it.rarityCls||"")+'" style="display:block">'+esc(it.name)+' <span class="muted" style="font-size:.62rem">'+p.where+'</span></span>'+
+          '<span style="display:flex;align-items:center;gap:6px;margin-top:4px">'+G.ui.socketBoxes(it)+'<span class="muted" style="font-size:.72rem">'+G.socket.openCount(it)+'칸 비어있음</span></span>'+
+        '</span>'+
+        '<span class="muted" style="flex:0 0 auto;font-size:.74rem">선택 ▸</span></button>';
     }).join("");
     return '<div class="panel"><h3>🔗 룬워드 제작 <span class="muted" style="font-size:.66rem">소켓템 선택</span></h3>'+
       '<div class="muted" style="font-size:.74rem;margin-bottom:8px">소켓에 룬을 담아 <b>확정</b>하면 조합이 맞는 경우 룬워드가 완성됩니다. <b class="r-common">한번 박은 룬은 뺄 수 없습니다.</b></div>'+

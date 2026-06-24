@@ -84,6 +84,14 @@ G.ui.socketDots = function(it){
              : '<span class="sock empty">◇</span>';
   }).join("")+'</span>';
 };
+/* 24×24 소켓 박스(빈칸=빈 박스, ◇ 없음) — 룬워드 제작 목록 등 */
+G.ui.socketBoxes = function(it){
+  if(!it || !it.sockets || !it.sockets.length) return '';
+  return '<span class="rw-socks" style="display:inline-flex;vertical-align:middle">'+it.sockets.map(function(r){
+    return r ? '<span class="sock filled" title="'+esc(r.name)+'">'+(r.iconImg?'<img src="'+r.iconImg+'">':'🔹')+'</span>'
+             : '<span class="sock empty"></span>';
+  }).join("")+'</span>';
+};
 
 /* 🔩 소켓 패널 — 소켓 장비 + 룬워드 상태 + 룬 장착 진입 */
 G.ui._socketPanel = function(){
