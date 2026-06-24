@@ -118,7 +118,7 @@ G.ui._socketPanel = function(){
 /* 아바타 선택 패널 */
 G.ui._avatarPanel = function(){
   var cur=G.avatar.currentId();
-  var cards=G.DATA.AVATARS.map(function(a){
+  var cards=G.avatar.byUnlock().map(function(a){
     var sel=a.id===cur, owned=G.avatar.owned(a);
     var lockLabel=(a.unlock!=null && a.unlock<9999) ? ("🔒 "+a.unlock+"층") : "🎰 뽑기";
     var b=G.avatar.statBonus(a.id), g=G.avatar.gradeOf(a);
@@ -182,7 +182,7 @@ G.ui._collectionPanel = function(){
   var rwDex='<div class="panel"><h2>🔗 룬워드 연대기 <span class="muted" style="font-size:.66rem">'+rwN+' / '+rws.length+'</span></h2>'+
     '<div class="muted" style="font-size:.66rem; margin-bottom:8px">소켓 수=룬 개수가 맞는 장비에 룬 조합 → 발동. <b class="gold">공개</b>는 레시피 제공, 나머지는 발견형</div>'+rwList+'</div>';
 
-  var av=G.DATA.AVATARS||[];
+  var av=G.avatar.byUnlock();
   var avOwned=av.filter(function(a){return G.avatar.owned(a);}).length;
   var avList=av.map(function(a){ var owned=G.avatar.owned(a);
     return '<div class="avatar-card dex'+(owned?"":" locked")+'">'+
