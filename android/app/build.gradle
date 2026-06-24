@@ -7,7 +7,8 @@ android {
         applicationId "com.toweridle.game"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 3
+        // versionCode: 빌드 시각(10초 단위) 기반 자동 증가 — 매 빌드 고유·항상 증가(수동 관리 불필요)
+        versionCode = (int) (System.currentTimeMillis() / 10000L)
         versionName "1.0.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
