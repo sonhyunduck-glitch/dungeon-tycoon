@@ -135,7 +135,6 @@ G.ui.renderSettings = function(){
         body='<div class="row" style="align-items:center; gap:8px; margin-top:8px">'+
                '<span style="width:84px">닉네임</span>'+
                '<b class="gold" style="flex:1">'+esc(G.net.nickname||"미설정")+'</b>'+
-               '<button class="btn sm" data-act="change-nick">변경</button>'+
              '</div>'+
              acct+
              '<p class="muted" style="margin-top:8px">채팅·랭킹·세이브가 클라우드에 동기화됩니다 ☁️</p>';

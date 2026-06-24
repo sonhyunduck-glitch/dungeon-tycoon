@@ -135,9 +135,6 @@
     /* 채팅 */
     "open-chat": function(){ G.chat.open(); },
 
-    /* 멀티: 닉네임 변경 */
-    "change-nick": function(){ G.ui.nicknameModal(function(){ G.net.syncProfile(); G.net.refreshRanking&&G.net.refreshRanking(); }); },
-
     /* 멀티: 계정(게스트→이메일 전환 / 로그인 / 로그아웃) */
     "acct-signup": function(){ G.ui.authModal("signup"); },
     "acct-login":  function(){ G.ui.authModal("login"); },
