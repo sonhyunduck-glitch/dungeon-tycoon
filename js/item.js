@@ -74,8 +74,10 @@ function rollAffixCount(rarity){
 
 /* 가격 재계산 (stats 기반) */
 function priceOf(it, rarity, tier){
-  var sum=0; for(var k in it.stats) sum+=it.stats[k];
-  return Math.round((10 + sum*4) * rarity.price * (tier*0.5+0.7) * 0.7);   // 기준가 30%↓
+  tier = (typeof tier==="number" && isFinite(tier)) ? tier : 1;   // 방어: tier에 객체/NaN 들어오면 1
+  var pr = (rarity && isFinite(rarity.price)) ? rarity.price : 1;
+  var sum=0; for(var k in it.stats){ var v=it.stats[k]; if(isFinite(v)) sum+=v; }
+  return Math.round((10 + sum*4) * pr * (tier*0.5+0.7) * 0.7);   // 기준가 30%↓
 }
 
 /* 장비 아이템 1개 생성
@@ -107,9 +109,9 @@ G.item.generate = function(tier, level, partType){
   for(var i=0;i<affixCount && pool.length>0;i++){
     var idx=Math.floor(Math.random()*pool.length);
     var stat=pool.splice(idx,1)[0], def=G.DATA.AFFIXES[stat];
-    var pt=G.item.pickTier(def, level), tier=pt.tier;
-    affixes.push({ stat:stat, value:rollAffixValue(def, tier, lvlMult, base.slot),
-      pct:!!def.pct, flat:!!def.flat, side:def.side, tierName:tier.n, tierIdx:pt.idx });
+    var pt=G.item.pickTier(def, level), atier=pt.tier;   // ⚠ 'tier' 쓰면 함수 파라미터 tier(등급)를 덮어씀
+    affixes.push({ stat:stat, value:rollAffixValue(def, atier, lvlMult, base.slot),
+      pct:!!def.pct, flat:!!def.flat, side:def.side, tierName:atier.n, tierIdx:pt.idx });
   }
 
   var rdef=G.DATA.RARITY.find(function(r){return r.key===rarity.key;});
@@ -369,7 +371,17 @@ G.cube.upgrade = function(rank){
 
 /* 매각가 — 기준가의 일정 비율(가판대 폐지로 직접 처분이 주 수입원이 되어 상향) */
 G.item.SELL_RATE = 0.4;
-G.item.sellPrice = function(it){ return Math.round(((it&&it.basePrice)||0) * G.item.SELL_RATE); };
+G.item.sellPrice = function(it){
+  if(!it) return 0;
+  var bp=it.basePrice;
+  if(!(typeof bp==="number" && isFinite(bp) && bp>0)){   // 손상된 가격(구버전 NaN/null) 자동 복구
+    var rdef=G.DATA.RARITY.find(function(r){return r.key===it.rarity;}) || {price:1};
+    var t=(typeof it.tier==="number" && isFinite(it.tier))?it.tier:1;
+    it.tier=t;                                   // 손상된 tier(객체) 정리
+    bp=it.basePrice=priceOf(it, rdef, t);
+  }
+  return Math.round(bp * G.item.SELL_RATE);
+};
 
 /* 전리품 무게 (정산 휴대 예산용) — 부위별 고정, 소모품은 0 */
 G.item.weightOf = function(it){
