@@ -6,27 +6,7 @@ G.ui.renderCharacter = function(){
   var s=G.totalStats(), p=G.state.player;
 
 
-  // 고급(디아블로식) 옵션 — 값이 있을 때만 표시
-  var adv=["critDmg","lifesteal","dodge","penet","multihit","goldFind","thorns","stunResist","elemAtk","allRes","resFire","resCold","resLight","resPoison","potionBoost"]
-   .filter(function(k){ return s[k]>0; })
-   .map(function(k){ var m=G.DATA.STAT_META[k]; var u=(m.unit!==undefined)?m.unit:(m.pct?"%":"");
-     return '<div><span class="k">'+m.label+'</span><b>'+s[k]+u+'</b></div>'; }).join("");
-  var advPanel = adv ? '<div class="panel"><h2>✨ 옵션 스탯</h2><div class="stats">'+adv+'</div></div>' : '';
-
   var runePanel=G.ui._socketPanel();
-
-  var statsPanel=
-    '<div class="panel"><h2>👤 스탯</h2>'+
-      '<div class="stats">'+
-        '<div><span class="k">전투력</span><b>'+G.ui.fmt(G.power())+'</b></div>'+
-        '<div><span class="k">체력</span><b>'+G.ui.fmt(p.hp)+'/'+G.ui.fmt(s.maxHp)+'</b></div>'+
-        '<div><span class="k">공격력</span><b>'+G.ui.fmt(s.atk)+'</b></div>'+
-        '<div><span class="k">방어력</span><b>'+G.ui.fmt(s.def)+'</b></div>'+
-        '<div><span class="k">치명타율</span><b>'+s.crit+'%</b></div>'+
-        '<div><span class="k">골드</span><b style="color:var(--gold)">'+G.ui.fmt(p.gold)+'</b></div>'+
-      '</div>'+
-      (p.hp<s.maxHp?'<button class="btn full" style="margin-top:10px" data-act="use-potion">🧪 물약으로 회복 ('+(G.state.consumables.potion_s||0)+')</button>':'')+
-    '</div>'+advPanel;
 
   // 🛡️ 페이퍼돌 — 3×3 격자(둘레 8슬롯 + 중앙 아바타), 레트로 슬롯 배경
   function pdCell(k){
@@ -52,12 +32,12 @@ G.ui.renderCharacter = function(){
 
   // 서브 탭
   var sub=G.state.ui.charSub||"stats";
-  var subTabs=[["stats","스탯"],["detail","상세"],["equip","장비"],["rune","소켓"],["skill","스킬"],["avatar","아바타"],["collection","컬렉션"],["unlock","해금"]];
+  var subTabs=[["stats","스탯"],["equip","장비"],["rune","소켓"],["skill","스킬"],["avatar","아바타"],["collection","컬렉션"],["unlock","해금"]];
   var tabBar='<div class="subtabs">'+subTabs.map(function(t){
     return '<button class="subtab'+(sub===t[0]?" active":"")+'" data-act="char-sub" data-sub="'+t[0]+'">'+t[1]+'</button>';
   }).join("")+'</div>';
 
-  var body = sub==="stats"?statsPanel : sub==="detail"?G.ui._statSheet() : sub==="equip"?equipPanel : sub==="rune"?runePanel : sub==="avatar"?G.ui._avatarPanel() : sub==="collection"?G.ui._collectionPanel() : sub==="unlock"?G.ui._perksHTML() : G.ui._skills();
+  var body = (sub==="stats"||sub==="detail")?G.ui._statSheet() : sub==="equip"?equipPanel : sub==="rune"?runePanel : sub==="avatar"?G.ui._avatarPanel() : sub==="collection"?G.ui._collectionPanel() : sub==="unlock"?G.ui._perksHTML() : G.ui._skills();
   v.innerHTML = tabBar + body;
   if(sub==="avatar"||sub==="collection"){   // 미리보기 애니메이션(잠긴 건 정적)
     v.querySelectorAll(".av-prev-inner").forEach(function(el){
@@ -276,7 +256,8 @@ G.ui._statSheet = function(){
   row('골드획득', s.goldFind+'%', '처치 골드 증가');
   row('물약회복', s.potionBoost+'%', '1회 '+G.ui.fmt(G.potionHealAmount())+' ('+G.potionHealPct()+'%)');
 
-  return '<div class="panel"><h2>📋 상세 능력치</h2><div class="sheet">'+rows.join("")+'</div></div>';
+  var heal=(p.hp<s.maxHp)?'<button class="btn full" style="margin-top:10px" data-act="use-potion">🧪 물약으로 회복 ('+(G.state.consumables.potion_s||0)+')</button>':'';
+  return '<div class="panel"><h2>📋 능력치</h2><div class="sheet">'+rows.join("")+'</div>'+heal+'</div>';
 };
 
 /* 전사 스킬 패널 (해금/토글, 우선순위 표시) */
