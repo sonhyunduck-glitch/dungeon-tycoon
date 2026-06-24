@@ -60,8 +60,7 @@ G.ui._storePanel = function(){
       '</div>'+
     '</div>'+
     (catFull?'<div class="muted r-legend" style="margin-bottom:8px">⚠️ '+G.inventory.catLabel(cat)+' 칸이 가득 찼습니다. 정리하거나 칸을 확장하세요.</div>':'')+
-    '<div class="item"><div class="ico">🧪</div><div class="info"><div class="iname">체력 물약 <span class="muted">'+pot+' / '+(G.state.potionMax||20)+'</span></div><div class="idesc">개당 회복 +'+G.ui.fmt(G.state.consumables.potionHeal||G.potionHealAmount())+' (구매 시 고정)</div></div>'+
-    '<div class="iacts"><button class="btn sm" data-act="use-potion" '+(pot<=0?"disabled":"")+'>사용</button></div></div></div>';
+    '</div>';
 
   if(inv.length===0) return head+'<div class="empty">창고가 비어 있습니다.<br>던전에서 사냥해 보세요!</div>';
 
