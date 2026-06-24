@@ -148,19 +148,22 @@ G.ui._collectionPanel = function(){
   function rwBonusTxt(w){ return Object.keys(w.bonus).map(function(k){ var m=G.DATA.STAT_META[k]; if(!m) return "";
     var lo=Math.max(1,Math.round(w.bonus[k]*_lo)), hi=Math.max(lo,Math.round(w.bonus[k]*_hi));
     return m.label+" +"+lo+"~"+hi+(m.pct?"%":""); }).filter(Boolean).join(" · "); }
+  var _maxFloor=(G.state.dungeon&&G.state.dungeon.maxFloor)||1;
+  var _openFloor=G.DATA.RUNEWORD_OPEN_FLOOR||150;
+  var allOpen=_maxFloor>=_openFloor;   // 150층 돌파 시 전체 룬워드 공개
   var rwList=rws.map(function(w){
-    var got=!!rwDisc[w.id], show=got||w.open;   // 발견했거나 공개 룬워드면 정보 표시
+    var got=!!rwDisc[w.id], pub=!!w.open||allOpen, show=got||pub;   // 발견했거나 공개면 정보 표시
     var catTxt=(w.cat==="weapon"?"무기":"방어구")+" "+w.runes.length+"소켓";
     var recipe=w.runes.join(" · ");
-    return '<div class="uniq-card'+(got?" got":(w.open?" ":" locked"))+'">'+
+    return '<div class="uniq-card'+(got?" got":(pub?" ":" locked"))+'">'+
       '<div class="uniq-ico"><span class="uniq-q">'+(show?w.ico:"❔")+'</span></div>'+
       '<div class="uniq-info">'+
-        '<div class="uniq-name '+(got?"r-uncommon":(w.open?"gold":"muted"))+'">'+(show?esc(w.name):"??? 미발견")+(w.open&&!got?' <span class="tag muted" style="font-size:.6rem">공개</span>':'')+'</div>'+
+        '<div class="uniq-name '+(got?"r-uncommon":(pub?"gold":"muted"))+'">'+(show?esc(w.name):"??? 미발견")+(pub&&!got?' <span class="tag muted" style="font-size:.6rem">공개</span>':'')+'</div>'+
         '<div class="idesc muted">'+(show?(catTxt+" · "+recipe+"<br>"+rwBonusTxt(w)):"룬 조합으로 발견")+'</div>'+
       '</div></div>';
   }).join("");
   var rwDex='<div class="panel"><h2>🔗 룬워드 연대기 <span class="muted" style="font-size:.66rem">'+rwN+' / '+rws.length+'</span></h2>'+
-    '<div class="muted" style="font-size:.66rem; margin-bottom:8px">소켓 수=룬 개수가 맞는 장비에 룬 조합 → 발동. <b class="gold">공개</b>는 레시피 제공, 나머지는 발견형</div>'+rwList+'</div>';
+    '<div class="muted" style="font-size:.66rem; margin-bottom:8px">소켓 수=룬 개수가 맞는 장비에 룬 조합 → 발동. '+(allOpen?'<b class="gold">'+_openFloor+'층 돌파 — 전체 공개</b>':'<b class="gold">'+_openFloor+'층 돌파 시 전체 공개</b> · 그 전엔 발견형')+'</div>'+rwList+'</div>';
 
   var av=G.avatar.byUnlock();
   var avOwned=av.filter(function(a){return G.avatar.owned(a);}).length;
