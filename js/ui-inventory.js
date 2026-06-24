@@ -107,7 +107,7 @@ G.ui._storePanel = function(){
       var fc=it.sockets.filter(function(s){return s;}).length;
       var actsS=
         '<button class="btn sm primary" data-act="equip" data-id="'+it.id+'">착용 '+dS+'</button>'+
-        '<button class="btn sm gold" data-act="socket-open" data-id="'+it.id+'" title="소켓에 룬 장착">🔩 '+fc+'/'+it.sockets.length+'</button>'+
+        '<span class="muted" style="font-size:.66rem;align-self:center" title="룬 장착은 🧊큐브 → 🔗룬워드 탭에서">🔩 '+fc+'/'+it.sockets.length+'</span>'+
         sellBtn;
       return itemCard(it, actsS);
     }

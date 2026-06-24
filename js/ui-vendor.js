@@ -147,10 +147,10 @@ G.ui._cubeRunewordPanel = function(){
   var picks=(ui.rwPick||[]).map(function(rid){ return (G.state.inventory||[]).find(function(x){return x.id===rid;}); }).filter(Boolean);
   if(picks.length>open) picks=picks.slice(0,open);
   // 소켓 시각화: 기존 룬 + staged + 빈칸
-  var si=0, staged=picks.slice(), socks=it.sockets.map(function(r){
+  var staged=picks.slice(), socks=it.sockets.map(function(r){
     if(r) return '<span class="sock filled" title="'+esc(r.name)+'">'+(r.iconImg?'<img src="'+r.iconImg+'">':'🔹')+'</span>';
-    if(staged.length){ var s=staged.shift(); return '<span class="sock filled" style="outline:2px solid var(--gold)" title="'+esc(s.name)+'(대기)">'+(s.iconImg?'<img src="'+s.iconImg+'">':'🔹')+'</span>'; }
-    return '<span class="sock empty">◇</span>';
+    if(staged.length){ var s=staged.shift(); return '<span class="sock filled staged" title="'+esc(s.name)+'(대기)">'+(s.iconImg?'<img src="'+s.iconImg+'">':'🔹')+'</span>'; }
+    return '<span class="sock empty"></span>';
   }).join("");
   // staged 칩(탭하면 빼기)
   var chips = picks.length ? '<div style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0">'+picks.map(function(s,i){
@@ -177,7 +177,7 @@ G.ui._cubeRunewordPanel = function(){
       '<button class="btn sm" data-act="rw-pick-item" data-id="">‹ 목록</button>'+
       '<h3 style="margin:0">'+G.ui.icoHTML(it)+' '+esc(it.name)+'</h3></div>'+
     '<div class="muted" style="font-size:.72rem">'+(isW?'무기 — 룬의 ⚔️ 공격 효과':'방어구 — 룬의 🛡️ 방어 효과')+' 적용</div>'+
-    '<div style="font-size:1.1rem;margin:6px 0">'+socks+'</div>'+
+    '<div class="rw-socks">'+socks+'</div>'+
     chips + preview +
     '<button class="btn full '+(picks.length?"primary":"")+'" style="margin-top:8px" data-act="rw-commit" '+(picks.length?"":"disabled")+'>✅ 확정 ('+picks.length+'/'+open+' 영구 장착)</button>'+
   '</div>'+
