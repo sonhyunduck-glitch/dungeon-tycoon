@@ -448,12 +448,13 @@ G.gamble.buy = function(part){
 };
 
 /* 스탯을 사람이 읽는 문자열로 (미감정은 가림) */
-G.item.statText = function(it){
+G.item.statText = function(it, sep){
+  sep = sep || " · ";
   if(it.identified===false) return "??? (미감정)";
   // 룬은 stats가 없고 wpn/arm 효과를 가짐 — 소켓 장착 시 부위에 따라 적용
   if(it.slot==="rune"){
     function eff(o){ return Object.keys(o||{}).map(function(k){ var m=G.DATA.STAT_META[k]; return m?(m.label+" +"+o[k]+(m.pct?"%":"")):""; }).filter(Boolean).join(" "); }
-    return "⚔️ "+eff(it.wpn)+" / 🛡️ "+eff(it.arm);
+    return "⚔️ "+eff(it.wpn)+sep+"🛡️ "+eff(it.arm);
   }
   if(!it.stats) return "";
   var parts=[];
@@ -464,5 +465,5 @@ G.item.statText = function(it){
     parts.push(m.label+" +"+(m.pct?it.stats[k]:G.ui.fmt(it.stats[k]))+u);
   });
   if(it.attackElem){ var ae=G.DATA.ELEMENTS.find(function(e){return e.key===it.attackElem;}); if(ae) parts.push(ae.emoji+ae.name+" 속성"); }
-  return parts.join(" · ");
+  return parts.join(sep);
 };

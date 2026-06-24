@@ -39,7 +39,7 @@ G.ui.renderMarket = function(){
     return '<div class="shelf-slot '+l.item.rarityCls+'" style="border-left-width:4px; flex-wrap:wrap">'+
       '<div class="info" style="flex:1 1 100%">'+
         '<div class="iname '+l.item.rarityCls+'" style="font-size:.84rem">'+esc(l.item.name)+' <span class="muted" style="font-weight:400">— '+esc(l.merchant)+'</span></div>'+
-        '<div class="idesc">'+G.item.statText(l.item)+'</div>'+
+        '<div class="idesc">'+G.item.statText(l.item,"<br>")+'</div>'+
         '<div class="idesc"><span class="'+tag.cls+'">'+tag.label+'</span> · '+cmp+'</div>'+
       '</div>'+
       '<div style="display:flex; align-items:center; gap:8px; margin-top:6px; width:100%">'+

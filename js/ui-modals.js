@@ -616,11 +616,11 @@ G.ui.equipDetailModal = function(slotKey){
   var rwSec = w ? '<div class="rw-active" style="text-align:center;margin-bottom:6px">🔗 룬워드 <b class="r-legend">'+w.ico+' '+esc(w.name)+'</b>'+
       '<div class="idesc" style="color:var(--gold)">'+G.ui.rwBonusTxt(w, it)+'</div></div>' : '';
   // ③ 스탯정보(기본 스탯 + 소켓 룬 합산 효과)
-  var statTxt = G.item.statText(it) || "";
+  var statTxt = G.item.statText(it,"<br>") || "";
   if(it.sockets){
     var isW=(it.type==="weapon"), agg={};
     it.sockets.forEach(function(r){ if(!r) return; var e=isW?r.wpn:r.arm; for(var k in e) agg[k]=(agg[k]||0)+e[k]; });
-    var sk=Object.keys(agg).map(function(k){ var m=G.DATA.STAT_META[k]; return m?(m.label+" +"+agg[k]+(m.pct?"%":"")):""; }).filter(Boolean).join(" · ");
+    var sk=Object.keys(agg).map(function(k){ var m=G.DATA.STAT_META[k]; return m?(m.label+" +"+agg[k]+(m.pct?"%":"")):""; }).filter(Boolean).join("<br>");
     if(sk) statTxt += (statTxt?'<br>':'')+'<span class="r-uncommon">🔩 '+sk+'</span>';
   }
   var ov=document.createElement("div"); ov.className="modal-overlay show"; ov.style.zIndex="320";

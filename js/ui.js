@@ -101,7 +101,7 @@ function itemCard(it, actionsHtml){
     '<div class="ico"'+(canCmp?' data-act="compare" data-id="'+it.id+'" style="cursor:pointer" title="장착 비교"':'')+'>'+G.ui.icoHTML(it)+'</div>'+
     '<div class="info">'+
       '<div class="iname '+it.rarityCls+'">'+esc(it.name)+' <span class="tag">'+it.rarityLabel+'</span></div>'+
-      '<div class="idesc">'+G.item.statText(it)+' · 🪙'+G.ui.fmt(it.basePrice)+'</div>'+
+      '<div class="idesc">'+G.item.statText(it,"<br>")+'<br>🪙'+G.ui.fmt(it.basePrice)+'</div>'+
     '</div>'+
     '<div class="iacts">'+actionsHtml+'</div>'+
   '</div>';
