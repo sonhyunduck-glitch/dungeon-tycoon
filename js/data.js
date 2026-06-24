@@ -145,6 +145,7 @@ G.DATA.RUNEWORDS = [
   { id:"judgment", name:"종말심판",ico:"⚖️", cat:"weapon", runes:["연옥","신벌","인과","식멸","암영"], bonus:{ crit:12, critDmg:42, penet:15, lifesteal:8 } },
   { id:"eternity", name:"영원",   ico:"♾️", cat:"armor",  runes:["영면","연옥","진공","빙벽","심연"], bonus:{ allRes:24, thorns:38, stunResist:20, dodge:6 } },
 ];
+G.DATA.RUNEWORDS.forEach(function(w){ w.open=1; });   // 전체 룬워드 레시피 공개
 
 /* 옵션(접사) 풀 — 디아블로식
    flat:true  → 평면 수치(층 레벨에 비례해 성장)
