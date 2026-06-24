@@ -538,7 +538,7 @@ G.ui.settleModal = function(){
   function capHTML(){
     var kw=keptWeight(), over=kw>cap, kn=0;
     G.loot.list().forEach(function(it){ if(disp[it.id]==="keep") kn++; });
-    return '<div class="settle-cap'+(over?" over":"")+'">🎒 반출 <b>'+kw+'</b> / '+cap+(dead?' <span class="r-common">(사망 ½)</span>':'')+
+    return '<div class="settle-cap'+(over?" over":"")+'">🎒 반출 <b>'+kw+'</b> / '+cap+
       ' <span class="muted" style="font-size:.7rem">· '+kn+'개 챙김</span>'+
       '<div class="settle-capbar"><i style="width:'+Math.min(100,Math.round(kw/cap*100))+'%"></i></div></div>';
   }

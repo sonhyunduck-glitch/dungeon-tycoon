@@ -11,8 +11,8 @@ G.loot.count    = function(){ return G.loot.list().length; };
 G.loot.pending  = function(){ return G.loot.count() > 0; };
 G.loot.totalWeight = function(){ return G.loot.list().reduce(function(s,it){ return s+G.loot.weightOf(it); },0); };
 
-/* 휴대 예산(무게) — 사망 시 절반 */
-G.loot.carryCap = function(dead){ var c=(G.DATA.CARRY_CAP||30); return dead ? Math.floor(c/2) : c; };
+/* 휴대 예산(무게) — 사망 여부와 무관하게 항상 전체(사망 ½ 페널티 제거) */
+G.loot.carryCap = function(){ return (G.DATA.CARRY_CAP||30); };
 G.loot.isDead   = function(){ return !!(G.state.dungeon && G.state.dungeon.run && G.state.dungeon.run.dead); };
 
 /* 챙길 가치 점수 — 업그레이드 > 미감정 > 기준가(반출 후 매각가치) */
